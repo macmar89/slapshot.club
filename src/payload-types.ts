@@ -69,6 +69,8 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    competitions: Competition;
+    feedback: Feedback;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,13 +80,15 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    competitions: CompetitionsSelect<false> | CompetitionsSelect<true>;
+    feedback: FeedbackSelect<false> | FeedbackSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: string;
+    defaultIDType: number;
   };
   fallbackLocale: null;
   globals: {};
@@ -122,6 +126,22 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: string;
+  /**
+   * Meno, ktoré uvidia ostatní v rebríčkoch.
+   */
+  username: string;
+  role: 'admin' | 'editor' | 'user';
+  lastActivity?: string | null;
+  subscription?: {
+    tier?: ('free' | 'supporter' | 'elite') | null;
+    status?: ('none' | 'active' | 'past_due' | 'canceled') | null;
+    endsAt?: string | null;
+    isLifetime?: boolean | null;
+    /**
+     * ID predplatného zo Stripe pre potreby API.
+     */
+    stripeSubscriptionId?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -145,7 +165,7 @@ export interface User {
  * via the `definition` "media".
  */
 export interface Media {
-  id: string;
+  id: number;
   alt: string;
   updatedAt: string;
   createdAt: string;
@@ -161,10 +181,53 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "competitions".
+ */
+export interface Competition {
+  id: string;
+  name: string;
+  slug?: string | null;
+  banner: number | Media;
+  status: 'active' | 'upcoming' | 'finished';
+  startDate: string;
+  endDate: string;
+  description?: string | null;
+  /**
+   * Custom scoring rules for this competition. Leave empty for defaults.
+   */
+  scoringRules?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "feedback".
+ */
+export interface Feedback {
+  id: string;
+  type: 'bug' | 'idea' | 'other';
+  message: string;
+  pageUrl?: string | null;
+  user?: (string | null) | User;
+  read?: boolean | null;
+  status?: ('new' | 'in-progress' | 'resolved' | 'ignored') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-  id: string;
+  id: number;
   key: string;
   data:
     | {
@@ -181,7 +244,7 @@ export interface PayloadKv {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: number;
   document?:
     | ({
         relationTo: 'users';
@@ -189,7 +252,15 @@ export interface PayloadLockedDocument {
       } | null)
     | ({
         relationTo: 'media';
-        value: string | Media;
+        value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'competitions';
+        value: string | Competition;
+      } | null)
+    | ({
+        relationTo: 'feedback';
+        value: string | Feedback;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -204,7 +275,7 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: number;
   user: {
     relationTo: 'users';
     value: string | User;
@@ -227,7 +298,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
+  id: number;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -238,6 +309,19 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  id?: T;
+  username?: T;
+  role?: T;
+  lastActivity?: T;
+  subscription?:
+    | T
+    | {
+        tier?: T;
+        status?: T;
+        endsAt?: T;
+        isLifetime?: T;
+        stripeSubscriptionId?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -272,6 +356,38 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "competitions_select".
+ */
+export interface CompetitionsSelect<T extends boolean = true> {
+  id?: T;
+  name?: T;
+  slug?: T;
+  banner?: T;
+  status?: T;
+  startDate?: T;
+  endDate?: T;
+  description?: T;
+  scoringRules?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "feedback_select".
+ */
+export interface FeedbackSelect<T extends boolean = true> {
+  id?: T;
+  type?: T;
+  message?: T;
+  pageUrl?: T;
+  user?: T;
+  read?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
