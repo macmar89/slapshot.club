@@ -5,27 +5,30 @@ import Image from 'next/image'
 import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import { LoginForm } from '@/features/auth/components/LoginForm'
 import { Trophy, Users, Table, Zap } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 export function LoginView() {
+  const t = useTranslations('Login')
+
   const features = [
     {
-      title: 'Dominuj na ľade',
-      description: 'Získaj rešpekt v komunite a vystúp na vrchol rebríčka.',
+      title: t('features.dominance.title'),
+      description: t('features.dominance.description'),
       icon: Trophy,
     },
     {
-      title: 'Tvor vlastné ligy',
-      description: 'Pozvi priateľov a zmeraj si sily v súkromných skupinách.',
+      title: t('features.leagues.title'),
+      description: t('features.leagues.description'),
       icon: Users,
     },
     {
-      title: 'Real-time štatistiky',
-      description: 'Sleduj zápasy naživo a upravuj svoje tipy v reálnom čase.',
+      title: t('features.stats.title'),
+      description: t('features.stats.description'),
       icon: Table,
     },
     {
-      title: 'Okamžitý progres',
-      description: 'Zbieraj body a odomykaj exkluzívne odmeny.',
+      title: t('features.progress.title'),
+      description: t('features.progress.description'),
       icon: Zap,
     },
   ]
@@ -49,16 +52,16 @@ export function LoginView() {
         <div className="flex-1 text-center lg:text-left">
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-[0.2em] mb-8 animate-in slide-in-from-left duration-700">
             <Zap className="w-3 h-3 fill-primary" />
-            Nová éra hokejových tipov
+            {t('hero.badge')}
           </div>
 
           <h1 className="text-5xl lg:text-7xl font-bold text-white tracking-tighter leading-none mb-6 drop-shadow-2xl">
-            SLAPSHOT<span className="text-primary block lg:inline ml-2">CLUB</span>
+            {t('hero.title_main')}
+            <span className="text-primary block lg:inline ml-2">{t('hero.title_sub')}</span>
           </h1>
 
           <p className="text-xl text-white/50 max-w-xl mb-12 leading-relaxed">
-            Vstúp do sveta, kde každý gól rozhoduje. Tipuj zápasy, tvor stratégie a staň sa legendou
-            v najlepšej slovenskej hokejovej komunite.
+            {t('hero.description')}
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl">
@@ -86,12 +89,14 @@ export function LoginView() {
         <div className="w-full max-w-md animate-in zoom-in fade-in duration-1000">
           <IceGlassCard className="p-2 sm:p-4" backdropBlur="xl">
             <div className="flex flex-col items-center w-full bg-white/5 rounded-2xl p-8 border border-white/5 shadow-inner">
-              <LoginForm />
+              <React.Suspense fallback={<div className="text-white/50">Loading...</div>}>
+                <LoginForm />
+              </React.Suspense>
             </div>
           </IceGlassCard>
 
           <div className="mt-8 text-center text-white/30 text-xs font-medium uppercase tracking-[0.3em]">
-            &copy; 2026 SLAPSHOT CLUB • Všetky práva vyhradené
+            {t('hero.footer')}
           </div>
         </div>
       </div>

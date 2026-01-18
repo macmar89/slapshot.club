@@ -16,8 +16,11 @@ import {
   DialogTrigger,
   Typography,
 } from '@/components/ui'
+import { setRequestLocale } from 'next-intl/server'
 
-export default function DemoPage() {
+export default async function DemoPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  setRequestLocale(locale)
   return (
     <Container className="py-10 space-y-8">
       <div className="space-y-4">

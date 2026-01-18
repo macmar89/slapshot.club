@@ -1,0 +1,62 @@
+{
+  "HomePage": {
+    "title": "Welcome",
+    "description": "This is the home page"
+  },
+  "Dashboard": {
+    "nav": {
+      "overview": "Overview",
+      "matches": "Matches",
+      "tables": "Tables",
+      "teams": "Teams",
+      "leaderboard": "Leaderboard",
+      "rules": "Rules",
+      "profile": "Profile",
+      "settings": "Settings",
+      "more": "More",
+      "menu": "Menu"
+    }
+  },
+  "Login": {
+    "hero": {
+      "badge": "A New Era of Hockey Betting",
+      "title_main": "SLAPSHOT",
+      "title_sub": "CLUB",
+      "description": "Enter a world where every goal matters. Predict matches, create strategies, and become a legend in the best hockey community.",
+      "footer": "© 2026 SLAPSHOT CLUB • All rights reserved"
+    },
+    "features": {
+      "dominance": {
+        "title": "Dominate on Ice",
+        "description": "Gain respect in the community and climb to the top of the leaderboard."
+      },
+      "leagues": {
+        "title": "Create Private Leagues",
+        "description": "Invite friends and compete in private groups."
+      },
+      "stats": {
+        "title": "Real-time Statistics",
+        "description": "Follow matches live and adjust your tips in real-time."
+      },
+      "progress": {
+        "title": "Instant Progress",
+        "description": "Collect points and unlock exclusive rewards."
+      }
+    }
+  },
+  "Auth": {
+    "logout": "Sign Out",
+    "login": "Sign In",
+    "welcome_back": "Welcome Back",
+    "continue_journey": "Continue your winning journey",
+    "email": "Email",
+    "password": "Password",
+    "forgot_password": "Forgot password?",
+    "login_button": "Sign In",
+    "logging_in": "Signing in...",
+    "no_account": "Don't have an account?",
+    "register": "Sign up",
+    "email_placeholder": "name@example.com",
+    "password_placeholder": "••••••••"
+  }
+}

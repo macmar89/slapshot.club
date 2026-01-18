@@ -8,11 +8,13 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { loginUser } from '@/features/auth/actions'
 import { loginSchema, type LoginFormData } from '@/features/auth/schema'
+import { useTranslations } from 'next-intl'
 
 export const LoginForm = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const redirectUrl = searchParams.get('redirect') || '/dashboard'
+  const t = useTranslations('Auth')
 
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -54,8 +56,10 @@ export const LoginForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm flex flex-col gap-6">
       <div className="flex flex-col gap-1 text-center mb-4">
-        <h2 className="text-2xl font-bold text-white tracking-tighter uppercase">Vitaj späť</h2>
-        <p className="text-sm text-white/40 font-medium">Pokračuj vo svojej víťaznej ceste</p>
+        <h2 className="text-2xl font-bold text-white tracking-tighter uppercase">
+          {t('welcome_back')}
+        </h2>
+        <p className="text-sm text-white/40 font-medium">{t('continue_journey')}</p>
       </div>
 
       <div className="flex flex-col gap-4">
@@ -70,12 +74,12 @@ export const LoginForm = () => {
             htmlFor="email"
             className="text-xs font-medium text-white/80 uppercase tracking-wider ml-1"
           >
-            Email
+            {t('email')}
           </label>
           <input
             id="email"
             type="email"
-            placeholder="meno@priklad.com"
+            placeholder={t('email_placeholder')}
             disabled={isLoading}
             {...register('email')}
             className={cn(
@@ -96,16 +100,16 @@ export const LoginForm = () => {
               htmlFor="password"
               className="text-xs font-medium text-white/80 uppercase tracking-wider ml-1"
             >
-              Heslo
+              {t('password')}
             </label>
             <a href="#" className="text-xs text-white/50 hover:text-white transition-colors">
-              Zabudnuté heslo?
+              {t('forgot_password')}
             </a>
           </div>
           <input
             id="password"
             type="password"
-            placeholder="••••••••"
+            placeholder={t('password_placeholder')}
             disabled={isLoading}
             {...register('password')}
             className={cn(
@@ -124,13 +128,13 @@ export const LoginForm = () => {
       </div>
 
       <Button type="submit" color="gold" className="w-full py-6 text-lg" disabled={isLoading}>
-        {isLoading ? 'Prihlasujem...' : 'Prihlásiť sa'}
+        {isLoading ? t('logging_in') : t('login_button')}
       </Button>
 
       <div className="text-center text-sm text-white/50 mt-2">
-        Nemáš účet?{' '}
+        {t('no_account')}{' '}
         <a href="#" className="text-white font-semibold hover:underline">
-          Registruj sa
+          {t('register')}
         </a>
       </div>
     </form>

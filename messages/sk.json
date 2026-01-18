@@ -1,0 +1,62 @@
+{
+  "HomePage": {
+    "title": "Vítajte",
+    "description": "Toto je domovská stránka"
+  },
+  "Dashboard": {
+    "nav": {
+      "overview": "Prehľad",
+      "matches": "Zápasy",
+      "tables": "Tabuľky",
+      "teams": "Tímy",
+      "leaderboard": "Rebríček",
+      "rules": "Pravidlá",
+      "profile": "Profil",
+      "settings": "Nastavenia",
+      "more": "Viac",
+      "menu": "Menu"
+    }
+  },
+  "Login": {
+    "hero": {
+      "badge": "Nová éra hokejových tipov",
+      "title_main": "SLAPSHOT",
+      "title_sub": "CLUB",
+      "description": "Vstúp do sveta, kde každý gól rozhoduje. Tipuj zápasy, tvor stratégie a staň sa legendou v najlepšej slovenskej hokejovej komunite.",
+      "footer": "© 2026 SLAPSHOT CLUB • Všetky práva vyhradené"
+    },
+    "features": {
+      "dominance": {
+        "title": "Dominuj na ľade",
+        "description": "Získaj rešpekt v komunite a vystúp na vrchol rebríčka."
+      },
+      "leagues": {
+        "title": "Tvor vlastné ligy",
+        "description": "Pozvi priateľov a zmeraj si sily v súkromných skupinách."
+      },
+      "stats": {
+        "title": "Real-time štatistiky",
+        "description": "Sleduj zápasy naživo a upravuj svoje tipy v reálnom čase."
+      },
+      "progress": {
+        "title": "Okamžitý progres",
+        "description": "Zbieraj body a odomykaj exkluzívne odmeny."
+      }
+    }
+  },
+  "Auth": {
+    "logout": "Odhlásiť sa",
+    "login": "Prihlásiť sa",
+    "welcome_back": "Vitaj späť",
+    "continue_journey": "Pokračuj vo svojej víťaznej ceste",
+    "email": "Email",
+    "password": "Heslo",
+    "forgot_password": "Zabudnuté heslo?",
+    "login_button": "Prihlásiť sa",
+    "logging_in": "Prihlasujem...",
+    "no_account": "Nemáš účet?",
+    "register": "Registruj sa",
+    "email_placeholder": "meno@priklad.com",
+    "password_placeholder": "••••••••"
+  }
+}

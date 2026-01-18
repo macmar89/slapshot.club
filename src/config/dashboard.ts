@@ -10,7 +10,7 @@ import {
 } from 'lucide-react'
 
 export interface DashboardItem {
-  title: string
+  labelKey: string
   href: string
   icon: React.ComponentType<{ className?: string }>
 }
@@ -18,42 +18,42 @@ export interface DashboardItem {
 export const dashboardConfig = {
   sidebarNav: [
     {
-      title: 'Prehľad',
+      labelKey: 'overview',
       href: '/dashboard',
       icon: LayoutDashboard,
     },
     {
-      title: 'Zápasy',
+      labelKey: 'matches',
       href: '/dashboard/matches',
       icon: Calendar,
     },
     {
-      title: 'Tabuľky',
+      labelKey: 'tables',
       href: '/dashboard/tables',
       icon: Table,
     },
     {
-      title: 'Tímy',
+      labelKey: 'teams',
       href: '/dashboard/teams',
       icon: Users,
     },
     {
-      title: 'Rebríček',
+      labelKey: 'leaderboard',
       href: '/dashboard/leaderboard',
       icon: Trophy,
     },
     {
-      title: 'Pravidlá',
+      labelKey: 'rules',
       href: '/dashboard/rules',
       icon: FileText,
     },
     {
-      title: 'Profil',
+      labelKey: 'profile',
       href: '/dashboard/profile',
       icon: User,
     },
     {
-      title: 'Nastavenia',
+      labelKey: 'settings',
       href: '/dashboard/settings',
       icon: Settings,
     },

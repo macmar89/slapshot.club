@@ -1,0 +1,75 @@
+import { Sora, Space_Grotesk } from 'next/font/google'
+import { cn } from '@/lib/utils'
+import Image from 'next/image'
+import '../../../global.css'
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages, setRequestLocale } from 'next-intl/server'
+import { notFound } from 'next/navigation'
+import { routing } from '@/i18n/routing'
+
+const sora = Sora({
+  subsets: ['latin'],
+  variable: '--font-sora',
+})
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space',
+})
+
+export const metadata = {
+  description: 'A blank template using Payload in a Next.js app.',
+  title: 'Payload Blank Template',
+}
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }))
+}
+
+export default async function RootLayout(props: {
+  children: React.ReactNode
+  params: Promise<{ locale: string }>
+}) {
+  const params = await props.params
+
+  const { locale } = params
+
+  const { children } = props
+
+  // Ensure that the incoming `locale` is valid
+  if (!routing.locales.includes(locale as any)) {
+    notFound()
+  }
+
+  // Enable static rendering
+  setRequestLocale(locale)
+
+  // Providing all messages to the client
+  // side is the easiest way to get started
+  const messages = await getMessages()
+
+  return (
+    <html lang={locale} className={cn(sora.variable, spaceGrotesk.variable)}>
+      <body className="font-sans antialiased bg-background text-foreground relative min-h-screen">
+        <NextIntlClientProvider messages={messages}>
+          {/* Global Background Image */}
+          <div className="fixed inset-0 z-0 flex items-center justify-center pointer-events-none">
+            <div className="relative h-full w-full">
+              <Image
+                src="/images/background/slapshot_background_lightest.png"
+                alt="Slapshot Background"
+                fill
+                className="object-cover object-center"
+                priority
+                quality={100}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-slate-950/40" />
+            </div>
+          </div>
+
+          <main className="relative z-10">{children}</main>
+        </NextIntlClientProvider>
+      </body>
+    </html>
+  )
+}

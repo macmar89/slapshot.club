@@ -4,10 +4,12 @@ import React from 'react'
 import { LogOut } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { logoutUser } from '../actions'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/i18n/routing'
+import { useTranslations } from 'next-intl'
 
 export function LogoutButton() {
   const router = useRouter()
+  const t = useTranslations('Auth')
 
   const handleLogout = async () => {
     try {
@@ -29,7 +31,7 @@ export function LogoutButton() {
       className="text-white/50 hover:text-white hover:bg-white/10 gap-2"
     >
       <LogOut className="w-4 h-4" />
-      <span className="hidden sm:inline">Odhlásiť sa</span>
+      <span className="hidden sm:inline">{t('logout')}</span>
     </Button>
   )
 }
