@@ -1,14 +1,14 @@
 import React from 'react'
 import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import { Container } from '@/components/ui/Container'
-import { DashboardNav } from '@/components/dashboard/DashboardNav'
-import { DashboardHeader } from '@/components/dashboard/DashboardHeader'
-import { MobileTabNav } from '@/components/dashboard/MobileTabNav'
+import { DashboardNav } from '@/components/layout/DashboardNav'
+import { Header } from '@/components/layout/Header'
+import { MobileTabNav } from '@/components/layout/MobileTabNav'
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen w-full relative">
-      <DashboardHeader />
+      <Header />
       <MobileTabNav />
 
       {/* Floating Sidebar - Left side, detached from edges */}
