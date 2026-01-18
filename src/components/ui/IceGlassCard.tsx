@@ -3,6 +3,18 @@ import { cn } from '@/lib/utils'
 
 interface IceGlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode
+  backdropBlur?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'
+}
+
+const blurMap = {
+  none: 'backdrop-blur-none',
+  xs: 'backdrop-blur-xs',
+  sm: 'backdrop-blur-sm',
+  md: 'backdrop-blur-md',
+  lg: 'backdrop-blur-lg',
+  xl: 'backdrop-blur-xl',
+  '2xl': 'backdrop-blur-2xl',
+  '3xl': 'backdrop-blur-3xl',
 }
 
 /**
@@ -26,7 +38,7 @@ export const IceGlassCard = React.forwardRef<HTMLDivElement, IceGlassCardProps>(
           'border border-2 border-[#5d626d]',
           // Background & Transparency
           // 'bg-white/5', // Very subtle base
-          'backdrop-blur-xs', // Deep blur for the ice effect
+          blurMap[props.backdropBlur || 'xs'], // Deep blur for the ice effect, customizable
           // Border & Bevel simulation
           // We use a combination of box-shadows to create the 3D ice block look
           // 1. Inset white ring for the sharp top/left edge highlight (specular)

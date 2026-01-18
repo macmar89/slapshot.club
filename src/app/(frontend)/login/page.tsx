@@ -6,24 +6,10 @@ import Image from 'next/image'
 export default function LoginPage() {
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-background">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0 flex items-center justify-center">
-        <div className="relative h-full w-full">
-          <Image
-            src="/images/background/slapshot_background.png"
-            alt="Slapshot Background"
-            fill
-            className="object-cover object-center"
-            priority
-            quality={100}
-          />
-        </div>
-      </div>
-      {/* <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-950"> */}
       {/* Background Image - Reusing dashboard background if available, or fallback to dark gradient */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/background/slapshot_background.png"
+          src="/images/background/slapshot_background_lightest.png"
           alt="Background"
           fill
           className="object-cover opacity-60"
