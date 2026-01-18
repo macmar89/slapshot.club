@@ -189,7 +189,7 @@ export interface Competition {
   id: string;
   name: string;
   slug?: string | null;
-  banner: number | Media;
+  banner?: (number | null) | Media;
   status: 'upcoming' | 'active' | 'finished';
   startDate: string;
   endDate: string;

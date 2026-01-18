@@ -23,11 +23,12 @@ export const Competitions: CollectionConfig = {
         position: 'sidebar',
       },
     },
-    { name: 'name', type: 'text', required: true },
+    { name: 'name', type: 'text', required: true, localized: true },
     {
       name: 'slug',
       type: 'text',
       unique: true,
+      localized: true,
       hooks: { beforeValidate: [formatSlug('name')] }, // Auto-slug z názvu
       admin: { position: 'sidebar' },
     },
@@ -35,7 +36,6 @@ export const Competitions: CollectionConfig = {
       name: 'banner',
       type: 'relationship',
       relationTo: 'media',
-      required: true,
     },
     {
       name: 'status',
@@ -65,6 +65,7 @@ export const Competitions: CollectionConfig = {
       name: 'description',
       type: 'textarea',
       required: true,
+      localized: true,
       maxLength: 160,
       label: 'Krátky popis (pre karty súťaží)',
     },
