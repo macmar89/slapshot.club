@@ -1,16 +1,16 @@
 import type { CollectionConfig } from 'payload'
-import { isAdmin, isAdminFieldLevel, isAdminOrSelf } from '../access'; 
-import { createId } from '@paralleldrive/cuid2';
+import { isAdmin, isAdminFieldLevel, isAdminOrSelf } from '../access'
+import { createId } from '@paralleldrive/cuid2'
 
 export const Users: CollectionConfig = {
   slug: 'users',
   admin: {
-    useAsTitle: 'username', 
+    useAsTitle: 'username',
     defaultColumns: ['username', 'email', 'role'],
   },
   auth: true,
   access: {
-    read: () => true, 
+    read: () => true,
     create: () => true,
     update: isAdminOrSelf,
     delete: isAdmin,
@@ -42,7 +42,7 @@ export const Users: CollectionConfig = {
       type: 'select',
       options: [
         { label: 'Admin', value: 'admin' },
-        { label: "Redaktor", value: 'editor' },
+        { label: 'Redaktor', value: 'editor' },
         { label: 'User', value: 'user' },
       ],
       defaultValue: 'user',
@@ -61,64 +61,55 @@ export const Users: CollectionConfig = {
       },
     },
     {
-      name: 'subscription',
+      name: 'isLifetime',
+      type: 'checkbox',
+      label: 'Doživotné členstvo (Admin Override)',
+      defaultValue: false,
+      access: {
+        update: isAdminFieldLevel,
+      },
+    },
+    {
+      name: 'stats',
       type: 'group',
+      label: 'Hráčske štatistiky',
       admin: {
-        position: 'sidebar', 
+        position: 'sidebar',
+        description: 'Automaticky počítané systémom. Nemeňte manuálne.',
       },
       fields: [
-      {
-        name: 'tier',
-        type: 'select',
-        defaultValue: 'free',
-        options: [
-          { label: 'Free (Rookie)', value: 'free' },
-          { label: 'Supporter (Veteran)', value: 'supporter' },
-          { label: 'Elite (Hall of Fame)', value: 'elite' },
-        ],
-        access: {
-          update: isAdminFieldLevel, // Používateľ si nemôže sám prepnúť tier
+        {
+          name: 'totalPoints',
+          type: 'number',
+          defaultValue: 0,
+          index: true, // Kľúčové pre globálny rebríček
+          admin: { readOnly: true },
         },
-      },
-      {
-        name: 'status',
-        type: 'select',
-        defaultValue: 'none',
-        options: [
-          { label: 'Žiadne', value: 'none' },
-          { label: 'Aktívne', value: 'active' },
-          { label: 'Po splatnosti', value: 'past_due' },
-          { label: 'Zrušené', value: 'canceled' },
-        ],
-        admin: {
-          readOnly: true, // Iba systém (cez Webhook) to mení
+        {
+          name: 'globalRank',
+          type: 'number',
+          min: 1,
+          index: true,
+          admin: { readOnly: true, description: 'Aktuálne poradie v globálnom rebríčku.' },
         },
-      },
-      {
-        name: 'endsAt',
-        type: 'date',
-        admin: {
-          readOnly: true,
+        {
+          name: 'previousRank',
+          type: 'number',
+          min: 1,
+          admin: { readOnly: true, description: 'Poradie pri poslednom Snapshote (včera).' },
         },
-      },
-      {
-        name: 'isLifetime',
-        type: 'checkbox',
-        label: 'Doživotné členstvo (Admin Override)',
-        defaultValue: false,
-        access: {
-          update: isAdminFieldLevel,
+        {
+          name: 'trend',
+          type: 'select',
+          // Virtuálne pole, ktoré si vypočítame/uložíme pri update
+          options: [
+            { label: 'Stúpa 🚀', value: 'up' },
+            { label: 'Klesá 🔻', value: 'down' },
+            { label: 'Stabilný ➖', value: 'stable' },
+          ],
+          admin: { readOnly: true },
         },
-      },
-      {
-        name: 'stripeSubscriptionId',
-        type: 'text',
-        admin: {
-          readOnly: true,
-          description: 'ID predplatného zo Stripe pre potreby API.',
-        },
-      },
-    ],
-  },
+      ],
+    },
   ],
 }

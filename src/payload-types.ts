@@ -72,6 +72,12 @@ export interface Config {
     competitions: Competition;
     feedback: Feedback;
     'membership-tiers': MembershipTier;
+    'user-memberships': UserMembership;
+    'leaderboard-entries': LeaderboardEntry;
+    teams: Team;
+    matches: Match;
+    'ranking-history': RankingHistory;
+    predictions: Prediction;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -84,6 +90,12 @@ export interface Config {
     competitions: CompetitionsSelect<false> | CompetitionsSelect<true>;
     feedback: FeedbackSelect<false> | FeedbackSelect<true>;
     'membership-tiers': MembershipTiersSelect<false> | MembershipTiersSelect<true>;
+    'user-memberships': UserMembershipsSelect<false> | UserMembershipsSelect<true>;
+    'leaderboard-entries': LeaderboardEntriesSelect<false> | LeaderboardEntriesSelect<true>;
+    teams: TeamsSelect<false> | TeamsSelect<true>;
+    matches: MatchesSelect<false> | MatchesSelect<true>;
+    'ranking-history': RankingHistorySelect<false> | RankingHistorySelect<true>;
+    predictions: PredictionsSelect<false> | PredictionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -134,15 +146,21 @@ export interface User {
   username: string;
   role: 'admin' | 'editor' | 'user';
   lastActivity?: string | null;
-  subscription?: {
-    tier?: ('free' | 'supporter' | 'elite') | null;
-    status?: ('none' | 'active' | 'past_due' | 'canceled') | null;
-    endsAt?: string | null;
-    isLifetime?: boolean | null;
+  isLifetime?: boolean | null;
+  /**
+   * Automaticky počítané systémom. Nemeňte manuálne.
+   */
+  stats?: {
+    totalPoints?: number | null;
     /**
-     * ID predplatného zo Stripe pre potreby API.
+     * Aktuálne poradie v globálnom rebríčku.
      */
-    stripeSubscriptionId?: string | null;
+    globalRank?: number | null;
+    /**
+     * Poradie pri poslednom Snapshote (včera).
+     */
+    previousRank?: number | null;
+    trend?: ('up' | 'down' | 'stable') | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -243,6 +261,140 @@ export interface Feedback {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "user-memberships".
+ */
+export interface UserMembership {
+  id: number;
+  user: string | User;
+  tier: number | MembershipTier;
+  status: 'active' | 'pending' | 'cancelled' | 'expired';
+  validUntil?: string | null;
+  billing?: {
+    stripeSubscriptionId?: string | null;
+    lastPaymentDate?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Cache pre body používateľov v súťažiach. Nemeniť manuálne!
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "leaderboard-entries".
+ */
+export interface LeaderboardEntry {
+  id: number;
+  user: string | User;
+  competition: string | Competition;
+  /**
+   * Aktuálny počet bodov. Prepočítava sa cez hooks pri vyhodnotení zápasu.
+   */
+  totalPoints?: number | null;
+  /**
+   * Aktuálny počet tipovaných zápasov. Prepočítava sa cez hooks pri vyhodnotení zápasu.
+   */
+  totalMatches?: number | null;
+  exactGuesses?: number | null;
+  correctTrends?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "teams".
+ */
+export interface Team {
+  id: number;
+  name: string;
+  /**
+   * URL slug (napr. svk-team), voliteľné pre detail tímu.
+   */
+  slug?: string | null;
+  /**
+   * Trojmiestna skratka pre scoreboard (napr. SVK, KOS, SLO).
+   */
+  shortName: string;
+  type: 'club' | 'national';
+  /**
+   * Určuje, odkiaľ tím pochádza (nie kde hrá). Boston Bruins = USA.
+   */
+  country: 'SVK' | 'CZE' | 'USA' | 'CAN';
+  /**
+   * Pomocné tagy pre ľahšie vyhľadávanie pri vytváraní zápasov.
+   */
+  leagueTags?: ('sk' | 'nhl' | 'cz' | 'iihf')[] | null;
+  logo: number | Media;
+  colors: {
+    primary: string;
+    secondary: string;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "matches".
+ */
+export interface Match {
+  id: number;
+  displayTitle?: string | null;
+  competition: string | Competition;
+  date: string;
+  homeTeam: number | Team;
+  awayTeam: number | Team;
+  status: 'scheduled' | 'live' | 'finished' | 'cancelled';
+  result?: {
+    homeScore?: number | null;
+    awayScore?: number | null;
+    /**
+     * Zvoľ, či zápas skončil po 60 minútach, v predĺžení alebo nájazdoch.
+     */
+    endingType: 'regular' | 'ot' | 'so';
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ranking-history".
+ */
+export interface RankingHistory {
+  id: number;
+  user: string | User;
+  /**
+   * Deň, ku ktorému sa viaže tento snapshot.
+   */
+  date: string;
+  rank: number;
+  points: number;
+  competition?: (string | null) | Competition;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "predictions".
+ */
+export interface Prediction {
+  id: number;
+  user: string | User;
+  match: number | Match;
+  homeGoals: number;
+  awayGoals: number;
+  /**
+   * Body pridelené po vyhodnotení.
+   */
+  points?: number | null;
+  status?: ('pending' | 'evaluated' | 'void') | null;
+  /**
+   * Koľkokrát používateľ uložil/zmenil tento tip.
+   */
+  editCount?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -284,6 +436,30 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'membership-tiers';
         value: number | MembershipTier;
+      } | null)
+    | ({
+        relationTo: 'user-memberships';
+        value: number | UserMembership;
+      } | null)
+    | ({
+        relationTo: 'leaderboard-entries';
+        value: number | LeaderboardEntry;
+      } | null)
+    | ({
+        relationTo: 'teams';
+        value: number | Team;
+      } | null)
+    | ({
+        relationTo: 'matches';
+        value: number | Match;
+      } | null)
+    | ({
+        relationTo: 'ranking-history';
+        value: number | RankingHistory;
+      } | null)
+    | ({
+        relationTo: 'predictions';
+        value: number | Prediction;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -336,14 +512,14 @@ export interface UsersSelect<T extends boolean = true> {
   username?: T;
   role?: T;
   lastActivity?: T;
-  subscription?:
+  isLifetime?: T;
+  stats?:
     | T
     | {
-        tier?: T;
-        status?: T;
-        endsAt?: T;
-        isLifetime?: T;
-        stripeSubscriptionId?: T;
+        totalPoints?: T;
+        globalRank?: T;
+        previousRank?: T;
+        trend?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -432,6 +608,108 @@ export interface MembershipTiersSelect<T extends boolean = true> {
         description?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "user-memberships_select".
+ */
+export interface UserMembershipsSelect<T extends boolean = true> {
+  user?: T;
+  tier?: T;
+  status?: T;
+  validUntil?: T;
+  billing?:
+    | T
+    | {
+        stripeSubscriptionId?: T;
+        lastPaymentDate?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "leaderboard-entries_select".
+ */
+export interface LeaderboardEntriesSelect<T extends boolean = true> {
+  user?: T;
+  competition?: T;
+  totalPoints?: T;
+  totalMatches?: T;
+  exactGuesses?: T;
+  correctTrends?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "teams_select".
+ */
+export interface TeamsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  shortName?: T;
+  type?: T;
+  country?: T;
+  leagueTags?: T;
+  logo?: T;
+  colors?:
+    | T
+    | {
+        primary?: T;
+        secondary?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "matches_select".
+ */
+export interface MatchesSelect<T extends boolean = true> {
+  displayTitle?: T;
+  competition?: T;
+  date?: T;
+  homeTeam?: T;
+  awayTeam?: T;
+  status?: T;
+  result?:
+    | T
+    | {
+        homeScore?: T;
+        awayScore?: T;
+        endingType?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ranking-history_select".
+ */
+export interface RankingHistorySelect<T extends boolean = true> {
+  user?: T;
+  date?: T;
+  rank?: T;
+  points?: T;
+  competition?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "predictions_select".
+ */
+export interface PredictionsSelect<T extends boolean = true> {
+  user?: T;
+  match?: T;
+  homeGoals?: T;
+  awayGoals?: T;
+  points?: T;
+  status?: T;
+  editCount?: T;
   updatedAt?: T;
   createdAt?: T;
 }

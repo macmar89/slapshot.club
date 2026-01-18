@@ -10,6 +10,12 @@ import { Media } from './collections/Media'
 import { Competitions } from './collections/Competitions'
 import { Feedback } from './collections/Feedback'
 import { MembershipTiers } from './collections/MembershipTiers'
+import { UserMemberships } from './collections/UserMemberships'
+import { LeaderboardEntries } from './collections/LeaderboardEntries'
+import { Teams } from './collections/Teams'
+import { Matches } from './collections/Matches'
+import { RankingHistory } from './collections/RankingHistory'
+import { Predictions } from './collections/Predictions'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -26,7 +32,19 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Competitions, Feedback, MembershipTiers],
+  collections: [
+    Users,
+    Media,
+    Competitions,
+    Feedback,
+    MembershipTiers,
+    UserMemberships,
+    LeaderboardEntries,
+    Teams,
+    Matches,
+    RankingHistory,
+    Predictions,
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
