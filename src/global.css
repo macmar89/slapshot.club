@@ -21,9 +21,9 @@
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
 
-  --font-display: var(--font-display);
-  --font-main: var(--font-main);
-  --font-sans: var(--font-main);
+  --font-space: var(--font-space);
+  --font-sora: var(--font-sora);
+  --font-sans: var(--font-sora);
 
   --radius: var(--radius);
 }
@@ -72,5 +72,73 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-sora);
+    letter-spacing: -0.025em; /* tracking-tight */
+  }
+
+  h1 {
+    font-size: 2.25rem; /* text-4xl */
+    line-height: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    h1 {
+      font-size: 3rem; /* md:text-5xl */
+      line-height: 1;
+    }
+  }
+
+  h2 {
+    font-size: 1.875rem; /* text-3xl */
+    line-height: 2.25rem;
+  }
+
+  @media (min-width: 768px) {
+    h2 {
+      font-size: 2.25rem; /* md:text-4xl */
+      line-height: 2.5rem;
+    }
+  }
+
+  h3 {
+    font-size: 1.5rem; /* text-2xl */
+    line-height: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    h3 {
+      font-size: 1.875rem; /* md:text-3xl */
+      line-height: 2.25rem;
+    }
+  }
+
+  h4 {
+    font-size: 1.25rem; /* text-xl */
+    line-height: 1.75rem;
+  }
+
+  @media (min-width: 768px) {
+    h4 {
+      font-size: 1.5rem; /* md:text-2xl */
+      line-height: 2rem;
+    }
+  }
+
+  p {
+    font-family: var(--font-sora);
+    line-height: 1.625; /* leading-relaxed */
+  }
+
+  strong,
+  b {
+    font-weight: 700; /* font-bold */
   }
 }
