@@ -6,7 +6,8 @@ import { cn } from '@/lib/utils'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { loginSchema, type LoginFormData } from '@/lib/validations/auth'
+import { loginUser } from '@/features/auth/actions'
+import { loginSchema, type LoginFormData } from '@/features/auth/schema'
 
 export const LoginForm = () => {
   const router = useRouter()
@@ -33,13 +34,7 @@ export const LoginForm = () => {
     setError(null)
 
     try {
-      const res = await fetch('/api/users/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      })
+      const res = await loginUser(data)
 
       if (res.ok) {
         await res.json()
@@ -49,7 +44,7 @@ export const LoginForm = () => {
         const responseData = await res.json()
         setError(responseData.errors?.[0]?.message || 'Prihlásenie zlyhalo')
       }
-    } catch (err) {
+    } catch (_err) {
       setError('Nastala neočakávaná chyba')
     } finally {
       setIsLoading(false)

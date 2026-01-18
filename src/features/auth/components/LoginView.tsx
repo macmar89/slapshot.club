@@ -1,9 +1,9 @@
 'use client'
 
 import React from 'react'
-import { IceGlassCard } from '@/components/ui/IceGlassCard'
-import { LoginForm } from '@/components/auth/LoginForm'
 import Image from 'next/image'
+import { IceGlassCard } from '@/components/ui/IceGlassCard'
+import { LoginForm } from '@/features/auth/components/LoginForm'
 import { Trophy, Users, Table, Zap } from 'lucide-react'
 
 export function LoginView() {
