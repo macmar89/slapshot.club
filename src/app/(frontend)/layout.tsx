@@ -1,5 +1,16 @@
-import React from 'react'
-import './styles.css'
+import { Sora, Space_Grotesk } from 'next/font/google'
+import { cn } from '@/lib/utils'
+import '../../global.css'
+
+const sora = Sora({
+  subsets: ['latin'],
+  variable: '--font-main',
+})
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-display',
+})
 
 export const metadata = {
   description: 'A blank template using Payload in a Next.js app.',
@@ -10,8 +21,8 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   return (
-    <html lang="en">
-      <body>
+    <html lang="sk" className={cn(sora.variable, spaceGrotesk.variable)}>
+      <body className="font-sans antialiased bg-background text-foreground">
         <main>{children}</main>
       </body>
     </html>
