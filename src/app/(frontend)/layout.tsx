@@ -4,12 +4,12 @@ import '../../global.css'
 
 const sora = Sora({
   subsets: ['latin'],
-  variable: '--font-main',
+  variable: '--font-sora',
 })
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  variable: '--font-display',
+  variable: '--font-space',
 })
 
 export const metadata = {

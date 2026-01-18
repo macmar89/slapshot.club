@@ -14,6 +14,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  Typography,
 } from '@/components/ui'
 
 export default function DemoPage() {
@@ -112,7 +113,7 @@ export default function DemoPage() {
             <DialogHeader>
               <DialogTitle>Edit profile</DialogTitle>
               <DialogDescription>
-                Make changes to your profile here. Click save when you're done.
+                Make changes to your profile here. Click save when you&apos;re done.
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
@@ -123,6 +124,30 @@ export default function DemoPage() {
             </DialogFooter>
           </DialogContent>
         </Dialog>
+      </div>
+
+      <div className="space-y-4">
+        <h1 className="text-2xl font-bold">Typography</h1>
+        <div className="space-y-2">
+          {/* @ts-ignore */}
+          <Typography variant="h1">Heading 1 (Sora, Hockey Style)</Typography>
+          {/* @ts-ignore */}
+          <Typography variant="h2">Heading 2 (Sora)</Typography>
+          {/* @ts-ignore */}
+          <Typography variant="h3">Heading 3 (Sora)</Typography>
+          {/* @ts-ignore */}
+          <Typography variant="h4">Heading 4 (Sora)</Typography>
+          {/* @ts-ignore */}
+          <Typography variant="p">
+            Paragraph text using Sora font. Good for general readability.
+          </Typography>
+          {/* @ts-ignore */}
+          <Typography variant="lead">Lead text indicating importance.</Typography>
+          {/* @ts-ignore */}
+          <Typography variant="small">Small text for captions.</Typography>
+          {/* @ts-ignore */}
+          <Typography variant="stats">1234567890 (Space Grotesk, tabular)</Typography>
+        </div>
       </div>
     </Container>
   )
