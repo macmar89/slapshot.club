@@ -5,6 +5,11 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const token = request.cookies.get('payload-token')?.value
 
+  // Redirect to dashboard if user is already logged in and tries to access login page
+  if (pathname.startsWith('/login') && token) {
+    return NextResponse.rewrite(new URL('/dashboard', request.url))
+  }
+
   // Protected routes: /dashboard and everything under it
   if (pathname.startsWith('/dashboard')) {
     if (!token) {
@@ -30,5 +35,6 @@ export const config = {
      * - favicon.ico (favicon file)
      */
     '/dashboard/:path*',
+    '/login',
   ],
 }

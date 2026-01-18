@@ -11,3 +11,14 @@ export const loginUser = async (data: LoginFormData) => {
 
   return res
 }
+
+export const logoutUser = async () => {
+  const res = await fetch('/api/users/logout', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+
+  return res
+}
