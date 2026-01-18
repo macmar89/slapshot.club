@@ -5,9 +5,9 @@ import { cn } from '@/lib/utils'
 export const LoginForm = () => {
   return (
     <form className="w-full max-w-sm flex flex-col gap-6">
-      <div className="flex flex-col gap-2 text-center mb-2">
-        <h1 className="text-3xl font-bold text-white tracking-tight">Vitaj späť</h1>
-        <p className="text-sm text-white/60">Prihlás sa do svojho účtu</p>
+      <div className="flex flex-col gap-1 text-center mb-4">
+        <h2 className="text-2xl font-bold text-white tracking-tighter uppercase">Vitaj späť</h2>
+        <p className="text-sm text-white/40 font-medium">Pokračuj vo svojej víťaznej ceste</p>
       </div>
 
       <div className="flex flex-col gap-4">
