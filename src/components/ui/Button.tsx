@@ -17,6 +17,7 @@ const buttonVariants = cva(
         secondary: '',
         accent: '',
         destructive: '',
+        gold: '',
       },
       size: {
         default: 'h-10 px-4 py-2',
@@ -94,6 +95,25 @@ const buttonVariants = cva(
         variant: 'ghost',
         color: 'destructive',
         className: 'text-destructive hover:bg-destructive/10',
+      },
+
+      // Gold (Premium)
+      {
+        variant: 'solid',
+        color: 'gold',
+        className:
+          'bg-gradient-to-l from-[#a28a4c] via-[#e5d28b] to-[#a28a4c] text-black font-bold uppercase tracking-widest border border-white/20 shadow-[0_4px_12px_-2px_rgba(0,0,0,0.4),inset_0_1px_rgba(255,255,255,0.4)] hover:scale-[1.02] hover:brightness-110 hover:shadow-[0_0_20px_rgba(162,138,76,0.5)] active:scale-[0.98] transition-all duration-300',
+      },
+      {
+        variant: 'outline',
+        color: 'gold',
+        className:
+          'border-[#a28a4c] text-[#a28a4c] hover:bg-[#a28a4c] hover:text-black shadow-sm transition-all duration-300',
+      },
+      {
+        variant: 'ghost',
+        color: 'gold',
+        className: 'text-[#a28a4c] hover:bg-[#a28a4c]/10 transition-all duration-300',
       },
     ],
     defaultVariants: {

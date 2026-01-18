@@ -57,7 +57,7 @@ export const LoginForm = () => {
         </div>
       </div>
 
-      <Button className="w-full py-6 text-lg font-bold shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all duration-300 bg-white text-black hover:bg-white/90">
+      <Button color="gold" className="w-full py-6 text-lg">
         Prihlásiť sa
       </Button>
 
