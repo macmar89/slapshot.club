@@ -71,6 +71,7 @@ export interface Config {
     media: Media;
     competitions: Competition;
     feedback: Feedback;
+    'membership-tiers': MembershipTier;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -82,6 +83,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     competitions: CompetitionsSelect<false> | CompetitionsSelect<true>;
     feedback: FeedbackSelect<false> | FeedbackSelect<true>;
+    'membership-tiers': MembershipTiersSelect<false> | MembershipTiersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -188,21 +190,38 @@ export interface Competition {
   name: string;
   slug?: string | null;
   banner: number | Media;
-  status: 'active' | 'upcoming' | 'finished';
+  status: 'upcoming' | 'active' | 'finished';
   startDate: string;
   endDate: string;
-  description?: string | null;
+  description: string;
   /**
-   * Custom scoring rules for this competition. Leave empty for defaults.
+   * Ktoré úrovne členstva majú prístup do tejto súťaže?
    */
-  scoringRules?:
+  requiredTiers: (number | MembershipTier)[];
+  scoringRules: {
+    exactScore: number;
+    winnerOnly: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "membership-tiers".
+ */
+export interface MembershipTier {
+  id: number;
+  name: string;
+  /**
+   * Vyššie číslo = vyššia úroveň oprávnení. Slúži na porovnávanie.
+   */
+  rank: number;
+  price: number;
+  features?:
     | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
+        description?: string | null;
+        id?: string | null;
+      }[]
     | null;
   updatedAt: string;
   createdAt: string;
@@ -261,6 +280,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'feedback';
         value: string | Feedback;
+      } | null)
+    | ({
+        relationTo: 'membership-tiers';
+        value: number | MembershipTier;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -370,7 +393,13 @@ export interface CompetitionsSelect<T extends boolean = true> {
   startDate?: T;
   endDate?: T;
   description?: T;
-  scoringRules?: T;
+  requiredTiers?: T;
+  scoringRules?:
+    | T
+    | {
+        exactScore?: T;
+        winnerOnly?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -386,6 +415,23 @@ export interface FeedbackSelect<T extends boolean = true> {
   user?: T;
   read?: T;
   status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "membership-tiers_select".
+ */
+export interface MembershipTiersSelect<T extends boolean = true> {
+  name?: T;
+  rank?: T;
+  price?: T;
+  features?:
+    | T
+    | {
+        description?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
