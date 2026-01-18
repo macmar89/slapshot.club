@@ -296,6 +296,12 @@ export interface LeaderboardEntry {
   totalMatches?: number | null;
   exactGuesses?: number | null;
   correctTrends?: number | null;
+  currentRank?: number | null;
+  /**
+   * Pozícia pri poslednom prepočte (včera/minulé kolo).
+   */
+  previousRank?: number | null;
+  rankChange?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -640,6 +646,9 @@ export interface LeaderboardEntriesSelect<T extends boolean = true> {
   totalMatches?: T;
   exactGuesses?: T;
   correctTrends?: T;
+  currentRank?: T;
+  previousRank?: T;
+  rankChange?: T;
   updatedAt?: T;
   createdAt?: T;
 }

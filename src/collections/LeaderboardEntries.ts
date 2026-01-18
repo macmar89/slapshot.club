@@ -58,5 +58,21 @@ export const LeaderboardEntries: CollectionConfig = {
       type: 'number',
       defaultValue: 0,
     },
+    {
+      name: 'currentRank',
+      type: 'number',
+      index: true, // Dôležité pre rýchle hľadanie "Kto je prvý"
+      admin: { readOnly: true },
+    },
+    {
+      name: 'previousRank',
+      type: 'number',
+      admin: { readOnly: true, description: 'Pozícia pri poslednom prepočte (včera/minulé kolo).' },
+    },
+    {
+      name: 'rankChange', // Virtuálne pole (alebo vypočítané pri save), aby frontend nemusel počítať
+      type: 'number', // Napr. +3 (posun hore), -1 (posun dole), 0 (rovnako)
+      admin: { readOnly: true },
+    },
   ],
 }
