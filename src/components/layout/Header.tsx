@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils'
 import { useFormatter } from 'next-intl'
 
 import { LogoutButton } from '@/features/auth/components/LogoutButton'
+import { LanguageSwitcher } from './LanguageSwitcher'
 
 export function Header() {
   const [time, setTime] = useState<Date | null>(null)
@@ -41,6 +42,7 @@ export function Header() {
             {format.dateTime(time, { hour: '2-digit', minute: '2-digit' })}
           </span>
         </div>
+        <LanguageSwitcher />
         <div className="w-8 h-8 rounded-full bg-white/10 border border-white/10" />
         <LogoutButton />
       </div>

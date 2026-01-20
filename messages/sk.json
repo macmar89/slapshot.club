@@ -15,6 +15,12 @@
       "settings": "Nastavenia",
       "more": "Viac",
       "menu": "Menu"
+    },
+    "settings": {
+      "title": "Nastavenia",
+      "description": "Tu si môžeš upraviť svoje nastavenia a prispôsobiť aplikáciu.",
+      "language_section": "Jazyk aplikácie",
+      "current_language": "Aktuálny jazyk"
     }
   },
   "Login": {

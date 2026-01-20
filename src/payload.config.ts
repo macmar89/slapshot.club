@@ -14,7 +14,6 @@ import { UserMemberships } from './collections/UserMemberships'
 import { LeaderboardEntries } from './collections/LeaderboardEntries'
 import { Teams } from './collections/Teams'
 import { Matches } from './collections/Matches'
-import { RankingHistory } from './collections/RankingHistory'
 import { Predictions } from './collections/Predictions'
 
 const filename = fileURLToPath(import.meta.url)
@@ -42,7 +41,6 @@ export default buildConfig({
     LeaderboardEntries,
     Teams,
     Matches,
-    RankingHistory,
     Predictions,
   ],
   editor: lexicalEditor(),

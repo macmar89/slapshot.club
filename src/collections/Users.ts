@@ -70,6 +70,18 @@ export const Users: CollectionConfig = {
       },
     },
     {
+      name: 'preferredLanguage',
+      type: 'select',
+      options: [
+        { label: 'Slovenčina', value: 'sk' },
+        { label: 'English', value: 'en' },
+      ],
+      defaultValue: 'sk',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'stats',
       type: 'group',
       label: 'Hráčske štatistiky',

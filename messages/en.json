@@ -15,6 +15,12 @@
       "settings": "Settings",
       "more": "More",
       "menu": "Menu"
+    },
+    "settings": {
+      "title": "Settings",
+      "description": "Here you can adjust your settings and customize the app.",
+      "language_section": "App Language",
+      "current_language": "Current language"
     }
   },
   "Login": {

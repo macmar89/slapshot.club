@@ -76,7 +76,6 @@ export interface Config {
     'leaderboard-entries': LeaderboardEntry;
     teams: Team;
     matches: Match;
-    'ranking-history': RankingHistory;
     predictions: Prediction;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -94,7 +93,6 @@ export interface Config {
     'leaderboard-entries': LeaderboardEntriesSelect<false> | LeaderboardEntriesSelect<true>;
     teams: TeamsSelect<false> | TeamsSelect<true>;
     matches: MatchesSelect<false> | MatchesSelect<true>;
-    'ranking-history': RankingHistorySelect<false> | RankingHistorySelect<true>;
     predictions: PredictionsSelect<false> | PredictionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -147,6 +145,7 @@ export interface User {
   role: 'admin' | 'editor' | 'user';
   lastActivity?: string | null;
   isLifetime?: boolean | null;
+  preferredLanguage?: ('sk' | 'en') | null;
   /**
    * Automaticky počítané systémom. Nemeňte manuálne.
    */
@@ -362,23 +361,6 @@ export interface Match {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ranking-history".
- */
-export interface RankingHistory {
-  id: number;
-  user: string | User;
-  /**
-   * Deň, ku ktorému sa viaže tento snapshot.
-   */
-  date: string;
-  rank: number;
-  points: number;
-  competition?: (string | null) | Competition;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "predictions".
  */
 export interface Prediction {
@@ -460,10 +442,6 @@ export interface PayloadLockedDocument {
         value: number | Match;
       } | null)
     | ({
-        relationTo: 'ranking-history';
-        value: number | RankingHistory;
-      } | null)
-    | ({
         relationTo: 'predictions';
         value: number | Prediction;
       } | null);
@@ -519,6 +497,7 @@ export interface UsersSelect<T extends boolean = true> {
   role?: T;
   lastActivity?: T;
   isLifetime?: T;
+  preferredLanguage?: T;
   stats?:
     | T
     | {
@@ -691,19 +670,6 @@ export interface MatchesSelect<T extends boolean = true> {
         awayScore?: T;
         endingType?: T;
       };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ranking-history_select".
- */
-export interface RankingHistorySelect<T extends boolean = true> {
-  user?: T;
-  date?: T;
-  rank?: T;
-  points?: T;
-  competition?: T;
   updatedAt?: T;
   createdAt?: T;
 }
