@@ -43,7 +43,6 @@ export function Header() {
           </span>
         </div>
         <LanguageSwitcher />
-        <div className="w-8 h-8 rounded-full bg-white/10 border border-white/10" />
         <LogoutButton />
       </div>
     </header>
