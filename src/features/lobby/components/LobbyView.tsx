@@ -2,13 +2,15 @@
 
 import React, { useState } from 'react'
 import type { Competition, User } from '@/payload-types'
-import { Link, useRouter } from '@/i18n/routing'
+import { useRouter } from '@/i18n/routing'
 import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
 import { JoinCompetitionModal } from './JoinCompetitionModal'
 import { joinCompetition } from '../actions'
+import { Clock } from '@/components/ui/Clock'
+import { LogoutButton } from '../../auth/components/LogoutButton'
 
 interface LobbyViewProps {
   user: User
@@ -19,15 +21,15 @@ interface LobbyViewProps {
 export function LobbyView({ user, competitions, joinedCompetitionIds }: LobbyViewProps) {
   const t = useTranslations('Lobby')
   const router = useRouter()
-  
+
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false)
   const [selectedCompetition, setSelectedCompetition] = useState<Competition | null>(null)
   const [isJoining, setIsJoining] = useState(false)
   const [showFinished, setShowFinished] = useState(false)
 
-  const liveCompetitions = competitions.filter(c => c.status === 'active')
-  const upcomingCompetitions = competitions.filter(c => c.status === 'upcoming')
-  const finishedCompetitions = competitions.filter(c => c.status === 'finished')
+  const liveCompetitions = competitions.filter((c) => c.status === 'active')
+  const upcomingCompetitions = competitions.filter((c) => c.status === 'upcoming')
+  const finishedCompetitions = competitions.filter((c) => c.status === 'finished')
 
   const handleEnter = (e: React.MouseEvent, competition: Competition) => {
     e.preventDefault()
@@ -79,7 +81,7 @@ export function LobbyView({ user, competitions, joinedCompetitionIds }: LobbyVie
   }
 
   const renderCompetitionGrid = (comps: Competition[], compact: boolean = false) => (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both">
       {comps.map((competition) => {
         const isJoined = joinedCompetitionIds.includes(competition.id)
         const isFinished = competition.status === 'finished'
@@ -88,35 +90,40 @@ export function LobbyView({ user, competitions, joinedCompetitionIds }: LobbyVie
         return (
           <div
             key={competition.id}
-            onClick={(e) => !isRegistrationDisabled && handleEnter(e, competition)}
             className={cn(
-              "group block",
-              !isRegistrationDisabled ? "cursor-pointer" : "cursor-not-allowed opacity-60",
-              compact ? "h-[240px]" : "h-[400px]"
+              'group block',
+              isRegistrationDisabled && 'cursor-not-allowed opacity-60',
+              compact ? 'h-[240px]' : 'h-[340px] md:h-[380px] lg:h-[400px]',
             )}
           >
-            <IceGlassCard 
+            <IceGlassCard
               className={cn(
-                "h-full transition-all duration-300 p-0 overflow-hidden",
-                !isRegistrationDisabled && "group-hover:-translate-y-2",
-                isJoined && !isFinished ? "border-[#22c55e]/30 shadow-[0_0_20px_rgba(34,197,94,0.1)]" : "group-hover:border-[#eab308]/40",
-                isFinished && "opacity-80 group-hover:opacity-100"
-              )} 
-              backdropBlur="xs" 
+                'h-full transition-all duration-300 p-0 overflow-hidden',
+                !isRegistrationDisabled && 'group-hover:-translate-y-2',
+                isJoined && !isFinished
+                  ? 'border-[#22c55e]/30 shadow-[0_0_20px_rgba(34,197,94,0.1)]'
+                  : 'group-hover:border-[#eab308]/40',
+                isFinished && 'opacity-80 group-hover:opacity-100',
+              )}
+              backdropBlur="xs"
               withGradient
             >
-              <div className={cn(
-                "relative h-full flex flex-col justify-end",
-                compact ? "p-6" : "p-8"
-              )}>
-                <div className={cn(
-                  "absolute top-6 right-6 px-4 py-1.5 rounded-full text-[0.7rem] font-bold uppercase tracking-widest backdrop-blur-md border animate-in zoom-in duration-500",
-                  competition.status === 'active' 
-                    ? "bg-[#eab308] text-black border-[#eab308] shadow-[0_0_15px_rgba(234,179,8,0.3)]"
-                    : competition.status === 'finished'
-                    ? "bg-white/5 text-white/50 border-white/10"
-                    : "bg-white/10 text-white border-white/20"
-                )}>
+              <div
+                className={cn(
+                  'relative h-full flex flex-col justify-end',
+                  compact ? 'p-5' : 'p-5 md:p-6 lg:p-8',
+                )}
+              >
+                <div
+                  className={cn(
+                    'absolute top-6 right-6 px-4 py-1.5 rounded-full text-[0.7rem] font-bold uppercase tracking-widest backdrop-blur-md border animate-in zoom-in duration-500',
+                    competition.status === 'active'
+                      ? 'bg-[#eab308] text-black border-[#eab308] shadow-[0_0_15px_rgba(234,179,8,0.3)]'
+                      : competition.status === 'finished'
+                        ? 'bg-white/5 text-white/50 border-white/10'
+                        : 'bg-white/10 text-white border-white/20',
+                  )}
+                >
                   {t(`status.${competition.status}`)}
                 </div>
 
@@ -127,14 +134,15 @@ export function LobbyView({ user, competitions, joinedCompetitionIds }: LobbyVie
                   </div>
                 )}
 
-                <div className={cn(
-                  "flex flex-col text-left",
-                  compact ? "gap-1 mb-4" : "gap-2 mb-6"
-                )}>
-                  <h2 className={cn(
-                    "font-bold text-white group-hover:text-[#eab308] transition-colors line-clamp-1",
-                    compact ? "text-xl" : "text-2xl"
-                  )}>
+                <div
+                  className={cn('flex flex-col text-left', compact ? 'gap-1 mb-4' : 'gap-2 mb-6')}
+                >
+                  <h2
+                    className={cn(
+                      'font-bold text-white group-hover:text-[#eab308] transition-colors line-clamp-1',
+                      compact ? 'text-lg md:text-xl' : 'text-xl md:text-2xl',
+                    )}
+                  >
                     {competition.name}
                   </h2>
                   <p className="text-sm text-white/70 line-clamp-2 leading-relaxed">
@@ -142,10 +150,12 @@ export function LobbyView({ user, competitions, joinedCompetitionIds }: LobbyVie
                   </p>
                 </div>
 
-                <div className={cn(
-                  "flex justify-between items-center border-t border-white/10",
-                  compact ? "pt-3" : "pt-4"
-                )}>
+                <div
+                  className={cn(
+                    'flex justify-between items-center border-t border-white/10',
+                    compact ? 'pt-3' : 'pt-4',
+                  )}
+                >
                   <div className="flex flex-col text-left">
                     <span className="text-[0.65rem] uppercase text-white/40 tracking-wider font-bold mb-0.5">
                       {t('start_date')}
@@ -154,14 +164,15 @@ export function LobbyView({ user, competitions, joinedCompetitionIds }: LobbyVie
                       {new Date(competition.startDate).toLocaleDateString('sk-SK')}
                     </span>
                   </div>
-                  <Button 
-                    color={isFinished ? "secondary" : "gold"} 
-                    variant={isFinished ? "outline" : "solid"}
+                  <Button
+                    onClick={(e) => handleEnter(e, competition)}
+                    color={isFinished ? 'secondary' : 'gold'}
+                    variant={isFinished ? 'outline' : 'solid'}
                     disabled={isRegistrationDisabled}
                     className={cn(
-                      "font-black rounded-xl shrink-0",
-                      compact ? "px-4 py-2 text-[10px]" : "px-5 py-2.5 text-xs",
-                      isRegistrationDisabled && "opacity-50 grayscale cursor-not-allowed"
+                      'font-black rounded-xl shrink-0',
+                      compact ? 'px-4 py-2 text-[10px]' : 'px-5 py-2.5 text-xs',
+                      isRegistrationDisabled && 'opacity-50 grayscale cursor-not-allowed',
                     )}
                   >
                     {isFinished ? t('view_button') : t('enter_button')}
@@ -176,56 +187,42 @@ export function LobbyView({ user, competitions, joinedCompetitionIds }: LobbyVie
   )
 
   return (
-    <div className="min-h-screen p-8 bg-[radial-gradient(circle_at_top_right,rgba(234,179,8,0.05),transparent),radial-gradient(circle_at_bottom_left,rgba(234,179,8,0.02),transparent)] text-white">
-      <header className="max-w-6xl mx-auto mb-20 flex flex-col items-center text-center">
-        <div className="animate-in fade-in slide-in-from-top-4 duration-700">
-          <h1 className="text-6xl md:text-7xl font-extrabold mb-4 bg-gradient-to-right from-white to-[#eab308] bg-clip-text text-transparent tracking-tighter">
-            {t('title')}
-          </h1>
-          <p className="text-xl text-white/50 font-medium max-w-2xl">
+    <div className="min-h-screen p-4 md:p-6 lg:p-8 bg-[radial-gradient(circle_at_top_right,rgba(234,179,8,0.05),transparent),radial-gradient(circle_at_bottom_left,rgba(234,179,8,0.02),transparent)] text-white">
+      <header className="max-w-7xl mx-auto mb-8 md:mb-12 lg:mb-16 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="animate-in fade-in slide-in-from-top-4 duration-700 text-center md:text-left">
+          <h1 className="text-xl md:text-4xl text-white/50 font-medium max-w-2xl">
             {t('welcome', { username: user.username || user.email })}
-          </p>
+          </h1>
+        </div>
+        <div className="flex items-center gap-6 animate-in fade-in slide-in-from-top-4 duration-700 delay-100 bg-white/5 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10">
+          <Clock />
+          <div className="w-px h-4 bg-white/10" />
+          <LogoutButton />
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto">
-        {finishedCompetitions.length > 0 && (
-          <div className="flex justify-center mb-12">
-            <Button
-              variant="outline"
-              onClick={() => setShowFinished(!showFinished)}
-              className={cn(
-                "rounded-full px-8 border-white/10 text-white/40 hover:text-white transition-all uppercase tracking-[0.2em] text-[10px] font-bold h-10",
-                showFinished && "bg-white/10 text-white border-white/20"
-              )}
-            >
-              {t('status.finished')} 
-              <span className={cn("ml-2 transition-transform duration-300", showFinished && "rotate-180")}>↓</span>
-            </Button>
-          </div>
-        )}
-
+      <main className="max-w-7xl mx-auto">
         {showFinished && finishedCompetitions.length > 0 && (
-          <div className="animate-in fade-in slide-in-from-top-4 duration-500 fill-mode-both border-b border-white/5 mb-20 pb-12">
+          <div className="animate-in fade-in slide-in-from-top-4 duration-500 fill-mode-both border-b border-white/5 mb-10 md:mb-16 lg:mb-20 pb-12">
             {renderCompetitionGrid(finishedCompetitions, true)}
           </div>
         )}
 
         {liveCompetitions.length > 0 && (
-          <div className="mb-20">
-            <div className="flex items-center gap-4 mb-10">
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-              <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-[#eab308] drop-shadow-[0_0_10px_rgba(234,179,8,0.3)]">
+          <div className="mb-10 md:mb-16 lg:mb-20">
+            <div className="flex items-center gap-6 mb-12">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#eab308]/50 to-transparent shadow-[0_0_10px_rgba(234,179,8,0.3)]" />
+              <h2 className="text-2xl font-black uppercase tracking-[0.2em] text-[#eab308] drop-shadow-[0_0_25px_rgba(234,179,8,0.8)] px-4">
                 {t('status.active')}
               </h2>
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#eab308]/50 to-transparent shadow-[0_0_10px_rgba(234,179,8,0.3)]" />
             </div>
             {renderCompetitionGrid(liveCompetitions, false)}
           </div>
         )}
 
         {upcomingCompetitions.length > 0 && (
-          <div className="mb-20">
+          <div className="mb-10 md:mb-16 lg:mb-20">
             <div className="flex items-center gap-4 mb-10">
               <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
               <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-white/30">
