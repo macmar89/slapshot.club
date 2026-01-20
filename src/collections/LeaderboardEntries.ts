@@ -1,4 +1,5 @@
 import { CollectionConfig } from 'payload'
+import { createId } from '@paralleldrive/cuid2'
 
 export const LeaderboardEntries: CollectionConfig = {
   slug: 'leaderboard-entries',
@@ -17,6 +18,15 @@ export const LeaderboardEntries: CollectionConfig = {
     { fields: ['user', 'competition'], unique: true }, // User môže byť v súťaži len raz
   ],
   fields: [
+    {
+      name: 'id',
+      type: 'text',
+      defaultValue: () => createId(),
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+      },
+    },
     {
       name: 'user',
       type: 'relationship',

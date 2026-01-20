@@ -1,4 +1,5 @@
 import { CollectionConfig } from 'payload'
+import { createId } from '@paralleldrive/cuid2'
 
 export const Teams: CollectionConfig = {
   slug: 'teams',
@@ -11,6 +12,15 @@ export const Teams: CollectionConfig = {
     read: () => true,
   },
   fields: [
+    {
+      name: 'id',
+      type: 'text',
+      defaultValue: () => createId(),
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+      },
+    },
     {
       name: 'name',
       type: 'text',
@@ -50,7 +60,7 @@ export const Teams: CollectionConfig = {
     {
       name: 'country',
       type: 'select',
-      required: true,
+      required: false,
       options: [
         { label: 'Slovensko', value: 'SVK' },
         { label: 'Česko', value: 'CZE' },
@@ -79,7 +89,7 @@ export const Teams: CollectionConfig = {
       name: 'logo',
       type: 'upload',
       relationTo: 'media',
-      required: true,
+      required: false,
       label: 'Logo alebo Vlajka',
     },
     {

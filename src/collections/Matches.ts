@@ -1,4 +1,5 @@
 import { CollectionConfig, FieldHook } from 'payload'
+import { createId } from '@paralleldrive/cuid2'
 
 // -------------------------
 // HOOKS LOGIC
@@ -41,6 +42,15 @@ export const Matches: CollectionConfig = {
     read: () => true,
   },
   fields: [
+    {
+      name: 'id',
+      type: 'text',
+      defaultValue: () => createId(),
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+      },
+    },
     {
       name: 'displayTitle',
       type: 'text',

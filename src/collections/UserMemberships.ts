@@ -1,4 +1,5 @@
 import { CollectionConfig } from 'payload'
+import { createId } from '@paralleldrive/cuid2'
 
 export const UserMemberships: CollectionConfig = {
   slug: 'user-memberships', // Premenované pre jasnosť
@@ -13,6 +14,15 @@ export const UserMemberships: CollectionConfig = {
     },
   },
   fields: [
+    {
+      name: 'id',
+      type: 'text',
+      defaultValue: () => createId(),
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+      },
+    },
     {
       name: 'user',
       type: 'relationship',

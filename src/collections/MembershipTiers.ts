@@ -1,4 +1,5 @@
 import { CollectionConfig } from 'payload'
+import { createId } from '@paralleldrive/cuid2'
 
 export const MembershipTiers: CollectionConfig = {
   slug: 'membership-tiers',
@@ -11,6 +12,15 @@ export const MembershipTiers: CollectionConfig = {
     read: () => true, // Verejné pre cenník na webe
   },
   fields: [
+    {
+      name: 'id',
+      type: 'text',
+      defaultValue: () => createId(),
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+      },
+    },
     {
       name: 'name',
       type: 'text',

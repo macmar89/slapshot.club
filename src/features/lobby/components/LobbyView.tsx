@@ -9,8 +9,8 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
 import { JoinCompetitionModal } from './JoinCompetitionModal'
 import { joinCompetition } from '../actions'
-import { Clock } from '@/components/ui/Clock'
-import { LogoutButton } from '../../auth/components/LogoutButton'
+import { Header } from '@/components/layout/Header'
+import { Container } from '@/components/ui'
 
 interface LobbyViewProps {
   user: User
@@ -188,22 +188,16 @@ export function LobbyView({ user, competitions, joinedCompetitionIds }: LobbyVie
 
   return (
     <div className="min-h-screen p-4 md:p-6 lg:p-8 bg-[radial-gradient(circle_at_top_right,rgba(234,179,8,0.05),transparent),radial-gradient(circle_at_bottom_left,rgba(234,179,8,0.02),transparent)] text-white">
-      <header className="max-w-7xl mx-auto mb-8 md:mb-12 lg:mb-16 flex flex-col md:flex-row justify-between items-center gap-6">
-        <div className="animate-in fade-in slide-in-from-top-4 duration-700 text-center md:text-left">
-          <h1 className="text-xl md:text-4xl text-white/50 font-medium max-w-2xl">
-            {t('welcome', { username: user.username || user.email })}
-          </h1>
-        </div>
-        <div className="flex items-center gap-6 animate-in fade-in slide-in-from-top-4 duration-700 delay-100 bg-white/5 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10">
-          <Clock />
-          <div className="w-px h-4 bg-white/10" />
-          <LogoutButton />
-        </div>
-      </header>
+      <Header />
+      <div className="pt-20 md:pt-16" />
+
+      <h1 className="text-xl md:text-3xl text-white/50 font-medium  text-center mb-8">
+        {t('welcome', { username: user.username || user.email })}
+      </h1>
 
       <main className="max-w-7xl mx-auto">
         {showFinished && finishedCompetitions.length > 0 && (
-          <div className="animate-in fade-in slide-in-from-top-4 duration-500 fill-mode-both border-b border-white/5 mb-10 md:mb-16 lg:mb-20 pb-12">
+          <div className="animate-in fade-in slide-in-from-top-4 duration-500 fill-mode-both border-b border-white/5 mb-4 md:mb-16 lg:mb-20 pb-12">
             {renderCompetitionGrid(finishedCompetitions, true)}
           </div>
         )}

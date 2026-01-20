@@ -83,6 +83,8 @@
       "cancel": "Zrušiť",
       "confirm": "Pripojiť sa",
       "joining": "Pripájanie..."
-    }
+    },
+    "rules": "Pravidlá",
+    "settings": "Nastavenia"
   }
 }

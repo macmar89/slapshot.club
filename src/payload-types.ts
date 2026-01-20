@@ -184,7 +184,7 @@ export interface User {
  * via the `definition` "media".
  */
 export interface Media {
-  id: number;
+  id: string;
   alt: string;
   updatedAt: string;
   createdAt: string;
@@ -206,7 +206,7 @@ export interface Competition {
   id: string;
   name: string;
   slug?: string | null;
-  banner?: (number | null) | Media;
+  banner?: (string | null) | Media;
   status: 'upcoming' | 'active' | 'finished';
   /**
    * Ak je zapnuté, používatelia sa môžu pridať do súťaže (aj keď je ešte len "upcoming").
@@ -218,7 +218,7 @@ export interface Competition {
   /**
    * Ktoré úrovne členstva majú prístup do tejto súťaže?
    */
-  requiredTiers: (number | MembershipTier)[];
+  requiredTiers: (string | MembershipTier)[];
   scoringRules: {
     exactScore: number;
     winnerOnly: number;
@@ -231,7 +231,7 @@ export interface Competition {
  * via the `definition` "membership-tiers".
  */
 export interface MembershipTier {
-  id: number;
+  id: string;
   name: string;
   /**
    * Vyššie číslo = vyššia úroveň oprávnení. Slúži na porovnávanie.
@@ -267,9 +267,9 @@ export interface Feedback {
  * via the `definition` "user-memberships".
  */
 export interface UserMembership {
-  id: number;
+  id: string;
   user: string | User;
-  tier: number | MembershipTier;
+  tier: string | MembershipTier;
   status: 'active' | 'pending' | 'cancelled' | 'expired';
   validUntil?: string | null;
   billing?: {
@@ -286,7 +286,7 @@ export interface UserMembership {
  * via the `definition` "leaderboard-entries".
  */
 export interface LeaderboardEntry {
-  id: number;
+  id: string;
   user: string | User;
   competition: string | Competition;
   /**
@@ -313,7 +313,7 @@ export interface LeaderboardEntry {
  * via the `definition` "teams".
  */
 export interface Team {
-  id: number;
+  id: string;
   name: string;
   /**
    * URL slug (napr. svk-team), voliteľné pre detail tímu.
@@ -327,12 +327,12 @@ export interface Team {
   /**
    * Určuje, odkiaľ tím pochádza (nie kde hrá). Boston Bruins = USA.
    */
-  country: 'SVK' | 'CZE' | 'USA' | 'CAN';
+  country?: ('SVK' | 'CZE' | 'USA' | 'CAN') | null;
   /**
    * Pomocné tagy pre ľahšie vyhľadávanie pri vytváraní zápasov.
    */
   leagueTags?: ('sk' | 'nhl' | 'cz' | 'iihf')[] | null;
-  logo: number | Media;
+  logo?: (string | null) | Media;
   colors: {
     primary: string;
     secondary: string;
@@ -345,12 +345,12 @@ export interface Team {
  * via the `definition` "matches".
  */
 export interface Match {
-  id: number;
+  id: string;
   displayTitle?: string | null;
   competition: string | Competition;
   date: string;
-  homeTeam: number | Team;
-  awayTeam: number | Team;
+  homeTeam: string | Team;
+  awayTeam: string | Team;
   status: 'scheduled' | 'live' | 'finished' | 'cancelled';
   result?: {
     homeScore?: number | null;
@@ -368,9 +368,9 @@ export interface Match {
  * via the `definition` "predictions".
  */
 export interface Prediction {
-  id: number;
+  id: string;
   user: string | User;
-  match: number | Match;
+  match: string | Match;
   homeGoals: number;
   awayGoals: number;
   /**
@@ -415,7 +415,7 @@ export interface PayloadLockedDocument {
       } | null)
     | ({
         relationTo: 'media';
-        value: number | Media;
+        value: string | Media;
       } | null)
     | ({
         relationTo: 'competitions';
@@ -427,27 +427,27 @@ export interface PayloadLockedDocument {
       } | null)
     | ({
         relationTo: 'membership-tiers';
-        value: number | MembershipTier;
+        value: string | MembershipTier;
       } | null)
     | ({
         relationTo: 'user-memberships';
-        value: number | UserMembership;
+        value: string | UserMembership;
       } | null)
     | ({
         relationTo: 'leaderboard-entries';
-        value: number | LeaderboardEntry;
+        value: string | LeaderboardEntry;
       } | null)
     | ({
         relationTo: 'teams';
-        value: number | Team;
+        value: string | Team;
       } | null)
     | ({
         relationTo: 'matches';
-        value: number | Match;
+        value: string | Match;
       } | null)
     | ({
         relationTo: 'predictions';
-        value: number | Prediction;
+        value: string | Prediction;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -532,6 +532,7 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
+  id?: T;
   alt?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -589,6 +590,7 @@ export interface FeedbackSelect<T extends boolean = true> {
  * via the `definition` "membership-tiers_select".
  */
 export interface MembershipTiersSelect<T extends boolean = true> {
+  id?: T;
   name?: T;
   rank?: T;
   price?: T;
@@ -606,6 +608,7 @@ export interface MembershipTiersSelect<T extends boolean = true> {
  * via the `definition` "user-memberships_select".
  */
 export interface UserMembershipsSelect<T extends boolean = true> {
+  id?: T;
   user?: T;
   tier?: T;
   status?: T;
@@ -624,6 +627,7 @@ export interface UserMembershipsSelect<T extends boolean = true> {
  * via the `definition` "leaderboard-entries_select".
  */
 export interface LeaderboardEntriesSelect<T extends boolean = true> {
+  id?: T;
   user?: T;
   competition?: T;
   totalPoints?: T;
@@ -641,6 +645,7 @@ export interface LeaderboardEntriesSelect<T extends boolean = true> {
  * via the `definition` "teams_select".
  */
 export interface TeamsSelect<T extends boolean = true> {
+  id?: T;
   name?: T;
   slug?: T;
   shortName?: T;
@@ -662,6 +667,7 @@ export interface TeamsSelect<T extends boolean = true> {
  * via the `definition` "matches_select".
  */
 export interface MatchesSelect<T extends boolean = true> {
+  id?: T;
   displayTitle?: T;
   competition?: T;
   date?: T;
@@ -683,6 +689,7 @@ export interface MatchesSelect<T extends boolean = true> {
  * via the `definition` "predictions_select".
  */
 export interface PredictionsSelect<T extends boolean = true> {
+  id?: T;
   user?: T;
   match?: T;
   homeGoals?: T;
