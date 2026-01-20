@@ -74,6 +74,8 @@
       "finished": "Finished"
     },
     "start_date": "Starts",
+    "end_date": "Ends",
+    "status_label": "Status",
     "enter_button": "ENTER",
     "view_button": "VIEW RESULT",
     "joined": "Joined",

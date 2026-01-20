@@ -74,6 +74,8 @@
       "finished": "Ukončené"
     },
     "start_date": "Začiatok",
+    "end_date": "Koniec",
+    "status_label": "Stav",
     "enter_button": "VSTÚPIŤ",
     "view_button": "ZOBRAZIŤ",
     "joined": "Pridaný",

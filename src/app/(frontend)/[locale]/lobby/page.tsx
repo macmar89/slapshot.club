@@ -24,6 +24,7 @@ export default async function LobbyPage({ params }: { params: Promise<{ locale: 
     collection: 'competitions',
     sort: 'startDate',
     limit: 100,
+    locale: locale as any,
   })
 
   // Fetch which competitions the user has already joined
@@ -41,10 +42,10 @@ export default async function LobbyPage({ params }: { params: Promise<{ locale: 
   }) as string[]
 
   return (
-    <LobbyView 
-      user={user as unknown as User} 
-      competitions={competitions.docs} 
-      joinedCompetitionIds={joinedCompetitionIds} 
+    <LobbyView
+      user={user as unknown as User}
+      competitions={competitions.docs}
+      joinedCompetitionIds={joinedCompetitionIds}
     />
   )
 }
