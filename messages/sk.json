@@ -64,5 +64,25 @@
     "register": "Registruj sa",
     "email_placeholder": "meno@priklad.com",
     "password_placeholder": "••••••••"
+  },
+  "Lobby": {
+    "title": "Vitajte v Slapshot Clube",
+    "welcome": "Vitaj späť, {username}. Vyber si svoju arénu.",
+    "status": {
+      "active": "● Live",
+      "upcoming": "Pripravuje sa",
+      "finished": "Ukončené"
+    },
+    "start_date": "Začiatok",
+    "enter_button": "VSTÚPIŤ",
+    "view_button": "ZOBRAZIŤ",
+    "joined": "Pridaný",
+    "join_modal": {
+      "title": "Pripojiť sa k súťaži",
+      "description": "Nie si prihlásený do súťaže {competitionName}. Chceš sa pripojiť?",
+      "cancel": "Zrušiť",
+      "confirm": "Pripojiť sa",
+      "joining": "Pripájanie..."
+    }
   }
 }

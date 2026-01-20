@@ -50,6 +50,16 @@ export const Competitions: CollectionConfig = {
       admin: { position: 'sidebar' },
     },
     {
+      name: 'isRegistrationOpen',
+      type: 'checkbox',
+      label: 'Povoliť registrácie / nákup členstva',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        description: 'Ak je zapnuté, používatelia sa môžu pridať do súťaže (aj keď je ešte len "upcoming").',
+      },
+    },
+    {
       name: 'startDate',
       type: 'date',
       required: true,

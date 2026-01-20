@@ -13,7 +13,7 @@ import { useTranslations } from 'next-intl'
 export const LoginForm = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const redirectUrl = searchParams.get('redirect') || '/dashboard'
+  const redirectUrl = searchParams.get('redirect') || '/lobby'
   const t = useTranslations('Auth')
 
   const [isLoading, setIsLoading] = useState(false)

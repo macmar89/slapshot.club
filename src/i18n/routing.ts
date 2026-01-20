@@ -17,7 +17,7 @@ export const routing = defineRouting({
     '/': '/',
     '/dashboard': {
       en: '/dashboard',
-      sk: '/nastenka',
+      sk: '/dashboard',
     },
     '/login': {
       en: '/login',
@@ -26,31 +26,43 @@ export const routing = defineRouting({
     // Dashboard subroutes
     '/dashboard/matches': {
       en: '/dashboard/matches',
-      sk: '/nastenka/zapasy',
+      sk: '/dashboard/zapasy',
     },
     '/dashboard/tables': {
       en: '/dashboard/tables',
-      sk: '/nastenka/tabulky',
+      sk: '/dashboard/tabulky',
     },
     '/dashboard/teams': {
       en: '/dashboard/teams',
-      sk: '/nastenka/timy',
+      sk: '/dashboard/timy',
     },
     '/dashboard/leaderboard': {
       en: '/dashboard/leaderboard',
-      sk: '/nastenka/rebricek',
+      sk: '/dashboard/rebricek',
     },
     '/dashboard/rules': {
       en: '/dashboard/rules',
-      sk: '/nastenka/pravidla',
+      sk: '/dashboard/pravidla',
     },
     '/dashboard/profile': {
       en: '/dashboard/profile',
-      sk: '/nastenka/profil',
+      sk: '/dashboard/profil',
     },
     '/dashboard/settings': {
       en: '/dashboard/settings',
-      sk: '/nastenka/nastavenia',
+      sk: '/dashboard/nastavenia',
+    },
+    '/dashboard/[slug]': {
+      en: '/dashboard/[slug]',
+      sk: '/dashboard/[slug]',
+    },
+    '/lobby': {
+      en: '/lobby',
+      sk: '/lobby',
+    },
+    '/lobby/[slug]': {
+      en: '/lobby/[slug]',
+      sk: '/lobby/[slug]',
     },
     // Example from user request
     '/ranking': {

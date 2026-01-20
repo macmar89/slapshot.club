@@ -1,0 +1,1001 @@
+node_modules/@formatjs/ecma402-abstract/utils.d.ts(30,92): error TS2339: Property 'ListFormat' does not exist on type 'typeof Intl'.
+node_modules/@formatjs/ecma402-abstract/utils.d.ts(30,113): error TS2694: Namespace 'Intl' has no exported member 'ListFormat'.
+node_modules/@monaco-editor/loader/lib/types.d.ts(1,31): error TS2307: Cannot find module 'monaco-editor/esm/vs/editor/editor.api' or its corresponding type declarations.
+node_modules/@monaco-editor/react/dist/index.d.ts(4,32): error TS2307: Cannot find module 'monaco-editor' or its corresponding type declarations.
+node_modules/@monaco-editor/react/dist/index.d.ts(5,24): error TS2307: Cannot find module 'monaco-editor' or its corresponding type declarations.
+node_modules/@monaco-editor/react/dist/index.d.ts(6,25): error TS2307: Cannot find module 'monaco-editor/esm/vs/editor/editor.api' or its corresponding type declarations.
+node_modules/@monaco-editor/react/dist/index.d.ts(106,295): error TS2503: Cannot find namespace 'JSX'.
+node_modules/@monaco-editor/react/dist/index.d.ts(225,277): error TS2503: Cannot find namespace 'JSX'.
+node_modules/@payloadcms/db-postgres/dist/index.d.ts(5,53): error TS2307: Cannot find module '@payloadcms/drizzle/postgres' or its corresponding type declarations.
+  There are types at '/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@payloadcms/drizzle/dist/exports/postgres.d.ts', but this result could not be resolved under your current 'moduleResolution' setting. Consider updating to 'node16', 'nodenext', or 'bundler'.
+node_modules/@payloadcms/db-postgres/dist/index.d.ts(6,32): error TS2307: Cannot find module '@payloadcms/drizzle/postgres' or its corresponding type declarations.
+  There are types at '/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@payloadcms/drizzle/dist/exports/postgres.d.ts', but this result could not be resolved under your current 'moduleResolution' setting. Consider updating to 'node16', 'nodenext', or 'bundler'.
+node_modules/@payloadcms/db-postgres/dist/types.d.ts(1,107): error TS2307: Cannot find module '@payloadcms/drizzle/postgres' or its corresponding type declarations.
+  There are types at '/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@payloadcms/drizzle/dist/exports/postgres.d.ts', but this result could not be resolved under your current 'moduleResolution' setting. Consider updating to 'node16', 'nodenext', or 'bundler'.
+node_modules/@payloadcms/db-postgres/dist/types.d.ts(2,37): error TS2307: Cannot find module '@payloadcms/drizzle/types' or its corresponding type declarations.
+  There are types at '/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@payloadcms/drizzle/dist/exports/types-deprecated.d.ts', but this result could not be resolved under your current 'moduleResolution' setting. Consider updating to 'node16', 'nodenext', or 'bundler'.
+node_modules/@payloadcms/richtext-lexical/dist/features/blocks/premade/CodeBlock/Component/Code.d.ts(2,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/@payloadcms/richtext-lexical/dist/features/blocks/server/nodes/InlineBlocksNode.d.ts(3,13): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/@payloadcms/richtext-lexical/dist/features/link/nodes/AutoLinkNode.d.ts(9,5): error TS2416: Property 'exportJSON' in type 'AutoLinkNode' is not assignable to the same property in base type 'LinkNode'.
+  Type '() => SerializedAutoLinkNode' is not assignable to type '() => SerializedLinkNode'.
+    Type 'SerializedAutoLinkNode' is not assignable to type 'SerializedLinkNode'.
+      Type 'SerializedAutoLinkNode' is not assignable to type '{ children: SerializedLexicalNode[]; type: "link"; }'.
+        Types of property 'type' are incompatible.
+          Type '"autolink"' is not assignable to type '"link"'.
+node_modules/@payloadcms/richtext-lexical/dist/features/toolbars/types.d.ts(3,13): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/@payloadcms/richtext-lexical/dist/features/typesClient.d.ts(3,13): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/@payloadcms/richtext-lexical/dist/features/upload/server/index.d.ts(20,10): error TS1337: An index signature parameter type cannot be a literal type or generic type. Consider using a mapped object type instead.
+node_modules/@payloadcms/richtext-lexical/dist/lexical/plugins/SlashMenu/LexicalTypeaheadMenuPlugin/types.d.ts(3,13): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/@payloadcms/richtext-lexical/dist/utilities/fieldsDrawer/Drawer.d.ts(2,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/drizzle-orm/gel-core/columns/date-duration.d.ts(1,35): error TS2307: Cannot find module 'gel' or its corresponding type declarations.
+node_modules/drizzle-orm/gel-core/columns/duration.d.ts(1,31): error TS2307: Cannot find module 'gel' or its corresponding type declarations.
+node_modules/drizzle-orm/gel-core/columns/localdate.d.ts(1,32): error TS2307: Cannot find module 'gel' or its corresponding type declarations.
+node_modules/drizzle-orm/gel-core/columns/localtime.d.ts(1,32): error TS2307: Cannot find module 'gel' or its corresponding type declarations.
+node_modules/drizzle-orm/gel-core/columns/relative-duration.d.ts(1,39): error TS2307: Cannot find module 'gel' or its corresponding type declarations.
+node_modules/drizzle-orm/gel-core/columns/timestamp.d.ts(1,36): error TS2307: Cannot find module 'gel' or its corresponding type declarations.
+node_modules/drizzle-orm/gel-core/query-builders/query.d.ts(23,22): error TS2420: Class 'GelRelationalQuery<TResult>' incorrectly implements interface 'SQLWrapper'.
+  Property 'getSQL' is missing in type 'GelRelationalQuery<TResult>' but required in type 'SQLWrapper'.
+node_modules/drizzle-orm/gel-core/roles.d.ts(7,22): error TS2559: Type 'GelRole' has no properties in common with type 'GelRoleConfig'.
+node_modules/drizzle-orm/mysql-core/db.d.ts(1,38): error TS2307: Cannot find module 'mysql2/promise' or its corresponding type declarations.
+node_modules/drizzle-orm/mysql-core/query-builders/delete.d.ts(36,22): error TS2420: Class 'MySqlDeleteBase<TTable, TQueryResult, TPreparedQueryHKT, TDynamic, TExcludedMethods>' incorrectly implements interface 'SQLWrapper'.
+  Property 'getSQL' is missing in type 'MySqlDeleteBase<TTable, TQueryResult, TPreparedQueryHKT, TDynamic, TExcludedMethods>' but required in type 'SQLWrapper'.
+node_modules/drizzle-orm/mysql-core/query-builders/select.d.ts(294,244): error TS2344: Type 'string' does not satisfy the constraint 'keyof this & string'.
+  Type 'string' is not assignable to type 'keyof this & string'.
+    Type 'string' is not assignable to type 'keyof this'.
+      Type '"session"' is not assignable to type '"offset" | "intersect" | "as" | "_" | "where" | "groupBy" | "getSQL" | "union" | "except" | "for" | "orderBy" | "limit" | "leftJoin" | "rightJoin" | "innerJoin" | "toSQL" | "$dynamic" | ... 8 more ... | "$withCache"'.
+node_modules/drizzle-orm/mysql-core/query-builders/select.d.ts(320,247): error TS2344: Type 'string' does not satisfy the constraint 'keyof this & string'.
+  Type 'string' is not assignable to type 'keyof this & string'.
+    Type 'string' is not assignable to type 'keyof this'.
+      Type '"session"' is not assignable to type '"offset" | "intersect" | "as" | "_" | "where" | "groupBy" | "getSQL" | "union" | "except" | "for" | "orderBy" | "limit" | "leftJoin" | "rightJoin" | "innerJoin" | "toSQL" | "$dynamic" | ... 8 more ... | "$withCache"'.
+node_modules/drizzle-orm/mysql-core/query-builders/select.d.ts(346,248): error TS2344: Type 'string' does not satisfy the constraint 'keyof this & string'.
+  Type 'string' is not assignable to type 'keyof this & string'.
+    Type 'string' is not assignable to type 'keyof this'.
+      Type '"session"' is not assignable to type '"offset" | "intersect" | "as" | "_" | "where" | "groupBy" | "getSQL" | "union" | "except" | "for" | "orderBy" | "limit" | "leftJoin" | "rightJoin" | "innerJoin" | "toSQL" | "$dynamic" | ... 8 more ... | "$withCache"'.
+node_modules/drizzle-orm/mysql-core/query-builders/select.d.ts(387,251): error TS2344: Type 'string' does not satisfy the constraint 'keyof this & string'.
+  Type 'string' is not assignable to type 'keyof this & string'.
+    Type 'string' is not assignable to type 'keyof this'.
+      Type '"session"' is not assignable to type '"offset" | "intersect" | "as" | "_" | "where" | "groupBy" | "getSQL" | "union" | "except" | "for" | "orderBy" | "limit" | "leftJoin" | "rightJoin" | "innerJoin" | "toSQL" | "$dynamic" | ... 8 more ... | "$withCache"'.
+node_modules/drizzle-orm/mysql-core/query-builders/select.d.ts(413,245): error TS2344: Type 'string' does not satisfy the constraint 'keyof this & string'.
+  Type 'string' is not assignable to type 'keyof this & string'.
+    Type 'string' is not assignable to type 'keyof this'.
+      Type '"session"' is not assignable to type '"offset" | "intersect" | "as" | "_" | "where" | "groupBy" | "getSQL" | "union" | "except" | "for" | "orderBy" | "limit" | "leftJoin" | "rightJoin" | "innerJoin" | "toSQL" | "$dynamic" | ... 8 more ... | "$withCache"'.
+node_modules/drizzle-orm/mysql-core/query-builders/select.d.ts(454,248): error TS2344: Type 'string' does not satisfy the constraint 'keyof this & string'.
+  Type 'string' is not assignable to type 'keyof this & string'.
+    Type 'string' is not assignable to type 'keyof this'.
+      Type '"session"' is not assignable to type '"offset" | "intersect" | "as" | "_" | "where" | "groupBy" | "getSQL" | "union" | "except" | "for" | "orderBy" | "limit" | "leftJoin" | "rightJoin" | "innerJoin" | "toSQL" | "$dynamic" | ... 8 more ... | "$withCache"'.
+node_modules/drizzle-orm/mysql-core/query-builders/select.d.ts(611,22): error TS2515: Non-abstract class 'MySqlSelectBase<TTableName, TSelection, TSelectMode, TPreparedQueryHKT, TNullabilityMap, TDynamic, TExcludedMethods, TResult, TSelectedFields>' does not implement inherited abstract member getSQL from class 'MySqlSelectQueryBuilderBase<MySqlSelectHKT, TTableName, TSelection, TSelectMode, TPreparedQueryHKT, TNullabilityMap, TDynamic, TExcludedMethods, TResult, TSelectedFields>'.
+node_modules/drizzle-orm/mysql-core/query-builders/select.types.d.ts(138,1149): error TS2344: Type 'MySqlSetOperatorExcludedMethods' does not satisfy the constraint '"offset" | "intersect" | "as" | "execute" | "_" | "then" | "where" | "groupBy" | "getSQL" | "union" | "except" | "for" | "orderBy" | "limit" | "leftJoin" | "rightJoin" | "innerJoin" | ... 14 more ... | "iterator"'.
+  Type '"session"' is not assignable to type '"offset" | "intersect" | "as" | "execute" | "_" | "then" | "where" | "groupBy" | "getSQL" | "union" | "except" | "for" | "orderBy" | "limit" | "leftJoin" | "rightJoin" | "innerJoin" | ... 14 more ... | "iterator"'.
+node_modules/drizzle-orm/node-postgres/session.d.ts(2,8): error TS1192: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/pg/index"' has no default export.
+node_modules/drizzle-orm/pg-core/query-builders/query.d.ts(23,22): error TS2420: Class 'PgRelationalQuery<TResult>' incorrectly implements interface 'SQLWrapper'.
+  Property 'getSQL' is missing in type 'PgRelationalQuery<TResult>' but required in type 'SQLWrapper'.
+node_modules/drizzle-orm/pg-core/roles.d.ts(7,22): error TS2559: Type 'PgRole' has no properties in common with type 'PgRoleConfig'.
+node_modules/drizzle-orm/singlestore-core/columns/bigint.d.ts(13,22): error TS2515: Non-abstract class 'SingleStoreBigInt53Builder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilderWithAutoIncrement<T, { unsigned: boolean; }, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/bigint.d.ts(35,22): error TS2515: Non-abstract class 'SingleStoreBigInt64Builder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilderWithAutoIncrement<T, { unsigned: boolean; }, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/binary.d.ts(14,22): error TS2515: Non-abstract class 'SingleStoreBinaryBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilder<T, SingleStoreBinaryConfig, object, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/boolean.d.ts(14,22): error TS2515: Non-abstract class 'SingleStoreBooleanBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilder<T, object, object, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/char.d.ts(16,22): error TS2515: Non-abstract class 'SingleStoreCharBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilder<T, SingleStoreCharConfig<T["enumValues"], T["length"]>, { length: T["length"]; }, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/custom.d.ts(24,22): error TS2515: Non-abstract class 'SingleStoreCustomColumnBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilder<T, { fieldConfig: Record<string, any>; customTypeParams: CustomTypeParams<any>; }, { singlestoreColumnBuilderBrand: "SingleStoreCustomColumnBuilderBrand"; }, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/date.d.ts(16,22): error TS2515: Non-abstract class 'SingleStoreDateBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilder<T, object, object, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/date.d.ts(37,22): error TS2515: Non-abstract class 'SingleStoreDateStringBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilder<T, object, object, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/datetime.d.ts(16,22): error TS2515: Non-abstract class 'SingleStoreDateTimeBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilder<T, SingleStoreDatetimeConfig<"string" | "date">, object, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/datetime.d.ts(38,22): error TS2515: Non-abstract class 'SingleStoreDateTimeStringBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilder<T, SingleStoreDatetimeConfig<"string" | "date">, object, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/decimal.d.ts(15,22): error TS2515: Non-abstract class 'SingleStoreDecimalBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilderWithAutoIncrement<T, SingleStoreDecimalConfig<"string" | "number" | "bigint">, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/decimal.d.ts(36,22): error TS2515: Non-abstract class 'SingleStoreDecimalNumberBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilderWithAutoIncrement<T, SingleStoreDecimalConfig<"string" | "number" | "bigint">, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/decimal.d.ts(58,22): error TS2515: Non-abstract class 'SingleStoreDecimalBigIntBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilderWithAutoIncrement<T, SingleStoreDecimalConfig<"string" | "number" | "bigint">, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/double.d.ts(14,22): error TS2515: Non-abstract class 'SingleStoreDoubleBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilderWithAutoIncrement<T, SingleStoreDoubleConfig, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/enum.d.ts(19,5): error TS2416: Property 'generatedAlwaysAs' in type 'SingleStoreEnumColumnBuilder<T>' is not assignable to the same property in base type 'SingleStoreColumnBuilder<T, { enumValues: T["enumValues"]; }, object, ColumnBuilderExtraConfig>'.
+  Type '(as: SQL<unknown> | (() => SQL<unknown>) | T["data"], config?: Partial<GeneratedColumnConfig<unknown>>) => HasGenerated<this, {}>' is not assignable to type '(as: SQL<unknown> | (() => SQL<unknown>) | T["data"], config?: Partial<GeneratedColumnConfig<unknown>>) => HasGenerated<this, { type: "always"; }>'.
+    Type 'HasGenerated<this, {}>' is not assignable to type 'HasGenerated<this, { type: "always"; }>'.
+      Type 'HasGenerated<this, {}>' is not assignable to type '{ _: { hasDefault: true; generated: { type: "always"; }; }; }'.
+        The types of '_.generated' are incompatible between these types.
+          Property 'type' is missing in type '{}' but required in type '{ type: "always"; }'.
+node_modules/drizzle-orm/singlestore-core/columns/float.d.ts(14,22): error TS2515: Non-abstract class 'SingleStoreFloatBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilderWithAutoIncrement<T, SingleStoreFloatConfig, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/int.d.ts(14,22): error TS2515: Non-abstract class 'SingleStoreIntBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilderWithAutoIncrement<T, SingleStoreIntConfig, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/json.d.ts(14,22): error TS2515: Non-abstract class 'SingleStoreJsonBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilder<T, object, object, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/mediumint.d.ts(15,22): error TS2515: Non-abstract class 'SingleStoreMediumIntBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilderWithAutoIncrement<T, SingleStoreIntConfig, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/real.d.ts(14,22): error TS2515: Non-abstract class 'SingleStoreRealBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilderWithAutoIncrement<T, SingleStoreRealConfig, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/serial.d.ts(14,22): error TS2515: Non-abstract class 'SingleStoreSerialBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilderWithAutoIncrement<T, object, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/smallint.d.ts(15,22): error TS2515: Non-abstract class 'SingleStoreSmallIntBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilderWithAutoIncrement<T, SingleStoreIntConfig, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/text.d.ts(16,22): error TS2515: Non-abstract class 'SingleStoreTextBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilder<T, { textType: SingleStoreTextColumnType; enumValues: T["enumValues"]; }, object, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/time.d.ts(14,22): error TS2515: Non-abstract class 'SingleStoreTimeBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilder<T, object, object, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/timestamp.d.ts(15,22): error TS2515: Non-abstract class 'SingleStoreTimestampBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreDateColumnBaseBuilder<T, SingleStoreTimestampConfig<"string" | "date">, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/timestamp.d.ts(35,22): error TS2515: Non-abstract class 'SingleStoreTimestampStringBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreDateColumnBaseBuilder<T, SingleStoreTimestampConfig<"string" | "date">, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/tinyint.d.ts(15,22): error TS2515: Non-abstract class 'SingleStoreTinyIntBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilderWithAutoIncrement<T, SingleStoreIntConfig, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/varbinary.d.ts(14,22): error TS2515: Non-abstract class 'SingleStoreVarBinaryBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilder<T, SingleStoreVarbinaryOptions, object, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/varchar.d.ts(16,22): error TS2515: Non-abstract class 'SingleStoreVarCharBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilder<T, SingleStoreVarCharConfig<T["enumValues"], T["length"]>, { length: T["length"]; }, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/vector.d.ts(13,22): error TS2515: Non-abstract class 'SingleStoreVectorBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilder<T, SingleStoreVectorConfig, object, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/columns/year.d.ts(14,22): error TS2515: Non-abstract class 'SingleStoreYearBuilder<T>' does not implement inherited abstract member generatedAlwaysAs from class 'SingleStoreColumnBuilder<T, object, object, ColumnBuilderExtraConfig>'.
+node_modules/drizzle-orm/singlestore-core/db.d.ts(1,38): error TS2307: Cannot find module 'mysql2/promise' or its corresponding type declarations.
+node_modules/drizzle-orm/singlestore-core/query-builders/delete.d.ts(36,22): error TS2420: Class 'SingleStoreDeleteBase<TTable, TQueryResult, TPreparedQueryHKT, TDynamic, TExcludedMethods>' incorrectly implements interface 'SQLWrapper'.
+  Property 'getSQL' is missing in type 'SingleStoreDeleteBase<TTable, TQueryResult, TPreparedQueryHKT, TDynamic, TExcludedMethods>' but required in type 'SQLWrapper'.
+node_modules/drizzle-orm/singlestore-core/query-builders/select.d.ts(268,262): error TS2344: Type 'string' does not satisfy the constraint 'keyof this & string'.
+  Type 'string' is not assignable to type 'keyof this & string'.
+    Type 'string' is not assignable to type 'keyof this'.
+      Type '"session"' is not assignable to type '"offset" | "intersect" | "as" | "_" | "where" | "groupBy" | "getSQL" | "union" | "except" | "for" | "orderBy" | "limit" | "leftJoin" | "rightJoin" | "innerJoin" | "fullJoin" | "toSQL" | ... 7 more ... | "minus"'.
+node_modules/drizzle-orm/singlestore-core/query-builders/select.d.ts(294,265): error TS2344: Type 'string' does not satisfy the constraint 'keyof this & string'.
+  Type 'string' is not assignable to type 'keyof this & string'.
+    Type 'string' is not assignable to type 'keyof this'.
+      Type '"session"' is not assignable to type '"offset" | "intersect" | "as" | "_" | "where" | "groupBy" | "getSQL" | "union" | "except" | "for" | "orderBy" | "limit" | "leftJoin" | "rightJoin" | "innerJoin" | "fullJoin" | "toSQL" | ... 7 more ... | "minus"'.
+node_modules/drizzle-orm/singlestore-core/query-builders/select.d.ts(320,266): error TS2344: Type 'string' does not satisfy the constraint 'keyof this & string'.
+  Type 'string' is not assignable to type 'keyof this & string'.
+    Type 'string' is not assignable to type 'keyof this'.
+      Type '"session"' is not assignable to type '"offset" | "intersect" | "as" | "_" | "where" | "groupBy" | "getSQL" | "union" | "except" | "for" | "orderBy" | "limit" | "leftJoin" | "rightJoin" | "innerJoin" | "fullJoin" | "toSQL" | ... 7 more ... | "minus"'.
+node_modules/drizzle-orm/singlestore-core/query-builders/select.d.ts(346,263): error TS2344: Type 'string' does not satisfy the constraint 'keyof this & string'.
+  Type 'string' is not assignable to type 'keyof this & string'.
+    Type 'string' is not assignable to type 'keyof this'.
+      Type '"session"' is not assignable to type '"offset" | "intersect" | "as" | "_" | "where" | "groupBy" | "getSQL" | "union" | "except" | "for" | "orderBy" | "limit" | "leftJoin" | "rightJoin" | "innerJoin" | "fullJoin" | "toSQL" | ... 7 more ... | "minus"'.
+node_modules/drizzle-orm/singlestore-core/query-builders/select.d.ts(370,262): error TS2344: Type 'string' does not satisfy the constraint 'keyof this & string'.
+  Type 'string' is not assignable to type 'keyof this & string'.
+    Type 'string' is not assignable to type 'keyof this'.
+      Type '"session"' is not assignable to type '"offset" | "intersect" | "as" | "_" | "where" | "groupBy" | "getSQL" | "union" | "except" | "for" | "orderBy" | "limit" | "leftJoin" | "rightJoin" | "innerJoin" | "fullJoin" | "toSQL" | ... 7 more ... | "minus"'.
+node_modules/drizzle-orm/singlestore-core/query-builders/select.d.ts(520,22): error TS2515: Non-abstract class 'SingleStoreSelectBase<TTableName, TSelection, TSelectMode, TPreparedQueryHKT, TNullabilityMap, TDynamic, TExcludedMethods, TResult, TSelectedFields>' does not implement inherited abstract member getSQL from class 'SingleStoreSelectQueryBuilderBase<SingleStoreSelectHKT, TTableName, TSelection, TSelectMode, TPreparedQueryHKT, TNullabilityMap, TDynamic, TExcludedMethods, TResult, TSelectedFields>'.
+node_modules/drizzle-orm/singlestore-core/query-builders/select.types.d.ts(130,1185): error TS2344: Type 'SingleStoreSetOperatorExcludedMethods' does not satisfy the constraint '"offset" | "intersect" | "as" | "execute" | "_" | "then" | "where" | "groupBy" | "getSQL" | "union" | "except" | "for" | "orderBy" | "limit" | "leftJoin" | "rightJoin" | "innerJoin" | ... 14 more ... | "minus"'.
+  Type '"session"' is not assignable to type '"offset" | "intersect" | "as" | "execute" | "_" | "then" | "where" | "groupBy" | "getSQL" | "union" | "except" | "for" | "orderBy" | "limit" | "leftJoin" | "rightJoin" | "innerJoin" | ... 14 more ... | "minus"'.
+node_modules/drizzle-orm/singlestore/driver.d.ts(1,100): error TS2307: Cannot find module 'mysql2' or its corresponding type declarations.
+node_modules/drizzle-orm/singlestore/driver.d.ts(2,39): error TS2307: Cannot find module 'mysql2/promise' or its corresponding type declarations.
+node_modules/drizzle-orm/singlestore/session.d.ts(1,94): error TS2307: Cannot find module 'mysql2/promise' or its corresponding type declarations.
+node_modules/drizzle-orm/sqlite-core/query-builders/query.d.ts(25,22): error TS2420: Class 'SQLiteRelationalQuery<TType, TResult>' incorrectly implements interface 'SQLWrapper'.
+  Property 'getSQL' is missing in type 'SQLiteRelationalQuery<TType, TResult>' but required in type 'SQLWrapper'.
+node_modules/drizzle-orm/sqlite-core/query-builders/select.d.ts(233,247): error TS2344: Type 'string' does not satisfy the constraint 'keyof this & string'.
+  Type 'string' is not assignable to type 'keyof this & string'.
+    Type 'string' is not assignable to type 'keyof this'.
+      Type '"config"' is not assignable to type '"offset" | "intersect" | "as" | "_" | "where" | "groupBy" | "getSQL" | "union" | "except" | "orderBy" | "limit" | "leftJoin" | "rightJoin" | "innerJoin" | "fullJoin" | "toSQL" | "$dynamic" | "having" | "crossJoin" | "unionAll"'.
+node_modules/drizzle-orm/sqlite-core/query-builders/select.d.ts(259,250): error TS2344: Type 'string' does not satisfy the constraint 'keyof this & string'.
+  Type 'string' is not assignable to type 'keyof this & string'.
+    Type 'string' is not assignable to type 'keyof this'.
+      Type '"config"' is not assignable to type '"offset" | "intersect" | "as" | "_" | "where" | "groupBy" | "getSQL" | "union" | "except" | "orderBy" | "limit" | "leftJoin" | "rightJoin" | "innerJoin" | "fullJoin" | "toSQL" | "$dynamic" | "having" | "crossJoin" | "unionAll"'.
+node_modules/drizzle-orm/sqlite-core/query-builders/select.d.ts(285,251): error TS2344: Type 'string' does not satisfy the constraint 'keyof this & string'.
+  Type 'string' is not assignable to type 'keyof this & string'.
+    Type 'string' is not assignable to type 'keyof this'.
+      Type '"config"' is not assignable to type '"offset" | "intersect" | "as" | "_" | "where" | "groupBy" | "getSQL" | "union" | "except" | "orderBy" | "limit" | "leftJoin" | "rightJoin" | "innerJoin" | "fullJoin" | "toSQL" | "$dynamic" | "having" | "crossJoin" | "unionAll"'.
+node_modules/drizzle-orm/sqlite-core/query-builders/select.d.ts(311,248): error TS2344: Type 'string' does not satisfy the constraint 'keyof this & string'.
+  Type 'string' is not assignable to type 'keyof this & string'.
+    Type 'string' is not assignable to type 'keyof this'.
+      Type '"config"' is not assignable to type '"offset" | "intersect" | "as" | "_" | "where" | "groupBy" | "getSQL" | "union" | "except" | "orderBy" | "limit" | "leftJoin" | "rightJoin" | "innerJoin" | "fullJoin" | "toSQL" | "$dynamic" | "having" | "crossJoin" | "unionAll"'.
+node_modules/drizzle-orm/sqlite-core/query-builders/select.d.ts(452,22): error TS2515: Non-abstract class 'SQLiteSelectBase<TTableName, TResultType, TRunResult, TSelection, TSelectMode, TNullabilityMap, TDynamic, TExcludedMethods, TResult, TSelectedFields>' does not implement inherited abstract member getSQL from class 'SQLiteSelectQueryBuilderBase<SQLiteSelectHKT, TTableName, TResultType, TRunResult, TSelection, TSelectMode, TNullabilityMap, TDynamic, TExcludedMethods, TResult, TSelectedFields>'.
+node_modules/drizzle-orm/sqlite-core/query-builders/select.types.d.ts(123,1157): error TS2344: Type 'SQLiteSetOperatorExcludedMethods' does not satisfy the constraint '"values" | "all" | "offset" | "intersect" | "as" | "execute" | "get" | "_" | "then" | "where" | "groupBy" | "getSQL" | "union" | "except" | "orderBy" | "limit" | "leftJoin" | "rightJoin" | ... 11 more ... | "run"'.
+  Type '"config"' is not assignable to type '"values" | "all" | "offset" | "intersect" | "as" | "execute" | "get" | "_" | "then" | "where" | "groupBy" | "getSQL" | "union" | "except" | "orderBy" | "limit" | "leftJoin" | "rightJoin" | ... 11 more ... | "run"'.
+node_modules/next/dist/build/webpack/loaders/next-app-loader/index.d.ts(1,13): error TS2613: Module '"next/dist/compiled/webpack/webpack"' has no default export. Did you mean to use 'import { webpack } from "next/dist/compiled/webpack/webpack"' instead?
+node_modules/next/dist/client/components/error-boundary.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/client/components/http-access-fallback/error-boundary.d.ts(11,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/client/components/layout-router.d.ts(2,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/client/image-component.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/client/link.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/client/script.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/client/with-router.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/export/types.d.ts(5,13): error TS1192: Module '"next/dist/compiled/amphtml-validator"' has no default export.
+node_modules/next/dist/lib/metadata/metadata.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/next-devtools/userspace/pages/pages-dev-overlay-setup.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/pages/_app.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/pages/_document.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/pages/_error.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/server/app-render/types.d.ts(11,8): error TS1192: Module '"next/dist/compiled/superstruct"' has no default export.
+node_modules/next/dist/server/web/spec-extension/adapters/headers.d.ts(39,16): error TS2304: Cannot find name 'HeadersIterator'.
+node_modules/next/dist/server/web/spec-extension/adapters/headers.d.ts(40,13): error TS2304: Cannot find name 'HeadersIterator'.
+node_modules/next/dist/server/web/spec-extension/adapters/headers.d.ts(41,15): error TS2304: Cannot find name 'HeadersIterator'.
+node_modules/next/dist/server/web/spec-extension/adapters/headers.d.ts(42,26): error TS2304: Cannot find name 'HeadersIterator'.
+node_modules/next/dist/shared/lib/amp-context.shared-runtime.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/shared/lib/app-router-context.shared-runtime.d.ts(4,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/shared/lib/dynamic.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/shared/lib/head-manager-context.shared-runtime.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/shared/lib/head.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/shared/lib/image-config-context.shared-runtime.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/shared/lib/loadable-context.shared-runtime.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/shared/lib/loadable.shared-runtime.d.ts(21,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/shared/lib/router-context.shared-runtime.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/shared/lib/server-inserted-html.shared-runtime.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/shared/lib/utils.d.ts(10,13): error TS1192: Module '"fs"' has no default export.
+node_modules/next/dist/styled-jsx/types/global.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/next/dist/types.d.ts(8,13): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/payload/dist/admin/elements/WithServerSideProps.d.ts(1,13): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/payload/dist/admin/fields/Blocks.d.ts(1,13): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/payload/dist/admin/fields/Text.d.ts(1,13): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/payload/dist/admin/fields/Textarea.d.ts(1,13): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/payload/dist/admin/types.d.ts(2,13): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/payload/dist/auth/operations/forgotPassword.d.ts(8,9): error TS2536: Type '"forgotPassword"' cannot be used to index type 'AuthOperationsFromCollectionSlug<TSlug>'.
+node_modules/payload/dist/auth/operations/local/login.d.ts(7,11): error TS2536: Type '"login"' cannot be used to index type 'AuthOperationsFromCollectionSlug<TSlug>'.
+node_modules/payload/dist/auth/operations/local/unlock.d.ts(6,11): error TS2536: Type '"unlock"' cannot be used to index type 'AuthOperationsFromCollectionSlug<TSlug>'.
+node_modules/payload/dist/auth/operations/login.d.ts(11,11): error TS2536: Type '"login"' cannot be used to index type 'AuthOperationsFromCollectionSlug<TSlug>'.
+node_modules/payload/dist/auth/operations/registerFirstUser.d.ts(6,11): error TS2536: Type '"registerFirstUser"' cannot be used to index type 'AuthOperationsFromCollectionSlug<TSlug>'.
+node_modules/payload/dist/auth/operations/unlock.d.ts(6,11): error TS2536: Type '"unlock"' cannot be used to index type 'AuthOperationsFromCollectionSlug<TSlug>'.
+node_modules/payload/dist/collections/config/types.d.ts(18,78): error TS2536: Type 'TSlug' cannot be used to index type '{ users: UserAuthOperations; }'.
+node_modules/payload/dist/collections/config/types.d.ts(36,76): error TS2344: Type 'string' does not satisfy the constraint 'CollectionSlug'.
+node_modules/payload/dist/collections/config/types.d.ts(120,75): error TS2344: Type 'string' does not satisfy the constraint 'CollectionSlug'.
+node_modules/payload/dist/collections/dataloader.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/dataloader/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/payload/dist/collections/operations/create.d.ts(22,199): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/delete.d.ts(17,182): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/duplicate.d.ts(10,202): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/find.d.ts(25,204): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/findByID.d.ts(26,248): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/create.d.ts(106,158): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/create.d.ts(106,214): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/delete.d.ts(84,24): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/delete.d.ts(94,24): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/delete.d.ts(96,211): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/delete.d.ts(97,201): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/delete.d.ts(98,197): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/delete.d.ts(98,245): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/duplicate.d.ts(81,161): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/duplicate.d.ts(81,217): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/find.d.ts(117,20): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/find.d.ts(119,47): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/find.d.ts(119,95): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/find.d.ts(119,143): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/findByID.d.ts(99,208): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/findByID.d.ts(99,283): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/update.d.ts(126,24): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/update.d.ts(146,24): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/update.d.ts(148,211): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/update.d.ts(149,201): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/update.d.ts(150,197): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/local/update.d.ts(150,245): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/update.d.ts(31,189): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/updateByID.d.ts(24,216): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/collections/operations/utilities/types.d.ts(26,63): error TS2344: Type 'SelectFromCollectionSlug<TOperationGeneric>' does not satisfy the constraint 'SelectType'.
+  Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+        Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+          Type 'SelectFromCollectionSlug<TOperationGeneric>' is not assignable to type 'SelectIncludeType'.
+            Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/config/types.d.ts(3,13): error TS1192: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/graphql/index"' has no default export.
+node_modules/payload/dist/config/types.d.ts(8,13): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/payload/dist/config/types.d.ts(9,26): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/sharp/lib/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/payload/dist/email/types.d.ts(1,67): error TS2307: Cannot find module 'nodemailer' or its corresponding type declarations.
+node_modules/payload/dist/fields/config/types.d.ts(4,13): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/payload/dist/globals/config/types.d.ts(144,53): error TS2344: Type 'any' does not satisfy the constraint 'never'.
+node_modules/payload/dist/index.d.ts(203,26): error TS2339: Property 'payload-jobs' does not exist on type '{ users: User; media: Media; competitions: Competition; feedback: Feedback; 'membership-tiers': MembershipTier; 'user-memberships': UserMembership; ... 7 more ...; 'payload-migrations': PayloadMigration; }'.
+node_modules/payload/dist/index.d.ts(247,123): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/index.d.ts(247,181): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/index.d.ts(252,129): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/index.d.ts(252,187): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/index.d.ts(267,28): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/index.d.ts(269,51): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/index.d.ts(269,99): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/index.d.ts(269,147): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/index.d.ts(275,175): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/index.d.ts(275,252): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/index.d.ts(319,60): error TS2339: Property 'input' does not exist on type '{}'.
+node_modules/payload/dist/index.d.ts(328,64): error TS2339: Property 'input' does not exist on type '{}'.
+node_modules/payload/dist/index.d.ts(419,181): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/index.d.ts(420,171): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/index.d.ts(426,171): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/index.d.ts(432,181): error TS2344: Type 'TSelect' does not satisfy the constraint 'SelectType'.
+  Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectType'.
+    Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectType'.
+      Type 'FeedbackSelect<false>' is not assignable to type 'SelectType'.
+        Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+          Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+            Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+              Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                  Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+                    Type 'TSelect' is not assignable to type 'SelectIncludeType'.
+                      Type 'SelectFromCollectionSlug<TSlug>' is not assignable to type 'SelectIncludeType'.
+                        Type 'FeedbackSelect<false> | FeedbackSelect<true> | MatchesSelect<false> | MatchesSelect<true> | MediaSelect<false> | ... 22 more ... | PayloadMigrationsSelect<...>' is not assignable to type 'SelectIncludeType'.
+                          Type 'FeedbackSelect<false>' is not assignable to type 'SelectIncludeType'.
+                            Index signature for type 'string' is missing in type 'FeedbackSelect<false>'.
+node_modules/payload/dist/index.d.ts(458,18): error TS2430: Interface 'DatabaseAdapter' incorrectly extends interface 'Omit<Args, "logger" | "migrationDir" | "idType" | "pool">'.
+  Types of property 'extensions' are incompatible.
+    Type 'Record<string, boolean>' is missing the following properties from type 'string[]': length, pop, push, concat, and 29 more.
+node_modules/payload/dist/index.d.ts(647,33): error TS2307: Cannot find module '@payloadcms/translations/utilities' or its corresponding type declarations.
+  There are types at '/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@payloadcms/translations/dist/exports/utilities.d.ts', but this result could not be resolved under your current 'moduleResolution' setting. Consider updating to 'node16', 'nodenext', or 'bundler'.
+node_modules/payload/dist/queues/config/global.d.ts(15,26): error TS1268: An index signature parameter type must be 'string', 'number', 'symbol', or a template literal type.
+node_modules/payload/dist/queues/config/global.d.ts(20,26): error TS1268: An index signature parameter type must be 'string', 'number', 'symbol', or a template literal type.
+node_modules/payload/dist/queues/config/types/taskTypes.d.ts(18,114): error TS2339: Property 'output' does not exist on type '{}'.
+node_modules/payload/dist/queues/config/types/taskTypes.d.ts(21,157): error TS2344: Type 'string' does not satisfy the constraint 'never'.
+node_modules/payload/dist/queues/config/types/taskTypes.d.ts(26,113): error TS2339: Property 'input' does not exist on type '{}'.
+node_modules/payload/dist/queues/config/types/taskTypes.d.ts(38,153): error TS2344: Type 'string' does not satisfy the constraint 'never'.
+node_modules/payload/dist/queues/config/types/taskTypes.d.ts(43,83): error TS2339: Property 'input' does not exist on type '{}'.
+node_modules/payload/dist/queues/config/types/taskTypes.d.ts(44,84): error TS2339: Property 'output' does not exist on type '{}'.
+node_modules/payload/dist/queues/config/types/taskTypes.d.ts(102,41): error TS2344: Type 'string' does not satisfy the constraint 'never'.
+node_modules/payload/dist/queues/config/types/taskTypes.d.ts(105,34): error TS2344: Type 'string' does not satisfy the constraint 'never'.
+node_modules/payload/dist/queues/config/types/taskTypes.d.ts(170,138): error TS2339: Property 'input' does not exist on type '{}'.
+node_modules/payload/dist/queues/config/types/workflowJSONTypes.d.ts(22,139): error TS2339: Property 'input' does not exist on type '{}'.
+node_modules/payload/dist/queues/config/types/workflowJSONTypes.d.ts(26,41): error TS2339: Property 'input' does not exist on type '{}'.
+node_modules/payload/dist/queues/config/types/workflowTypes.d.ts(38,163): error TS2339: Property 'input' does not exist on type '{}'.
+node_modules/payload/dist/queues/config/types/workflowTypes.d.ts(64,117): error TS2339: Property 'input' does not exist on type '{}'.
+node_modules/payload/dist/queues/config/types/workflowTypes.d.ts(66,26): error TS2339: Property 'payload-jobs' does not exist on type '{ users: User; media: Media; competitions: Competition; feedback: Feedback; 'membership-tiers': MembershipTier; 'user-memberships': UserMembership; ... 7 more ...; 'payload-migrations': PayloadMigration; }'.
+node_modules/payload/dist/queues/config/types/workflowTypes.d.ts(72,21): error TS2339: Property 'payload-jobs' does not exist on type '{ users: User; media: Media; competitions: Competition; feedback: Feedback; 'membership-tiers': MembershipTier; 'user-memberships': UserMembership; ... 7 more ...; 'payload-migrations': PayloadMigration; }'.
+node_modules/payload/dist/queues/config/types/workflowTypes.d.ts(74,42): error TS2339: Property 'input' does not exist on type '{}'.
+node_modules/payload/dist/queues/config/types/workflowTypes.d.ts(75,21): error TS2339: Property 'payload-jobs' does not exist on type '{ users: User; media: Media; competitions: Competition; feedback: Feedback; 'membership-tiers': MembershipTier; 'user-memberships': UserMembership; ... 7 more ...; 'payload-migrations': PayloadMigration; }'.
+node_modules/payload/dist/queues/config/types/workflowTypes.d.ts(135,188): error TS2339: Property 'input' does not exist on type '{}'.
+node_modules/payload/dist/queues/config/types/workflowTypes.d.ts(143,76): error TS2344: Type 'TWorkflowSlugOrInput extends object ? string : TWorkflowSlugOrInput' does not satisfy the constraint 'false'.
+  Type 'string | false' is not assignable to type 'false'.
+    Type 'string' is not assignable to type 'false'.
+node_modules/payload/dist/queues/errors/index.d.ts(12,29): error TS2344: Type 'string' does not satisfy the constraint 'TaskInputOutput'.
+node_modules/payload/dist/queues/errors/index.d.ts(15,41): error TS2344: Type 'string' does not satisfy the constraint 'never'.
+node_modules/payload/dist/queues/localAPI.d.ts(27,56): error TS2339: Property 'input' does not exist on type '{}'.
+node_modules/payload/dist/queues/localAPI.d.ts(50,60): error TS2339: Property 'input' does not exist on type '{}'.
+node_modules/payload/dist/queues/operations/runJobs/runJob/importHandlerPath.d.ts(11,96): error TS2344: Type 'string' does not satisfy the constraint 'TaskInputOutput'.
+node_modules/payload/dist/types/index.d.ts(2,13): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/dataloader/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/payload/dist/types/index.d.ts(126,54): error TS2344: Type 'string' does not satisfy the constraint 'CollectionSlug'.
+node_modules/payload/dist/types/index.d.ts(126,64): error TS2536: Type 'TSlug' cannot be used to index type '{}'.
+node_modules/payload/dist/types/index.d.ts(127,17): error TS2536: Type 'TSlug' cannot be used to index type '{}'.
+node_modules/payload/dist/utilities/deepMerge.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/deepmerge/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/calendar.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/calendar.d.ts(79,34): error TS2339: Property 'onYearMouseEnter' does not exist on type 'YearProps'.
+node_modules/react-datepicker/dist/calendar.d.ts(80,34): error TS2339: Property 'onYearMouseLeave' does not exist on type 'YearProps'.
+node_modules/react-datepicker/dist/calendar.d.ts(81,39): error TS2339: Property 'ariaLabelPrefix' does not exist on type 'MonthProps'.
+node_modules/react-datepicker/dist/calendar.d.ts(82,37): error TS2339: Property 'handleOnKeyDown' does not exist on type 'MonthProps'.
+node_modules/react-datepicker/dist/calendar.d.ts(84,30): error TS2339: Property 'onChange' does not exist on type 'TimeProps'.
+node_modules/react-datepicker/dist/calendar.d.ts(84,59): error TS2339: Property 'onChange' does not exist on type 'InputTimeProps'.
+node_modules/react-datepicker/dist/calendar.d.ts(85,28): error TS2339: Property 'format' does not exist on type 'TimeProps'.
+node_modules/react-datepicker/dist/calendar.d.ts(86,31): error TS2339: Property 'intervals' does not exist on type 'TimeProps'.
+node_modules/react-datepicker/dist/calendar.d.ts(89,34): error TS2344: Type '"minDate" | "maxDate"' does not satisfy the constraint 'never'.
+  Type '"minDate"' is not assignable to type 'never'.
+node_modules/react-datepicker/dist/calendar.d.ts(91,29): error TS2344: Type '"minDate" | "maxDate"' does not satisfy the constraint 'never'.
+  Type '"minDate"' is not assignable to type 'never'.
+node_modules/react-datepicker/dist/calendar.d.ts(91,70): error TS2344: Type '"minDate" | "maxDate"' does not satisfy the constraint 'never'.
+  Type '"minDate"' is not assignable to type 'never'.
+node_modules/react-datepicker/dist/calendar.d.ts(91,112): error TS2344: Type '"minDate" | "maxDate"' does not satisfy the constraint 'never'.
+  Type '"minDate"' is not assignable to type 'never'.
+node_modules/react-datepicker/dist/calendar.d.ts(92,49): error TS2344: Type '"selectingDate"' does not satisfy the constraint 'never'.
+node_modules/react-datepicker/dist/calendar.d.ts(92,84): error TS2344: Type '"selectingDate"' does not satisfy the constraint 'never'.
+node_modules/react-datepicker/dist/calendar.d.ts(93,31): error TS2339: Property 'date' does not exist on type 'Required<YearProps>'.
+node_modules/react-datepicker/dist/calendar.d.ts(94,31): error TS2339: Property 'monthRef' does not exist on type 'TimeProps'.
+node_modules/react-datepicker/dist/calendar_container.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/calendar_icon.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/click_outside_wrapper.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/day.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/index.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/index.d.ts(23,463): error TS2344: Type '"icon"' does not satisfy the constraint 'never'.
+node_modules/react-datepicker/dist/index.d.ts(29,44): error TS2339: Property 'className' does not exist on type 'PopperComponentProps'.
+node_modules/react-datepicker/dist/index.d.ts(30,44): error TS2339: Property 'showArrow' does not exist on type 'PopperComponentProps'.
+node_modules/react-datepicker/dist/input_time.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/month.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/month.d.ts(24,33): error TS2339: Property 'showWeekNumber' does not exist on type 'WeekProps'.
+node_modules/react-datepicker/dist/month.d.ts(30,37): error TS2339: Property 'ariaLabelPrefix' does not exist on type 'WeekProps'.
+node_modules/react-datepicker/dist/month.d.ts(31,42): error TS2339: Property 'chooseDayAriaLabelPrefix' does not exist on type 'WeekProps'.
+node_modules/react-datepicker/dist/month.d.ts(32,44): error TS2339: Property 'disabledDayAriaLabelPrefix' does not exist on type 'WeekProps'.
+node_modules/react-datepicker/dist/month_dropdown.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/month_dropdown_options.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/month_year_dropdown.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/month_year_dropdown_options.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/popper_component.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/portal.d.ts(2,13): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/tab_loop.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/time.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/week.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/week.d.ts(10,41): error TS2339: Property 'ariaLabelPrefixWhenEnabled' does not exist on type 'DayProps'.
+node_modules/react-datepicker/dist/week.d.ts(11,43): error TS2339: Property 'ariaLabelPrefixWhenDisabled' does not exist on type 'DayProps'.
+node_modules/react-datepicker/dist/week_number.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/with_floating.d.ts(2,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/year.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/year_dropdown.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/react-datepicker/dist/year_dropdown_options.d.ts(1,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+node_modules/use-intl/core.d.ts(2,15): error TS2846: A declaration file cannot be imported without 'import type'. Did you mean to import an implementation file './dist/types/core' instead?
+node_modules/use-intl/dist/types/core/createFormatter.d.ts(35,148): error TS2694: Namespace 'Intl' has no exported member 'ListFormatOptions'.
+node_modules/use-intl/dist/types/core/createFormatter.d.ts(36,178): error TS2694: Namespace 'Intl' has no exported member 'ListFormatOptions'.
+node_modules/use-intl/dist/types/core/Formats.d.ts(6,32): error TS2694: Namespace 'Intl' has no exported member 'ListFormatOptions'.
+node_modules/use-intl/dist/types/core/formatters.d.ts(8,31): error TS2694: Namespace 'Intl' has no exported member 'ListFormat'.
+node_modules/use-intl/dist/types/core/formatters.d.ts(18,62): error TS2339: Property 'ListFormat' does not exist on type 'typeof Intl'.
+node_modules/use-intl/dist/types/core/formatters.d.ts(18,81): error TS2694: Namespace 'Intl' has no exported member 'ListFormat'.
+node_modules/use-intl/react.d.ts(2,15): error TS2846: A declaration file cannot be imported without 'import type'. Did you mean to import an implementation file './dist/types/react' instead?
+src/features/lobby/components/LobbyView.tsx(3,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/@types/react/index"' can only be default-imported using the 'esModuleInterop' flag
+src/features/lobby/components/LobbyView.tsx(4,40): error TS2307: Cannot find module '@/payload-types' or its corresponding type declarations.
+src/features/lobby/components/LobbyView.tsx(5,33): error TS2307: Cannot find module '@/i18n/routing' or its corresponding type declarations.
+src/features/lobby/components/LobbyView.tsx(6,30): error TS2307: Cannot find module '@/components/ui/IceGlassCard' or its corresponding type declarations.
+src/features/lobby/components/LobbyView.tsx(8,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+src/features/lobby/components/LobbyView.tsx(9,24): error TS2307: Cannot find module '@/components/ui/Button' or its corresponding type declarations.
+src/features/lobby/components/LobbyView.tsx(10,38): error TS6142: Module './JoinCompetitionModal' was resolved to '/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/src/features/lobby/components/JoinCompetitionModal.tsx', but '--jsx' is not set.
+src/features/lobby/components/LobbyView.tsx(79,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(85,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(90,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(100,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(102,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(115,19): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(116,21): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(121,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(122,19): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(123,19): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(126,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(127,19): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(128,21): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(129,21): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(131,19): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(148,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(149,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(150,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(151,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(154,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(160,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(162,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(163,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(172,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(178,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/features/lobby/components/LobbyView.tsx(186,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/payload.config.ts(3,8): error TS1259: Module '"path"' can only be default-imported using the 'esModuleInterop' flag
+src/payload.config.ts(6,8): error TS1259: Module '"/Users/marian/Documents/work/apps/slapshot.club/slapshot-club-app/node_modules/sharp/lib/index"' can only be default-imported using the 'esModuleInterop' flag
+src/payload.config.ts(19,32): error TS1343: The 'import.meta' meta-property is only allowed when the '--module' option is 'es2020', 'es2022', 'esnext', 'system', 'node16', or 'nodenext'.

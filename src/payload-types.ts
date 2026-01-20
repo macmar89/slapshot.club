@@ -208,6 +208,10 @@ export interface Competition {
   slug?: string | null;
   banner?: (number | null) | Media;
   status: 'upcoming' | 'active' | 'finished';
+  /**
+   * Ak je zapnuté, používatelia sa môžu pridať do súťaže (aj keď je ešte len "upcoming").
+   */
+  isRegistrationOpen?: boolean | null;
   startDate: string;
   endDate: string;
   description: string;
@@ -551,6 +555,7 @@ export interface CompetitionsSelect<T extends boolean = true> {
   slug?: T;
   banner?: T;
   status?: T;
+  isRegistrationOpen?: T;
   startDate?: T;
   endDate?: T;
   description?: T;

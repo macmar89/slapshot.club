@@ -64,5 +64,25 @@
     "register": "Sign up",
     "email_placeholder": "name@example.com",
     "password_placeholder": "••••••••"
+  },
+  "Lobby": {
+    "title": "Welcome to Slapshot Club",
+    "welcome": "Welcome back, {username}. Choose your arena.",
+    "status": {
+      "active": "● Live",
+      "upcoming": "Upcoming",
+      "finished": "Finished"
+    },
+    "start_date": "Starts",
+    "enter_button": "ENTER",
+    "view_button": "VIEW RESULT",
+    "joined": "Joined",
+    "join_modal": {
+      "title": "Join Competition",
+      "description": "You are not joined in {competitionName}. Do you want to join?",
+      "cancel": "Cancel",
+      "confirm": "Join Now",
+      "joining": "Joining..."
+    }
   }
 }
