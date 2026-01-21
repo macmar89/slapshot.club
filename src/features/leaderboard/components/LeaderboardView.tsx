@@ -5,12 +5,12 @@ import type { Competition } from '@/payload-types'
 import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import { useTranslations } from 'next-intl'
 
-interface MatchesViewProps {
+interface LeaderboardViewProps {
   competition: Competition
 }
 
-export function MatchesView({ competition }: MatchesViewProps) {
-  const t = useTranslations('Dashboard.matches')
+export function LeaderboardView({ competition }: LeaderboardViewProps) {
+  const t = useTranslations('Dashboard.leaderboard')
 
   return (
     <div className="space-y-6">

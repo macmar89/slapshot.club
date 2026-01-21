@@ -14,11 +14,27 @@ import {
 import { cn } from '@/lib/utils'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/routing'
+import { useParams } from 'next/navigation'
 
 export function MobileTabNav() {
   const t = useTranslations('Dashboard.nav')
+  const params = useParams()
+  const slug = params?.slug as string | undefined
+
   const leftItems = dashboardConfig.sidebarNav.slice(0, 2)
   const rightItems = dashboardConfig.sidebarNav.slice(2, 4)
+
+  const getHref = (originalHref: string) => {
+    if (!slug) return originalHref
+
+    if (originalHref === '/dashboard') {
+      return `/dashboard/${slug}`
+    } else if (originalHref.startsWith('/dashboard/')) {
+      const subPath = originalHref.replace('/dashboard/', '')
+      return `/dashboard/${slug}/${subPath}`
+    }
+    return originalHref
+  }
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden">
@@ -31,7 +47,7 @@ export function MobileTabNav() {
           {leftItems.map((item) => (
             <Link
               key={item.href}
-              href={item.href as any}
+              href={getHref(item.href) as any}
               className="flex flex-col items-center gap-1.5 text-white/50 hover:text-white transition-colors"
             >
               <item.icon className="w-5 h-5" />
@@ -54,7 +70,7 @@ export function MobileTabNav() {
           {rightItems.map((item) => (
             <Link
               key={item.href}
-              href={item.href as any}
+              href={getHref(item.href) as any}
               className="flex flex-col items-center gap-1.5 text-white/50 hover:text-white transition-colors"
             >
               <item.icon className="w-5 h-5" />
@@ -81,7 +97,7 @@ export function MobileTabNav() {
                 {dashboardConfig.sidebarNav.map((item) => (
                   <Link
                     key={item.href}
-                    href={item.href as any}
+                    href={getHref(item.href) as any}
                     className="flex flex-col items-center gap-4 py-6 px-2 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 transition-all active:scale-95 group"
                   >
                     <item.icon className="w-8 h-8 text-primary group-hover:scale-110 transition-transform" />

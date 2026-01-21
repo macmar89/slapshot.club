@@ -21,6 +21,24 @@
       "description": "Here you can adjust your settings and customize the app.",
       "language_section": "App Language",
       "current_language": "Current language"
+    },
+    "status_label": "Status",
+    "teams_label": "Teams",
+    "start_date": "Start Date",
+    "end_date": "End Date",
+    "overview": "Competition Overview",
+    "overview_placeholder": "Here you'll see an overview of your recent tips and performance in this competition.",
+    "notifications": "Notifications",
+    "no_new_notifications": "No new notifications.",
+    "matches": {
+      "title": "Matches",
+      "description": "List of all matches in this competition.",
+      "empty_state": "No matches scheduled yet."
+    },
+    "leaderboard": {
+      "title": "Leaderboard",
+      "description": "Current player standings in the competition.",
+      "empty_state": "Leaderboard will be available after the competition starts."
     }
   },
   "Login": {
@@ -85,6 +103,14 @@
       "cancel": "Cancel",
       "confirm": "Join Now",
       "joining": "Joining..."
-    }
+    },
+    "rules": "Rules",
+    "settings": "Settings"
+  },
+  "NotFound": {
+    "title": "Icing!",
+    "subtitle": "REF CALLED AN OFFSIDE",
+    "description": "The puck got lost somewhere in the corner and your attack ended before it even started. This page isn't on the roster.",
+    "button": "BACK TO LOCKER ROOM (LOBBY)"
   }
 }

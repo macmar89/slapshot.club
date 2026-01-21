@@ -21,6 +21,24 @@
       "description": "Tu si môžeš upraviť svoje nastavenia a prispôsobiť aplikáciu.",
       "language_section": "Jazyk aplikácie",
       "current_language": "Aktuálny jazyk"
+    },
+    "status_label": "Stav",
+    "teams_label": "Tímy",
+    "start_date": "Začiatok",
+    "end_date": "Koniec",
+    "overview": "Prehľad súťaže",
+    "overview_placeholder": "Tu uvidíš prehľad tvojich posledných tipov a výkonov v tejto súťaži.",
+    "notifications": "Oznámenia",
+    "no_new_notifications": "Žiadne nové oznámenia.",
+    "matches": {
+      "title": "Zápasy",
+      "description": "Zoznam všetkých zápasov v tejto súťaži.",
+      "empty_state": "Zatiaľ nie sú naplánované žiadne zápasy."
+    },
+    "leaderboard": {
+      "title": "Rebríček",
+      "description": "Aktuálne poradie hráčov v súťaži.",
+      "empty_state": "Rebríček bude k dispozícii po začiatku súťaže."
     }
   },
   "Login": {
@@ -88,5 +106,11 @@
     },
     "rules": "Pravidlá",
     "settings": "Nastavenia"
+  },
+  "NotFound": {
+    "title": "Zakázané uvoľnenie!",
+    "subtitle": "ROZHODCA ODPÍSKAL OFFSIDE",
+    "description": "Puk sa nám niekde stratil v rohu klziska a tvoj útok skončil skôr, než začal. Táto stránka na súpiske nie je.",
+    "button": "NASPÄŤ DO ŠATNE (LOBBY)"
   }
 }

@@ -3,9 +3,9 @@ import { getPayload } from 'payload'
 import config from '@/payload.config'
 import { notFound } from 'next/navigation'
 import { setRequestLocale } from 'next-intl/server'
-import { DashboardView } from '@/features/dashboard/components/DashboardView'
+import { MatchesView } from '@/features/matches/components/MatchesView'
 
-export default async function CompetitionDashboard({
+export default async function CompetitionMatches({
   params,
 }: {
   params: Promise<{ locale: string; slug: string }>
@@ -31,5 +31,5 @@ export default async function CompetitionDashboard({
     notFound()
   }
 
-  return <DashboardView competition={competition} locale={locale} />
+  return <MatchesView competition={competition} />
 }
