@@ -1,0 +1,173 @@
+'use client'
+
+import React, { useState } from 'react'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from '@/components/ui/Dialog'
+import { Button } from '@/components/ui/Button'
+import type { Match, Team, Media, Prediction } from '@/payload-types'
+import { savePredictionAction } from '../actions'
+import Image from 'next/image'
+import { useTranslations } from 'next-intl'
+
+interface PredictionDialogProps {
+  match: Match | null
+  existingPrediction?: Prediction
+  isOpen: boolean
+  onClose: () => void
+  onSuccess: () => void
+}
+
+export function PredictionDialog({
+  match,
+  existingPrediction,
+  isOpen,
+  onClose,
+  onSuccess,
+}: PredictionDialogProps) {
+  const t = useTranslations('Dashboard.matches.dialog')
+  const [homeGoals, setHomeGoals] = useState<number>(existingPrediction?.homeGoals ?? 0)
+  const [awayGoals, setAwayGoals] = useState<number>(existingPrediction?.awayGoals ?? 0)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  if (!match) return null
+
+  const homeTeam = match.homeTeam as Team
+  const awayTeam = match.awayTeam as Team
+
+  const handleSave = async () => {
+    setIsSubmitting(true)
+    try {
+      await savePredictionAction({
+        matchId: match.id,
+        homeGoals,
+        awayGoals,
+      })
+      onSuccess()
+      onClose()
+    } catch (error) {
+      console.error('Failed to save prediction:', error)
+      alert('Chyba pri ukladaní tipu. Skús to znova.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const renderLogo = (team: Team) => (
+    <div className="w-16 h-16 rounded-xl overflow-hidden bg-white/5 border border-white/10 p-2 flex items-center justify-center">
+      {team.logo && typeof team.logo === 'object' ? (
+        <Image
+          src={(team.logo as Media).url || ''}
+          alt={team.name}
+          width={64}
+          height={64}
+          className="w-full h-full object-contain"
+        />
+      ) : (
+        <span className="text-xl font-black text-white/20">{team.shortName}</span>
+      )}
+    </div>
+  )
+
+  const ScoreInput = ({
+    value,
+    onChange,
+    team,
+  }: {
+    value: number
+    onChange: (v: number) => void
+    team: Team
+  }) => (
+    <div className="flex flex-col items-center gap-4 flex-1">
+      {renderLogo(team)}
+      <span className="text-[0.6rem] font-black uppercase tracking-widest text-white/40">
+        {team.shortName}
+      </span>
+      <div className="flex items-center gap-3">
+        <button
+          onClick={() => onChange(Math.max(0, value - 1))}
+          className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-xl font-bold transition-colors"
+        >
+          -
+        </button>
+        <div className="w-14 h-16 bg-white/10 rounded-2xl border border-white/20 flex items-center justify-center text-3xl font-black tracking-tighter">
+          {value}
+        </div>
+        <button
+          onClick={() => onChange(value + 1)}
+          className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-xl font-bold transition-colors"
+        >
+          +
+        </button>
+      </div>
+    </div>
+  )
+
+  return (
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="sm:max-w-[425px] bg-[#0c0f14]/95 backdrop-blur-3xl border-white/10 text-white rounded-[2rem] p-8 overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+        {/* Abstract Background Decoration */}
+        <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#eab308]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-[#eab308]/5 rounded-full blur-3xl pointer-events-none" />
+
+        <DialogHeader className="mb-8">
+          <DialogTitle className="text-center text-2xl font-black uppercase tracking-widest leading-tight">
+            {t('title')} <Trophy className="inline-block w-6 h-6 ml-2 text-[#eab308]" />
+          </DialogTitle>
+          <DialogDescription className="text-center text-white/40 text-xs font-bold uppercase tracking-widest mt-2">
+            {t('description')}
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="flex items-center gap-4 relative z-10 mb-8">
+          <ScoreInput value={homeGoals} onChange={setHomeGoals} team={homeTeam} />
+
+          <div className="text-white/20 text-4xl font-black italic items-center pt-8">:</div>
+
+          <ScoreInput value={awayGoals} onChange={setAwayGoals} team={awayTeam} />
+        </div>
+
+        <DialogFooter className="relative z-10 sm:justify-center">
+          <Button
+            onClick={handleSave}
+            disabled={isSubmitting}
+            variant="solid"
+            color="gold"
+            className="w-full py-6 rounded-2xl text-sm font-black uppercase tracking-[0.2em] shadow-[0_10px_30px_rgba(234,179,8,0.2)] hover:shadow-[0_15px_40px_rgba(234,179,8,0.3)] transition-all hover:-translate-y-1"
+          >
+            {isSubmitting ? t('loading') : existingPrediction ? t('update') : t('submit')}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+function Trophy(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+      <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+      <path d="M4 22h16" />
+      <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+      <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+      <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+    </svg>
+  )
+}

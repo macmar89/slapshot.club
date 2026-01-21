@@ -33,7 +33,25 @@
     "matches": {
       "title": "Zápasy",
       "description": "Zoznam všetkých zápasov v tejto súťaži.",
-      "empty_state": "Zatiaľ nie sú naplánované žiadne zápasy."
+      "empty_state": "Zatiaľ nie sú naplánované žiadne zápasy.",
+      "predict_button": "Natipovať",
+      "my_prediction": "Môj Tip",
+      "selected_day": "Vybraný Deň",
+      "no_matches_day": "Na tento deň nie sú naplánované žiadne zápasy",
+      "live": "Live",
+      "scheduled": "Naplánovaný",
+      "finished": "Ukončený",
+      "cancelled": "Zrušený",
+      "overtime_short": "PP",
+      "shootout_short": "SN",
+      "predictions_count": "{count, plural, one {# tip} few {# tipy} other {# tipov}}",
+      "dialog": {
+        "title": "Tvoj Tip",
+        "description": "Zadaj skóre po riadnom hracom čase",
+        "submit": "Potvrdiť Tip",
+        "update": "Aktualizovať Tip",
+        "loading": "Ukladám..."
+      }
     },
     "leaderboard": {
       "title": "Rebríček",

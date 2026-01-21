@@ -35,10 +35,10 @@ export const IceGlassCard = React.forwardRef<HTMLDivElement, IceGlassCardProps>(
           'relative overflow-hidden',
           // Shape & Size
           'rounded-md',
-          // Border
-          'border border-2 border-[#5d626d]',
+          // Border border border-2 border-[#5d626d],
+          'border border-[#5d626d]/30',
           // Background & Transparency
-          // 'bg-white/5', // Very subtle base
+          'bg-black/40', // Base background for contrast
           blurMap[props.backdropBlur || 'xs'], // Deep blur for the ice effect, customizable
           // Border & Bevel simulation
           // We use a combination of box-shadows to create the 3D ice block look
@@ -56,12 +56,9 @@ export const IceGlassCard = React.forwardRef<HTMLDivElement, IceGlassCardProps>(
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/90 pointer-events-none z-0" />
         )}
         {/* Content Container - ensures text is on top of the gradient */}
-        <div className={cn('relative z-10 text-white h-full', className)}>
-          {children}
-        </div>
+        <div className={cn('relative z-10 text-white h-full', className)}>{children}</div>
       </div>
     )
   },
 )
 IceGlassCard.displayName = 'IceGlassCard'
-

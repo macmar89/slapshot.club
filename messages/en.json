@@ -33,7 +33,25 @@
     "matches": {
       "title": "Matches",
       "description": "List of all matches in this competition.",
-      "empty_state": "No matches scheduled yet."
+      "empty_state": "No matches scheduled yet.",
+      "predict_button": "Predict",
+      "my_prediction": "My Prediction",
+      "selected_day": "Selected Day",
+      "no_matches_day": "No matches scheduled for this day",
+      "live": "Live",
+      "scheduled": "Scheduled",
+      "finished": "Finished",
+      "cancelled": "Cancelled",
+      "overtime_short": "OT",
+      "shootout_short": "SO",
+      "predictions_count": "{count, plural, one {# prediction} other {# predictions}}",
+      "dialog": {
+        "title": "Your Prediction",
+        "description": "Enter score after regulation time",
+        "submit": "Submit Prediction",
+        "update": "Update Prediction",
+        "loading": "Saving..."
+      }
     },
     "leaderboard": {
       "title": "Leaderboard",
