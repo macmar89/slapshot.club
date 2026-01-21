@@ -359,6 +359,24 @@ export interface Match {
      * Zvoľ, či zápas skončil po 60 minútach, v predĺžení alebo nájazdoch.
      */
     endingType: 'regular' | 'ot' | 'so';
+    /**
+     * Vyber fázu pre zobrazenie špecifických polí
+     */
+    stage_type: 'regular_season' | 'group_phase' | 'playoffs' | 'pre_season';
+    round_label?: string | null;
+    /**
+     * Číslo kola (39) alebo poradie v pavúku (1=osemfinále, 2=štvrťfinále...)
+     */
+    round_order?: number | null;
+    /**
+     * Zadaj len písmeno skupiny
+     */
+    group_name?: string | null;
+    series_game_number?: number | null;
+    /**
+     * Text pre tipujúcich, aby poznali kontext
+     */
+    series_state?: string | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -680,6 +698,12 @@ export interface MatchesSelect<T extends boolean = true> {
         homeScore?: T;
         awayScore?: T;
         endingType?: T;
+        stage_type?: T;
+        round_label?: T;
+        round_order?: T;
+        group_name?: T;
+        series_game_number?: T;
+        series_state?: T;
       };
   updatedAt?: T;
   createdAt?: T;

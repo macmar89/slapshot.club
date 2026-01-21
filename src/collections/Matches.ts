@@ -189,6 +189,91 @@ export const Matches: CollectionConfig = {
             width: '50%', // Aby to bolo pekne vedľa seba alebo pod skóre
           },
         },
+        {
+          name: 'stage_type',
+          type: 'select',
+          required: true,
+          defaultValue: 'regular_season',
+          label: 'Fáza súťaže',
+          options: [
+            { label: 'Základná časť (Liga)', value: 'regular_season' },
+            { label: 'Skupinová fáza (Turnaj)', value: 'group_phase' },
+            { label: 'Play-off / Vyraďovačka', value: 'playoffs' },
+            { label: 'Príprava', value: 'pre_season' },
+          ],
+          admin: {
+            position: 'sidebar', // Umiestnime to na bok, aby to nezavadzalo
+            description: 'Vyber fázu pre zobrazenie špecifických polí',
+          },
+        },
+
+        // 2. FÁZA A PORADIE (Spoločné pre väčšinu)
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'round_label',
+              type: 'text',
+              label: 'Názov kola / Fázy',
+              admin: {
+                width: '50%',
+                placeholder: 'napr. 39. kolo, Štvrťfinále, Skupina B',
+              },
+            },
+            {
+              name: 'round_order',
+              type: 'number',
+              label: 'Poradie (pre triedenie)',
+              admin: {
+                width: '50%',
+                description:
+                  'Číslo kola (39) alebo poradie v pavúku (1=osemfinále, 2=štvrťfinále...)',
+              },
+            },
+          ],
+        },
+
+        // 3. SKUPINA (Len pre Turnaje - MS, ZOH)
+        {
+          name: 'group_name',
+          type: 'text',
+          label: 'Názov skupiny',
+          admin: {
+            condition: (data) => data.stage_type === 'group_phase', // Zobrazí sa len pri "group_phase"
+            placeholder: 'A, B...',
+            description: 'Zadaj len písmeno skupiny',
+          },
+        },
+
+        // 4. PLAY-OFF SÉRIE (Len pre Play-off - NHL, Extraliga)
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'series_game_number',
+              type: 'number',
+              label: 'Číslo zápasu v sérii',
+              min: 1,
+              max: 7,
+              admin: {
+                condition: (data) => data.stage_type === 'playoffs', // Zobrazí sa len pri "playoffs"
+                width: '30%',
+                placeholder: 'napr. 4',
+              },
+            },
+            {
+              name: 'series_state',
+              type: 'text',
+              label: 'Stav série (Kontext)',
+              admin: {
+                condition: (data) => data.stage_type === 'playoffs', // Zobrazí sa len pri "playoffs"
+                width: '70%',
+                placeholder: 'napr. Stav série 2:1',
+                description: 'Text pre tipujúcich, aby poznali kontext',
+              },
+            },
+          ],
+        },
       ],
     },
   ],

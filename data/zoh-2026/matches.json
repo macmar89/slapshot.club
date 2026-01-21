@@ -1,0 +1,200 @@
+[
+  {
+    "date": "2026-02-11",
+    "time": "16:40",
+    "team1": "Slovensko",
+    "team2": "Fínsko",
+    "group": "Skupina B",
+    "id": "onrmmewe5pxnhajohgmffzvq",
+    "homeTeamId": "ky7x9r2m5k8l1n3p4q6s0t2v",
+    "awayTeamId": "q1w2e3r4t5y6u7i8o9p0a1s2",
+    "competitionId": "nuy2mhu5y0bptjed2r4dfwtm"
+  },
+  {
+    "date": "2026-02-11",
+    "time": "21:10",
+    "team1": "Švédsko",
+    "team2": "Taliansko",
+    "group": "Skupina B",
+    "id": "ijbc1qcu9b8wt725i4682f1l",
+    "homeTeamId": "mnbvcxzasdfghjklpoiuytre",
+    "awayTeamId": "pl0ok9ij8uh7yg6tf5rd4es3",
+    "competitionId": "nuy2mhu5y0bptjed2r4dfwtm"
+  },
+  {
+    "date": "2026-02-12",
+    "time": "12:10",
+    "team1": "Švajčiarsko",
+    "team2": "Francúzsko",
+    "group": "Skupina A",
+    "id": "drkr9kybfntv34qbtcvnx5dz",
+    "homeTeamId": "1qaz2wsx3edc4rfv5tgb6yhn",
+    "awayTeamId": "fq521qu6u08tpdsjc6v607p5",
+    "competitionId": "nuy2mhu5y0bptjed2r4dfwtm"
+  },
+  {
+    "date": "2026-02-12",
+    "time": "16:40",
+    "team1": "Česko",
+    "team2": "Kanada",
+    "group": "Skupina A",
+    "id": "rpmxgn65b5v110vqnmuixkhm",
+    "homeTeamId": "j4h5g6f7d8s9a0p1o2i3u4y5",
+    "awayTeamId": "w2e3r4t5y6u7i8o9p0a1s2d3",
+    "competitionId": "nuy2mhu5y0bptjed2r4dfwtm"
+  },
+  {
+    "date": "2026-02-12",
+    "time": "21:10",
+    "team1": "Lotyšsko",
+    "team2": "USA",
+    "group": "Skupina C",
+    "id": "bxznbb28wqqrqubc0rvpuar5",
+    "homeTeamId": "zaq1xsw2cde3vfr4bgt5nhy6",
+    "awayTeamId": "zxcvbnm123456asdfghjkl78",
+    "competitionId": "nuy2mhu5y0bptjed2r4dfwtm"
+  },
+  {
+    "date": "2026-02-12",
+    "time": "21:10",
+    "team1": "Nemecko",
+    "team2": "Dánsko",
+    "group": "Skupina C",
+    "id": "j116edymx1y2dr80w89c97c5",
+    "homeTeamId": "laksjdhfgqpwoeirutyznvm1",
+    "awayTeamId": "mju7nhy6bgt5vfr4cde3xsw2",
+    "competitionId": "nuy2mhu5y0bptjed2r4dfwtm"
+  },
+  {
+    "date": "2026-02-13",
+    "time": "12:10",
+    "team1": "Taliansko",
+    "team2": "Slovensko",
+    "group": "Skupina B",
+    "id": "cbwgj19r7tkak17b41bnup53",
+    "homeTeamId": "pl0ok9ij8uh7yg6tf5rd4es3",
+    "awayTeamId": "ky7x9r2m5k8l1n3p4q6s0t2v",
+    "competitionId": "nuy2mhu5y0bptjed2r4dfwtm"
+  },
+  {
+    "date": "2026-02-13",
+    "time": "12:10",
+    "team1": "Fínsko",
+    "team2": "Švédsko",
+    "group": "Skupina B",
+    "id": "wb36e6lsrvp7y2aj7jx35xgo",
+    "homeTeamId": "q1w2e3r4t5y6u7i8o9p0a1s2",
+    "awayTeamId": "mnbvcxzasdfghjklpoiuytre",
+    "competitionId": "nuy2mhu5y0bptjed2r4dfwtm"
+  },
+  {
+    "date": "2026-02-13",
+    "time": "16:40",
+    "team1": "Francúzsko",
+    "team2": "Česko",
+    "group": "Skupina A",
+    "id": "xc4ju54jtzsw2bwe7gvf1tlk",
+    "homeTeamId": "fq521qu6u08tpdsjc6v607p5",
+    "awayTeamId": "j4h5g6f7d8s9a0p1o2i3u4y5",
+    "competitionId": "nuy2mhu5y0bptjed2r4dfwtm"
+  },
+  {
+    "date": "2026-02-13",
+    "time": "21:10",
+    "team1": "Kanada",
+    "team2": "Švajčiarsko",
+    "group": "Skupina A",
+    "id": "z2kak60oa9dexynh7oxxdve8",
+    "homeTeamId": "w2e3r4t5y6u7i8o9p0a1s2d3",
+    "awayTeamId": "1qaz2wsx3edc4rfv5tgb6yhn",
+    "competitionId": "nuy2mhu5y0bptjed2r4dfwtm"
+  },
+  {
+    "date": "2026-02-14",
+    "time": "12:10",
+    "team1": "Švédsko",
+    "team2": "Slovensko",
+    "group": "Skupina B",
+    "id": "rmmaup1nyo2ojbkviddqzhh1",
+    "homeTeamId": "mnbvcxzasdfghjklpoiuytre",
+    "awayTeamId": "ky7x9r2m5k8l1n3p4q6s0t2v",
+    "competitionId": "nuy2mhu5y0bptjed2r4dfwtm"
+  },
+  {
+    "date": "2026-02-14",
+    "time": "12:10",
+    "team1": "Nemecko",
+    "team2": "Lotyšsko",
+    "group": "Skupina C",
+    "id": "k37onkcvg5icmxcy36rjsdi7",
+    "homeTeamId": "laksjdhfgqpwoeirutyznvm1",
+    "awayTeamId": "zaq1xsw2cde3vfr4bgt5nhy6",
+    "competitionId": "nuy2mhu5y0bptjed2r4dfwtm"
+  },
+  {
+    "date": "2026-02-14",
+    "time": "16:40",
+    "team1": "Fínsko",
+    "team2": "Taliansko",
+    "group": "Skupina B",
+    "id": "a3gwtfern4xcgu69sd7muq41",
+    "homeTeamId": "q1w2e3r4t5y6u7i8o9p0a1s2",
+    "awayTeamId": "pl0ok9ij8uh7yg6tf5rd4es3",
+    "competitionId": "nuy2mhu5y0bptjed2r4dfwtm"
+  },
+  {
+    "date": "2026-02-14",
+    "time": "21:10",
+    "team1": "USA",
+    "team2": "Dánsko",
+    "group": "Skupina C",
+    "id": "c7agcbsnzljyys18rqu1yuib",
+    "homeTeamId": "zxcvbnm123456asdfghjkl78",
+    "awayTeamId": "mju7nhy6bgt5vfr4cde3xsw2",
+    "competitionId": "nuy2mhu5y0bptjed2r4dfwtm"
+  },
+  {
+    "date": "2026-02-15",
+    "time": "12:10",
+    "team1": "Švajčiarsko",
+    "team2": "Česko",
+    "group": "Skupina A",
+    "id": "c26sanpeh595vk6uo062egjy",
+    "homeTeamId": "1qaz2wsx3edc4rfv5tgb6yhn",
+    "awayTeamId": "j4h5g6f7d8s9a0p1o2i3u4y5",
+    "competitionId": "nuy2mhu5y0bptjed2r4dfwtm"
+  },
+  {
+    "date": "2026-02-15",
+    "time": "16:40",
+    "team1": "Kanada",
+    "team2": "Francúzsko",
+    "group": "Skupina A",
+    "id": "cmhztjrgzndj0tpv6g3v0ppo",
+    "homeTeamId": "w2e3r4t5y6u7i8o9p0a1s2d3",
+    "awayTeamId": "fq521qu6u08tpdsjc6v607p5",
+    "competitionId": "nuy2mhu5y0bptjed2r4dfwtm"
+  },
+  {
+    "date": "2026-02-15",
+    "time": "19:10",
+    "team1": "Dánsko",
+    "team2": "Lotyšsko",
+    "group": "Skupina C",
+    "id": "z8qukuayssoeze2lcb624z2e",
+    "homeTeamId": "mju7nhy6bgt5vfr4cde3xsw2",
+    "awayTeamId": "zaq1xsw2cde3vfr4bgt5nhy6",
+    "competitionId": "nuy2mhu5y0bptjed2r4dfwtm"
+  },
+  {
+    "date": "2026-02-15",
+    "time": "21:10",
+    "team1": "USA",
+    "team2": "Nemecko",
+    "group": "Skupina C",
+    "id": "arpke07sglwu2xulcah3n2fl",
+    "homeTeamId": "zxcvbnm123456asdfghjkl78",
+    "awayTeamId": "laksjdhfgqpwoeirutyznvm1",
+    "competitionId": "nuy2mhu5y0bptjed2r4dfwtm"
+  }
+]
