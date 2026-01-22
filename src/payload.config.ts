@@ -16,6 +16,8 @@ import { Teams } from './collections/Teams'
 import { Matches } from './collections/Matches'
 import { Predictions } from './collections/Predictions'
 import { GeneralSettings } from './collections/GeneralSettings'
+import { Leagues } from './collections/Leagues'
+import { MiniLeagues } from './collections/MiniLeagues'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -43,10 +45,10 @@ export default buildConfig({
     Teams,
     Matches,
     Predictions,
+    Leagues,
+    MiniLeagues,
   ],
-  globals: [
-    GeneralSettings,
-  ],
+  globals: [GeneralSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

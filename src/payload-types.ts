@@ -77,6 +77,8 @@ export interface Config {
     teams: Team;
     matches: Match;
     predictions: Prediction;
+    leagues: League;
+    'mini-leagues': MiniLeague;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -94,6 +96,8 @@ export interface Config {
     teams: TeamsSelect<false> | TeamsSelect<true>;
     matches: MatchesSelect<false> | MatchesSelect<true>;
     predictions: PredictionsSelect<false> | PredictionsSelect<true>;
+    leagues: LeaguesSelect<false> | LeaguesSelect<true>;
+    'mini-leagues': MiniLeaguesSelect<false> | MiniLeaguesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -404,6 +408,57 @@ export interface Prediction {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "leagues".
+ */
+export interface League {
+  id: string;
+  name: string;
+  /**
+   * Verejné ligy sa nepočítajú do limitov užívateľov.
+   */
+  type: 'private' | 'public';
+  /**
+   * Unikátny kód na pozývanie (napr. PUK-XYZ)
+   */
+  code?: string | null;
+  commissioner: string | User;
+  members?: (string | User)[] | null;
+  /**
+   * Maximálny počet členov. Pre Public ligy zvýšiť manuálne.
+   */
+  maxMembers: number;
+  /**
+   * Hráči, ktorí ligu opustili, ale ich body sa stále rátajú do priemeru sezóny.
+   */
+  historicalMembers?: (string | User)[] | null;
+  stats?: {
+    averageScore?: number | null;
+    totalScore?: number | null;
+    memberCount?: number | null;
+    rank?: number | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mini-leagues".
+ */
+export interface MiniLeague {
+  id: number;
+  name: string;
+  competition: string | Competition;
+  owner: string | User;
+  members?: (string | User)[] | null;
+  /**
+   * Kód, ktorý pošleš kamošom, aby sa pridali.
+   */
+  inviteCode?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -465,6 +520,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'predictions';
         value: string | Prediction;
+      } | null)
+    | ({
+        relationTo: 'leagues';
+        value: string | League;
+      } | null)
+    | ({
+        relationTo: 'mini-leagues';
+        value: number | MiniLeague;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -724,6 +787,43 @@ export interface PredictionsSelect<T extends boolean = true> {
   isExact?: T;
   isTrend?: T;
   isWrong?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "leagues_select".
+ */
+export interface LeaguesSelect<T extends boolean = true> {
+  id?: T;
+  name?: T;
+  type?: T;
+  code?: T;
+  commissioner?: T;
+  members?: T;
+  maxMembers?: T;
+  historicalMembers?: T;
+  stats?:
+    | T
+    | {
+        averageScore?: T;
+        totalScore?: T;
+        memberCount?: T;
+        rank?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mini-leagues_select".
+ */
+export interface MiniLeaguesSelect<T extends boolean = true> {
+  name?: T;
+  competition?: T;
+  owner?: T;
+  members?: T;
+  inviteCode?: T;
   updatedAt?: T;
   createdAt?: T;
 }
