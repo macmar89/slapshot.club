@@ -89,21 +89,25 @@ export function PredictionDialog({
         {team.shortName}
       </span>
       <div className="flex items-center gap-2 md:gap-3">
-        <button
+        <Button
+          variant="outline"
+          size="icon"
           onClick={() => onChange(Math.max(0, value - 1))}
-          className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-xl font-bold transition-colors"
+          className="rounded-full bg-white/5 border-white/10 hover:bg-white/10"
         >
           -
-        </button>
+        </Button>
         <div className="w-12 h-14 md:w-14 md:h-16 bg-white/10 rounded-2xl border border-white/20 flex items-center justify-center text-2xl md:text-3xl font-black tracking-tighter">
           {value}
         </div>
-        <button
+        <Button
+          variant="outline"
+          size="icon"
           onClick={() => onChange(value + 1)}
-          className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-xl font-bold transition-colors"
+          className="rounded-full bg-white/5 border-white/10 hover:bg-white/10"
         >
           +
-        </button>
+        </Button>
       </div>
     </div>
   )
@@ -112,12 +116,12 @@ export function PredictionDialog({
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="w-[calc(100vw-16px)] sm:max-w-[425px] bg-[#0c0f14]/95 backdrop-blur-3xl border-white/10 text-white rounded-[2rem] p-4 md:p-8 overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]">
         {/* Abstract Background Decoration */}
-        <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#eab308]/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-[#eab308]/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-24 -right-24 w-48 h-48 bg-warning/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-warning/5 rounded-full blur-3xl pointer-events-none" />
 
         <DialogHeader className="mb-8">
           <DialogTitle className="text-center text-2xl font-black uppercase tracking-widest leading-tight">
-            {t('title')} <Trophy className="inline-block w-6 h-6 ml-2 text-[#eab308]" />
+            {t('title')} <Trophy className="inline-block w-6 h-6 ml-2 text-warning" />
           </DialogTitle>
           <DialogDescription className="text-center text-white/40 text-xs font-bold uppercase tracking-widest mt-2">
             {t('description')}

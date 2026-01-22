@@ -17,6 +17,7 @@ const buttonVariants = cva(
         secondary: '',
         accent: '',
         destructive: '',
+        warning: '',
         gold: '',
       },
       size: {
@@ -95,6 +96,23 @@ const buttonVariants = cva(
         variant: 'ghost',
         color: 'destructive',
         className: 'text-destructive hover:bg-destructive/10',
+      },
+      // Warning
+      {
+        variant: 'solid',
+        color: 'warning',
+        className: 'bg-warning text-warning-foreground hover:bg-warning/90 shadow-sm font-bold',
+      },
+      {
+        variant: 'outline',
+        color: 'warning',
+        className:
+          'border-warning text-warning hover:bg-warning hover:text-warning-foreground font-bold',
+      },
+      {
+        variant: 'ghost',
+        color: 'warning',
+        className: 'text-warning hover:bg-warning/10 font-bold',
       },
 
       // Gold (Premium)

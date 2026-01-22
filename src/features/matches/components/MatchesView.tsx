@@ -5,6 +5,7 @@ import type { Competition, Match, Prediction } from '@/payload-types'
 import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import { getMatchesAction } from '../actions'
 import { MatchCard } from './MatchCard'
+import { Button } from '@/components/ui/Button'
 import { PredictionDialog } from './PredictionDialog'
 import { CalendarDialog } from './CalendarDialog'
 import { cn } from '@/lib/utils'
@@ -116,7 +117,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="flex flex-col gap-2">
           <h1 className="text-3xl md:text-5xl font-black italic uppercase text-white tracking-tighter leading-none">
-            <span className="text-[#eab308]">{competition.name}</span>
+            <span className="text-warning">{competition.name}</span>
           </h1>
           <p className="text-white/40 font-bold uppercase tracking-[0.3em] text-[0.65rem] md:text-xs">
             {t('description')}
@@ -125,14 +126,16 @@ export function MatchesView({ competition }: MatchesViewProps) {
 
         {/* Premium Day Selector */}
         <div className="flex items-center gap-4 bg-white/10 border border-white/20 p-1.5 rounded-2xl backdrop-blur-xl shadow-2xl">
-          <button
+          <Button
+            variant="outline"
+            size="icon"
             onClick={() => handleDateChange('prev')}
             disabled={availableDates.indexOf(selectedDate!) === 0}
             className={cn(
-              'w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-300 group/btn cursor-pointer',
+              'rounded-xl border-white/20 bg-white/10 transition-all duration-300 group/btn',
               availableDates.indexOf(selectedDate!) === 0
-                ? 'bg-white/5 opacity-20 cursor-not-allowed'
-                : 'bg-white/10 hover:bg-[#eab308] hover:text-black',
+                ? 'opacity-20 cursor-not-allowed'
+                : 'hover:bg-warning hover:text-black hover:border-warning',
             )}
           >
             <ChevronLeft
@@ -140,18 +143,19 @@ export function MatchesView({ competition }: MatchesViewProps) {
                 'w-6 h-6 transition-colors',
                 availableDates.indexOf(selectedDate!) === 0
                   ? 'text-white/20'
-                  : 'text-[#eab308] group-hover/btn:text-black',
+                  : 'text-warning group-hover/btn:text-black',
               )}
             />
-          </button>
+          </Button>
 
-          <button
+          <Button
+            variant="ghost"
             onClick={() => setIsCalendarOpen(true)}
-            className="flex flex-col items-center px-4 md:px-6 min-w-[100px] md:min-w-[140px] hover:bg-white/5 rounded-xl py-1 transition-colors group/center cursor-pointer"
+            className="flex flex-col items-center px-4 md:px-6 min-w-[100px] md:min-w-[140px] hover:bg-white/5 rounded-xl h-auto py-1 group/center"
           >
             <div className="flex items-center gap-2 mb-0.5">
-              <CalendarDays className="w-3.5 h-3.5 text-[#eab308] group-hover/center:scale-110 transition-transform" />
-              <span className="text-[0.6rem] md:text-[0.6rem] font-black uppercase tracking-widest text-[#eab308]">
+              <CalendarDays className="w-3.5 h-3.5 text-warning group-hover/center:scale-110 transition-transform" />
+              <span className="text-[0.6rem] md:text-[0.6rem] font-black uppercase tracking-widest text-warning">
                 {t('selected_day')}
               </span>
             </div>
@@ -171,16 +175,18 @@ export function MatchesView({ competition }: MatchesViewProps) {
                   })
                 : '-'}
             </span>
-          </button>
+          </Button>
 
-          <button
+          <Button
+            variant="outline"
+            size="icon"
             onClick={() => handleDateChange('next')}
             disabled={availableDates.indexOf(selectedDate!) === availableDates.length - 1}
             className={cn(
-              'w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-300 group/btn cursor-pointer',
+              'rounded-xl border-white/20 bg-white/10 transition-all duration-300 group/btn',
               availableDates.indexOf(selectedDate!) === availableDates.length - 1
-                ? 'bg-white/5 opacity-20 cursor-not-allowed'
-                : 'bg-white/10 hover:bg-[#eab308] hover:text-black',
+                ? 'opacity-20 cursor-not-allowed'
+                : 'hover:bg-warning hover:text-black hover:border-warning',
             )}
           >
             <ChevronRight
@@ -188,10 +194,10 @@ export function MatchesView({ competition }: MatchesViewProps) {
                 'w-6 h-6 transition-colors',
                 availableDates.indexOf(selectedDate!) === availableDates.length - 1
                   ? 'text-white/20'
-                  : 'text-[#eab308] group-hover/btn:text-black',
+                  : 'text-warning group-hover/btn:text-black',
               )}
             />
-          </button>
+          </Button>
         </div>
       </div>
 

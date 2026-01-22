@@ -18,6 +18,7 @@ import {
   DialogTrigger,
   DialogClose,
 } from '@/components/ui/Dialog'
+import { Button } from '@/components/ui/Button'
 
 interface LeagueDetailViewProps {
   league: League
@@ -60,7 +61,7 @@ export function LeagueDetailView({ league, currentUser, competitionSlug }: Leagu
         toast.error(res.error)
       }
     } catch (error) {
-      toast.error('Failed to delete league')
+      toast.error(t('delete_error'))
     } finally {
       setIsDeleting(false)
     }
@@ -79,7 +80,7 @@ export function LeagueDetailView({ league, currentUser, competitionSlug }: Leagu
         toast.error(res.error)
       }
     } catch (error) {
-      toast.error('Failed to remove member')
+      toast.error(t('kick_error'))
     }
   }
 
@@ -90,30 +91,33 @@ export function LeagueDetailView({ league, currentUser, competitionSlug }: Leagu
     <div className="h-[calc(100dvh-8rem)] md:h-[calc(100dvh-7rem)] flex flex-col overflow-hidden">
       {/* Header Section */}
       <div className="flex flex-col gap-4 mb-6 shrink-0 px-1">
-        <button
+        <Button
+          variant="ghost"
           onClick={() => router.back()}
-          className="flex items-center gap-2 text-white/50 hover:text-white transition-colors self-start text-sm uppercase tracking-wider font-bold"
+          className="flex items-center gap-2 text-white/50 hover:text-white transition-colors self-start text-sm uppercase tracking-wider font-bold h-auto p-0"
         >
           <ArrowLeft className="w-4 h-4" />
           {t('back_to_list')}
-        </button>
+        </Button>
 
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <h1 className="text-2xl md:text-4xl font-black uppercase text-white tracking-tight drop-shadow-lg flex items-center gap-3">
             {league.name}
-            {isOwner && <Crown className="w-6 h-6 text-[#eab308]" />}
+            {isOwner && <Crown className="w-6 h-6 text-warning" />}
           </h1>
 
           {isOwner && (
             <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
               <DialogTrigger asChild>
-                <button
+                <Button
                   disabled={isDeleting}
-                  className="px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-500 border border-red-500/20 rounded-lg flex items-center gap-2 text-sm font-bold uppercase tracking-wider transition-all"
+                  variant="outline"
+                  color="destructive"
+                  className="bg-destructive/10 hover:bg-destructive/20 text-destructive border-destructive/20 gap-2 shrink-0"
                 >
                   <Trash2 className="w-4 h-4" />
                   {t('delete_league')}
-                </button>
+                </Button>
               </DialogTrigger>
               <DialogContent className="bg-black/95 border-white/10 text-white backdrop-blur-xl">
                 <DialogHeader>
@@ -124,17 +128,16 @@ export function LeagueDetailView({ league, currentUser, competitionSlug }: Leagu
                 </DialogHeader>
                 <DialogFooter>
                   <DialogClose asChild>
-                    <button className="px-4 py-2 rounded bg-white/5 border border-white/10 hover:bg-white/10 text-white text-sm font-bold uppercase tracking-wider">
+                    <Button
+                      variant="outline"
+                      className="bg-white/5 border-white/10 hover:bg-white/10"
+                    >
                       {t('cancel')}
-                    </button>
+                    </Button>
                   </DialogClose>
-                  <button
-                    onClick={handleDeleteLeague}
-                    disabled={isDeleting}
-                    className="px-4 py-2 rounded bg-red-500 hover:bg-red-600 text-white border-none text-sm font-bold uppercase tracking-wider disabled:opacity-50"
-                  >
-                    {isDeleting ? 'Deleting...' : t('delete_confirm_action')}
-                  </button>
+                  <Button onClick={handleDeleteLeague} disabled={isDeleting} color="destructive">
+                    {isDeleting ? t('deleting') : t('delete_confirm_action')}
+                  </Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
@@ -151,15 +154,16 @@ export function LeagueDetailView({ league, currentUser, competitionSlug }: Leagu
               <div className="text-xs text-white/40 uppercase tracking-wider mb-2 font-bold">
                 {t('invite_code')}
               </div>
-              <button
-                onClick={(e) => copyToClipboard(league.code || '')}
-                className="w-full flex items-center justify-between bg-black/40 hover:bg-black/60 p-3 rounded-lg border border-dashed border-white/20 hover:border-[#eab308]/50 transition-all group/btn"
+              <Button
+                variant="ghost"
+                onClick={() => copyToClipboard(league.code || '')}
+                className="w-full flex items-center justify-between bg-black/40 hover:bg-black/60 p-3 h-auto rounded-lg border border-dashed border-white/20 hover:border-warning/50 transition-all group/btn"
               >
-                <span className="font-mono text-[#eab308] text-xl tracking-widest pl-2">
+                <span className="font-mono text-warning text-xl tracking-widest pl-2">
                   {league.code}
                 </span>
                 <Copy className="w-5 h-5 text-white/40 group-hover/btn:text-white transition-colors" />
-              </button>
+              </Button>
             </div>
             <div>
               <div className="text-xs text-white/40 uppercase tracking-wider mb-2 font-bold">
@@ -171,7 +175,7 @@ export function LeagueDetailView({ league, currentUser, competitionSlug }: Leagu
                   <div className="flex flex-col">
                     <span className="text-lg font-bold leading-none">{members.length}</span>
                     <span className="text-[10px] text-white/40 uppercase tracking-wider">
-                      {t('members_count')}
+                      {t('members_count', { count: members.length })}
                     </span>
                   </div>
                 </div>
@@ -183,7 +187,7 @@ export function LeagueDetailView({ league, currentUser, competitionSlug }: Leagu
         {/* Members List */}
         <div>
           <h2 className="text-lg font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
-            <Users className="w-5 h-5 text-[#eab308]" />
+            <Users className="w-5 h-5 text-warning" />
             {t('members_list')}
           </h2>
           <div className="bg-black/20 border border-white/5 rounded-xl overflow-hidden backdrop-blur-sm">
@@ -200,8 +204,8 @@ export function LeagueDetailView({ league, currentUser, competitionSlug }: Leagu
                     <span className="font-bold text-sm text-white">
                       {member.username || member.email}
                       {(league.owner as User)?.id === member.id && (
-                        <span className="ml-2 text-[10px] bg-[#eab308]/20 text-[#eab308] px-1.5 py-0.5 rounded uppercase tracking-wider font-bold">
-                          Owner
+                        <span className="ml-2 text-[10px] bg-warning/20 text-warning px-1.5 py-0.5 rounded uppercase tracking-wider font-bold">
+                          {t('owner')}
                         </span>
                       )}
                       {member.id === currentUser.id && (
@@ -214,13 +218,15 @@ export function LeagueDetailView({ league, currentUser, competitionSlug }: Leagu
                 </div>
 
                 {isOwner && member.id !== currentUser.id && (
-                  <button
+                  <Button
+                    variant="ghost"
+                    size="icon"
                     onClick={() => setMemberToKick(member.id)}
-                    className="p-2 text-white/30 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-all"
+                    className="text-white/30 hover:text-destructive hover:bg-destructive/10"
                     title={t('kick_member')}
                   >
                     <UserX className="w-4 h-4" />
-                  </button>
+                  </Button>
                 )}
               </div>
             ))}
@@ -241,16 +247,13 @@ export function LeagueDetailView({ league, currentUser, competitionSlug }: Leagu
           </DialogHeader>
           <DialogFooter>
             <DialogClose asChild>
-              <button className="px-4 py-2 rounded bg-white/5 border border-white/10 hover:bg-white/10 text-white text-sm font-bold uppercase tracking-wider">
+              <Button variant="outline" className="bg-white/5 border-white/10 hover:bg-white/10">
                 {t('cancel')}
-              </button>
+              </Button>
             </DialogClose>
-            <button
-              onClick={handleRemoveMember}
-              className="px-4 py-2 rounded bg-red-500 hover:bg-red-600 text-white border-none text-sm font-bold uppercase tracking-wider"
-            >
+            <Button onClick={handleRemoveMember} color="destructive">
               {t('kick_confirm_action')}
-            </button>
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

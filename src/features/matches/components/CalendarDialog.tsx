@@ -4,6 +4,7 @@ import React, { useMemo } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/Dialog'
 import { cn } from '@/lib/utils'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { Button } from '@/components/ui/Button'
 
 interface CalendarDialogProps {
   isOpen: boolean
@@ -82,10 +83,10 @@ export function CalendarDialog({
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-[400px] bg-[#0c0f14]/95 backdrop-blur-3xl border-white/10 text-white rounded-[2rem] p-6 overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]">
         {/* Abstract Background Decoration */}
-        <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#eab308]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-24 -right-24 w-48 h-48 bg-warning/10 rounded-full blur-3xl pointer-events-none" />
 
         <DialogHeader className="mb-4">
-          <DialogTitle className="text-xl font-black uppercase tracking-widest text-[#eab308]">
+          <DialogTitle className="text-xl font-black uppercase tracking-widest text-warning">
             Vyber dátum
           </DialogTitle>
         </DialogHeader>
@@ -93,25 +94,29 @@ export function CalendarDialog({
         <div className="relative z-10">
           {/* Month Navigation */}
           <div className="flex items-center justify-between mb-6 bg-white/5 p-2 rounded-xl border border-white/10">
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={() => setCurrentMonthIndex((prev) => Math.max(0, prev - 1))}
               disabled={currentMonthIndex === 0}
-              className="p-2 hover:bg-white/10 rounded-lg disabled:opacity-10 transition-colors"
+              className="text-white hover:bg-white/10"
             >
               <ChevronLeft className="w-5 h-5" />
-            </button>
+            </Button>
             <span className="font-black uppercase tracking-widest text-sm text-white">
               {monthName}
             </span>
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={() =>
                 setCurrentMonthIndex((prev) => Math.min(activeMonths.length - 1, prev + 1))
               }
               disabled={currentMonthIndex === activeMonths.length - 1}
-              className="p-2 hover:bg-white/10 rounded-lg disabled:opacity-10 transition-colors"
+              className="text-white hover:bg-white/10"
             >
               <ChevronRight className="w-5 h-5" />
-            </button>
+            </Button>
           </div>
 
           {/* Weekday Headers */}
@@ -134,17 +139,18 @@ export function CalendarDialog({
               const isToday = day.dateStr === new Date().toISOString().split('T')[0]
 
               return (
-                <button
+                <Button
                   key={day.dateStr}
+                  variant="ghost"
                   disabled={!day.hasMatches}
                   onClick={() => {
                     onSelectDate(day.dateStr)
                     onClose()
                   }}
                   className={cn(
-                    'h-10 w-full flex flex-col items-center justify-center rounded-xl transition-all duration-300 relative group',
+                    'h-10 w-full flex flex-col items-center justify-center rounded-xl transition-all duration-300 relative group p-0',
                     day.isSelected
-                      ? 'bg-[#eab308] text-black font-black scale-110 shadow-[0_5px_15px_rgba(234,179,8,0.3)] z-10'
+                      ? 'bg-warning text-black font-black scale-110 shadow-[0_5px_15px_rgba(234,179,8,0.3)] z-10 hover:bg-warning/90'
                       : day.hasMatches
                         ? 'bg-white/5 hover:bg-white/20 text-white'
                         : 'opacity-10 cursor-not-allowed text-white/40',
@@ -152,12 +158,12 @@ export function CalendarDialog({
                 >
                   <span className="text-xs">{day.day}</span>
                   {day.hasMatches && !day.isSelected && (
-                    <div className="w-1 h-1 rounded-full bg-[#eab308]/50 absolute bottom-1.5" />
+                    <div className="w-1 h-1 rounded-full bg-warning/50 absolute bottom-1.5" />
                   )}
                   {isToday && !day.isSelected && (
                     <div className="absolute top-1 right-1 w-1 h-1 rounded-full bg-blue-500" />
                   )}
-                </button>
+                </Button>
               )
             })}
           </div>

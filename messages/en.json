@@ -165,7 +165,10 @@
     "invite_code": "Invite Code",
     "stats": "Stats",
     "you": "You",
-    "owner": "Owner"
+    "owner": "Owner",
+    "deleting": "Deleting...",
+    "delete_error": "Failed to delete league",
+    "kick_error": "Failed to remove member"
   },
   "NotFound": {
     "title": "Icing!",

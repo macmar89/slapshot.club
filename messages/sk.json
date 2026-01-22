@@ -8,7 +8,7 @@
       "overview": "Prehľad",
       "matches": "Zápasy",
       "tables": "Tabuľky",
-      "teams": "Tímy",
+      "teams": "Tími",
       "leaderboard": "Rebríček",
       "leagues": "Mini Ligy",
       "rules": "Pravidlá",
@@ -165,7 +165,10 @@
     "invite_code": "Pozývací kód",
     "stats": "Štatistiky",
     "you": "Vy",
-    "owner": "Vlastník"
+    "owner": "Vlastník",
+    "deleting": "Mažem...",
+    "delete_error": "Nepodarilo sa vymazať ligu",
+    "kick_error": "Nepodarilo sa odobrať člena"
   },
   "NotFound": {
     "title": "Zakázané uvoľnenie!",

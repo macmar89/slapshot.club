@@ -65,9 +65,9 @@ export function Header({ title }: HeaderProps) {
         <div className="ml-auto md:hidden">
           <Sheet>
             <SheetTrigger asChild>
-              <button className="p-2 text-white hover:bg-white/10 rounded-lg transition-colors">
+              <Button variant="ghost" size="icon" className="text-white">
                 <Menu className="w-6 h-6" />
-              </button>
+              </Button>
             </SheetTrigger>
             <SheetContent
               side="right"

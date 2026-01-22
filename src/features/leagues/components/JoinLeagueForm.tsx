@@ -7,6 +7,7 @@ import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import { joinLeague } from '@/actions/leagues'
 import { toast } from 'sonner'
 import { Loader2, ArrowRight } from 'lucide-react'
+import { Button } from '@/components/ui/Button'
 
 export function JoinLeagueForm() {
   const t = useTranslations('Leagues')
@@ -38,7 +39,7 @@ export function JoinLeagueForm() {
 
   return (
     <div className="mb-12">
-      <h2 className="text-xl font-bold mb-4 text-[#eab308] uppercase tracking-wider">
+      <h2 className="text-xl font-bold mb-4 text-warning uppercase tracking-wider">
         {t('join_section')}
       </h2>
       <IceGlassCard className="p-6">
@@ -55,10 +56,12 @@ export function JoinLeagueForm() {
               className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#eab308]/50 focus:ring-1 focus:ring-[#eab308]/50 transition-all font-mono uppercase tracking-widest text-lg"
             />
           </div>
-          <button
+          <Button
             type="submit"
             disabled={isLoading || !code.trim()}
-            className="w-full md:w-auto px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold rounded-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            variant="outline"
+            size="lg"
+            className="w-full md:w-auto px-6"
           >
             {isLoading ? (
               <Loader2 className="w-5 h-5 animate-spin" />
@@ -67,7 +70,7 @@ export function JoinLeagueForm() {
                 {t('join_button')} <ArrowRight className="w-5 h-5" />
               </>
             )}
-          </button>
+          </Button>
         </form>
       </IceGlassCard>
     </div>

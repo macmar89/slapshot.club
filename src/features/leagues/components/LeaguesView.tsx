@@ -10,6 +10,7 @@ import { toast } from 'sonner'
 import type { League } from '@/payload-types'
 import { Link } from '@/i18n/routing'
 import { useParams } from 'next/navigation'
+import { Button } from '@/components/ui/Button'
 
 interface LeaguesViewProps {
   ownedLeagues: League[]
@@ -37,7 +38,7 @@ export function LeaguesView({ ownedLeagues, joinedLeagues, competitionId }: Leag
     <div className="h-[calc(100dvh-8rem)] md:h-[calc(100dvh-7rem)] flex flex-col overflow-hidden">
       {/* Fixed Header Section */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 shrink-0 px-1">
-        <h1 className="text-lg md:text-3xl font-black uppercase text-[#eab308] md:text-white tracking-widest md:tracking-wide leading-none">
+        <h1 className="text-lg md:text-3xl font-black uppercase text-warning md:text-white tracking-widest md:tracking-wide leading-none">
           {t('title')}
         </h1>
         <CreateLeagueForm competitionId={competitionId} />
@@ -49,11 +50,11 @@ export function LeaguesView({ ownedLeagues, joinedLeagues, competitionId }: Leag
           {/* Owned Leagues Section */}
           <div>
             <div className="flex items-center gap-6 mb-6">
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#eab308]/50 to-transparent shadow-[0_0_10px_rgba(234,179,8,0.3)]" />
-              <h2 className="text-lg md:text-xl font-black uppercase tracking-[0.2em] text-[#eab308] drop-shadow-[0_0_25px_rgba(234,179,8,0.8)] px-4">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-warning/50 to-transparent shadow-[0_0_10px_rgba(45,189,8,0.3)]" />
+              <h2 className="text-lg md:text-xl font-black uppercase tracking-[0.2em] text-warning drop-shadow-[0_0_25px_rgba(45,189,8,0.8)] px-4">
                 {t('owned_section')}
               </h2>
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#eab308]/50 to-transparent shadow-[0_0_10px_rgba(234,179,8,0.3)]" />
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-warning/50 to-transparent shadow-[0_0_10px_rgba(45,189,8,0.3)]" />
             </div>
 
             {ownedLeagues.length === 0 ? (
@@ -71,9 +72,9 @@ export function LeaguesView({ ownedLeagues, joinedLeagues, competitionId }: Leag
                     }}
                     className="block group"
                   >
-                    <IceGlassCard className="p-4 group-hover:border-[#eab308]/50 transition-colors duration-300 h-full flex flex-col">
+                    <IceGlassCard className="p-4 group-hover:border-warning/50 transition-colors duration-300 h-full flex flex-col">
                       <div className="flex justify-between items-start mb-3">
-                        <h3 className="text-lg font-bold text-white group-hover:text-[#eab308] transition-colors truncate font-display">
+                        <h3 className="text-lg font-bold text-white group-hover:text-warning transition-colors truncate font-display">
                           {league.name}
                         </h3>
                         <div className="flex items-center gap-1.5 px-2 py-1 bg-white/5 rounded-full text-xs text-white/60">
@@ -86,15 +87,16 @@ export function LeaguesView({ ownedLeagues, joinedLeagues, competitionId }: Leag
                         <div className="text-[10px] text-white/40 uppercase tracking-wider mb-1">
                           Invite Code
                         </div>
-                        <button
+                        <Button
+                          variant="ghost"
                           onClick={(e) => copyToClipboard(e, league.code || '')}
-                          className="w-full flex items-center justify-between bg-black/40 hover:bg-black/60 p-1.5 rounded border border-dashed border-white/20 hover:border-[#eab308]/50 transition-all group/btn"
+                          className="w-full flex items-center justify-between bg-black/40 hover:bg-black/60 p-1.5 h-auto rounded border border-dashed border-white/20 hover:border-warning/50 transition-all group/btn"
                         >
-                          <span className="font-mono text-[#eab308] text-base tracking-widest pl-1">
+                          <span className="font-mono text-warning text-base tracking-widest pl-1">
                             {league.code}
                           </span>
                           <Copy className="w-3 h-3 text-white/40 group-hover/btn:text-white transition-colors" />
-                        </button>
+                        </Button>
                       </div>
                     </IceGlassCard>
                   </Link>

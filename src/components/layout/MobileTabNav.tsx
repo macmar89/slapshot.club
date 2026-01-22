@@ -15,13 +15,14 @@ import { cn } from '@/lib/utils'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/routing'
 import { useParams } from 'next/navigation'
+import { Button } from '@/components/ui/Button'
 
 export function MobileTabNav() {
   const t = useTranslations('Dashboard.nav')
   const params = useParams()
   const slug = params?.slug as string | undefined
 
-  const leftItems = dashboardConfig.sidebarNav.slice(1,3)
+  const leftItems = dashboardConfig.sidebarNav.slice(1, 3)
   const rightItems = dashboardConfig.sidebarNav.slice(3, 4)
 
   const getHref = (originalHref: string) => {
@@ -82,10 +83,13 @@ export function MobileTabNav() {
 
           <Dialog>
             <DialogTrigger asChild>
-              <button className="flex flex-col items-center gap-1.5 text-white/50 hover:text-white transition-colors">
+              <Button
+                variant="ghost"
+                className="flex flex-col items-center gap-1.5 text-white/50 hover:text-white transition-colors h-auto p-0 hover:bg-transparent"
+              >
                 <MoreHorizontal className="w-5 h-5" />
                 <span className="text-[10px] font-bold uppercase tracking-tight">{t('more')}</span>
-              </button>
+              </Button>
             </DialogTrigger>
             <DialogContent className="max-w-[calc(100%-1rem)] w-full rounded-3xl bg-slate-900/95 backdrop-blur-2xl border-white/10 p-8 bottom-4 top-auto translate-y-0 sm:translate-y-[-50%] shadow-2xl">
               <DialogHeader>

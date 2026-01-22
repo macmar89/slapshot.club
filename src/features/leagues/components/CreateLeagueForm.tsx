@@ -7,6 +7,7 @@ import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import { createLeague } from '@/actions/leagues'
 import { toast } from 'sonner'
 import { Plus, X, Loader2 } from 'lucide-react'
+import { Button } from '@/components/ui/Button'
 
 export function CreateLeagueForm({ competitionId }: { competitionId: string }) {
   const t = useTranslations('Leagues')
@@ -41,13 +42,10 @@ export function CreateLeagueForm({ competitionId }: { competitionId: string }) {
 
   if (!isOpen) {
     return (
-      <button
-        onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 bg-[#eab308] hover:bg-[#eab308]/90 text-black font-bold py-2 px-4 rounded transition-colors"
-      >
+      <Button onClick={() => setIsOpen(true)} color="warning" className="gap-2">
         <Plus className="w-5 h-5" />
         {t('create_button')}
-      </button>
+      </Button>
     )
   }
 
@@ -58,12 +56,14 @@ export function CreateLeagueForm({ competitionId }: { competitionId: string }) {
         <IceGlassCard className="p-6">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-bold text-white">{t('create_modal.title')}</h2>
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={() => setIsOpen(false)}
-              className="text-white/50 hover:text-white transition-colors"
+              className="text-white/50 hover:text-white"
             >
               <X className="w-6 h-6" />
-            </button>
+            </Button>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -76,7 +76,7 @@ export function CreateLeagueForm({ competitionId }: { competitionId: string }) {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder={t('create_modal.name_placeholder')}
-                className="w-full bg-white/5 border border-white/10 rounded p-2 text-white placeholder:text-white/20 focus:outline-none focus:border-[#eab308]/50 focus:ring-1 focus:ring-[#eab308]/50 transition-all"
+                className="w-full bg-white/5 border border-white/10 rounded p-2 text-white placeholder:text-white/20 focus:outline-none focus:border-warning/50 focus:ring-1 focus:ring-warning/50 transition-all"
                 required
                 minLength={3}
                 maxLength={30}
@@ -84,21 +84,18 @@ export function CreateLeagueForm({ competitionId }: { competitionId: string }) {
             </div>
 
             <div className="flex justify-end gap-3 mt-6">
-              <button
+              <Button
                 type="button"
+                variant="ghost"
                 onClick={() => setIsOpen(false)}
-                className="px-4 py-2 rounded text-white/60 hover:text-white transition-colors"
+                className="text-white/60 hover:text-white"
               >
                 {t('create_modal.cancel')}
-              </button>
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="px-4 py-2 bg-[#eab308] hover:bg-[#eab308]/90 text-black font-bold rounded flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-              >
+              </Button>
+              <Button type="submit" disabled={isLoading} color="warning" className="gap-2">
                 {isLoading && <Loader2 className="w-4 h-4 animate-spin" />}
                 {isLoading ? t('create_modal.creating') : t('create_modal.submit')}
-              </button>
+              </Button>
             </div>
           </form>
         </IceGlassCard>

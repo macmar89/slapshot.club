@@ -83,7 +83,7 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
     <IceGlassCard
       backdropBlur="md"
       className={cn(
-        'p-3 md:p-6 hover:border-[#eab308]/40 transition-all duration-300 group relative',
+        'p-3 md:p-6 hover:border-warning/40 transition-all duration-300 group relative',
         match.status === 'cancelled' && 'opacity-40 grayscale-[0.5]',
       )}
     >
@@ -104,7 +104,7 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
 
       <div className="flex items-center justify-between mb-6">
         <div className="flex flex-col">
-          <span className="text-[0.65rem] font-black uppercase tracking-[0.2em] text-[#eab308] mb-1">
+          <span className="text-[0.65rem] font-black uppercase tracking-[0.2em] text-warning mb-1">
             {match.result?.round_label || match.result?.group_name || 'ZOH 2026'}
           </span>
           <span className="text-xs font-bold text-white/80">
@@ -123,11 +123,11 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
               <span className="text-white/20">VS</span>
             ) : (
               <>
-                <span className={cn(match.status === 'live' ? 'text-[#eab308]' : 'text-white')}>
+                <span className={cn(match.status === 'live' ? 'text-warning' : 'text-white')}>
                   {match.result?.homeScore ?? 0}
                 </span>
                 <span className="text-white/40">:</span>
-                <span className={cn(match.status === 'live' ? 'text-[#eab308]' : 'text-white')}>
+                <span className={cn(match.status === 'live' ? 'text-warning' : 'text-white')}>
                   {match.result?.awayScore ?? 0}
                 </span>
               </>
@@ -151,7 +151,7 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
             {binaryTotal > 0 ? (
               <>
                 <div
-                  className="h-full bg-gradient-to-r from-[#eab308] to-[#eab308]/60 transition-all duration-1000"
+                  className="h-full bg-gradient-to-r from-warning to-warning/60 transition-all duration-1000"
                   style={{ width: `${homeWinPct}%` }}
                 />
                 <div
@@ -169,7 +169,7 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
               <span className="text-[0.6rem] font-bold text-white/60 uppercase">
                 {homeTeam.shortName}
               </span>
-              <span className="text-[0.6rem] font-black text-[#eab308]">{homeWinPct}%</span>
+              <span className="text-[0.6rem] font-black text-warning">{homeWinPct}%</span>
             </div>
 
             {/* Total Tips Counter - Absolute center */}
@@ -193,7 +193,7 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
           {userPrediction ? (
             <div className="flex items-center gap-3 px-4 py-2 rounded-xl bg-white/5 border border-white/10">
               <div className="flex flex-col">
-                <span className="text-[0.55rem] font-black uppercase tracking-widest text-[#eab308]">
+                <span className="text-[0.55rem] font-black uppercase tracking-widest text-warning">
                   {t('my_prediction')}
                 </span>
                 <span className="text-sm font-black text-white">
@@ -201,12 +201,14 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
                 </span>
               </div>
               {!isStarted && match.status === 'scheduled' && (
-                <button
+                <Button
+                  variant="ghost"
+                  size="icon"
                   onClick={() => onPredict(match)}
-                  className="p-1.5 rounded-lg hover:bg-white/10 text-white/40 hover:text-white transition-colors"
+                  className="h-8 w-8 text-white/40 hover:text-white"
                 >
                   <PencilLine className="w-4 h-4" />
-                </button>
+                </Button>
               )}
             </div>
           ) : (
@@ -225,8 +227,8 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
 
           {isStarted && userPrediction && userPrediction.points !== null && (
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#eab308]/10 border border-[#eab308]/20">
-              <Trophy className="w-3.5 h-3.5 text-[#eab308]" />
-              <span className="text-xs font-black text-[#eab308]">+{userPrediction.points}</span>
+              <Trophy className="w-3.5 h-3.5 text-warning" />
+              <span className="text-xs font-black text-warning">+{userPrediction.points}</span>
             </div>
           )}
         </div>
