@@ -15,6 +15,7 @@ import { LeaderboardEntries } from './collections/LeaderboardEntries'
 import { Teams } from './collections/Teams'
 import { Matches } from './collections/Matches'
 import { Predictions } from './collections/Predictions'
+import { GeneralSettings } from './collections/GeneralSettings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -42,6 +43,9 @@ export default buildConfig({
     Teams,
     Matches,
     Predictions,
+  ],
+  globals: [
+    GeneralSettings,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

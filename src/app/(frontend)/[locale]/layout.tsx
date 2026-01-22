@@ -19,7 +19,7 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata = {
   description: 'A blank template using Payload in a Next.js app.',
-  title: 'Payload Blank Template',
+  title: 'Slapshot Club',
 }
 
 export function generateStaticParams() {
@@ -56,7 +56,7 @@ export default async function RootLayout(props: {
           <div className="fixed inset-0 z-0 flex items-center justify-center pointer-events-none">
             <div className="relative h-full w-full">
               <Image
-                src="/images/background/slapshot_background_lightest.png"
+                src="/images/background/ssc_bg.webp"
                 alt="Slapshot Background"
                 fill
                 className="object-cover object-center"

@@ -103,8 +103,12 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: ('false' | 'none' | 'null') | false | null | ('sk' | 'en') | ('sk' | 'en')[];
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'general-settings': GeneralSetting;
+  };
+  globalsSelect: {
+    'general-settings': GeneralSettingsSelect<false> | GeneralSettingsSelect<true>;
+  };
   locale: 'sk' | 'en';
   user: User & {
     collection: 'users';
@@ -763,6 +767,42 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "general-settings".
+ */
+export interface GeneralSetting {
+  id: number;
+  seo?: {
+    /**
+     * Ak nevyplníš, použije sa globálny titulok.
+     */
+    title?: string | null;
+    /**
+     * Ak nevyplníš, použije sa globálny popis.
+     */
+    description?: string | null;
+    image?: (string | null) | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "general-settings_select".
+ */
+export interface GeneralSettingsSelect<T extends boolean = true> {
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
