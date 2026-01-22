@@ -8,7 +8,7 @@
       "overview": "Prehľad",
       "matches": "Zápasy",
       "tables": "Tabuľky",
-      "teams": "Tími",
+      "teams": "Tímy",
       "leaderboard": "Rebríček",
       "leagues": "Mini Ligy",
       "rules": "Pravidlá",
@@ -175,5 +175,22 @@
     "subtitle": "ROZHODCA ODPÍSKAL OFFSIDE",
     "description": "Puk sa nám niekde stratil v rohu klziska a tvoj útok skončil skôr, než začal. Táto stránka na súpiske nie je.",
     "button": "NASPÄŤ DO ŠATNE (LOBBY)"
+  },
+  "Rules": {
+    "title": "Pravidlá hry",
+    "description": "Tu nájdeš všetko podstatné, aby si mohol začať zbierať body.",
+    "scoring_title": "Bodovanie",
+    "exact_score": "Presný výsledok",
+    "winner_only": "Víťaz zápasu",
+    "points": "{count, plural, one {# bod} few {# body} other {# bodov}}",
+    "general_rules_title": "Všeobecné pravidlá",
+    "rules_list": {
+      "tip_before": "Tipy prijímame do začiatku zápasu. Potom sa zápas uzamkne.",
+      "score_regular": "Tipuje sa výsledok po riadnom hracom čase (60 minút).",
+      "exact_desc": "Ak trafíš presné skóre zápasu, získaš plný počet bodov.",
+      "winner_desc": "Ak trafíš víťaza alebo remízu, ale netrafíš presné skóre, získaš čiastočné body.",
+      "evaluation": "Body sa k tvojmu kontu pripíšu automaticky po oficiálnom vyhodnotení zápasu."
+    },
+    "no_competitions": "Momentálne nie sú aktívne žiadne súťaže s vlastným bodovaním."
   }
 }
