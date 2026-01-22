@@ -1,0 +1,259 @@
+'use client'
+
+import React, { useState } from 'react'
+import { useRouter } from '@/i18n/routing'
+import { useTranslations } from 'next-intl'
+import { IceGlassCard } from '@/components/ui/IceGlassCard'
+import { toast } from 'sonner'
+import { Users, Copy, ArrowLeft, Trash2, UserX, Crown } from 'lucide-react'
+import type { League, User } from '@/payload-types'
+import { deleteLeague, removeMember } from '@/actions/leagues'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+} from '@/components/ui/Dialog'
+
+interface LeagueDetailViewProps {
+  league: League
+  currentUser: User
+  competitionSlug: string
+}
+
+export function LeagueDetailView({ league, currentUser, competitionSlug }: LeagueDetailViewProps) {
+  const t = useTranslations('Leagues')
+  const router = useRouter()
+  const [isDeleting, setIsDeleting] = useState(false)
+
+  // Dialog states
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false)
+  const [memberToKick, setMemberToKick] = useState<string | null>(null)
+
+  const isOwner = (league.owner as User)?.id === currentUser.id || league.owner === currentUser.id
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      toast.success(t('copied'))
+    } catch (err) {
+      toast.error('Failed to copy')
+    }
+  }
+
+  const handleDeleteLeague = async () => {
+    setIsDeleting(true)
+    try {
+      const res = await deleteLeague(league.id)
+      if (res.success) {
+        toast.success(t('league_deleted'))
+        setIsDeleteOpen(false)
+        router.push({
+          pathname: '/dashboard/[slug]/leagues',
+          params: { slug: competitionSlug },
+        })
+      } else {
+        toast.error(res.error)
+      }
+    } catch (error) {
+      toast.error('Failed to delete league')
+    } finally {
+      setIsDeleting(false)
+    }
+  }
+
+  const handleRemoveMember = async () => {
+    if (!memberToKick) return
+
+    try {
+      const res = await removeMember(league.id, memberToKick)
+      if (res.success) {
+        toast.success(t('member_removed'))
+        setMemberToKick(null) // Close dialog
+        router.refresh()
+      } else {
+        toast.error(res.error)
+      }
+    } catch (error) {
+      toast.error('Failed to remove member')
+    }
+  }
+
+  const members = (league.members as User[]) || []
+  const memberToKickUser = members.find((m) => m.id === memberToKick)
+
+  return (
+    <div className="h-[calc(100dvh-8rem)] md:h-[calc(100dvh-7rem)] flex flex-col overflow-hidden">
+      {/* Header Section */}
+      <div className="flex flex-col gap-4 mb-6 shrink-0 px-1">
+        <button
+          onClick={() => router.back()}
+          className="flex items-center gap-2 text-white/50 hover:text-white transition-colors self-start text-sm uppercase tracking-wider font-bold"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          {t('back_to_list')}
+        </button>
+
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <h1 className="text-2xl md:text-4xl font-black uppercase text-white tracking-tight drop-shadow-lg flex items-center gap-3">
+            {league.name}
+            {isOwner && <Crown className="w-6 h-6 text-[#eab308]" />}
+          </h1>
+
+          {isOwner && (
+            <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
+              <DialogTrigger asChild>
+                <button
+                  disabled={isDeleting}
+                  className="px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-500 border border-red-500/20 rounded-lg flex items-center gap-2 text-sm font-bold uppercase tracking-wider transition-all"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  {t('delete_league')}
+                </button>
+              </DialogTrigger>
+              <DialogContent className="bg-black/95 border-white/10 text-white backdrop-blur-xl">
+                <DialogHeader>
+                  <DialogTitle>{t('delete_confirm_title')}</DialogTitle>
+                  <DialogDescription className="text-white/60">
+                    {t('delete_confirm_desc')}
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <button className="px-4 py-2 rounded bg-white/5 border border-white/10 hover:bg-white/10 text-white text-sm font-bold uppercase tracking-wider">
+                      {t('cancel')}
+                    </button>
+                  </DialogClose>
+                  <button
+                    onClick={handleDeleteLeague}
+                    disabled={isDeleting}
+                    className="px-4 py-2 rounded bg-red-500 hover:bg-red-600 text-white border-none text-sm font-bold uppercase tracking-wider disabled:opacity-50"
+                  >
+                    {isDeleting ? 'Deleting...' : t('delete_confirm_action')}
+                  </button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          )}
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 min-h-0 overflow-y-auto pr-2 -mr-2 space-y-6">
+        {/* Info Card */}
+        <IceGlassCard className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <div className="text-xs text-white/40 uppercase tracking-wider mb-2 font-bold">
+                {t('invite_code')}
+              </div>
+              <button
+                onClick={(e) => copyToClipboard(league.code || '')}
+                className="w-full flex items-center justify-between bg-black/40 hover:bg-black/60 p-3 rounded-lg border border-dashed border-white/20 hover:border-[#eab308]/50 transition-all group/btn"
+              >
+                <span className="font-mono text-[#eab308] text-xl tracking-widest pl-2">
+                  {league.code}
+                </span>
+                <Copy className="w-5 h-5 text-white/40 group-hover/btn:text-white transition-colors" />
+              </button>
+            </div>
+            <div>
+              <div className="text-xs text-white/40 uppercase tracking-wider mb-2 font-bold">
+                {t('stats')}
+              </div>
+              <div className="flex items-center gap-4 p-3 rounded-lg bg-white/5 border border-white/10">
+                <div className="flex items-center gap-2">
+                  <Users className="w-5 h-5 text-white/70" />
+                  <div className="flex flex-col">
+                    <span className="text-lg font-bold leading-none">{members.length}</span>
+                    <span className="text-[10px] text-white/40 uppercase tracking-wider">
+                      {t('members_count')}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </IceGlassCard>
+
+        {/* Members List */}
+        <div>
+          <h2 className="text-lg font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+            <Users className="w-5 h-5 text-[#eab308]" />
+            {t('members_list')}
+          </h2>
+          <div className="bg-black/20 border border-white/5 rounded-xl overflow-hidden backdrop-blur-sm">
+            {members.map((member) => (
+              <div
+                key={member.id}
+                className="flex items-center justify-between p-4 border-b border-white/5 last:border-0 hover:bg-white/5 transition-colors"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center text-xs font-bold ring-1 ring-white/10 text-white">
+                    {member.email?.slice(0, 2).toUpperCase()}
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="font-bold text-sm text-white">
+                      {member.username || member.email}
+                      {(league.owner as User)?.id === member.id && (
+                        <span className="ml-2 text-[10px] bg-[#eab308]/20 text-[#eab308] px-1.5 py-0.5 rounded uppercase tracking-wider font-bold">
+                          Owner
+                        </span>
+                      )}
+                      {member.id === currentUser.id && (
+                        <span className="ml-2 text-[10px] bg-white/10 text-white/60 px-1.5 py-0.5 rounded uppercase tracking-wider">
+                          {t('you')}
+                        </span>
+                      )}
+                    </span>
+                  </div>
+                </div>
+
+                {isOwner && member.id !== currentUser.id && (
+                  <button
+                    onClick={() => setMemberToKick(member.id)}
+                    className="p-2 text-white/30 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-all"
+                    title={t('kick_member')}
+                  >
+                    <UserX className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Kick Member Confirmation Dialog */}
+      <Dialog open={!!memberToKick} onOpenChange={(open) => !open && setMemberToKick(null)}>
+        <DialogContent className="bg-black/95 border-white/10 text-white">
+          <DialogHeader>
+            <DialogTitle>{t('kick_confirm_title')}</DialogTitle>
+            <DialogDescription className="text-white/60">
+              {t('kick_confirm_desc', {
+                name: memberToKickUser?.username || memberToKickUser?.email || '',
+              })}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose asChild>
+              <button className="px-4 py-2 rounded bg-white/5 border border-white/10 hover:bg-white/10 text-white text-sm font-bold uppercase tracking-wider">
+                {t('cancel')}
+              </button>
+            </DialogClose>
+            <button
+              onClick={handleRemoveMember}
+              className="px-4 py-2 rounded bg-red-500 hover:bg-red-600 text-white border-none text-sm font-bold uppercase tracking-wider"
+            >
+              {t('kick_confirm_action')}
+            </button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
+  )
+}

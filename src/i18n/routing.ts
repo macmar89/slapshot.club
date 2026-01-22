@@ -56,6 +56,22 @@ export const routing = defineRouting({
       en: '/dashboard/[slug]',
       sk: '/dashboard/[slug]',
     },
+    '/dashboard/[slug]/leagues': {
+      en: '/dashboard/[slug]/leagues',
+      sk: '/dashboard/[slug]/ligy',
+    },
+    '/dashboard/[slug]/leagues/[leagueId]': {
+      en: '/dashboard/[slug]/leagues/[leagueId]',
+      sk: '/dashboard/[slug]/ligy/[leagueId]',
+    },
+    '/dashboard/[slug]/matches': {
+      en: '/dashboard/[slug]/matches',
+      sk: '/dashboard/[slug]/zapasy',
+    },
+    '/dashboard/[slug]/leaderboard': {
+      en: '/dashboard/[slug]/leaderboard',
+      sk: '/dashboard/[slug]/rebricek',
+    },
     '/lobby': {
       en: '/lobby',
       sk: '/lobby',

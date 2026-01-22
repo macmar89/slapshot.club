@@ -33,6 +33,11 @@ export const dashboardConfig = {
       icon: Trophy,
     },
     {
+      labelKey: 'leagues',
+      href: '/dashboard/leagues',
+      icon: Users,
+    },
+    {
       labelKey: 'rules',
       href: '/dashboard/rules',
       icon: FileText,

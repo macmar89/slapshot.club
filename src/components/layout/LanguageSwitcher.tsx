@@ -11,7 +11,7 @@ export function LanguageSwitcher() {
   const pathname = usePathname()
 
   const toggleLanguage = (newLocale: 'en' | 'sk') => {
-    router.replace(pathname as any, { locale: newLocale })
+    router.replace(pathname, { locale: newLocale, scroll: false })
   }
 
   return (
@@ -21,7 +21,7 @@ export function LanguageSwitcher() {
           key={loc}
           onClick={() => toggleLanguage(loc as 'en' | 'sk')}
           className={cn(
-            'px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all',
+            'px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer',
             locale === loc
               ? 'bg-primary text-white shadow-[0_0_15px_rgba(var(--primary-rgb),0.5)]'
               : 'text-white/40 hover:text-white/70 hover:bg-white/5',

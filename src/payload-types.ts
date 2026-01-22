@@ -421,16 +421,13 @@ export interface League {
    * Unikátny kód na pozývanie (napr. PUK-XYZ)
    */
   code?: string | null;
-  commissioner: string | User;
-  members?: (string | User)[] | null;
+  owner: string | User;
+  members: (string | User)[];
+  competition: string | Competition;
   /**
    * Maximálny počet členov. Pre Public ligy zvýšiť manuálne.
    */
   maxMembers: number;
-  /**
-   * Hráči, ktorí ligu opustili, ale ich body sa stále rátajú do priemeru sezóny.
-   */
-  historicalMembers?: (string | User)[] | null;
   stats?: {
     averageScore?: number | null;
     totalScore?: number | null;
@@ -799,10 +796,10 @@ export interface LeaguesSelect<T extends boolean = true> {
   name?: T;
   type?: T;
   code?: T;
-  commissioner?: T;
+  owner?: T;
   members?: T;
+  competition?: T;
   maxMembers?: T;
-  historicalMembers?: T;
   stats?:
     | T
     | {

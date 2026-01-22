@@ -7,6 +7,7 @@ import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import bgImage from '@/assets/images/ssc_bg.webp'
+import { Toaster } from 'sonner'
 
 const sora = Sora({
   subsets: ['latin'],
@@ -69,6 +70,7 @@ export default async function RootLayout(props: {
           </div>
 
           <main className="relative z-10">{children}</main>
+          <Toaster richColors position="top-center" theme="dark" />
         </NextIntlClientProvider>
       </body>
     </html>

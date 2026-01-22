@@ -23,6 +23,7 @@ export default async function CompetitionMatches({
       },
     },
     limit: 1,
+    locale: locale as any,
   })
 
   const competition = competitions[0]

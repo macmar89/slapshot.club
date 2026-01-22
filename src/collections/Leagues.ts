@@ -12,9 +12,9 @@ const canCreateLeague: Access = async ({ req: { user, payload }, data }) => {
   if (!user) return false
 
   // Admin môže čokoľvek
-  if (user.roles?.includes('admin')) return true
+  if ((user as any).role === 'admin') return true
 
-  // Ak chce vytvoriť PUBLIC ligu, musí byť admin (už sme checkli hore, ale pre istotu)
+  // Ak chce vytvoriť PUBLIC ligu, musí byť admin
   if (data?.type === 'public') {
     return false
   }
@@ -24,7 +24,7 @@ const canCreateLeague: Access = async ({ req: { user, payload }, data }) => {
     const existingLeagues = await payload.find({
       collection: 'leagues',
       where: {
-        and: [{ commissioner: { equals: user.id } }, { type: { equals: 'private' } }],
+        and: [{ owner: { equals: user.id } }, { type: { equals: 'private' } }],
       },
       limit: 0, // Len spočítame
     })
@@ -39,26 +39,26 @@ export const Leagues: CollectionConfig = {
   slug: 'leagues',
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name', 'commissioner', 'stats.memberCount', 'createdAt'],
+    defaultColumns: ['name', 'owner', 'stats.memberCount', 'createdAt'],
   },
   access: {
-    // Čítať môže každý prihlásený (aby si našiel ligu), ale detaily len členovia (riešené na FE alebo cez access funkciu)
+    // Čítať môže každý prihlásený (aby si našiel ligu)
     read: ({ req: { user } }) => !!user,
     // Vytvoriť môže len prihlásený user
-    create: ({ req: { user } }) => !!user,
-    // Upraviť môže len Commissioner (zakladateľ) alebo Admin
+    create: canCreateLeague,
+    // Upraviť môže len Owner (zakladateľ) alebo Admin
     update: ({ req: { user } }) => {
       if (!user) return false
-      if (user.role === 'admin') return true
+      if ((user as any).role === 'admin') return true
 
       return {
-        commissioner: {
+        owner: {
           equals: user.id,
         },
       }
     },
-    // Zmazať môže len Admin (aby sa nestrácali dáta)
-    delete: ({ req: { user } }) => user?.role === 'admin' || false,
+    // Zmazať môže len Admin
+    delete: ({ req: { user } }) => (user as any)?.role === 'admin' || false,
   },
   fields: [
     {
@@ -75,7 +75,7 @@ export const Leagues: CollectionConfig = {
       type: 'text',
       required: true,
       minLength: 3,
-      maxLength: 30, // Aby nám to nerozbilo UI na mobile
+      maxLength: 30,
       index: true,
     },
     {
@@ -94,20 +94,21 @@ export const Leagues: CollectionConfig = {
     {
       name: 'code',
       type: 'text',
-      unique: true, // Kritické pre rýchle vyhľadávanie pri vstupe do ligy
+      unique: true,
+      index: true,
       admin: {
         description: 'Unikátny kód na pozývanie (napr. PUK-XYZ)',
-        readOnly: true, // Generuje sa automaticky
+        readOnly: true,
       },
     },
     {
-      name: 'commissioner',
+      name: 'owner',
       type: 'relationship',
       relationTo: 'users',
       required: true,
       defaultValue: ({ user }) => user?.id,
       admin: {
-        readOnly: true, // Vlastník sa nemení (iba admin cez DB zásah)
+        readOnly: true,
       },
     },
     {
@@ -115,9 +116,9 @@ export const Leagues: CollectionConfig = {
       type: 'relationship',
       relationTo: 'users',
       hasMany: true,
-      // 🛡️ KRITICKÁ VALIDÁCIA
-      validate: async (userIds, { data, req, payload, operation }) => {
-        // Ak ide o public ligu, neriešime limity tu (môžu byť riešené inde alebo neobmedzené)
+      required: true,
+      validate: async (userIds, { data, payload }) => {
+        // Ak ide o public ligu, neriešime limity
         if ((data as any)?.type === 'public') return true
 
         const targetMax = data?.maxMembers || LIMITS.maxMembersPrivate
@@ -127,35 +128,20 @@ export const Leagues: CollectionConfig = {
           return `Liga je plná (max ${targetMax} hráčov).`
         }
 
-        // 2. Kontrola limitov pre užívateľov (max 5 privátnych líg)
-        // Pri create/update kontrolujeme novopridaných užívateľov
-        if (Array.isArray(userIds) && payload) {
-          // Musíme zistiť, kto bol pridaný (ak je to update)
-          // Alebo jednoducho skontrolovať všetkých, čo je istejšie
-          for (const userId of userIds) {
-            const joinedPrivateLeagues = await payload.find({
-              collection: 'leagues',
-              where: {
-                and: [{ type: { equals: 'private' } }, { members: { contains: userId } }],
-              },
-              limit: 0,
-            })
-
-            // Ak už je v 5 ligách a táto liga medzitým nie je jedna z nich (pri update)
-            // Pri update musíme započítať, že už tam je.
-            // Zjednodušene: ak totalDocs >= 5 a userId už v tejto lige nie je členom (pri update), tak stop.
-
-            // Táto validácia je drahá (N dotazov), ideálne by bolo kontrolovať len pridávaného usera v Server Action.
-            // Ale ak to chceme v CMS, tak aspoň základný check:
-            if (joinedPrivateLeagues.totalDocs >= LIMITS.joinedPrivate) {
-              // Musíme overiť, či už v TEJTO lige nie je členom (potom je to OK, len update ostatných dát)
-              // Ale v `validate` nemáme prístup k pôvodnému dokumentu ľahko bez ďalšieho await payload.findByID
-              // Pre zjednodušenie to necháme takto a odporúčaný join flow bude cez Server Action.
-            }
-          }
-        }
+        // Poznámka: Komplexnú validáciu max 5 joined líg pre každého člena
+        // je lepšie riešiť v Server Actions kvôli výkonu, ale basic check tu nezaškodí.
 
         return true
+      },
+    },
+    {
+      name: 'competition',
+      type: 'relationship',
+      relationTo: 'competitions',
+      required: true,
+      index: true,
+      admin: {
+        readOnly: true, // Typically set on creation
       },
     },
     {
@@ -166,25 +152,8 @@ export const Leagues: CollectionConfig = {
       admin: {
         description: 'Maximálny počet členov. Pre Public ligy zvýšiť manuálne.',
       },
-      validate: (val: number | null | undefined, { data }: { data: any }) => {
-        if (data?.type === 'private' && val && val > LIMITS.maxMembersPrivate) {
-          return `Súkromná liga môže mať maximálne ${LIMITS.maxMembersPrivate} hráčov.`
-        }
-        return true
-      },
     },
-    // 🛡️ ANTI-CHEATING FIELD
-    {
-      name: 'historicalMembers',
-      type: 'relationship',
-      relationTo: 'users',
-      hasMany: true,
-      admin: {
-        description: 'Hráči, ktorí ligu opustili, ale ich body sa stále rátajú do priemeru sezóny.',
-        readOnly: true, // Manuálne sa nemení, plní to logika
-      },
-    },
-    // CACHED STATS (Pre výkon - vypočítané CRON jobom)
+    // Cached Stats for Leaderboards
     {
       name: 'stats',
       type: 'group',
@@ -196,16 +165,16 @@ export const Leagues: CollectionConfig = {
         },
         {
           name: 'totalScore',
-          type: 'number', // Pre rebríček líg
+          type: 'number',
           defaultValue: 0,
         },
         {
           name: 'memberCount',
           type: 'number',
-          defaultValue: 1, // Zakladateľ je vždy člen
+          defaultValue: 1,
         },
         {
-          name: 'rank', // Poradie ligy v globálnom rebríčku
+          name: 'rank',
           type: 'number',
         },
       ],
@@ -213,18 +182,20 @@ export const Leagues: CollectionConfig = {
   ],
   hooks: {
     beforeChange: [
-      async ({ data, operation, req, originalDoc }) => {
-        const { payload, user } = req
+      async ({ data, operation, req }) => {
+        const { user } = req
 
-        // 1. Automatické generovanie invite kódu pri vytvorení
         if (operation === 'create') {
-          // Generujeme krátky kód z cuid2
-          data.code = `LIGA-${createId().substring(0, 6).toUpperCase()}`
+          // 1. Generovanie Invite kódu
+          // PUK-xxxx
+          if (!data.code) {
+            data.code = `PUK-${createId().substring(0, 4).toUpperCase()}`
+          }
 
-          // Nastavíme zakladateľa (commissioner) automaticky z req.user
+          // 2. Nastavenie Ownera
           if (user) {
-            data.commissioner = user.id
-            // Pridáme zakladateľa aj do members, ak tam nie je
+            data.owner = user.id
+            // Pridať ownera do members
             if (!data.members) data.members = []
             if (!data.members.includes(user.id)) {
               data.members.push(user.id)
@@ -232,32 +203,8 @@ export const Leagues: CollectionConfig = {
           }
         }
 
-        // 2. Kontrola limitov pri pridávaní členov
+        // 3. Update memberCount
         if (data.members && Array.isArray(data.members)) {
-          const newMembers =
-            operation === 'create'
-              ? data.members
-              : data.members.filter((id: string) => !originalDoc?.members?.includes(id))
-
-          for (const memberId of newMembers) {
-            const joinedPrivateLeagues = await payload.find({
-              collection: 'leagues',
-              where: {
-                and: [{ type: { equals: 'private' } }, { members: { contains: memberId } }],
-              },
-              limit: 0,
-            })
-
-            if (joinedPrivateLeagues.totalDocs >= LIMITS.joinedPrivate && data.type === 'private') {
-              throw new Error(
-                `Užívateľ ${memberId} je už v maximálnom počte privátnych líg (${LIMITS.joinedPrivate}).`,
-              )
-            }
-          }
-        }
-
-        // 3. Aktualizácia memberCount
-        if (data.members) {
           if (!data.stats) data.stats = {}
           data.stats.memberCount = data.members.length
         }
