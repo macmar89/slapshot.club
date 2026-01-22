@@ -27,7 +27,7 @@ const blurMap = {
  * - Subtle inner gradient for volume
  */
 export const IceGlassCard = React.forwardRef<HTMLDivElement, IceGlassCardProps>(
-  ({ className, children, withGradient, ...props }, ref) => {
+  ({ className, children, withGradient, backdropBlur, ...props }, ref) => {
     return (
       <div
         ref={ref}
@@ -39,7 +39,7 @@ export const IceGlassCard = React.forwardRef<HTMLDivElement, IceGlassCardProps>(
           'border border-[#5d626d]/30',
           // Background & Transparency
           'bg-black/40', // Base background for contrast
-          blurMap[props.backdropBlur || 'xs'], // Deep blur for the ice effect, customizable
+          blurMap[(backdropBlur || 'xs') as keyof typeof blurMap], // Deep blur for the ice effect, customizable
           // Border & Bevel simulation
           // We use a combination of box-shadows to create the 3D ice block look
           // 1. Inset white ring for the sharp top/left edge highlight (specular)

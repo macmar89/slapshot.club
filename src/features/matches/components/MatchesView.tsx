@@ -59,7 +59,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
     } finally {
       setLoading(false)
     }
-  }, [competition.id, groupMatchesByDate])
+  }, [competition, groupMatchesByDate])
 
   useEffect(() => {
     fetchData()
@@ -109,7 +109,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
             onClick={() => handleDateChange('prev')}
             disabled={availableDates.indexOf(selectedDate!) === 0}
             className={cn(
-              'w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-300 group/btn',
+              'w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-300 group/btn cursor-pointer',
               availableDates.indexOf(selectedDate!) === 0
                 ? 'bg-white/5 opacity-20 cursor-not-allowed'
                 : 'bg-white/10 hover:bg-[#eab308] hover:text-black',
@@ -157,7 +157,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
             onClick={() => handleDateChange('next')}
             disabled={availableDates.indexOf(selectedDate!) === availableDates.length - 1}
             className={cn(
-              'w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-300 group/btn',
+              'w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-300 group/btn cursor-pointer',
               availableDates.indexOf(selectedDate!) === availableDates.length - 1
                 ? 'bg-white/5 opacity-20 cursor-not-allowed'
                 : 'bg-white/10 hover:bg-[#eab308] hover:text-black',
@@ -176,7 +176,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
       </div>
 
       {/* Matches Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-6 -mx-1 md:mx-0 animate-in fade-in slide-in-from-bottom-4 duration-700">
         {activeMatches.length > 0 ? (
           activeMatches.map((match) => (
             <MatchCard

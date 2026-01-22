@@ -28,16 +28,6 @@ export const dashboardConfig = {
       icon: Calendar,
     },
     {
-      labelKey: 'tables',
-      href: '/dashboard/tables',
-      icon: Table,
-    },
-    {
-      labelKey: 'teams',
-      href: '/dashboard/teams',
-      icon: Users,
-    },
-    {
       labelKey: 'leaderboard',
       href: '/dashboard/leaderboard',
       icon: Trophy,

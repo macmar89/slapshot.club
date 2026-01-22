@@ -59,7 +59,7 @@ export function PredictionDialog({
   }
 
   const renderLogo = (team: Team) => (
-    <div className="w-16 h-16 rounded-xl overflow-hidden bg-white/5 border border-white/10 p-2 flex items-center justify-center">
+    <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl overflow-hidden bg-white/5 border border-white/10 p-2 flex items-center justify-center">
       {team.logo && typeof team.logo === 'object' ? (
         <Image
           src={(team.logo as Media).url || ''}
@@ -88,14 +88,14 @@ export function PredictionDialog({
       <span className="text-[0.6rem] font-black uppercase tracking-widest text-white/40">
         {team.shortName}
       </span>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 md:gap-3">
         <button
           onClick={() => onChange(Math.max(0, value - 1))}
           className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-xl font-bold transition-colors"
         >
           -
         </button>
-        <div className="w-14 h-16 bg-white/10 rounded-2xl border border-white/20 flex items-center justify-center text-3xl font-black tracking-tighter">
+        <div className="w-12 h-14 md:w-14 md:h-16 bg-white/10 rounded-2xl border border-white/20 flex items-center justify-center text-2xl md:text-3xl font-black tracking-tighter">
           {value}
         </div>
         <button
@@ -110,7 +110,7 @@ export function PredictionDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-[425px] bg-[#0c0f14]/95 backdrop-blur-3xl border-white/10 text-white rounded-[2rem] p-8 overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+      <DialogContent className="w-[calc(100vw-16px)] sm:max-w-[425px] bg-[#0c0f14]/95 backdrop-blur-3xl border-white/10 text-white rounded-[2rem] p-4 md:p-8 overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]">
         {/* Abstract Background Decoration */}
         <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#eab308]/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-[#eab308]/5 rounded-full blur-3xl pointer-events-none" />

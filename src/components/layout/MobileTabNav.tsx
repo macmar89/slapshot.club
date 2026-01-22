@@ -21,8 +21,8 @@ export function MobileTabNav() {
   const params = useParams()
   const slug = params?.slug as string | undefined
 
-  const leftItems = dashboardConfig.sidebarNav.slice(0, 2)
-  const rightItems = dashboardConfig.sidebarNav.slice(2, 4)
+  const leftItems = dashboardConfig.sidebarNav.slice(1,3)
+  const rightItems = dashboardConfig.sidebarNav.slice(3, 4)
 
   const getHref = (originalHref: string) => {
     if (!slug) return originalHref

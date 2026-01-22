@@ -83,7 +83,7 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
     <IceGlassCard
       backdropBlur="md"
       className={cn(
-        'p-4 md:p-6 hover:border-[#eab308]/40 transition-all duration-300 group relative',
+        'p-3 md:p-6 hover:border-[#eab308]/40 transition-all duration-300 group relative',
         match.status === 'cancelled' && 'opacity-40 grayscale-[0.5]',
       )}
     >
@@ -216,7 +216,7 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
                 onClick={() => onPredict(match)}
                 variant="solid"
                 color="gold"
-                className="rounded-xl px-6 py-2 h-auto text-[0.65rem] font-black uppercase tracking-widest gap-2 shadow-[0_0_20px_rgba(234,179,8,0.2)]"
+                className="w-full md:w-auto rounded-xl px-8 py-3 h-auto text-[0.7rem] md:text-[0.65rem] font-black uppercase tracking-[0.2em] gap-2 shadow-[0_4px_20px_rgba(234,179,8,0.3)] hover:shadow-[0_8px_30px_rgba(234,179,8,0.4)] transition-all"
               >
                 {t('predict_button')}
               </Button>

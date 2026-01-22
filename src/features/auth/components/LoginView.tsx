@@ -38,9 +38,7 @@ export function LoginView() {
       {/* Background Image & Overlays */}
       <div className="absolute inset-0 z-0">
         <Image
-          // src="/images/background/slapshot_background_lightest.webp"
-          src='/images/background/slapshot_background_lightest.webp'
-          
+          src='/images/background/ssc_bg.webp'
           alt="Background"
           fill
           className="object-cover opacity-40 blur-[2px]"

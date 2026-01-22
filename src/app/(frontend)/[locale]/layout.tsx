@@ -1,7 +1,7 @@
+import '../../../global.css'
 import { Sora, Space_Grotesk } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
-import '../../../global.css'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
@@ -56,12 +56,12 @@ export default async function RootLayout(props: {
           <div className="fixed inset-0 z-0 flex items-center justify-center pointer-events-none">
             <div className="relative h-full w-full">
               <Image
-                src="/images/background/ssc_bg.webp"
+                src="/images/background/slapshot_background_lightest.webp"
                 alt="Slapshot Background"
                 fill
                 className="object-cover object-center"
                 priority
-                quality={100}
+                quality={100}  
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-slate-950/40" />
             </div>
