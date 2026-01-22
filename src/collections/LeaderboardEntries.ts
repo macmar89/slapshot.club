@@ -69,6 +69,11 @@ export const LeaderboardEntries: CollectionConfig = {
       defaultValue: 0,
     },
     {
+      name: 'wrongGuesses', // Štatistika: Koľko tipov bolo úplne mimo (neuhádol ani trend)
+      type: 'number',
+      defaultValue: 0,
+    },
+    {
       name: 'currentRank',
       type: 'number',
       index: true, // Dôležité pre rýchle hľadanie "Kto je prvý"

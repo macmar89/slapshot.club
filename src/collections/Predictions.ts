@@ -6,7 +6,7 @@ export const Predictions: CollectionConfig = {
   admin: {
     useAsTitle: 'id',
     group: 'Game',
-    defaultColumns: ['user', 'match', 'homeData', 'awayData', 'points'],
+    defaultColumns: ['user', 'match', 'homeData', 'awayData', 'points', 'isExact', 'isTrend'],
   },
   access: {
     // User vidí len svoje tipy, Admin všetky
@@ -96,31 +96,64 @@ export const Predictions: CollectionConfig = {
         description: 'Koľkokrát používateľ uložil/zmenil tento tip.',
       },
     },
+    {
+      name: 'isExact',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: { readOnly: true, hidden: true },
+    },
+    {
+      name: 'isTrend',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: { readOnly: true, hidden: true },
+    },
+    {
+      name: 'isWrong',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: { readOnly: true, hidden: true },
+    },
   ],
   hooks: {
     beforeValidate: [
-      async ({ data, req, operation }) => {
+      async ({ data, req, operation, originalDoc }) => {
+        if (!data) return data
+
         if (operation === 'create') {
-          // Automaticky priradíme usera, ak chýba (pre bezpečnosť)
-          if (!data?.user && req.user) {
+          if (!data.user && req.user) {
             data.user = req.user.id
           }
         }
 
-        // KONTROLA ČASU: Nedovoľ tipovať po začiatku zápasu
-        if (data?.match) {
-          const match = await req.payload.findByID({
-            collection: 'matches',
-            id: data.match,
-          })
+        // KONTROLA ČASU: Nedovoľ tipovať po začiatku zápasu (Bypass pre admina)
+        const isAdmin = req.user?.role === 'admin'
+        
+        if (!isAdmin && (operation === 'update' || operation === 'create')) {
+          // Zisťujeme, či sa reálne mení skóre oproti pôvodnému
+          const hasHomeChanged = data.homeGoals !== undefined && data.homeGoals !== (originalDoc as any)?.homeGoals
+          const hasAwayChanged = data.awayGoals !== undefined && data.awayGoals !== (originalDoc as any)?.awayGoals
+          const isScoreChange = hasHomeChanged || hasAwayChanged
+          
+          if (isScoreChange) {
+            // Získame ID zápasu (buď z nových dát alebo z existujúceho dokumentu)
+            const matchId = data.match || (originalDoc as any)?.match
+            
+            if (matchId) {
+              const match = await req.payload.findByID({
+                collection: 'matches',
+                id: typeof matchId === 'object' ? matchId.id : matchId,
+              })
 
-          if (match) {
-            const now = new Date()
-            const matchDate = new Date(match.date)
+              if (match) {
+                const now = new Date()
+                const matchDate = new Date(match.date)
 
-            // Ak je zápas už "live" alebo skončil, alebo je čas > dátum zápasu
-            if (now >= matchDate || match.status !== 'scheduled') {
-              throw new Error('Tento zápas už začal, nie je možné pridať alebo meniť tip.')
+                // Ak je zápas už "live", "finished" alebo prešiel čas začiatku
+                if (now >= matchDate || match.status !== 'scheduled') {
+                  throw new Error('Tento zápas už začal alebo prebieha, nie je možné meniť tip.')
+                }
+              }
             }
           }
         }

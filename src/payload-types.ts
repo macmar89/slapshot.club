@@ -303,6 +303,7 @@ export interface LeaderboardEntry {
   totalMatches?: number | null;
   exactGuesses?: number | null;
   correctTrends?: number | null;
+  wrongGuesses?: number | null;
   currentRank?: number | null;
   /**
    * Pozícia pri poslednom prepočte (včera/minulé kolo).
@@ -356,30 +357,21 @@ export interface Match {
   homeTeam: string | Team;
   awayTeam: string | Team;
   status: 'scheduled' | 'live' | 'finished' | 'cancelled';
-  result?: {
+  result: {
+    /**
+     * Vyber fázu pre zobrazenie špecifických polí
+     */
+    stage_type: 'regular_season' | 'group_phase' | 'playoffs' | 'pre_season';
     homeScore?: number | null;
     awayScore?: number | null;
     /**
      * Zvoľ, či zápas skončil po 60 minútach, v predĺžení alebo nájazdoch.
      */
-    endingType: 'regular' | 'ot' | 'so';
-    /**
-     * Vyber fázu pre zobrazenie špecifických polí
-     */
-    stage_type: 'regular_season' | 'group_phase' | 'playoffs' | 'pre_season';
+    endingType?: ('regular' | 'ot' | 'so') | null;
     round_label?: string | null;
-    /**
-     * Číslo kola (39) alebo poradie v pavúku (1=osemfinále, 2=štvrťfinále...)
-     */
     round_order?: number | null;
-    /**
-     * Zadaj len písmeno skupiny
-     */
     group_name?: string | null;
     series_game_number?: number | null;
-    /**
-     * Text pre tipujúcich, aby poznali kontext
-     */
     series_state?: string | null;
   };
   updatedAt: string;
@@ -404,6 +396,9 @@ export interface Prediction {
    * Koľkokrát používateľ uložil/zmenil tento tip.
    */
   editCount?: number | null;
+  isExact?: boolean | null;
+  isTrend?: boolean | null;
+  isWrong?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -656,6 +651,7 @@ export interface LeaderboardEntriesSelect<T extends boolean = true> {
   totalMatches?: T;
   exactGuesses?: T;
   correctTrends?: T;
+  wrongGuesses?: T;
   currentRank?: T;
   previousRank?: T;
   rankChange?: T;
@@ -699,10 +695,10 @@ export interface MatchesSelect<T extends boolean = true> {
   result?:
     | T
     | {
+        stage_type?: T;
         homeScore?: T;
         awayScore?: T;
         endingType?: T;
-        stage_type?: T;
         round_label?: T;
         round_order?: T;
         group_name?: T;
@@ -725,6 +721,9 @@ export interface PredictionsSelect<T extends boolean = true> {
   points?: T;
   status?: T;
   editCount?: T;
+  isExact?: T;
+  isTrend?: T;
+  isWrong?: T;
   updatedAt?: T;
   createdAt?: T;
 }

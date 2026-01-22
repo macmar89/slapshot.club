@@ -39,6 +39,7 @@ export const Teams: CollectionConfig = {
       name: 'shortName',
       type: 'text',
       required: true,
+      localized: true,
       maxLength: 3,
       admin: {
         description: 'Trojmiestna skratka pre scoreboard (napr. SVK, KOS, SLO).',

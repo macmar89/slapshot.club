@@ -1,5 +1,6 @@
 import { CollectionConfig, FieldHook } from 'payload'
 import { createId } from '@paralleldrive/cuid2'
+import { evaluateMatch, revertMatchEvaluation } from '@/features/matches/utils/evaluation'
 
 // -------------------------
 // HOOKS LOGIC
@@ -41,6 +42,34 @@ export const Matches: CollectionConfig = {
   access: {
     read: () => true,
   },
+  endpoints: [
+    {
+      path: '/:id/recalculate',
+      method: 'post',
+      handler: async (req) => {
+        const id = req.routeParams?.id
+        
+        // 🔐 Security: Check if user is admin
+        const { user } = req
+        if (!user || (user as any).role !== 'admin') {
+          return Response.json({ error: 'Unauthorized' }, { status: 401 })
+        }
+
+        try {
+          req.payload.logger.info(`🔄 Manual recalculation triggered for match ${id} by ${user.email}`)
+          // Revert first to clear old points accurately
+          await revertMatchEvaluation(id as string, req.payload)
+          // Then evaluate with current scores
+          await evaluateMatch(id as string, req.payload)
+          
+          return Response.json({ message: 'Points recalculated successfully' })
+        } catch (error: any) {
+          req.payload.logger.error(`Manual recalculation failed: ${error.message}`)
+          return Response.json({ error: `Recalculation failed: ${error.message}` }, { status: 500 })
+        }
+      },
+    },
+  ],
   fields: [
     {
       name: 'id',
@@ -102,7 +131,7 @@ export const Matches: CollectionConfig = {
           required: true,
           admin: { width: '50%' },
           // UX Vychytávka: Nedovoľ vybrať ten istý tím, čo je Home
-          filterOptions: ({ data }) => {
+          filterOptions: ({ data }: { data: any }) => {
             if (data?.homeTeam) {
               return {
                 id: { not_equals: data.homeTeam },
@@ -110,7 +139,7 @@ export const Matches: CollectionConfig = {
             }
             return true
           },
-          validate: (value, { data }) => {
+          validate: (value: any, { data }: { data: any }) => {
             if (value === data?.homeTeam) {
               return 'Domáci a Hostia nemôžu byť ten istý tím.'
             }
@@ -131,22 +160,38 @@ export const Matches: CollectionConfig = {
         { label: 'Zrušený', value: 'cancelled' },
       ],
       admin: {
-        position: 'sidebar', // Status patrí do sidebaru, nezavadzia v obsahu
+        position: 'sidebar',
       },
     },
-    // VÝSLEDKY ZÁPASU
     {
       name: 'result',
       type: 'group',
       label: 'Výsledková tabuľa',
       admin: {
-        // Zobrazíme len ak sa už hrá
-        condition: (data) => data?.status !== 'scheduled',
-        className: 'match-result-group', // Pre prípadné CSS štýlovanie v admine
+        className: 'match-result-group',
       },
       fields: [
         {
+          name: 'stage_type',
+          type: 'select',
+          required: true,
+          defaultValue: 'regular_season',
+          label: 'Fáza súťaže',
+          options: [
+            { label: 'Základná časť (Liga)', value: 'regular_season' },
+            { label: 'Skupinová fáza (Turnaj)', value: 'group_phase' },
+            { label: 'Play-off / Vyraďovačka', value: 'playoffs' },
+            { label: 'Príprava', value: 'pre_season' },
+          ],
+          admin: {
+            description: 'Vyber fázu pre zobrazenie špecifických polí',
+          },
+        },
+        {
           type: 'row',
+          admin: {
+            condition: (data) => data?.status !== 'scheduled',
+          },
           fields: [
             {
               name: 'homeScore',
@@ -165,49 +210,22 @@ export const Matches: CollectionConfig = {
           ],
         },
         {
-          name: 'endingType', // Premenované z isOvertime, lebo už to nie je áno/nie
+          name: 'endingType',
           type: 'select',
           defaultValue: 'regular',
           required: true,
           label: 'Spôsob ukončenia zápasu',
           options: [
-            {
-              label: 'Riadny hrací čas (60 min)',
-              value: 'regular',
-            },
-            {
-              label: 'Po predĺžení (PP)',
-              value: 'ot', // 'ot' = Overtime (International standard)
-            },
-            {
-              label: 'Po nájazdoch (SN)',
-              value: 'so', // 'so' = Shootout (International standard)
-            },
+            { label: 'Riadny hrací čas (60 min)', value: 'regular' },
+            { label: 'Po predĺžení (PP)', value: 'ot' },
+            { label: 'Po nájazdoch (SN)', value: 'so' },
           ],
           admin: {
+            condition: (data) => data?.status !== 'scheduled',
             description: 'Zvoľ, či zápas skončil po 60 minútach, v predĺžení alebo nájazdoch.',
-            width: '50%', // Aby to bolo pekne vedľa seba alebo pod skóre
+            width: '50%',
           },
         },
-        {
-          name: 'stage_type',
-          type: 'select',
-          required: true,
-          defaultValue: 'regular_season',
-          label: 'Fáza súťaže',
-          options: [
-            { label: 'Základná časť (Liga)', value: 'regular_season' },
-            { label: 'Skupinová fáza (Turnaj)', value: 'group_phase' },
-            { label: 'Play-off / Vyraďovačka', value: 'playoffs' },
-            { label: 'Príprava', value: 'pre_season' },
-          ],
-          admin: {
-            position: 'sidebar', // Umiestnime to na bok, aby to nezavadzalo
-            description: 'Vyber fázu pre zobrazenie špecifických polí',
-          },
-        },
-
-        // 2. FÁZA A PORADIE (Spoločné pre väčšinu)
         {
           type: 'row',
           fields: [
@@ -226,26 +244,19 @@ export const Matches: CollectionConfig = {
               label: 'Poradie (pre triedenie)',
               admin: {
                 width: '50%',
-                description:
-                  'Číslo kola (39) alebo poradie v pavúku (1=osemfinále, 2=štvrťfinále...)',
               },
             },
           ],
         },
-
-        // 3. SKUPINA (Len pre Turnaje - MS, ZOH)
         {
           name: 'group_name',
           type: 'text',
           label: 'Názov skupiny',
           admin: {
-            condition: (data) => data.stage_type === 'group_phase', // Zobrazí sa len pri "group_phase"
+            condition: (data) => data?.result?.stage_type === 'group_phase',
             placeholder: 'A, B...',
-            description: 'Zadaj len písmeno skupiny',
           },
         },
-
-        // 4. PLAY-OFF SÉRIE (Len pre Play-off - NHL, Extraliga)
         {
           type: 'row',
           fields: [
@@ -256,9 +267,8 @@ export const Matches: CollectionConfig = {
               min: 1,
               max: 7,
               admin: {
-                condition: (data) => data.stage_type === 'playoffs', // Zobrazí sa len pri "playoffs"
+                condition: (data) => data?.result?.stage_type === 'playoffs',
                 width: '30%',
-                placeholder: 'napr. 4',
               },
             },
             {
@@ -266,29 +276,59 @@ export const Matches: CollectionConfig = {
               type: 'text',
               label: 'Stav série (Kontext)',
               admin: {
-                condition: (data) => data.stage_type === 'playoffs', // Zobrazí sa len pri "playoffs"
+                condition: (data) => data?.result?.stage_type === 'playoffs',
                 width: '70%',
-                placeholder: 'napr. Stav série 2:1',
-                description: 'Text pre tipujúcich, aby poznali kontext',
               },
             },
           ],
         },
       ],
     },
+    {
+      name: 'recalculatePoints',
+      type: 'ui',
+      admin: {
+        position: 'sidebar',
+        components: {
+          Field: '@/features/matches/components/RecalculateButton',
+        },
+      },
+    },
   ],
   hooks: {
     afterChange: [
       async ({ doc, previousDoc, req }) => {
-        // TRIGGER PRE VÝPOČET BODOV
-        // Spustíme len vtedy, keď sa status zmení na 'finished'
-        if (doc.status === 'finished' && previousDoc?.status !== 'finished') {
-          req.payload.logger.info(
-            `🏁 Zápas ${doc.displayTitle} skončil. Spúšťam vyhodnotenie tipov...`,
-          )
+        try {
+          // 1. STATUS CHANGE: Scheduled/Live -> Finished
+          if (doc.status === 'finished' && previousDoc?.status !== 'finished') {
+            req.payload.logger.info(`[HOOK] Status changed to FINISHED for: ${doc.displayTitle}`)
+            await evaluateMatch(doc.id, req.payload)
+            return
+          }
 
-          // TODO: Tu zavoláme funkciu: await evaluatePredictions(doc.id, req.payload);
-          // Toto je heavy operácia, v produkcii by mala ísť do Background Jobu (Inngest/BullMQ)
+          // 2. STATUS CHANGE: Finished -> Anything else (Revert)
+          if (previousDoc?.status === 'finished' && doc.status !== 'finished') {
+            req.payload.logger.info(`[HOOK] Status changed FROM finished to ${doc.status} for: ${doc.displayTitle}`)
+            await revertMatchEvaluation(doc.id, req.payload)
+            return
+          }
+
+          // 3. SCORE CHANGE while Finished (Revert & Re-evaluate)
+          if (doc.status === 'finished' && previousDoc?.status === 'finished') {
+             const scoreChanged = 
+              doc.result?.homeScore !== previousDoc.result?.homeScore ||
+              doc.result?.awayScore !== previousDoc.result?.awayScore ||
+              doc.result?.endingType !== previousDoc.result?.endingType ||
+              doc.result?.stage_type !== previousDoc.result?.stage_type
+
+             if (scoreChanged) {
+               req.payload.logger.info(`[HOOK] Score/Type changed for finished match: ${doc.displayTitle}`)
+               await revertMatchEvaluation(doc.id, req.payload)
+               await evaluateMatch(doc.id, req.payload)
+             }
+          }
+        } catch (error: any) {
+          req.payload.logger.error(`[HOOK ERROR] Failed to process match evaluation: ${error.message}`)
         }
       },
     ],
