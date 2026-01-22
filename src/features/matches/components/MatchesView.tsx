@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils'
 import { ChevronLeft, ChevronRight, CalendarDays } from 'lucide-react'
 import { MatchesSkeleton } from './MatchesSkeleton'
 import { useTranslations } from 'next-intl'
+import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 
 interface MatchesViewProps {
   competition: Competition
@@ -19,14 +20,17 @@ interface MatchesViewProps {
 export function MatchesView({ competition }: MatchesViewProps) {
   const t = useTranslations('Dashboard.matches')
 
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+
   const [loading, setLoading] = useState(true)
   const [matches, setMatches] = useState<Match[]>([])
   const [userPredictions, setUserPredictions] = useState<Prediction[]>([])
   const [stats, setStats] = useState<Record<string, any>>({})
 
-  const [selectedDate, setSelectedDate] = useState<string | null>(null)
-  const [predictingMatch, setPredictingMatch] = useState<Match | null>(null)
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
+  const [predictingMatch, setPredictingMatch] = useState<Match | null>(null)
 
   const groupMatchesByDate = useCallback((matches: Match[]) => {
     const groups: Record<string, Match[]> = {}
@@ -38,36 +42,58 @@ export function MatchesView({ competition }: MatchesViewProps) {
     return groups
   }, [])
 
+  const groupedMatches = useMemo(() => groupMatchesByDate(matches), [matches, groupMatchesByDate])
+  const availableDates = useMemo(() => Object.keys(groupedMatches).sort(), [groupedMatches])
+
+  const selectedDate = useMemo(() => {
+    const urlDate = searchParams.get('date')
+    if (urlDate && availableDates.includes(urlDate)) {
+      return urlDate
+    }
+
+    // Fallback to today or next match
+    if (availableDates.length > 0) {
+      const now = new Date()
+      now.setHours(0, 0, 0, 0)
+      const closestDate = availableDates.find((d) => new Date(d) >= now) || availableDates[0]
+      return closestDate
+    }
+
+    return null
+  }, [searchParams, availableDates])
+
+  const setUrlDate = useCallback(
+    (date: string) => {
+      const params = new URLSearchParams(searchParams)
+      params.set('date', date)
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+    },
+    [router, pathname, searchParams],
+  )
+
   const fetchData = useCallback(async () => {
     try {
       const data = await getMatchesAction(competition.id)
       setMatches(data.matches)
       setUserPredictions(data.userPredictions)
       setStats(data.stats)
-
-      // Group matches by date to find unique days
-      const grouped = groupMatchesByDate(data.matches)
-      const dates = Object.keys(grouped).sort()
-
-      // Find closest date (today or next match)
-      const now = new Date()
-      now.setHours(0, 0, 0, 0)
-
-      const closestDate = dates.find((d) => new Date(d) >= now) || dates[0]
-      setSelectedDate(closestDate)
     } catch (error) {
       console.error('Failed to fetch matches:', error)
     } finally {
       setLoading(false)
     }
-  }, [competition, groupMatchesByDate])
+  }, [competition])
 
   useEffect(() => {
     fetchData()
   }, [fetchData])
 
-  const groupedMatches = useMemo(() => groupMatchesByDate(matches), [matches, groupMatchesByDate])
-  const availableDates = useMemo(() => Object.keys(groupedMatches).sort(), [groupedMatches])
+  // Sync default date back to URL if missing, to ensure refreshes work correctly
+  useEffect(() => {
+    if (!searchParams.get('date') && selectedDate) {
+      setUrlDate(selectedDate)
+    }
+  }, [searchParams, selectedDate, setUrlDate])
 
   const activeMatches = selectedDate ? groupedMatches[selectedDate] || [] : []
 
@@ -78,9 +104,9 @@ export function MatchesView({ competition }: MatchesViewProps) {
   const handleDateChange = (direction: 'prev' | 'next') => {
     const currentIndex = availableDates.indexOf(selectedDate!)
     if (direction === 'prev' && currentIndex > 0) {
-      setSelectedDate(availableDates[currentIndex - 1])
+      setUrlDate(availableDates[currentIndex - 1])
     } else if (direction === 'next' && currentIndex < availableDates.length - 1) {
-      setSelectedDate(availableDates[currentIndex + 1])
+      setUrlDate(availableDates[currentIndex + 1])
     }
   }
 
@@ -172,7 +198,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
       {/* Matches Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-6 -mx-1 md:mx-0 animate-in fade-in slide-in-from-bottom-4 duration-700">
         {activeMatches.length > 0 ? (
-          activeMatches.map((match) => (
+          activeMatches.map((match: Match) => (
             <MatchCard
               key={match.id}
               match={match}
@@ -210,7 +236,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
         onClose={() => setIsCalendarOpen(false)}
         selectedDate={selectedDate}
         availableDates={availableDates}
-        onSelectDate={setSelectedDate}
+        onSelectDate={setUrlDate}
       />
     </div>
   )
