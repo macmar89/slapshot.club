@@ -8,7 +8,8 @@ import { MatchCard } from './MatchCard'
 import { PredictionDialog } from './PredictionDialog'
 import { CalendarDialog } from './CalendarDialog'
 import { cn } from '@/lib/utils'
-import { ChevronLeft, ChevronRight, CalendarDays, Loader2 } from 'lucide-react'
+import { ChevronLeft, ChevronRight, CalendarDays } from 'lucide-react'
+import { MatchesSkeleton } from './MatchesSkeleton'
 import { useTranslations } from 'next-intl'
 
 interface MatchesViewProps {
@@ -71,14 +72,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
   const activeMatches = selectedDate ? groupedMatches[selectedDate] || [] : []
 
   if (loading) {
-    return (
-      <div className="flex flex-col items-center justify-center h-[400px] gap-4">
-        <Loader2 className="w-10 h-10 text-[#eab308] animate-spin" />
-        <p className="text-white/40 font-bold uppercase tracking-[0.2em] animate-pulse">
-          Načítavam zápasy...
-        </p>
-      </div>
-    )
+    return <MatchesSkeleton />
   }
 
   const handleDateChange = (direction: 'prev' | 'next') => {

@@ -19,7 +19,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </aside>
 
       {/* Main Content Area */}
-      <main className="pt-20 lg:pl-72 min-h-screen pb-8">
+      <main className="pt-4 md:pt-20 lg:pl-72 min-h-screen pb-8">
         <Container className="h-full">{children}</Container>
       </main>
     </div>

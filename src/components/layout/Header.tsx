@@ -23,7 +23,7 @@ export function Header({ title }: HeaderProps) {
   const isDashboard = pathname?.includes('/dashboard')
 
   return (
-    <header className="fixed top-0 left-0 right-0 h-16 z-50 border-b border-white/10 bg-black/20 backdrop-blur-md">
+    <header className="fixed top-0 left-0 right-0 h-16 z-50 border-b border-white/10 bg-black/20 backdrop-blur-md hidden md:block">
       <Container className="flex items-center h-full">
         <Link
           href="/lobby"
