@@ -57,7 +57,18 @@
     "leaderboard": {
       "title": "Rebríček",
       "description": "Aktuálne poradie hráčov v súťaži.",
-      "empty_state": "Rebríček bude k dispozícii po začiatku súťaže."
+      "empty_state": "Rebríček bude k dispozícii po začiatku súťaže.",
+      "tabs": {
+        "global": "Globálny",
+        "leagues": "Mini-ligy"
+      },
+      "rank": "Poradie",
+      "player": "Hráč",
+      "points": "Body",
+      "predictions": "Tipy",
+      "exact": "Presné",
+      "winners": "Víťazi",
+      "wrong": "Nesprávne"
     }
   },
   "Login": {
@@ -168,7 +179,10 @@
     "owner": "Vlastník",
     "deleting": "Mažem...",
     "delete_error": "Nepodarilo sa vymazať ligu",
-    "kick_error": "Nepodarilo sa odobrať člena"
+    "kick_error": "Nepodarilo sa odobrať člena",
+    "rank": "Pozícia",
+    "points": "Body",
+    "member": "Člen"
   },
   "NotFound": {
     "title": "Zakázané uvoľnenie!",

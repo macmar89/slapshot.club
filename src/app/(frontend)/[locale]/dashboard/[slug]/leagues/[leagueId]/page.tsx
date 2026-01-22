@@ -55,11 +55,33 @@ export default async function LeagueDetailPage({
     redirect(`/dashboard/${slug}/leagues`)
   }
 
+  // Fetch Leaderboard Entries for these members in this competition
+  const competitionId =
+    typeof league.competition === 'object' ? league.competition.id : league.competition
+  const memberIds = (league.members as User[]).map((m) => m.id)
+
+  const leaderboardEntries = await payload.find({
+    collection: 'leaderboard-entries',
+    where: {
+      and: [{ competition: { equals: competitionId } }, { user: { in: memberIds } }],
+    },
+    limit: 100,
+  })
+
+  // Map entries to user IDs for easy lookup
+  const entryMap = Object.fromEntries(
+    leaderboardEntries.docs.map((entry) => [
+      typeof entry.user === 'object' ? entry.user.id : entry.user,
+      entry,
+    ]),
+  )
+
   return (
     <LeagueDetailView
       league={league}
       currentUser={user as unknown as User}
       competitionSlug={slug}
+      leaderboardEntries={entryMap}
     />
   )
 }

@@ -3,211 +3,49 @@
 import React, { useRef } from 'react'
 import { Trophy, Activity, CheckCircle2 } from 'lucide-react'
 import { RankRow } from './RankRow'
-import { LeaderboardEntry } from '../types'
+import { LeaderboardEntry as UILeaderboardEntry } from '../types'
 import { IceGlassCard } from '@/components/ui/IceGlassCard'
+import type { LeaderboardEntry, User } from '@/payload-types'
 
-const MOCK_DATA: LeaderboardEntry[] = [
-  {
-    id: '1',
-    rank: 1,
-    name: 'Marian Srt',
-    avatarUrl: null,
-    points: 250,
-    trend: 'same',
-    isCurrentUser: false,
-    predictionsCount: 42,
-    exactScores: 12,
-    winners: 20,
-    wrongGuesses: 10,
-  },
-  {
-    id: '2',
-    rank: 2,
-    name: 'HokejovyFan123',
-    avatarUrl: null,
-    points: 245,
-    trend: 'up',
-    isCurrentUser: false,
-    predictionsCount: 40,
-    exactScores: 11,
-    winners: 22,
-    wrongGuesses: 7,
-  },
-  {
-    id: '3',
-    rank: 3,
-    name: 'Zdeno Chara Fan',
-    avatarUrl: null,
-    points: 230,
-    trend: 'down',
-    isCurrentUser: false,
-    predictionsCount: 45,
-    exactScores: 9,
-    winners: 25,
-    wrongGuesses: 11,
-  },
-  {
-    id: '4',
-    rank: 4,
-    name: 'Peter Bondra 12',
-    avatarUrl: null,
-    points: 210,
-    trend: 'up',
-    isCurrentUser: false,
-    predictionsCount: 38,
-    exactScores: 10,
-    winners: 18,
-    wrongGuesses: 10,
-  },
-  {
-    id: '5',
-    rank: 5,
-    name: 'Lukas Hokej',
-    avatarUrl: null,
-    points: 195,
-    trend: 'same',
-    isCurrentUser: false,
-    predictionsCount: 42,
-    exactScores: 8,
-    winners: 21,
-    wrongGuesses: 13,
-  },
-  {
-    id: '6',
-    rank: 6,
-    name: 'Michal Tipuje',
-    avatarUrl: null,
-    points: 180,
-    trend: 'down',
-    isCurrentUser: false,
-    predictionsCount: 40,
-    exactScores: 7,
-    winners: 19,
-    wrongGuesses: 14,
-  },
-  {
-    id: '7',
-    rank: 7,
-    name: 'Slovenskooo',
-    avatarUrl: null,
-    points: 175,
-    trend: 'up',
-    isCurrentUser: false,
-    predictionsCount: 35,
-    exactScores: 9,
-    winners: 15,
-    wrongGuesses: 11,
-  },
-  {
-    id: '8',
-    rank: 8,
-    name: 'Juraj Slafkovsky Fan',
-    avatarUrl: null,
-    points: 160,
-    trend: 'same',
-    isCurrentUser: false,
-    predictionsCount: 42,
-    exactScores: 6,
-    winners: 22,
-    wrongGuesses: 14,
-  },
-  {
-    id: '9',
-    rank: 9,
-    name: 'Zimny Stadion',
-    avatarUrl: null,
-    points: 155,
-    trend: 'down',
-    isCurrentUser: false,
-    predictionsCount: 45,
-    exactScores: 5,
-    winners: 25,
-    wrongGuesses: 15,
-  },
-  {
-    id: '10',
-    rank: 10,
-    name: 'Tiper Majster',
-    avatarUrl: null,
-    points: 140,
-    trend: 'up',
-    isCurrentUser: false,
-    predictionsCount: 40,
-    exactScores: 6,
-    winners: 18,
-    wrongGuesses: 16,
-  },
-  {
-    id: '11',
-    rank: 11,
-    name: 'Ice King',
-    avatarUrl: null,
-    points: 135,
-    trend: 'same',
-    isCurrentUser: false,
-    predictionsCount: 38,
-    exactScores: 5,
-    winners: 20,
-    wrongGuesses: 13,
-  },
-  {
-    id: '12',
-    rank: 12,
-    name: 'Marian (Ty)',
-    avatarUrl: null,
-    points: 120,
-    trend: 'up',
-    isCurrentUser: true,
-    predictionsCount: 42,
-    exactScores: 4,
-    winners: 20,
-    wrongGuesses: 18,
-  },
-  {
-    id: '13',
-    rank: 13,
-    name: 'Slapshot Pro',
-    avatarUrl: null,
-    points: 115,
-    trend: 'down',
-    isCurrentUser: false,
-    predictionsCount: 40,
-    exactScores: 3,
-    winners: 21,
-    wrongGuesses: 16,
-  },
-  {
-    id: '14',
-    rank: 14,
-    name: 'Puk Do Brany',
-    avatarUrl: null,
-    points: 100,
-    trend: 'same',
-    isCurrentUser: false,
-    predictionsCount: 45,
-    exactScores: 2,
-    winners: 25,
-    wrongGuesses: 18,
-  },
-  {
-    id: '15',
-    rank: 15,
-    name: 'Fanaticky Fanusik',
-    avatarUrl: null,
-    points: 95,
-    trend: 'up',
-    isCurrentUser: false,
-    predictionsCount: 38,
-    exactScores: 3,
-    winners: 15,
-    wrongGuesses: 20,
-  },
-]
+interface LeaderboardListProps {
+  tab: string
+  leagueId: string | null
+  initialEntries: LeaderboardEntry[]
+  currentUser: User
+  competitionId: string
+}
 
-export function LeaderboardList() {
+// We'll use the entries passed from the server or fetched via client
+
+export function LeaderboardList({
+  tab,
+  leagueId,
+  initialEntries,
+  currentUser,
+  competitionId,
+}: LeaderboardListProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const userRowRef = useRef<HTMLDivElement>(null)
-  const currentUserEntry = MOCK_DATA.find((e) => e.isCurrentUser)
+
+  // Map entries to the UI format
+  const entries: UILeaderboardEntry[] = initialEntries.map((entry, index) => {
+    const user = entry.user as User
+    return {
+      id: entry.id,
+      rank: entry.currentRank || index + 1,
+      name: user.username || user.email || 'Hráč',
+      avatarUrl: null,
+      points: entry.totalPoints || 0,
+      trend: (entry.rankChange || 0) > 0 ? 'up' : (entry.rankChange || 0) < 0 ? 'down' : 'same',
+      isCurrentUser: user.id === currentUser.id,
+      predictionsCount: entry.totalMatches || 0,
+      exactScores: entry.exactGuesses || 0,
+      winners: entry.correctTrends || 0,
+      wrongGuesses: entry.wrongGuesses || 0,
+    }
+  })
+
+  const currentUserEntry = entries.find((e) => e.isCurrentUser)
 
   const scrollToUser = () => {
     if (userRowRef.current) {
@@ -264,11 +102,18 @@ export function LeaderboardList() {
         ref={containerRef}
         className="flex-1 overflow-y-auto divide-y divide-white/[0.05] pb-32 md:pb-24 scroll-smooth"
       >
-        {MOCK_DATA.map((entry) => (
+        {entries.map((entry) => (
           <div key={entry.id} ref={entry.isCurrentUser ? userRowRef : null}>
             <RankRow entry={entry} />
           </div>
         ))}
+
+        {entries.length === 0 && (
+          <div className="flex flex-col items-center justify-center h-full py-20 text-white/20">
+            <Trophy className="w-12 h-12 mb-4 opacity-10" />
+            <p className="font-bold uppercase tracking-widest">Zatiaľ žiadne dáta</p>
+          </div>
+        )}
       </div>
 
       {/* Sticky Footer for Current User */}

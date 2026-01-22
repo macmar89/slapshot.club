@@ -4,10 +4,12 @@ import React, { useState } from 'react'
 import { useRouter } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
 import { IceGlassCard } from '@/components/ui/IceGlassCard'
+import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
 import { Users, Copy, ArrowLeft, Trash2, UserX, Crown } from 'lucide-react'
 import type { League, User } from '@/payload-types'
 import { deleteLeague, removeMember } from '@/actions/leagues'
+import type { LeaderboardEntry as PayloadLeaderboardEntry } from '@/payload-types'
 import {
   Dialog,
   DialogContent,
@@ -24,9 +26,15 @@ interface LeagueDetailViewProps {
   league: League
   currentUser: User
   competitionSlug: string
+  leaderboardEntries?: Record<string, PayloadLeaderboardEntry>
 }
 
-export function LeagueDetailView({ league, currentUser, competitionSlug }: LeagueDetailViewProps) {
+export function LeagueDetailView({
+  league,
+  currentUser,
+  competitionSlug,
+  leaderboardEntries,
+}: LeagueDetailViewProps) {
   const t = useTranslations('Leagues')
   const router = useRouter()
   const [isDeleting, setIsDeleting] = useState(false)
@@ -184,53 +192,133 @@ export function LeagueDetailView({ league, currentUser, competitionSlug }: Leagu
           </div>
         </IceGlassCard>
 
-        {/* Members List */}
+        {/* Members List / Rankings */}
         <div>
           <h2 className="text-lg font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
             <Users className="w-5 h-5 text-warning" />
             {t('members_list')}
           </h2>
-          <div className="bg-black/20 border border-white/5 rounded-xl overflow-hidden backdrop-blur-sm">
-            {members.map((member) => (
-              <div
-                key={member.id}
-                className="flex items-center justify-between p-4 border-b border-white/5 last:border-0 hover:bg-white/5 transition-colors"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center text-xs font-bold ring-1 ring-white/10 text-white">
-                    {member.email?.slice(0, 2).toUpperCase()}
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-bold text-sm text-white">
-                      {member.username || member.email}
-                      {(league.owner as User)?.id === member.id && (
-                        <span className="ml-2 text-[10px] bg-warning/20 text-warning px-1.5 py-0.5 rounded uppercase tracking-wider font-bold">
-                          {t('owner')}
-                        </span>
-                      )}
-                      {member.id === currentUser.id && (
-                        <span className="ml-2 text-[10px] bg-white/10 text-white/60 px-1.5 py-0.5 rounded uppercase tracking-wider">
-                          {t('you')}
-                        </span>
-                      )}
-                    </span>
-                  </div>
-                </div>
 
-                {isOwner && member.id !== currentUser.id && (
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setMemberToKick(member.id)}
-                    className="text-white/30 hover:text-destructive hover:bg-destructive/10"
-                    title={t('kick_member')}
+          <IceGlassCard className="overflow-hidden p-0">
+            {/* Header */}
+            <div className="grid grid-cols-[30px_1fr_60px_40px] md:grid-cols-[40px_1fr_80px_60px_60px_60px_100px] gap-2 md:gap-4 px-4 py-3 bg-white/[0.03] border-b border-white/10">
+              <span className="text-[10px] font-black uppercase text-warning tracking-widest">
+                #
+              </span>
+              <span className="text-[10px] font-black uppercase text-white/30 tracking-widest text-left">
+                {t('member')}
+              </span>
+              <span className="text-[10px] font-black uppercase text-white/30 tracking-widest text-right">
+                {t('points')}
+              </span>
+              {/* Desktop additional columns */}
+              <span className="text-[10px] font-black uppercase text-white/30 tracking-widest text-right hidden md:block">
+                Tipy
+              </span>
+              <span className="text-[10px] font-black uppercase text-white/30 tracking-widest text-right hidden md:block">
+                Presné
+              </span>
+              <span className="text-[10px] font-black uppercase text-white/30 tracking-widest text-right hidden md:block">
+                Víťaz
+              </span>
+              <span className="text-[10px] font-black uppercase text-white/30 tracking-widest text-right">
+                {/* Actions placeholder on desktop */}
+              </span>
+            </div>
+
+            <div className="divide-y divide-white/5">
+              {members
+                .map((member) => {
+                  const entry = leaderboardEntries?.[member.id]
+                  return {
+                    member,
+                    points: entry?.totalPoints || 0,
+                    entry,
+                  }
+                })
+                .sort((a, b) => b.points - a.points)
+                .map(({ member, points, entry }, index) => (
+                  <div
+                    key={member.id}
+                    className={cn(
+                      'grid grid-cols-[30px_1fr_60px_40px] md:grid-cols-[40px_1fr_80px_60px_60px_60px_100px] items-center gap-2 md:gap-4 px-4 py-3 hover:bg-white/5 transition-colors',
+                      member.id === currentUser.id ? 'bg-warning/5' : 'bg-transparent',
+                    )}
                   >
-                    <UserX className="w-4 h-4" />
-                  </Button>
-                )}
-              </div>
-            ))}
-          </div>
+                    {/* Rank */}
+                    <div className="flex justify-center">
+                      <span
+                        className={cn(
+                          'text-xs font-black italic',
+                          index === 0 ? 'text-warning text-lg' : 'text-white/40',
+                        )}
+                      >
+                        {index === 0
+                          ? '🥇'
+                          : index === 1
+                            ? '🥈'
+                            : index === 2
+                              ? '🥉'
+                              : `#${index + 1}`}
+                      </span>
+                    </div>
+
+                    {/* Member Info */}
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center text-[10px] font-bold ring-1 ring-white/10 text-white shrink-0">
+                        {member.email?.slice(0, 2).toUpperCase()}
+                      </div>
+                      <div className="flex flex-col min-w-0">
+                        <span
+                          className={cn(
+                            'font-bold text-sm truncate',
+                            member.id === currentUser.id ? 'text-warning' : 'text-white',
+                          )}
+                        >
+                          {member.username || member.email}
+                          {(league.owner as User)?.id === member.id && (
+                            <Crown className="inline-block ml-1 w-3 h-3 text-warning/60" />
+                          )}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Points */}
+                    <div className="text-right">
+                      <span className="text-sm md:text-base font-black text-warning italic tracking-tighter">
+                        {points}
+                      </span>
+                    </div>
+
+                    {/* Desktop Stats */}
+                    <span className="text-xs font-bold text-white/40 text-right hidden md:block">
+                      {entry?.totalMatches || 0}
+                    </span>
+                    <span className="text-xs font-bold text-warning/60 text-right hidden md:block">
+                      {entry?.exactGuesses || 0}
+                    </span>
+                    <span className="text-xs font-bold text-emerald-500/60 text-right hidden md:block">
+                      {entry?.correctTrends || 0}
+                    </span>
+
+                    {/* Actions */}
+                    <div className="flex justify-end pr-1">
+                      {isOwner && member.id !== currentUser.id && (
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => setMemberToKick(member.id)}
+                          className="text-white/30 hover:text-destructive hover:bg-destructive/10 h-7 w-7"
+                          title={t('kick_member')}
+                        >
+                          <UserX className="w-3.5 h-3.5" />
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </IceGlassCard>
         </div>
       </div>
 

@@ -57,7 +57,18 @@
     "leaderboard": {
       "title": "Leaderboard",
       "description": "Current player standings in the competition.",
-      "empty_state": "Leaderboard will be available after the competition starts."
+      "empty_state": "Leaderboard will be available after the competition starts.",
+      "tabs": {
+        "global": "Global",
+        "leagues": "Mini-leagues"
+      },
+      "rank": "Rank",
+      "player": "Player",
+      "points": "Points",
+      "predictions": "Tips",
+      "exact": "Exact",
+      "winners": "Winners",
+      "wrong": "Wrong"
     }
   },
   "Login": {
@@ -168,7 +179,10 @@
     "owner": "Owner",
     "deleting": "Deleting...",
     "delete_error": "Failed to delete league",
-    "kick_error": "Failed to remove member"
+    "kick_error": "Failed to remove member",
+    "rank": "Rank",
+    "points": "Points",
+    "member": "Member"
   },
   "NotFound": {
     "title": "Icing!",
