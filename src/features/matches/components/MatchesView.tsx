@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState, useMemo, useCallback } from 'react'
+import React, { useEffect, useState, useMemo, useCallback, useOptimistic } from 'react'
 import type { Competition, Match, Prediction } from '@/payload-types'
 import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import { getMatchesAction } from '../actions'
@@ -29,6 +29,25 @@ export function MatchesView({ competition }: MatchesViewProps) {
   const [matches, setMatches] = useState<Match[]>([])
   const [userPredictions, setUserPredictions] = useState<Prediction[]>([])
   const [stats, setStats] = useState<Record<string, any>>({})
+
+  const [optimisticPredictions, setOptimisticPrediction] = useOptimistic(
+    userPredictions,
+    (state, newPrediction: Prediction) => {
+      const matchId =
+        typeof newPrediction.match === 'string' ? newPrediction.match : newPrediction.match.id
+      const existingIndex = state.findIndex(
+        (p) => (typeof p.match === 'string' ? p.match : p.match.id) === matchId,
+      )
+
+      if (existingIndex !== -1) {
+        const newState = [...state]
+        newState[existingIndex] = { ...newState[existingIndex], ...newPrediction }
+        return newState
+      }
+
+      return [...state, newPrediction]
+    },
+  )
 
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
   const [predictingMatch, setPredictingMatch] = useState<Match | null>(null)
@@ -208,7 +227,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
             <MatchCard
               key={match.id}
               match={match}
-              userPrediction={userPredictions.find(
+              userPrediction={optimisticPredictions.find(
                 (p) => (typeof p.match === 'string' ? p.match : p.match.id) === match.id,
               )}
               stats={stats[match.id]}
@@ -234,6 +253,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
         existingPrediction={userPredictions.find(
           (p) => (typeof p.match === 'string' ? p.match : p.match.id) === predictingMatch?.id,
         )}
+        onOptimisticSave={setOptimisticPrediction}
         onSuccess={fetchData}
       />
 

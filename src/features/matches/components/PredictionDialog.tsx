@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, startTransition } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -21,6 +21,7 @@ interface PredictionDialogProps {
   isOpen: boolean
   onClose: () => void
   onSuccess: () => void
+  onOptimisticSave?: (prediction: Prediction) => void
 }
 
 export function PredictionDialog({
@@ -29,6 +30,7 @@ export function PredictionDialog({
   isOpen,
   onClose,
   onSuccess,
+  onOptimisticSave,
 }: PredictionDialogProps) {
   const t = useTranslations('Dashboard.matches.dialog')
   const [homeGoals, setHomeGoals] = useState<number>(existingPrediction?.homeGoals ?? 0)
@@ -42,6 +44,22 @@ export function PredictionDialog({
 
   const handleSave = async () => {
     setIsSubmitting(true)
+
+    const optimisticPrediction = {
+      ...existingPrediction,
+      id: existingPrediction?.id || `temp-${Date.now()}`,
+      match: match.id,
+      homeGoals,
+      awayGoals,
+      updatedAt: new Date().toISOString(),
+      createdAt: existingPrediction?.createdAt || new Date().toISOString(),
+    } as Prediction
+
+    startTransition(() => {
+      onOptimisticSave?.(optimisticPrediction)
+      onClose()
+    })
+
     try {
       await savePredictionAction({
         matchId: match.id,
@@ -49,7 +67,6 @@ export function PredictionDialog({
         awayGoals,
       })
       onSuccess()
-      onClose()
     } catch (error) {
       console.error('Failed to save prediction:', error)
       alert('Chyba pri ukladaní tipu. Skús to znova.')
