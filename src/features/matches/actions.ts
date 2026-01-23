@@ -9,7 +9,7 @@ import type { Match, Prediction } from '@/payload-types'
  * Fetches matches for a specific competition,
  * including the current user's predictions and global stats.
  */
-export const getMatchesAction = async (competitionId: string) => {
+export const getMatchesAction = async (competitionId: string, leagueId?: string) => {
   const payload = await getPayload({ config })
   const headersList = await headers()
   const { user } = await payload.auth({ headers: headersList })
@@ -41,15 +41,35 @@ export const getMatchesAction = async (competitionId: string) => {
     limit: 1000,
   })
 
-  // 3. Fetch global prediction stats
+  // 3. Fetch global prediction stats OR League stats
+  let userIdsFilter: string[] | null = null
+
+  if (leagueId) {
+    const league = await payload.findByID({
+      collection: 'leagues',
+      id: leagueId,
+      depth: 0,
+    })
+    
+    if (league && league.members) {
+      userIdsFilter = (league.members as any[]).map(m => typeof m === 'string' ? m : m.id)
+    }
+  }
+
   // For performance in a real app, this should be pre-calculated or use a custom endpoint.
   // Here we'll fetch all predictions for these matches to calculate percentages.
   // NOTE: If there are thousands of users, this needs a more efficient approach (e.g. aggregation).
+  const whereCondition: any = {
+      match: { in: matches.map((m) => m.id) },
+  }
+
+  if (userIdsFilter) {
+      whereCondition.user = { in: userIdsFilter }
+  }
+
   const allPredictionsRes = await payload.find({
     collection: 'predictions',
-    where: {
-      match: { in: matches.map((m) => m.id) },
-    },
+    where: whereCondition,
     limit: 10000, // Reasonable limit for now
     select: {
       match: true,

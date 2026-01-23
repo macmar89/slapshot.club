@@ -89,5 +89,13 @@ export const LeaderboardEntries: CollectionConfig = {
       type: 'number', // Napr. +3 (posun hore), -1 (posun dole), 0 (rovnako)
       admin: { readOnly: true },
     },
+    {
+      name: 'activeLeague',
+      type: 'relationship',
+      relationTo: 'leagues',
+      admin: {
+        description: 'Posledná zvolená liga používateľa v tejto súťaži (pre perzistenciu prepínača).',
+      },
+    },
   ],
 }

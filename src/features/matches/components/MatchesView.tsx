@@ -91,9 +91,11 @@ export function MatchesView({ competition }: MatchesViewProps) {
     [router, pathname, searchParams],
   )
 
+  const leagueId = searchParams.get('leagueId')
+
   const fetchData = useCallback(async () => {
     try {
-      const data = await getMatchesAction(competition.id)
+      const data = await getMatchesAction(competition.id, leagueId || undefined)
       setMatches(data.matches)
       setUserPredictions(data.userPredictions)
       setStats(data.stats)
@@ -102,7 +104,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
     } finally {
       setLoading(false)
     }
-  }, [competition])
+  }, [competition, leagueId])
 
   useEffect(() => {
     fetchData()

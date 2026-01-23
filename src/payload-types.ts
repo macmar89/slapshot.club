@@ -314,6 +314,41 @@ export interface LeaderboardEntry {
    */
   previousRank?: number | null;
   rankChange?: number | null;
+  /**
+   * Posledná zvolená liga používateľa v tejto súťaži (pre perzistenciu prepínača).
+   */
+  activeLeague?: (string | null) | League;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "leagues".
+ */
+export interface League {
+  id: string;
+  name: string;
+  /**
+   * Verejné ligy sa nepočítajú do limitov užívateľov.
+   */
+  type: 'private' | 'public';
+  /**
+   * Unikátny kód na pozývanie (napr. PUK-XYZ)
+   */
+  code?: string | null;
+  owner: string | User;
+  members: (string | User)[];
+  competition: string | Competition;
+  /**
+   * Maximálny počet členov. Pre Public ligy zvýšiť manuálne.
+   */
+  maxMembers: number;
+  stats?: {
+    averageScore?: number | null;
+    totalScore?: number | null;
+    memberCount?: number | null;
+    rank?: number | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -403,37 +438,6 @@ export interface Prediction {
   isExact?: boolean | null;
   isTrend?: boolean | null;
   isWrong?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "leagues".
- */
-export interface League {
-  id: string;
-  name: string;
-  /**
-   * Verejné ligy sa nepočítajú do limitov užívateľov.
-   */
-  type: 'private' | 'public';
-  /**
-   * Unikátny kód na pozývanie (napr. PUK-XYZ)
-   */
-  code?: string | null;
-  owner: string | User;
-  members: (string | User)[];
-  competition: string | Competition;
-  /**
-   * Maximálny počet členov. Pre Public ligy zvýšiť manuálne.
-   */
-  maxMembers: number;
-  stats?: {
-    averageScore?: number | null;
-    totalScore?: number | null;
-    memberCount?: number | null;
-    rank?: number | null;
-  };
   updatedAt: string;
   createdAt: string;
 }
@@ -715,6 +719,7 @@ export interface LeaderboardEntriesSelect<T extends boolean = true> {
   currentRank?: T;
   previousRank?: T;
   rankChange?: T;
+  activeLeague?: T;
   updatedAt?: T;
   createdAt?: T;
 }

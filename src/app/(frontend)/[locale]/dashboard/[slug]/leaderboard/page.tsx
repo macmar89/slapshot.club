@@ -38,12 +38,12 @@ export default async function CompetitionLeaderboard(props: {
     notFound()
   }
 
-  // Get search params for tab and leagueId
+  // Get search params for leagueId
   const searchParams = await props.searchParams
-  const tab = searchParams.tab || 'global'
   const leagueId = searchParams.leagueId
 
-  // 2. Get user's leagues in this competition (for the dropdown)
+  // 2. Get user's leagues in this competition (for the dropdown) - Still useful to pass to view if needed, but maybe redundant if Header handles it.
+  // Actually, View doesn't need it if we remove the internal switcher.
   const userLeagues = await payload.find({
     collection: 'leagues',
     where: {
@@ -54,7 +54,7 @@ export default async function CompetitionLeaderboard(props: {
 
   let entries: LeaderboardEntry[] = []
 
-  if (tab === 'leagues' && leagueId) {
+  if (leagueId) {
     // 3. Fetch entries for members of the specific league
     const currentLeague = await payload.findByID({
       collection: 'leagues',
