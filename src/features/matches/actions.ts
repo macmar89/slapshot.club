@@ -26,7 +26,7 @@ export const getMatchesAction = async (competitionId: string, leagueId?: string)
     },
     sort: 'date',
     limit: 1000,
-    depth: 1, // To get team details
+    depth: 2, // To get team details and logos (media)
   })
 
   const matches = matchesRes.docs as Match[]
@@ -50,9 +50,9 @@ export const getMatchesAction = async (competitionId: string, leagueId?: string)
       id: leagueId,
       depth: 0,
     })
-    
+
     if (league && league.members) {
-      userIdsFilter = (league.members as any[]).map(m => typeof m === 'string' ? m : m.id)
+      userIdsFilter = (league.members as any[]).map((m) => (typeof m === 'string' ? m : m.id))
     }
   }
 
@@ -60,11 +60,11 @@ export const getMatchesAction = async (competitionId: string, leagueId?: string)
   // Here we'll fetch all predictions for these matches to calculate percentages.
   // NOTE: If there are thousands of users, this needs a more efficient approach (e.g. aggregation).
   const whereCondition: any = {
-      match: { in: matches.map((m) => m.id) },
+    match: { in: matches.map((m) => m.id) },
   }
 
   if (userIdsFilter) {
-      whereCondition.user = { in: userIdsFilter }
+    whereCondition.user = { in: userIdsFilter }
   }
 
   const allPredictionsRes = await payload.find({

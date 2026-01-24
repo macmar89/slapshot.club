@@ -51,20 +51,25 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
       )}
     >
       <div
-        className="w-16 h-16 md:w-20 md:h-20 rounded-2xl overflow-hidden bg-white/5 border border-white/10 flex items-center justify-center p-2 relative group"
-        style={{ borderColor: `${team.colors.primary}40` }}
+        className={cn(
+          'w-16 h-16 md:w-20 md:h-20 flex items-center justify-center relative group',
+          !team.logo && 'rounded-2xl overflow-hidden bg-white/5 border border-white/10 p-2',
+        )}
+        style={!team.logo ? { borderColor: `${team.colors.primary}40` } : {}}
       >
-        <div
-          className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity"
-          style={{ backgroundColor: team.colors.primary }}
-        />
+        {!team.logo && (
+          <div
+            className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity"
+            style={{ backgroundColor: team.colors.primary }}
+          />
+        )}
         {team.logo && typeof team.logo === 'object' ? (
           <Image
             src={(team.logo as Media).url || ''}
             alt={team.name}
             width={80}
             height={80}
-            className="w-full h-full object-contain relative z-10 drop-shadow-lg"
+            className="w-full h-full object-contain relative z-10 drop-shadow-2xl"
           />
         ) : (
           <span className="text-xl font-black text-white/20 relative z-10">{team.shortName}</span>
