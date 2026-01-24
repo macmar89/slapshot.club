@@ -6,7 +6,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
-import bgImage from '@/assets/images/ssc_bg.webp'
+import bgImage from '@/assets/images/background/ssc_stick.png'
 import { Toaster } from 'sonner'
 
 const sora = Sora({
@@ -65,7 +65,7 @@ export default async function RootLayout(props: {
                 priority
                 quality={100}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-slate-950/40" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-slate-950/20 to-slate-950/40" />
             </div>
           </div>
 

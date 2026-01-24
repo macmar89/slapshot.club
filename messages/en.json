@@ -48,7 +48,7 @@
       "predictions_count": "{count, plural, one {# prediction} other {# predictions}}",
       "dialog": {
         "title": "Your Prediction",
-        "description": "Enter score after regulation time",
+        "description": "Enter final score (including OT and SO)",
         "submit": "Submit Prediction",
         "update": "Update Prediction",
         "loading": "Saving..."
@@ -200,7 +200,7 @@
     "general_rules_title": "General Rules",
     "rules_list": {
       "tip_before": "Predictions are accepted until the start of the match. Then the match is locked.",
-      "score_regular": "Predictions are based on the score after regulation time (60 minutes).",
+      "score_regular": "Predictions are based on the final score (including overtime or shootout).",
       "exact_desc": "If you guess the exact score, you get the full amount of points.",
       "winner_desc": "If you guess the winner or a draw, but not the exact score, you get partial points.",
       "evaluation": "Points are added to your account automatically after official evaluation."

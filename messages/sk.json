@@ -48,7 +48,7 @@
       "predictions_count": "{count, plural, one {# tip} few {# tipy} other {# tipov}}",
       "dialog": {
         "title": "Tvoj Tip",
-        "description": "Zadaj skóre po riadnom hracom čase",
+        "description": "Zadaj konečné skóre (vrátane OT a PP)",
         "submit": "Potvrdiť Tip",
         "update": "Aktualizovať Tip",
         "loading": "Ukladám..."
@@ -200,7 +200,7 @@
     "general_rules_title": "Všeobecné pravidlá",
     "rules_list": {
       "tip_before": "Tipy prijímame do začiatku zápasu. Potom sa zápas uzamkne.",
-      "score_regular": "Tipuje sa výsledok po riadnom hracom čase (60 minút).",
+      "score_regular": "Tipuje sa konečný výsledok zápasu (vrátane prípadného predĺženia alebo nájazdov).",
       "exact_desc": "Ak trafíš presné skóre zápasu, získaš plný počet bodov.",
       "winner_desc": "Ak trafíš víťaza alebo remízu, ale netrafíš presné skóre, získaš čiastočné body.",
       "evaluation": "Body sa k tvojmu kontu pripíšu automaticky po oficiálnom vyhodnotení zápasu."
