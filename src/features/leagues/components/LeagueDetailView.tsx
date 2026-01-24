@@ -165,7 +165,7 @@ export function LeagueDetailView({
               <Button
                 variant="ghost"
                 onClick={() => copyToClipboard(league.code || '')}
-                className="w-full flex items-center justify-between bg-black/40 hover:bg-black/60 p-3 h-auto rounded-lg border border-dashed border-white/20 hover:border-warning/50 transition-all group/btn"
+                className="w-full flex items-center justify-between bg-black/40 hover:bg-black/60 p-3 h-auto rounded-app border border-dashed border-white/20 hover:border-warning/50 transition-all group/btn"
               >
                 <span className="font-mono text-warning text-xl tracking-widest pl-2">
                   {league.code}
@@ -177,7 +177,7 @@ export function LeagueDetailView({
               <div className="text-xs text-white/40 uppercase tracking-wider mb-2 font-bold">
                 {t('stats')}
               </div>
-              <div className="flex items-center gap-4 p-3 rounded-lg bg-white/5 border border-white/10">
+              <div className="flex items-center gap-4 p-3 rounded-app bg-white/5 border border-white/10">
                 <div className="flex items-center gap-2">
                   <Users className="w-5 h-5 text-white/70" />
                   <div className="flex flex-col">

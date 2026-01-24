@@ -26,7 +26,7 @@ export function DashboardView({ competition, locale }: DashboardViewProps) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <IceGlassCard className="p-4 flex items-center gap-4">
-          <div className="p-2 rounded-lg bg-yellow-500/20 text-yellow-500">
+          <div className="p-2 rounded-app bg-yellow-500/20 text-yellow-500">
             <Trophy className="w-6 h-6" />
           </div>
           <div>
@@ -35,7 +35,7 @@ export function DashboardView({ competition, locale }: DashboardViewProps) {
             </div>
             <div
               className={cn(
-                'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium uppercase tracking-wide',
+                'inline-flex items-center px-2.5 py-0.5 rounded-app text-xs font-medium uppercase tracking-wide',
                 competition.status === 'active'
                   ? 'bg-[#eab308]/20 text-[#eab308] border border-[#eab308]/20'
                   : 'bg-white/10 text-white/60 border border-white/10',
@@ -47,7 +47,7 @@ export function DashboardView({ competition, locale }: DashboardViewProps) {
         </IceGlassCard>
 
         <IceGlassCard className="p-4 flex items-center gap-4">
-          <div className="p-2 rounded-lg bg-blue-500/20 text-blue-500">
+          <div className="p-2 rounded-app bg-blue-500/20 text-blue-500">
             <CalendarDays className="w-6 h-6" />
           </div>
           <div>
@@ -61,7 +61,7 @@ export function DashboardView({ competition, locale }: DashboardViewProps) {
         </IceGlassCard>
 
         <IceGlassCard className="p-4 flex items-center gap-4">
-          <div className="p-2 rounded-lg bg-purple-500/20 text-purple-500">
+          <div className="p-2 rounded-app bg-purple-500/20 text-purple-500">
             <Timer className="w-6 h-6" />
           </div>
           <div>
@@ -75,7 +75,7 @@ export function DashboardView({ competition, locale }: DashboardViewProps) {
         </IceGlassCard>
 
         <IceGlassCard className="p-4 flex items-center gap-4">
-          <div className="p-2 rounded-lg bg-green-500/20 text-green-500">
+          <div className="p-2 rounded-app bg-green-500/20 text-green-500">
             <Users className="w-6 h-6" />
           </div>
           <div>

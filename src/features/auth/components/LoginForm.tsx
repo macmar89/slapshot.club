@@ -64,7 +64,7 @@ export const LoginForm = () => {
 
       <div className="flex flex-col gap-4">
         {error && (
-          <div className="bg-red-500/10 border border-red-500/20 text-red-500 px-4 py-2 rounded-xl text-sm font-medium text-center">
+          <div className="bg-red-500/10 border border-red-500/20 text-red-500 px-4 py-2 rounded-app text-sm font-medium text-center">
             {error}
           </div>
         )}
@@ -83,7 +83,7 @@ export const LoginForm = () => {
             disabled={isLoading}
             {...register('email')}
             className={cn(
-              'w-full px-4 py-3 rounded-xl outline-none transition-all duration-200',
+              'w-full px-4 py-3 rounded-app outline-none transition-all duration-200',
               'bg-white/5 border border-white/10 text-white placeholder:text-white/30',
               'focus:bg-white/10 focus:border-white/30 focus:ring-1 focus:ring-white/30',
               'hover:bg-white/10 hover:border-white/20',
@@ -113,7 +113,7 @@ export const LoginForm = () => {
             disabled={isLoading}
             {...register('password')}
             className={cn(
-              'w-full px-4 py-3 rounded-xl outline-none transition-all duration-200',
+              'w-full px-4 py-3 rounded-app outline-none transition-all duration-200',
               'bg-white/5 border border-white/10 text-white placeholder:text-white/30',
               'focus:bg-white/10 focus:border-white/30 focus:ring-1 focus:ring-white/30',
               'hover:bg-white/10 hover:border-white/20',

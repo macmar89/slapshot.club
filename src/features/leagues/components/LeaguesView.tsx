@@ -58,7 +58,7 @@ export function LeaguesView({ ownedLeagues, joinedLeagues, competitionId }: Leag
             </div>
 
             {ownedLeagues.length === 0 ? (
-              <div className="text-center text-white/40 py-8 italic border border-white/5 rounded-lg bg-white/5">
+              <div className="text-center text-white/40 py-8 italic border border-white/5 rounded-app bg-white/5">
                 Nemáš vytvorené žiadne ligy.
               </div>
             ) : (
@@ -77,7 +77,7 @@ export function LeaguesView({ ownedLeagues, joinedLeagues, competitionId }: Leag
                         <h3 className="text-lg font-bold text-white group-hover:text-warning transition-colors truncate font-display">
                           {league.name}
                         </h3>
-                        <div className="flex items-center gap-1.5 px-2 py-1 bg-white/5 rounded-full text-xs text-white/60">
+                        <div className="flex items-center gap-1.5 px-2 py-1 bg-white/5 rounded-app text-xs text-white/60">
                           <Users className="w-3 h-3" />
                           <span>{league.stats?.memberCount || 0}</span>
                         </div>
@@ -90,7 +90,7 @@ export function LeaguesView({ ownedLeagues, joinedLeagues, competitionId }: Leag
                         <Button
                           variant="ghost"
                           onClick={(e) => copyToClipboard(e, league.code || '')}
-                          className="w-full flex items-center justify-between bg-black/40 hover:bg-black/60 p-1.5 h-auto rounded border border-dashed border-white/20 hover:border-warning/50 transition-all group/btn"
+                          className="w-full flex items-center justify-between bg-black/40 hover:bg-black/60 p-1.5 h-auto rounded-app border border-dashed border-white/20 hover:border-warning/50 transition-all group/btn"
                         >
                           <span className="font-mono text-warning text-base tracking-widest pl-1">
                             {league.code}
@@ -128,14 +128,14 @@ export function LeaguesView({ ownedLeagues, joinedLeagues, competitionId }: Leag
                   <IceGlassCard className="p-4 h-full flex flex-col">
                     <div className="flex justify-between items-center mb-2">
                       <h3 className="text-base font-bold text-white">{league.name}</h3>
-                      <div className="flex items-center gap-1.5 px-2 py-1 bg-white/5 rounded-full text-xs text-white/60">
+                      <div className="flex items-center gap-1.5 px-2 py-1 bg-white/5 rounded-app text-xs text-white/60">
                         <Users className="w-3 h-3" />
                         <span>{league.stats?.memberCount || 0}</span>
                       </div>
                     </div>
                     <div className="flex items-center gap-2 mt-auto">
                       <span
-                        className={`text-[10px] px-2 py-0.5 rounded border ${league.type === 'private' ? 'border-yellow-500/20 text-yellow-500 bg-yellow-500/5' : 'border-blue-500/20 text-blue-500 bg-blue-500/5'}`}
+                        className={`text-[10px] px-2 py-0.5 rounded-app border ${league.type === 'private' ? 'border-yellow-500/20 text-yellow-500 bg-yellow-500/5' : 'border-blue-500/20 text-blue-500 bg-blue-500/5'}`}
                       >
                         {league.type === 'private' ? 'Private' : 'Public'}
                       </span>

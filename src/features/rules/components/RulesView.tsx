@@ -44,7 +44,7 @@ export function RulesView({ competitions }: RulesViewProps) {
                     {comp.name}
                   </h3>
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10">
+                    <div className="flex items-center justify-between p-3 rounded-app bg-white/5 border border-white/10">
                       <div className="flex items-center gap-3">
                         <Target className="w-5 h-5 text-warning/70" />
                         <span className="text-sm font-bold text-white/80">{t('exact_score')}</span>
@@ -53,7 +53,7 @@ export function RulesView({ competitions }: RulesViewProps) {
                         {t('points', { count: comp.scoringRules.exactScore })}
                       </span>
                     </div>
-                    <div className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10">
+                    <div className="flex items-center justify-between p-3 rounded-app bg-white/5 border border-white/10">
                       <div className="flex items-center gap-3">
                         <CheckCircle2 className="w-5 h-5 text-warning/70" />
                         <span className="text-sm font-bold text-white/80">{t('winner_only')}</span>

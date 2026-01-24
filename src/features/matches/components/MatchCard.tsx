@@ -52,8 +52,8 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
     >
       <div
         className={cn(
-          'w-16 h-16 md:w-20 md:h-20 flex items-center justify-center relative group',
-          !team.logo && 'rounded-2xl overflow-hidden bg-white/5 border border-white/10 p-2',
+          'h-10 w-20 md:h-14 md:w-28 flex items-center justify-center relative group',
+          !team.logo && 'rounded-app overflow-hidden bg-white/5 border border-white/10 p-2',
         )}
         style={!team.logo ? { borderColor: `${team.colors.primary}40` } : {}}
       >
@@ -67,9 +67,9 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
           <Image
             src={(team.logo as Media).url || ''}
             alt={team.name}
-            width={80}
+            width={120}
             height={80}
-            className="w-full h-full object-contain relative z-10 drop-shadow-2xl"
+            className="h-full w-auto object-contain relative z-10 drop-shadow-2xl rounded-app"
           />
         ) : (
           <span className="text-xl font-black text-white/20 relative z-10">{team.shortName}</span>
@@ -96,7 +96,7 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
       <div className="absolute top-4 right-4 md:top-6 md:right-6">
         <div
           className={cn(
-            'px-3 py-1 rounded-full border text-[0.6rem] font-black uppercase tracking-widest flex items-center gap-2',
+            'px-3 py-1 rounded-app border text-[0.6rem] font-black uppercase tracking-widest flex items-center gap-2',
             statusStyles[match.status as keyof typeof statusStyles] || statusStyles.scheduled,
           )}
         >
@@ -139,7 +139,7 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
             )}
           </div>
           {match.status === 'finished' && match.result?.endingType !== 'regular' && (
-            <span className="text-[0.6rem] font-bold uppercase tracking-widest text-white/60 bg-white/10 px-2 py-0.5 rounded">
+            <span className="text-[0.6rem] font-bold uppercase tracking-widest text-white/60 bg-white/10 px-2 py-0.5 rounded-app">
               {match.result?.endingType === 'ot' ? t('overtime_short') : t('shootout_short')}
             </span>
           )}
@@ -196,7 +196,7 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
         {/* User Prediction Status */}
         <div className="flex items-center gap-3">
           {userPrediction ? (
-            <div className="flex items-center gap-3 px-4 py-2 rounded-xl bg-white/5 border border-white/10">
+            <div className="flex items-center gap-3 px-4 py-2 rounded-app bg-white/5 border border-white/10">
               <div className="flex flex-col">
                 <span className="text-[0.55rem] font-black uppercase tracking-widest text-warning">
                   {t('my_prediction')}
@@ -223,7 +223,7 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
                 onClick={() => onPredict(match)}
                 variant="solid"
                 color="gold"
-                className="w-full md:w-auto rounded-xl px-8 py-3 h-auto text-[0.7rem] md:text-[0.65rem] font-black uppercase tracking-[0.2em] gap-2 shadow-[0_4px_20px_rgba(234,179,8,0.3)] hover:shadow-[0_8px_30px_rgba(234,179,8,0.4)] transition-all"
+                className="w-full md:w-auto rounded-app px-8 py-3 h-auto text-[0.7rem] md:text-[0.65rem] font-black uppercase tracking-[0.2em] gap-2 shadow-[0_4px_20px_rgba(234,179,8,0.3)] hover:shadow-[0_8px_30px_rgba(234,179,8,0.4)] transition-all"
               >
                 {t('predict_button')}
               </Button>
@@ -231,7 +231,7 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
           )}
 
           {isStarted && userPrediction && userPrediction.points !== null && (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#eab308]/10 border border-[#eab308]/20">
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-app bg-[#eab308]/10 border border-[#eab308]/20">
               <Trophy className="w-3.5 h-3.5 text-warning" />
               <span className="text-xs font-black text-warning">+{userPrediction.points}</span>
             </div>

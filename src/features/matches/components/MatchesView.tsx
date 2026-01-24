@@ -146,14 +146,14 @@ export function MatchesView({ competition }: MatchesViewProps) {
         </div>
 
         {/* Premium Day Selector */}
-        <div className="flex items-center gap-4 bg-white/10 border border-white/20 p-1.5 rounded-2xl backdrop-blur-xl shadow-2xl">
+        <div className="flex items-center gap-4 bg-white/10 border border-white/20 p-1.5 rounded-app backdrop-blur-xl shadow-2xl">
           <Button
             variant="outline"
             size="icon"
             onClick={() => handleDateChange('prev')}
             disabled={availableDates.indexOf(selectedDate!) === 0}
             className={cn(
-              'rounded-xl border-white/20 bg-white/10 transition-all duration-300 group/btn',
+              'rounded-app border-white/20 bg-white/10 transition-all duration-300 group/btn',
               availableDates.indexOf(selectedDate!) === 0
                 ? 'opacity-20 cursor-not-allowed'
                 : 'hover:bg-warning hover:text-black hover:border-warning',
@@ -172,7 +172,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
           <Button
             variant="ghost"
             onClick={() => setIsCalendarOpen(true)}
-            className="flex flex-col items-center px-4 md:px-6 min-w-[100px] md:min-w-[140px] hover:bg-white/5 rounded-xl h-auto py-1 group/center"
+            className="flex flex-col items-center px-4 md:px-6 min-w-[100px] md:min-w-[140px] hover:bg-white/5 rounded-app h-auto py-1 group/center"
           >
             <div className="flex items-center gap-2 mb-0.5">
               <CalendarDays className="w-3.5 h-3.5 text-warning group-hover/center:scale-110 transition-transform" />
@@ -204,7 +204,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
             onClick={() => handleDateChange('next')}
             disabled={availableDates.indexOf(selectedDate!) === availableDates.length - 1}
             className={cn(
-              'rounded-xl border-white/20 bg-white/10 transition-all duration-300 group/btn',
+              'rounded-app border-white/20 bg-white/10 transition-all duration-300 group/btn',
               availableDates.indexOf(selectedDate!) === availableDates.length - 1
                 ? 'opacity-20 cursor-not-allowed'
                 : 'hover:bg-warning hover:text-black hover:border-warning',

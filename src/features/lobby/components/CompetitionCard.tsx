@@ -106,7 +106,7 @@ export function CompetitionCard({
           >
             <div
               className={cn(
-                'absolute top-6 right-6 px-4 py-1.5 rounded-full text-[0.7rem] font-bold uppercase tracking-widest backdrop-blur-md border animate-in zoom-in duration-500',
+                'absolute top-6 right-6 px-4 py-1.5 rounded-app text-[0.7rem] font-bold uppercase tracking-widest backdrop-blur-md border animate-in zoom-in duration-500',
                 competition.status === 'active'
                   ? 'bg-[#eab308] text-black border-[#eab308] shadow-[0_0_15px_rgba(234,179,8,0.3)]'
                   : competition.status === 'finished'
@@ -118,7 +118,7 @@ export function CompetitionCard({
             </div>
 
             {isJoined && !isFinished && (
-              <div className="absolute top-6 left-6 px-3 py-1.5 rounded-full bg-[#22c55e] text-white text-[0.65rem] font-black uppercase tracking-widest flex items-center gap-1.5 shadow-[0_0_15px_rgba(34,197,94,0.4)] animate-in slide-in-from-left-2 duration-500">
+              <div className="absolute top-6 left-6 px-3 py-1.5 rounded-app bg-[#22c55e] text-white text-[0.65rem] font-black uppercase tracking-widest flex items-center gap-1.5 shadow-[0_0_15px_rgba(34,197,94,0.4)] animate-in slide-in-from-left-2 duration-500">
                 <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                 {t('joined')}
               </div>
@@ -158,7 +158,7 @@ export function CompetitionCard({
                 variant={isFinished ? 'outline' : 'solid'}
                 disabled={isRegistrationDisabled}
                 className={cn(
-                  'font-black rounded-xl shrink-0',
+                  'font-black rounded-app shrink-0',
                   compact ? 'px-4 py-2 text-[10px]' : 'px-5 py-2.5 text-xs',
                   isRegistrationDisabled && 'opacity-50 grayscale cursor-not-allowed',
                 )}

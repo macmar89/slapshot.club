@@ -77,14 +77,14 @@ export function PredictionDialog({
   }
 
   const renderLogo = (team: Team) => (
-    <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl overflow-hidden bg-white/5 border border-white/10 p-2 flex items-center justify-center">
+    <div className="h-10 w-20 md:h-12 md:w-24 flex items-center justify-center">
       {team.logo && typeof team.logo === 'object' ? (
         <Image
           src={(team.logo as Media).url || ''}
           alt={team.name}
-          width={64}
-          height={64}
-          className="w-full h-full object-contain"
+          width={80}
+          height={60}
+          className="h-full w-auto object-contain rounded-app"
         />
       ) : (
         <span className="text-xl font-black text-white/20">{team.shortName}</span>
@@ -115,7 +115,7 @@ export function PredictionDialog({
         >
           <Minus className="w-4 h-4" />
         </Button>
-        <div className="w-12 h-14 md:w-14 md:h-16 bg-white/10 rounded-2xl border border-white/20 flex items-center justify-center text-2xl md:text-3xl font-black tracking-tighter">
+        <div className="w-12 h-14 md:w-14 md:h-16 bg-white/10 rounded-app border border-white/20 flex items-center justify-center text-2xl md:text-3xl font-black tracking-tighter">
           {value}
         </div>
         <Button
@@ -132,7 +132,7 @@ export function PredictionDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="w-[calc(100vw-16px)] sm:max-w-[425px] bg-[#0c0f14]/95 backdrop-blur-3xl border-white/10 text-white rounded-[2rem] p-4 md:p-8 overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+      <DialogContent className="w-[calc(100vw-16px)] sm:max-w-[425px] bg-[#0c0f14]/95 backdrop-blur-3xl border-white/10 text-white rounded-app p-4 md:p-8 overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]">
         {/* Abstract Background Decoration */}
         <div className="absolute -top-24 -right-24 w-48 h-48 bg-warning/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-warning/5 rounded-full blur-3xl pointer-events-none" />
@@ -160,7 +160,7 @@ export function PredictionDialog({
             disabled={isSubmitting}
             variant="solid"
             color="gold"
-            className="w-full py-6 rounded-2xl text-sm font-black uppercase tracking-[0.2em] shadow-[0_10px_30px_rgba(234,179,8,0.2)] hover:shadow-[0_15px_40px_rgba(234,179,8,0.3)] transition-all hover:-translate-y-1"
+            className="w-full py-6 rounded-app text-sm font-black uppercase tracking-[0.2em] shadow-[0_10px_30px_rgba(234,179,8,0.2)] hover:shadow-[0_15px_40px_rgba(234,179,8,0.3)] transition-all hover:-translate-y-1"
           >
             {isSubmitting ? t('loading') : existingPrediction ? t('update') : t('submit')}
           </Button>

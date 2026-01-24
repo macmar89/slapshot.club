@@ -34,7 +34,7 @@ export const IceGlassCard = React.forwardRef<HTMLDivElement, IceGlassCardProps>(
         className={cn(
           'relative overflow-hidden',
           // Shape & Size
-          'rounded-md',
+          'rounded-app',
           // Border border border-2 border-[#5d626d],
           'border border-[#5d626d]/30',
           // Background & Transparency

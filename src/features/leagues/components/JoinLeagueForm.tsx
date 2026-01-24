@@ -53,7 +53,7 @@ export function JoinLeagueForm() {
               value={code}
               onChange={(e) => setCode(e.target.value)}
               placeholder={t('join_placeholder')}
-              className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#eab308]/50 focus:ring-1 focus:ring-[#eab308]/50 transition-all font-mono uppercase tracking-widest text-lg"
+              className="w-full bg-white/5 border border-white/10 rounded-app p-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#eab308]/50 focus:ring-1 focus:ring-[#eab308]/50 transition-all font-mono uppercase tracking-widest text-lg"
             />
           </div>
           <Button

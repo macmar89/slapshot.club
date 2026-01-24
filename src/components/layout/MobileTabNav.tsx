@@ -40,7 +40,7 @@ export function MobileTabNav() {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden">
       <IceGlassCard
-        className="h-20 w-full flex items-center justify-between px-1 rounded-t-3xl rounded-b-none border-x-0 border-b-0"
+        className="h-20 w-full flex items-center justify-between px-1 rounded-t-app rounded-b-none border-x-0 border-b-0"
         backdropBlur="lg"
       >
         {/* Left 2 items */}
@@ -61,7 +61,7 @@ export function MobileTabNav() {
 
         {/* Logo in the center */}
         <div className="flex items-center justify-center -mt-10 px-2">
-          <div className="w-16 h-16 rounded-2xl bg-primary text-white flex items-center justify-center font-bold text-3xl shadow-[0_8px_32px_rgba(var(--primary-rgb),0.4)] border-2 border-white/20 rotate-3 animate-in fade-in zoom-in duration-500">
+          <div className="w-16 h-16 rounded-app bg-primary text-white flex items-center justify-center font-bold text-3xl shadow-[0_8px_32px_rgba(var(--primary-rgb),0.4)] border-2 border-white/20 rotate-3 animate-in fade-in zoom-in duration-500">
             S
           </div>
         </div>
@@ -91,7 +91,7 @@ export function MobileTabNav() {
                 <span className="text-[10px] font-bold uppercase tracking-tight">{t('more')}</span>
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-[calc(100%-1rem)] w-full rounded-3xl bg-slate-900/95 backdrop-blur-2xl border-white/10 p-8 bottom-4 top-auto translate-y-0 sm:translate-y-[-50%] shadow-2xl">
+            <DialogContent className="max-w-[calc(100%-1rem)] w-full rounded-app bg-slate-900/95 backdrop-blur-2xl border-white/10 p-8 bottom-4 top-auto translate-y-0 sm:translate-y-[-50%] shadow-2xl">
               <DialogHeader>
                 <DialogTitle className="text-white font-bold uppercase tracking-[0.2em] text-center text-xl">
                   {t('menu')}
@@ -102,7 +102,7 @@ export function MobileTabNav() {
                   <Link
                     key={item.href}
                     href={getHref(item.href) as any}
-                    className="flex flex-col items-center gap-4 py-6 px-2 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 transition-all active:scale-95 group"
+                    className="flex flex-col items-center gap-4 py-6 px-2 rounded-app bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 transition-all active:scale-95 group"
                   >
                     <item.icon className="w-8 h-8 text-primary group-hover:scale-110 transition-transform" />
                     <span className="text-[10px] font-bold text-white/70 group-hover:text-white uppercase tracking-tight text-center leading-tight">
