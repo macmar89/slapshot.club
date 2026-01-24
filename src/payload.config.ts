@@ -1,5 +1,6 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { s3Storage } from '@payloadcms/storage-s3'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -18,6 +19,7 @@ import { Predictions } from './collections/Predictions'
 import { GeneralSettings } from './collections/GeneralSettings'
 import { Leagues } from './collections/Leagues'
 import { MiniLeagues } from './collections/MiniLeagues'
+import { TeamLogos } from './collections/TeamLogos'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -47,6 +49,7 @@ export default buildConfig({
     Predictions,
     Leagues,
     MiniLeagues,
+    TeamLogos,
   ],
   globals: [GeneralSettings],
   editor: lexicalEditor(),
@@ -60,5 +63,30 @@ export default buildConfig({
     },
   }),
   sharp,
-  plugins: [],
+  plugins: [
+    s3Storage({
+      collections: {
+        media: {
+          generateFileURL: ({ filename, prefix }: { filename: string; prefix?: string }) => {
+            return `${process.env.NEXT_PUBLIC_UPLOAD_URL}/${prefix ? `${prefix}/` : ''}${filename}`
+          },
+        },
+        'team-logos': {
+          prefix: 'team_logo',
+          generateFileURL: ({ filename, prefix }: { filename: string; prefix?: string }) => {
+            return `${process.env.NEXT_PUBLIC_UPLOAD_URL}/${prefix ? `${prefix}/` : ''}${filename}`
+          },
+        },
+      },
+      bucket: process.env.R2_BUCKET || '',
+      config: {
+        endpoint: process.env.R2_ENDPOINT || '',
+        region: process.env.R2_REGION || 'auto',
+        credentials: {
+          accessKeyId: process.env.R2_ACCESS_KEY_ID || '',
+          secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || '',
+        },
+      },
+    }),
+  ],
 })

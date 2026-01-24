@@ -79,6 +79,7 @@ export interface Config {
     predictions: Prediction;
     leagues: League;
     'mini-leagues': MiniLeague;
+    'team-logos': TeamLogo;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -98,6 +99,7 @@ export interface Config {
     predictions: PredictionsSelect<false> | PredictionsSelect<true>;
     leagues: LeaguesSelect<false> | LeaguesSelect<true>;
     'mini-leagues': MiniLeaguesSelect<false> | MiniLeaguesSelect<true>;
+    'team-logos': TeamLogosSelect<false> | TeamLogosSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -376,13 +378,43 @@ export interface Team {
    * Pomocné tagy pre ľahšie vyhľadávanie pri vytváraní zápasov.
    */
   leagueTags?: ('sk' | 'nhl' | 'cz' | 'iihf')[] | null;
-  logo?: (string | null) | Media;
+  logo?: (string | null) | TeamLogo;
   colors: {
     primary: string;
     secondary: string;
   };
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team-logos".
+ */
+export interface TeamLogo {
+  id: string;
+  alt: string;
+  prefix?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -529,6 +561,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'mini-leagues';
         value: number | MiniLeague;
+      } | null)
+    | ({
+        relationTo: 'team-logos';
+        value: string | TeamLogo;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -828,6 +864,40 @@ export interface MiniLeaguesSelect<T extends boolean = true> {
   inviteCode?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team-logos_select".
+ */
+export interface TeamLogosSelect<T extends boolean = true> {
+  id?: T;
+  alt?: T;
+  prefix?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        thumbnail?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

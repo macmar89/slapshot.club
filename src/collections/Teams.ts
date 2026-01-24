@@ -89,7 +89,7 @@ export const Teams: CollectionConfig = {
     {
       name: 'logo',
       type: 'upload',
-      relationTo: 'media',
+      relationTo: 'team-logos',
       required: false,
       label: 'Logo alebo Vlajka',
     },

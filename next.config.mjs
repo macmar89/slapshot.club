@@ -15,6 +15,12 @@ const nextConfig = {
   },
   images: {
     qualities: [75, 100],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'pub-b55794ef97244983a5bce9f2b8a8d9ab.r2.dev',
+      },
+    ],
   },
 }
 
