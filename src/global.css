@@ -169,4 +169,20 @@
     border-top-right-radius: var(--radius) !important;
     border-bottom-right-radius: var(--radius) !important;
   }
+
+  @keyframes knight-rider {
+    0% {
+      transform: translateX(-100%);
+    }
+    50% {
+      transform: translateX(300%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .animate-knight-rider {
+    animation: knight-rider 3s ease-in-out infinite;
+  }
 }

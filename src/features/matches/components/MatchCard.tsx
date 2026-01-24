@@ -222,10 +222,16 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
               <Button
                 onClick={() => onPredict(match)}
                 variant="solid"
-                color="gold"
-                className="w-full md:w-auto rounded-app px-8 py-3 h-auto text-[0.7rem] md:text-[0.65rem] font-black uppercase tracking-[0.2em] gap-2 shadow-[0_4px_20px_rgba(234,179,8,0.3)] hover:shadow-[0_8px_30px_rgba(234,179,8,0.4)] transition-all"
+                color="warning"
+                className="w-full md:w-auto rounded-app px-8 py-3 h-auto text-xs md:text-sm font-black uppercase tracking-[0.15em] gap-2 
+        bg-warning text-warning-foreground
+        shadow-[0_4px_15px_rgba(234,179,8,0.2)] 
+        hover:shadow-[0_0_30px_hsl(var(--warning)/0.6)] 
+        hover:scale-105 active:scale-95
+        transition-all duration-300 relative overflow-hidden group"
               >
-                {t('predict_button')}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700 ease-in-out skew-x-12" />
+                <span className="relative z-10 drop-shadow-sm">{t('predict_button')}</span>
               </Button>
             )
           )}
