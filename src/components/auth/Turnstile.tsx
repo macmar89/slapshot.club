@@ -8,6 +8,18 @@ interface CustomTurnstileProps extends Omit<TurnstileProps, 'siteKey'> {
 }
 
 export const Turnstile: React.FC<CustomTurnstileProps> = ({ siteKey, ...props }) => {
+  const isEnabled = process.env.NEXT_PUBLIC_ENABLE_TURNSTILE !== 'false'
+
+  React.useEffect(() => {
+    if (!isEnabled && props.onSuccess) {
+      props.onSuccess('mock-token')
+    }
+  }, [isEnabled, props.onSuccess])
+
+  if (!isEnabled) {
+    return null
+  }
+
   const finalSiteKey = siteKey || process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
 
   if (!finalSiteKey) {

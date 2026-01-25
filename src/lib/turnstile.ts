@@ -1,4 +1,8 @@
 export async function verifyTurnstileToken(token: string) {
+  if (process.env.NEXT_PUBLIC_ENABLE_TURNSTILE === 'false') {
+    return token === 'mock-token'
+  }
+
   const secretKey = process.env.TURNSTILE_SECRET_KEY
 
   if (!secretKey) {
