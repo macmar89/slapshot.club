@@ -127,7 +127,16 @@
     "reset_password_button": "Odoslať inštrukcie",
     "sending": "Odosielam...",
     "back_to_login": "Späť na prihlásenie",
-    "turnstile_error": "Potvrďte prosím, že nie ste robot."
+    "turnstile_error": "Potvrďte prosím, že nie ste robot.",
+    "register_success_title": "Účet bol vytvorený!",
+    "register_success_description": "Na tvoj email sme poslali overovací odkaz. Pred prihlásením si prosím skontroluj schránku a potvrď svoju súpisku.",
+    "verify_title": "Overenie súpisky",
+    "verify_success": "Tvoja súpiska bola úspešne potvrdená! Teraz sa môžeš prihlásiť.",
+    "verify_error": "Chyba pri overovaní. Odkaz je pravdepodobne neplatný alebo už expiroval.",
+    "verify_button": "Prejsť na prihlásenie",
+    "resend_verification": "Odoslať nový overovací e-mail",
+    "verification_sent": "Nový overovací e-mail bol odoslaný",
+    "resending": "Odosielam..."
   },
   "Lobby": {
     "title": "Vitajte v Slapshot Clube",
@@ -224,5 +233,14 @@
       "evaluation": "Body sa k tvojmu kontu pripíšu automaticky po oficiálnom vyhodnotení zápasu."
     },
     "no_competitions": "Momentálne nie sú aktívne žiadne súťaže s vlastným bodovaním."
+  },
+  "Email": {
+    "verification": {
+      "subject": "🏒 Potvrď svoju súpisku v Slapshot Clube!",
+      "title": "Vitaj v tíme, {username}!",
+      "message": "Tréner ti práve pridelil miesto na súpiske <strong>Slapshot Club</strong>. Tvoj dres už visí v šatni, ale predtým, než naskočíš na ľad, musíme potvrdiť tvoju identitu.",
+      "button": "Potvrdiť súpisku",
+      "footer": "Vidíme sa v aréne! <br> SLAPSHOT CLUB • 2026"
+    }
   }
 }

@@ -59,6 +59,51 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  email: ({ payload }) => ({
+    name: 'brevo',
+    defaultFromName: process.env.BREVO_SENDER_NAME || 'Slapshot Club',
+    defaultFromAddress: process.env.BREVO_SENDER_EMAIL || 'info@slapshot.club',
+    sendEmail: async (args: any) => {
+      const { to, subject, html } = args
+
+      const apiKey = process.env.BREVO_API_KEY
+      if (!apiKey || apiKey === 'YOUR_BREVO_API_KEY_HERE') {
+        payload.logger.error('Brevo API Key is missing or default. Email not sent.')
+        return
+      }
+
+      payload.logger.info(`[EMAIL] Attempting to send email to ${to} via Brevo API...`)
+
+      try {
+        const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+          method: 'POST',
+          headers: {
+            accept: 'application/json',
+            'api-key': apiKey,
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            sender: {
+              name: process.env.BREVO_SENDER_NAME || 'Slapshot Club',
+              email: process.env.BREVO_SENDER_EMAIL || 'info@slapshot.club',
+            },
+            to: [{ email: to }],
+            subject: subject,
+            htmlContent: html,
+          }),
+        })
+
+        if (!response.ok) {
+          const errorData = await response.json()
+          payload.logger.error(`[EMAIL ERROR] Brevo API failed: ${JSON.stringify(errorData)}`)
+        } else {
+          payload.logger.info(`[EMAIL SUCCESS] Verification sent to ${to}`)
+        }
+      } catch (err: any) {
+        payload.logger.error(`[EMAIL ERROR] Fetch failed: ${err.message}`)
+      }
+    },
+  }),
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || '',

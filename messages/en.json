@@ -121,7 +121,17 @@
     "register_subtitle": "Join the best hockey community",
     "register_button": "Register",
     "registering": "Registering...",
-    "turnstile_error": "Please confirm you are not a robot."
+    "register_again": "Try registration again",
+    "turnstile_error": "Please confirm you are not a robot.",
+    "register_success_title": "Account Created!",
+    "register_success_description": "We've sent a verification link to your email. Please check your inbox and confirm your roster spot before signing in.",
+    "verify_title": "Roster Verification",
+    "verify_success": "Your roster spot has been successfully confirmed! You can now sign in.",
+    "verify_error": "Verification failed. The link may be invalid or expired.",
+    "verify_button": "Go to Login",
+    "resend_verification": "Resend verification email",
+    "verification_sent": "A new verification email has been sent",
+    "resending": "Sending..."
   },
   "Lobby": {
     "title": "Welcome to Slapshot Club",
@@ -218,5 +228,14 @@
       "evaluation": "Points are added to your account automatically after official evaluation."
     },
     "no_competitions": "There are currently no active competitions with custom scoring."
+  },
+  "Email": {
+    "verification": {
+      "subject": "🏒 Confirm your roster spot at Slapshot Club!",
+      "title": "Welcome to the team, {username}!",
+      "message": "The coach has just assigned you a spot on the <strong>Slapshot Club</strong> roster. Your jersey is already hanging in the locker room, but before you hit the ice, we need to confirm your identity.",
+      "button": "Confirm Roster Spot",
+      "footer": "See you in the arena! <br> SLAPSHOT CLUB • 2026"
+    }
   }
 }

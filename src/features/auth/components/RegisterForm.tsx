@@ -19,6 +19,7 @@ export const RegisterForm = () => {
   const t = useTranslations('Auth')
 
   const [isLoading, setIsLoading] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isUsernameAvailable, setIsUsernameAvailable] = useState(false)
   const [isEmailAvailable, setIsEmailAvailable] = useState(false)
@@ -46,7 +47,7 @@ export const RegisterForm = () => {
       const res = await registerUser(data)
 
       if (res.ok) {
-        router.push('/login')
+        setIsSuccess(true)
       } else {
         setError(res.data.errors?.[0]?.message || 'Registrácia zlyhala')
       }
@@ -55,6 +56,32 @@ export const RegisterForm = () => {
     } finally {
       setIsLoading(false)
     }
+  }
+
+  if (isSuccess) {
+    return (
+      <div className="w-full max-w-sm flex flex-col gap-6 items-center text-center animate-in fade-in zoom-in duration-500">
+        <div className="w-20 h-20 bg-gold/10 rounded-full flex items-center justify-center border border-gold/20 mb-2">
+          <svg
+            className="w-10 h-10 text-gold"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <div className="space-y-2">
+          <h2 className="text-2xl font-bold text-white tracking-tighter uppercase leading-tight">
+            {t('register_success_title')}
+          </h2>
+          <p className="text-white/60 font-medium">{t('register_success_description')}</p>
+        </div>
+        <Button color="gold" className="w-full mt-4" onClick={() => router.push('/login')}>
+          {t('login')}
+        </Button>
+      </div>
+    )
   }
 
   return (
@@ -111,13 +138,15 @@ export const RegisterForm = () => {
           onError={() => setError(t('turnstile_error'))}
           onExpire={() => setValue('turnstileToken', '')}
         />
-        {errors.turnstileToken && <p className="text-red-500 text-xs text-center">{errors.turnstileToken.message}</p>}
+        {errors.turnstileToken && (
+          <p className="text-red-500 text-xs text-center">{errors.turnstileToken.message}</p>
+        )}
       </div>
 
-      <Button 
-        type="submit" 
-        color="gold" 
-        className="w-full py-6 text-lg" 
+      <Button
+        type="submit"
+        color="gold"
+        className="w-full py-6 text-lg"
         disabled={isLoading || !isUsernameAvailable || !isEmailAvailable}
       >
         {isLoading ? t('registering') : t('register_button')}
