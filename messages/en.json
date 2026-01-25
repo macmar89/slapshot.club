@@ -67,6 +67,7 @@
       "points": "Points",
       "predictions": "Tips",
       "exact": "Exact",
+      "diff": "Diffs",
       "winners": "Winners",
       "wrong": "Wrong"
     }
@@ -204,14 +205,16 @@
     "description": "Here you'll find everything you need to start collecting points.",
     "scoring_title": "Scoring",
     "exact_score": "Exact Score",
-    "winner_only": "Match Winner",
+    "correct_diff": "Goal difference + Winner",
+    "winner_only": "Winner only",
     "points": "{count, plural, one {# point} other {# points}}",
     "general_rules_title": "General Rules",
     "rules_list": {
       "tip_before": "Predictions are accepted until the start of the match. Then the match is locked.",
       "score_regular": "Predictions are based on the final score (including overtime or shootout).",
-      "exact_desc": "If you guess the exact score, you get the full amount of points.",
-      "winner_desc": "If you guess the winner or a draw, but not the exact score, you get partial points.",
+      "exact_desc": "If you guess the exact score, you get 5 points.",
+      "diff_desc": "If you guess the winner and the exact goal difference, you get 3 points.",
+      "winner_desc": "If you guess the winner but not the exact score or difference, you get 2 points.",
       "evaluation": "Points are added to your account automatically after official evaluation."
     },
     "no_competitions": "There are currently no active competitions with custom scoring."

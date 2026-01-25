@@ -8,8 +8,7 @@ import type { Match, Competition, Prediction } from '@/payload-types'
  */
 export async function evaluateMatch(matchId: string, payload: Payload) {
   const startTime = Date.now()
-  
-  // 1. Fetch Match & Competition rules
+
   const match = await payload.findByID({
     collection: 'matches',
     id: matchId,
@@ -21,9 +20,13 @@ export async function evaluateMatch(matchId: string, payload: Payload) {
     return
   }
 
-  const competition = typeof match.competition === 'object' 
-    ? match.competition 
-    : await payload.findByID({ collection: 'competitions', id: match.competition }) as Competition
+  const competition =
+    typeof match.competition === 'object'
+      ? match.competition
+      : ((await payload.findByID({
+          collection: 'competitions',
+          id: match.competition,
+        })) as Competition)
 
   // 2. Fetch all predictions that haven't been evaluated yet
   const { docs: predictions } = await payload.find({
@@ -32,14 +35,16 @@ export async function evaluateMatch(matchId: string, payload: Payload) {
       match: { equals: matchId },
       status: { not_equals: 'evaluated' },
     },
-    limit: 5000, 
+    limit: 5000,
   })
 
-  payload.logger.info(`[EVALUATE] Processing ${predictions.length} predictions for ${match.displayTitle}...`)
+  payload.logger.info(
+    `[EVALUATE] Processing ${predictions.length} predictions for ${match.displayTitle}...`,
+  )
 
   for (const pred of predictions as Prediction[]) {
     try {
-      const { points, isExact, isTrend, isWrong } = calculatePoints(pred, match, competition)
+      const { points, isExact, isTrend, isDiff, isWrong } = calculatePoints(pred, match)
       // Update Prediction first (Atomic state change)
       await payload.update({
         collection: 'predictions',
@@ -48,6 +53,7 @@ export async function evaluateMatch(matchId: string, payload: Payload) {
           points,
           isExact,
           isTrend,
+          isDiff,
           isWrong,
           status: 'evaluated',
         },
@@ -56,7 +62,7 @@ export async function evaluateMatch(matchId: string, payload: Payload) {
       // Update Leaderboard & Global Stats
       if (pred.user) {
         const userId = typeof pred.user === 'object' ? pred.user.id : pred.user
-        
+
         // Update Leaderboard Entry
         const { docs: entries } = await payload.find({
           collection: 'leaderboard-entries',
@@ -77,6 +83,7 @@ export async function evaluateMatch(matchId: string, payload: Payload) {
               totalMatches: (entry.totalMatches || 0) + 1,
               exactGuesses: (entry.exactGuesses || 0) + (isExact ? 1 : 0),
               correctTrends: (entry.correctTrends || 0) + (isTrend ? 1 : 0),
+              correctDiffs: (entry.correctDiffs || 0) + (isDiff ? 1 : 0),
               wrongGuesses: (entry.wrongGuesses || 0) + (isWrong ? 1 : 0),
             },
           })
@@ -90,6 +97,7 @@ export async function evaluateMatch(matchId: string, payload: Payload) {
               totalMatches: 1,
               exactGuesses: isExact ? 1 : 0,
               correctTrends: isTrend ? 1 : 0,
+              correctDiffs: isDiff ? 1 : 0,
               wrongGuesses: isWrong ? 1 : 0,
               currentRank: 0,
               previousRank: 0,
@@ -113,7 +121,7 @@ export async function evaluateMatch(matchId: string, payload: Payload) {
           })
         }
       }
-      
+
       payload.logger.info(`[EVALUATE] User ${pred.user} received ${points} points.`)
     } catch (err: any) {
       payload.logger.error(`[EVALUATE] Error on prediction ${pred.id}: ${err.message}`)
@@ -138,7 +146,8 @@ export async function revertMatchEvaluation(matchId: string, payload: Payload) {
 
   if (!match) return
 
-  const competitionId = typeof match.competition === 'object' ? (match.competition as any).id : match.competition
+  const competitionId =
+    typeof match.competition === 'object' ? (match.competition as any).id : match.competition
 
   // 1. Fetch all evaluated predictions
   const { docs: predictions } = await payload.find({
@@ -150,13 +159,16 @@ export async function revertMatchEvaluation(matchId: string, payload: Payload) {
     limit: 5000,
   })
 
-  payload.logger.info(`[REVERT] Reverting ${predictions.length} predictions for ${match.displayTitle}...`)
+  payload.logger.info(
+    `[REVERT] Reverting ${predictions.length} predictions for ${match.displayTitle}...`,
+  )
 
   for (const pred of predictions as Prediction[]) {
     try {
       const pointsToSubtract = pred.points || 0
       const revIsExact = pred.isExact
       const revIsTrend = pred.isTrend
+      const revIsDiff = pred.isDiff
       const revIsWrong = pred.isWrong
 
       // Reset Prediction (Unlock state)
@@ -167,6 +179,7 @@ export async function revertMatchEvaluation(matchId: string, payload: Payload) {
           points: 0,
           isExact: false,
           isTrend: false,
+          isDiff: false,
           isWrong: false,
           status: 'pending',
         },
@@ -195,6 +208,7 @@ export async function revertMatchEvaluation(matchId: string, payload: Payload) {
               totalMatches: Math.max(0, (entry.totalMatches || 0) - 1),
               exactGuesses: Math.max(0, (entry.exactGuesses || 0) - (revIsExact ? 1 : 0)),
               correctTrends: Math.max(0, (entry.correctTrends || 0) - (revIsTrend ? 1 : 0)),
+              correctDiffs: Math.max(0, (entry.correctDiffs || 0) - (revIsDiff ? 1 : 0)),
               wrongGuesses: Math.max(0, (entry.wrongGuesses || 0) - (revIsWrong ? 1 : 0)),
             },
           })

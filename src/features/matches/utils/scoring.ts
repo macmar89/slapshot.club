@@ -4,22 +4,23 @@ type ScoringResult = {
   points: number
   isExact: boolean
   isTrend: boolean
+  isDiff: boolean
   isWrong: boolean
 }
 
-export function calculatePoints(
-  prediction: Prediction,
-  match: Match,
-  competition: Competition,
-): ScoringResult {
+export function calculatePoints(prediction: Prediction, match: Match): ScoringResult {
   const result = match.result
   if (!result) {
-    return { points: 0, isExact: false, isTrend: false, isWrong: false }
+    return { points: 0, isExact: false, isTrend: false, isDiff: false, isWrong: false }
   }
   // Ak user netipoval (null), 0 bodov
-  if (prediction.homeGoals === null || prediction.homeGoals === undefined ||
-      prediction.awayGoals === null || prediction.awayGoals === undefined) {
-    return { points: 0, isExact: false, isTrend: false, isWrong: false }
+  if (
+    prediction.homeGoals === null ||
+    prediction.homeGoals === undefined ||
+    prediction.awayGoals === null ||
+    prediction.awayGoals === undefined
+  ) {
+    return { points: 0, isExact: false, isTrend: false, isDiff: false, isWrong: false }
   }
 
   const pHome = prediction.homeGoals
@@ -27,17 +28,18 @@ export function calculatePoints(
   const mHome = result.homeScore!
   const mAway = result.awayScore!
 
-  // 1. EXACT SCORE (Presný výsledok)
+  // 1. EXACT SCORE (Presný výsledok) - 5 bodov
   if (pHome === mHome && pAway === mAway) {
     return {
-      points: competition.scoringRules?.exactScore ?? 3, // Fallback na 3 ak nie je definované
+      points: 5,
       isExact: true,
-      isTrend: false, // Presný výsledok sa už neráta ako trend (aby boli štatistiky oddelené)
+      isTrend: false,
+      isDiff: false,
       isWrong: false,
     }
   }
 
-  // 2. CORRECT TREND (Trafený víťaz alebo remíza)
+  // 2. LOGIKA PRE TREND A ROZDIEL
   const pDiff = pHome - pAway
   const mDiff = mHome - mAway
 
@@ -45,16 +47,29 @@ export function calculatePoints(
   // Away win (pDiff < 0 && mDiff < 0)
   // Draw (pDiff === 0 && mDiff === 0)
   const isTrend =
-    (pDiff > 0 && mDiff > 0) ||
-    (pDiff < 0 && mDiff < 0) ||
-    (pDiff === 0 && mDiff === 0)
+    (pDiff > 0 && mDiff > 0) || (pDiff < 0 && mDiff < 0) || (pDiff === 0 && mDiff === 0)
 
+  // Ak uhádol víťaza/trend
   if (isTrend) {
+    // 2.1 Uhádol aj ROZDIEL GÓLOV - 3 body
+    // (napr. Match 4:2, Tip 3:1 -> pDiff=2, mDiff=2)
+    if (pDiff === mDiff) {
+      return {
+        points: 3,
+        isExact: false,
+        isTrend: false,
+        isDiff: true,
+        isWrong: false,
+      }
+    }
+
+    // 2.2 Len VÍŤAZ - 2 body
     return {
-      points: competition.scoringRules?.winnerOnly ?? 1, // Fallback na 1
+      points: 2,
       isExact: false,
       isTrend: true,
       isWrong: false,
+      isDiff: false,
     }
   }
 
@@ -63,6 +78,7 @@ export function calculatePoints(
     points: 0,
     isExact: false,
     isTrend: false,
+    isDiff: false,
     isWrong: true,
   }
 }

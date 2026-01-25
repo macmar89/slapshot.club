@@ -56,7 +56,8 @@ export const Competitions: CollectionConfig = {
       defaultValue: false,
       admin: {
         position: 'sidebar',
-        description: 'Ak je zapnuté, používatelia sa môžu pridať do súťaže (aj keď je ešte len "upcoming").',
+        description:
+          'Ak je zapnuté, používatelia sa môžu pridať do súťaže (aj keď je ešte len "upcoming").',
       },
     },
     {
@@ -89,19 +90,6 @@ export const Competitions: CollectionConfig = {
       admin: {
         description: 'Ktoré úrovne členstva majú prístup do tejto súťaže?',
       },
-    },
-    {
-      name: 'scoringRules',
-      type: 'group',
-      fields: [
-        {
-          type: 'row',
-          fields: [
-            { name: 'exactScore', type: 'number', defaultValue: 3, required: true },
-            { name: 'winnerOnly', type: 'number', defaultValue: 1, required: true },
-          ],
-        },
-      ],
     },
   ],
 }

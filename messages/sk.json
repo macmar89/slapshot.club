@@ -67,6 +67,7 @@
       "points": "Body",
       "predictions": "Tipy",
       "exact": "Presné",
+      "diff": "Rozdiely",
       "winners": "Víťazi",
       "wrong": "Nesprávne"
     }
@@ -210,14 +211,16 @@
     "description": "Tu nájdeš všetko podstatné, aby si mohol začať zbierať body.",
     "scoring_title": "Bodovanie",
     "exact_score": "Presný výsledok",
-    "winner_only": "Víťaz zápasu",
+    "correct_diff": "Rozdiel gólov + víťaz",
+    "winner_only": "Len víťaz zápasu",
     "points": "{count, plural, one {# bod} few {# body} other {# bodov}}",
     "general_rules_title": "Všeobecné pravidlá",
     "rules_list": {
       "tip_before": "Tipy prijímame do začiatku zápasu. Potom sa zápas uzamkne.",
-      "score_regular": "Tipuje sa konečný výsledok zápasu (vrátane prípadného predĺženia alebo nájazdov).",
-      "exact_desc": "Ak trafíš presné skóre zápasu, získaš plný počet bodov.",
-      "winner_desc": "Ak trafíš víťaza alebo remízu, ale netrafíš presné skóre, získaš čiastočné body.",
+      "score_regular": "Tipuje sa konečný výsledok zápasu (vrátane predĺženia alebo nájazdov).",
+      "exact_desc": "Ak trafíš presné skóre zápasu, získaš 5 bodov.",
+      "diff_desc": "Ak trafíš víťaza a zároveň aj presný gólový rozdiel, získaš 3 body.",
+      "winner_desc": "Ak trafíš víťaza, ale nie presný skóre ani rozdiel, získaš 2 body.",
       "evaluation": "Body sa k tvojmu kontu pripíšu automaticky po oficiálnom vyhodnotení zápasu."
     },
     "no_competitions": "Momentálne nie sú aktívne žiadne súťaže s vlastným bodovaním."

@@ -109,6 +109,12 @@ export const Predictions: CollectionConfig = {
       admin: { readOnly: true, hidden: true },
     },
     {
+      name: 'isDiff',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: { readOnly: true, hidden: true },
+    },
+    {
       name: 'isWrong',
       type: 'checkbox',
       defaultValue: false,
@@ -128,17 +134,19 @@ export const Predictions: CollectionConfig = {
 
         // KONTROLA ČASU: Nedovoľ tipovať po začiatku zápasu (Bypass pre admina)
         const isAdmin = req.user?.role === 'admin'
-        
+
         if (!isAdmin && (operation === 'update' || operation === 'create')) {
           // Zisťujeme, či sa reálne mení skóre oproti pôvodnému
-          const hasHomeChanged = data.homeGoals !== undefined && data.homeGoals !== (originalDoc as any)?.homeGoals
-          const hasAwayChanged = data.awayGoals !== undefined && data.awayGoals !== (originalDoc as any)?.awayGoals
+          const hasHomeChanged =
+            data.homeGoals !== undefined && data.homeGoals !== (originalDoc as any)?.homeGoals
+          const hasAwayChanged =
+            data.awayGoals !== undefined && data.awayGoals !== (originalDoc as any)?.awayGoals
           const isScoreChange = hasHomeChanged || hasAwayChanged
-          
+
           if (isScoreChange) {
             // Získame ID zápasu (buď z nových dát alebo z existujúceho dokumentu)
             const matchId = data.match || (originalDoc as any)?.match
-            
+
             if (matchId) {
               const match = await req.payload.findByID({
                 collection: 'matches',

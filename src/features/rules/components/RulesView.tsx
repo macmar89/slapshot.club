@@ -50,16 +50,25 @@ export function RulesView({ competitions }: RulesViewProps) {
                         <span className="text-sm font-bold text-white/80">{t('exact_score')}</span>
                       </div>
                       <span className="text-xl font-black text-white">
-                        {t('points', { count: comp.scoringRules.exactScore })}
+                        {t('points', { count: 5 })}
                       </span>
                     </div>
                     <div className="flex items-center justify-between p-3 rounded-app bg-white/5 border border-white/10">
                       <div className="flex items-center gap-3">
                         <CheckCircle2 className="w-5 h-5 text-warning/70" />
+                        <span className="text-sm font-bold text-white/80">{t('correct_diff')}</span>
+                      </div>
+                      <span className="text-xl font-black text-white">
+                        {t('points', { count: 3 })}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 rounded-app bg-white/5 border border-white/10">
+                      <div className="flex items-center gap-3">
+                        <Info className="w-5 h-5 text-warning/70" />
                         <span className="text-sm font-bold text-white/80">{t('winner_only')}</span>
                       </div>
                       <span className="text-xl font-black text-white">
-                        {t('points', { count: comp.scoringRules.winnerOnly })}
+                        {t('points', { count: 2 })}
                       </span>
                     </div>
                   </div>
@@ -84,16 +93,21 @@ export function RulesView({ competitions }: RulesViewProps) {
 
           <IceGlassCard className="p-6 md:p-8">
             <div className="space-y-6">
-              {['tip_before', 'score_regular', 'exact_desc', 'winner_desc', 'evaluation'].map(
-                (ruleKey) => (
-                  <div key={ruleKey} className="flex gap-4 group">
-                    <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-warning shrink-0 group-hover:scale-150 transition-transform shadow-[0_0_8px_rgba(234,179,8,0.5)]" />
-                    <p className="text-sm md:text-base text-white/70 group-hover:text-white transition-colors leading-relaxed font-medium">
-                      {t(`rules_list.${ruleKey}`)}
-                    </p>
-                  </div>
-                ),
-              )}
+              {[
+                'tip_before',
+                'score_regular',
+                'exact_desc',
+                'diff_desc',
+                'winner_desc',
+                'evaluation',
+              ].map((ruleKey) => (
+                <div key={ruleKey} className="flex gap-4 group">
+                  <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-warning shrink-0 group-hover:scale-150 transition-transform shadow-[0_0_8px_rgba(234,179,8,0.5)]" />
+                  <p className="text-sm md:text-base text-white/70 group-hover:text-white transition-colors leading-relaxed font-medium">
+                    {t(`rules_list.${ruleKey}`)}
+                  </p>
+                </div>
+              ))}
             </div>
           </IceGlassCard>
         </section>

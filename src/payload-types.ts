@@ -231,10 +231,6 @@ export interface Competition {
    * Ktoré úrovne členstva majú prístup do tejto súťaže?
    */
   requiredTiers: (string | MembershipTier)[];
-  scoringRules: {
-    exactScore: number;
-    winnerOnly: number;
-  };
   updatedAt: string;
   createdAt: string;
 }
@@ -311,6 +307,7 @@ export interface LeaderboardEntry {
   totalMatches?: number | null;
   exactGuesses?: number | null;
   correctTrends?: number | null;
+  correctDiffs?: number | null;
   wrongGuesses?: number | null;
   currentRank?: number | null;
   /**
@@ -471,6 +468,7 @@ export interface Prediction {
   editCount?: number | null;
   isExact?: boolean | null;
   isTrend?: boolean | null;
+  isDiff?: boolean | null;
   isWrong?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -696,12 +694,6 @@ export interface CompetitionsSelect<T extends boolean = true> {
   endDate?: T;
   description?: T;
   requiredTiers?: T;
-  scoringRules?:
-    | T
-    | {
-        exactScore?: T;
-        winnerOnly?: T;
-      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -769,6 +761,7 @@ export interface LeaderboardEntriesSelect<T extends boolean = true> {
   totalMatches?: T;
   exactGuesses?: T;
   correctTrends?: T;
+  correctDiffs?: T;
   wrongGuesses?: T;
   currentRank?: T;
   previousRank?: T;
@@ -842,6 +835,7 @@ export interface PredictionsSelect<T extends boolean = true> {
   editCount?: T;
   isExact?: T;
   isTrend?: T;
+  isDiff?: T;
   isWrong?: T;
   updatedAt?: T;
   createdAt?: T;
