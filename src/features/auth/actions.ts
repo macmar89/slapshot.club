@@ -193,6 +193,54 @@ export const logoutUser = async () => {
   }
 }
 
+export const getCurrentUser = async () => {
+  const payload = await getPayload({ config })
+  const headersList = await headers()
+
+  try {
+    const { user } = await payload.auth({ headers: headersList })
+    return user
+  } catch (err) {
+    return null
+  }
+}
+
+export const completeOnboarding = async () => {
+  const user = await getCurrentUser()
+  if (!user) return { ok: false }
+
+  const payload = await getPayload({ config })
+  await payload.update({
+    collection: 'users',
+    id: user.id,
+    data: {
+      hasSeenOnboarding: true,
+    },
+  })
+
+  return { ok: true }
+}
+
+export const markAnnouncementAsSeen = async (announcementId: string) => {
+  const user = (await getCurrentUser()) as any
+  if (!user) return { ok: false }
+
+  const payload = await getPayload({ config })
+
+  const seenAnnouncements = user.seenAnnouncements || []
+  if (!seenAnnouncements.some((a: any) => a.announcementId === announcementId)) {
+    await payload.update({
+      collection: 'users',
+      id: user.id,
+      data: {
+        seenAnnouncements: [...seenAnnouncements, { announcementId }],
+      },
+    })
+  }
+
+  return { ok: true }
+}
+
 export const verifyUser = async (token: string) => {
   const payload = await getPayload({ config })
 

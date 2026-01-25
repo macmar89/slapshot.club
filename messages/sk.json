@@ -138,6 +138,17 @@
     "verification_sent": "Nový overovací e-mail bol odoslaný",
     "resending": "Odosielam..."
   },
+  "Onboarding": {
+    "title": "Vitaj v tíme!",
+    "step1_title": "Staň sa legendou",
+    "step1_description": "Tipuj výsledky zápasov, zbieraj body a stúpaj v globálnom rebríčku. Tvoj progres sledujeme naživo.",
+    "step2_title": "Pravidlá hry",
+    "step2_description": "5 bodov za presný výsledok, 3 body za rozdiel a víťaza, 2 body za správneho víťaza. Jednoduché, však?",
+    "step3_title": "Mini ligy",
+    "step3_description": "Vytvor si vlastnú súkromnú ligu, pozvi kamošov a ukáž im, kto je tu skutočný expert na hokej.",
+    "next": "Ďalej",
+    "finish": "Vstúpiť do arény"
+  },
   "Lobby": {
     "title": "Vitajte v Slapshot Clube",
     "welcome": "Vitaj späť, {username}. Vyber si svoju arénu.",

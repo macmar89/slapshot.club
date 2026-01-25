@@ -4,10 +4,15 @@ import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
+import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import bgImage from '@/assets/images/background/ssc_stick.png'
 import { Toaster } from 'sonner'
+import { AnnouncementManager } from '@/features/auth/components/AnnouncementManager'
+import { getPayload } from 'payload'
+import config from '@/payload.config'
+import type { User } from '@/payload-types'
 
 const sora = Sora({
   subsets: ['latin'],
@@ -46,6 +51,16 @@ export default async function RootLayout(props: {
   // Enable static rendering
   setRequestLocale(locale)
 
+  const headersList = await headers()
+  const payload = await getPayload({ config })
+  let user = null
+  try {
+    const authRes = await payload.auth({ headers: headersList })
+    user = authRes.user
+  } catch (err) {
+    // Not logged in or error
+  }
+
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages()
@@ -70,6 +85,7 @@ export default async function RootLayout(props: {
           </div>
 
           <main className="relative z-10">{children}</main>
+          <AnnouncementManager user={user as any} />
           <Toaster richColors position="top-center" theme="dark" />
         </NextIntlClientProvider>
       </body>

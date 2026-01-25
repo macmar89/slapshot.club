@@ -88,6 +88,28 @@ export const Users: CollectionConfig = {
       },
     },
     {
+      name: 'hasSeenOnboarding',
+      type: 'checkbox',
+      defaultValue: false,
+      saveToJWT: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'seenAnnouncements',
+      type: 'array',
+      fields: [
+        {
+          name: 'announcementId',
+          type: 'text',
+        },
+      ],
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'stats',
       type: 'group',
       label: 'Hráčske štatistiky',

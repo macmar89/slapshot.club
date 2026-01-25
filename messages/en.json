@@ -133,6 +133,17 @@
     "verification_sent": "A new verification email has been sent",
     "resending": "Sending..."
   },
+  "Onboarding": {
+    "title": "Welcome to the Team!",
+    "step1_title": "Become a Legend",
+    "step1_description": "Predict match scores, earn points, and climb the global leaderboard. We track your progress live.",
+    "step2_title": "Game Rules",
+    "step2_description": "5 points for exact score, 3 points for goal difference and winner, 2 points for correct winner. Simple, right?",
+    "step3_title": "Mini Leagues",
+    "step3_description": "Create your own private league, invite friends, and show them who the real hockey expert is.",
+    "next": "Next",
+    "finish": "Enter the Arena"
+  },
   "Lobby": {
     "title": "Welcome to Slapshot Club",
     "welcome": "Welcome back, {username}. Choose your arena.",

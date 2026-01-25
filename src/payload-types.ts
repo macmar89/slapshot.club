@@ -158,6 +158,13 @@ export interface User {
   lastActivity?: string | null;
   isLifetime?: boolean | null;
   preferredLanguage?: ('sk' | 'en') | null;
+  hasSeenOnboarding?: boolean | null;
+  seenAnnouncements?:
+    | {
+        announcementId?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   /**
    * Automaticky počítané systémom. Nemeňte manuálne.
    */
@@ -637,6 +644,13 @@ export interface UsersSelect<T extends boolean = true> {
   lastActivity?: T;
   isLifetime?: T;
   preferredLanguage?: T;
+  hasSeenOnboarding?: T;
+  seenAnnouncements?:
+    | T
+    | {
+        announcementId?: T;
+        id?: T;
+      };
   stats?:
     | T
     | {
