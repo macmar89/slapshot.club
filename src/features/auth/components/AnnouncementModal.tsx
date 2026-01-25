@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/Button'
 import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import { markAnnouncementAsSeen } from '@/features/auth/actions'
 import { X, Bell } from 'lucide-react'
+import Image from 'next/image'
 
 interface AnnouncementModalProps {
   id: string
@@ -21,6 +22,7 @@ interface AnnouncementModalProps {
   onClose: () => void
   icon?: React.ReactNode
   buttonText?: string
+  image?: any
 }
 
 export const AnnouncementModal = ({
@@ -31,6 +33,7 @@ export const AnnouncementModal = ({
   onClose,
   icon,
   buttonText = 'OK',
+  image,
 }: AnnouncementModalProps) => {
   const handleClose = async () => {
     await markAnnouncementAsSeen(id)
@@ -45,9 +48,17 @@ export const AnnouncementModal = ({
             <div className="absolute top-0 left-0 w-24 h-24 bg-gold/5 filter blur-2xl rounded-full -translate-x-8 -translate-y-8" />
 
             <div className="relative z-10 flex flex-col items-center gap-6">
-              <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center border border-white/10">
-                {icon || <Bell className="w-8 h-8 text-gold" />}
-              </div>
+              {image && typeof image === 'object' && (
+                <div className="w-full aspect-video relative rounded-xl overflow-hidden border border-white/10 mb-2">
+                  <Image src={image.url} alt={image.alt || title} fill className="object-cover" />
+                </div>
+              )}
+
+              {!image && (
+                <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center border border-white/10">
+                  {icon || <Bell className="w-8 h-8 text-gold" />}
+                </div>
+              )}
 
               <DialogHeader>
                 <DialogTitle className="text-2xl font-black text-white italic tracking-tighter uppercase">

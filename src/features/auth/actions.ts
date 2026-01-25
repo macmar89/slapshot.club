@@ -5,6 +5,7 @@ import { LoginFormData, RegisterFormData, ForgotPasswordFormData } from '@/featu
 import { getPayload } from 'payload'
 import config from '@/payload.config'
 import { cookies, headers } from 'next/headers'
+import { revalidatePath } from 'next/cache'
 
 export const loginUser = async (data: LoginFormData) => {
   const isVerified = await verifyTurnstileToken(data.turnstileToken)
@@ -206,19 +207,32 @@ export const getCurrentUser = async () => {
 }
 
 export const completeOnboarding = async () => {
+  console.log('[SERVER ACTION] completeOnboarding started')
   const user = await getCurrentUser()
-  if (!user) return { ok: false }
+  console.log('[SERVER ACTION] Current user found:', user?.id)
 
-  const payload = await getPayload({ config })
-  await payload.update({
-    collection: 'users',
-    id: user.id,
-    data: {
-      hasSeenOnboarding: true,
-    },
-  })
+  if (!user) {
+    console.error('[SERVER ACTION] No user found in session')
+    return { ok: false, error: 'No user session' }
+  }
 
-  return { ok: true }
+  try {
+    const payload = await getPayload({ config })
+    console.log('[SERVER ACTION] Updating user onboarding status...')
+    await payload.update({
+      collection: 'users',
+      id: user.id,
+      data: {
+        hasSeenOnboarding: true,
+      },
+    })
+    console.log('[SERVER ACTION] Update successful')
+    revalidatePath('/', 'layout')
+    return { ok: true }
+  } catch (err: any) {
+    console.error('[SERVER ACTION] Error updating onboarding status:', err)
+    return { ok: false, error: err.message || 'Update failed' }
+  }
 }
 
 export const markAnnouncementAsSeen = async (announcementId: string) => {
@@ -228,12 +242,30 @@ export const markAnnouncementAsSeen = async (announcementId: string) => {
   const payload = await getPayload({ config })
 
   const seenAnnouncements = user.seenAnnouncements || []
-  if (!seenAnnouncements.some((a: any) => a.announcementId === announcementId)) {
+  const existingIndex = seenAnnouncements.findIndex((a: any) => a.announcementId === announcementId)
+
+  if (existingIndex > -1) {
+    // Increment existing display count
+    const updatedSeen = [...seenAnnouncements]
+    updatedSeen[existingIndex] = {
+      ...updatedSeen[existingIndex],
+      displayCount: (updatedSeen[existingIndex].displayCount || 1) + 1,
+    }
+
     await payload.update({
       collection: 'users',
       id: user.id,
       data: {
-        seenAnnouncements: [...seenAnnouncements, { announcementId }],
+        seenAnnouncements: updatedSeen,
+      },
+    })
+  } else {
+    // Add new entry
+    await payload.update({
+      collection: 'users',
+      id: user.id,
+      data: {
+        seenAnnouncements: [...seenAnnouncements, { announcementId, displayCount: 1 }],
       },
     })
   }

@@ -104,6 +104,11 @@ export const Users: CollectionConfig = {
           name: 'announcementId',
           type: 'text',
         },
+        {
+          name: 'displayCount',
+          type: 'number',
+          defaultValue: 1,
+        },
       ],
       admin: {
         position: 'sidebar',

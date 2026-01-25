@@ -29,6 +29,8 @@ export const metadata = {
   title: 'Slapshot Club',
 }
 
+export const dynamic = 'force-dynamic'
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
@@ -54,16 +56,63 @@ export default async function RootLayout(props: {
   const headersList = await headers()
   const payload = await getPayload({ config })
   let user = null
+  let activeAnnouncements: any[] = []
+
   try {
     const authRes = await payload.auth({ headers: headersList })
     user = authRes.user
+    console.log(
+      '[LAYOUT] User authenticated:',
+      user?.id,
+      'hasSeenOnboarding:',
+      (user as any)?.hasSeenOnboarding,
+    )
+
+    if (user) {
+      console.log(`[LAYOUT] Fetching announcements for locale: ${locale}`)
+      const announcementsRes = await payload.find({
+        collection: 'announcements' as any,
+        where: {
+          isActive: { equals: true },
+        },
+        locale: locale as any,
+        depth: 1,
+      })
+      console.log(`[LAYOUT] Found ${announcementsRes.docs.length} active announcements`)
+      activeAnnouncements = announcementsRes.docs.map((doc) => ({
+        id: doc.id,
+        title: doc.title,
+        content: doc.content,
+        buttonText: doc.buttonText,
+        image: doc.image
+          ? {
+              url: (doc.image as any).url,
+              alt: (doc.image as any).alt,
+            }
+          : null,
+        icon: doc.icon,
+        maxDisplaysPerUser: doc.maxDisplaysPerUser,
+        targeting: doc.targeting,
+      }))
+    }
   } catch (err) {
-    // Not logged in or error
+    console.error('Layout auth/announcements fetch error:', err)
   }
 
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages()
+
+  // Map user to plain object for serialization
+  const plainUser = user
+    ? {
+        id: user.id,
+        username: (user as any).username,
+        role: (user as any).role,
+        hasSeenOnboarding: (user as any).hasSeenOnboarding,
+        seenAnnouncements: (user as any).seenAnnouncements || [],
+      }
+    : null
 
   return (
     <html lang={locale} className={cn(sora.variable, spaceGrotesk.variable)}>
@@ -85,7 +134,7 @@ export default async function RootLayout(props: {
           </div>
 
           <main className="relative z-10">{children}</main>
-          <AnnouncementManager user={user as any} />
+          <AnnouncementManager user={plainUser as any} announcements={activeAnnouncements} />
           <Toaster richColors position="top-center" theme="dark" />
         </NextIntlClientProvider>
       </body>

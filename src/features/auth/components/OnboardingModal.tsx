@@ -46,24 +46,45 @@ export const OnboardingModal = ({ isOpen, onClose }: OnboardingModalProps) => {
     if (step < steps.length) {
       setStep(step + 1)
     } else {
-      setIsClosing(true)
-      await completeOnboarding()
-      onClose()
+      try {
+        setIsClosing(true)
+        console.log('[OnboardingModal] Calling completeOnboarding...')
+        const result = await completeOnboarding()
+        console.log('[OnboardingModal] Result:', result)
+
+        if (result.ok) {
+          onClose()
+        } else {
+          console.error('[OnboardingModal] Failed to complete onboarding:', result.error)
+          // Allow closing anyway to not block the user, or show error
+          onClose()
+        }
+      } catch (err) {
+        console.error('[OnboardingModal] Unexpected error:', err)
+        onClose()
+      }
     }
   }
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-lg p-0 bg-transparent border-none shadow-none z-[100]">
-        <IceGlassCard className="p-1 sm:p-2 animate-welcome" backdropBlur="xl">
-          <div className="bg-black/40 rounded-2xl p-8 sm:p-10 border border-white/5 relative overflow-hidden">
-            {/* Background Decorations */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gold/10 filter blur-3xl rounded-full translate-x-16 -translate-y-16" />
+      <DialogContent
+        className="max-w-lg p-0 bg-transparent border-none shadow-none z-[100] data-[state=open]:animate-none data-[state=closed]:animate-none overflow-visible"
+        onPointerDownOutside={(e) => e.preventDefault()} // Don't close on outside click for onboarding
+      >
+        <IceGlassCard
+          className="p-1 sm:p-2 animate-welcome origin-center shadow-[0_32px_64px_-12px_rgba(0,0,0,0.8)]"
+          backdropBlur="xl"
+        >
+          <div className="bg-slate-950/90 rounded-2xl p-8 sm:p-10 border border-white/10 relative overflow-hidden">
+            {/* Background Decorations - Subtler */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 filter blur-3xl rounded-full translate-x-12 -translate-y-12" />
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-blue-500/5 filter blur-3xl rounded-full -translate-x-8 translate-y-8" />
 
             <div className="relative z-10 flex flex-col items-center text-center gap-6">
               <DialogHeader className="w-full">
-                <div className="flex justify-center mb-4 animate-in zoom-in duration-500">
-                  <div className="w-20 h-20 bg-gold/10 rounded-full flex items-center justify-center border border-gold/20 shadow-[0_0_30px_rgba(212,175,55,0.2)]">
+                <div className="flex justify-center mb-4">
+                  <div className="w-20 h-20 bg-gold/10 rounded-full flex items-center justify-center border border-gold/20 shadow-[0_0_30px_rgba(212,175,55,0.15)] animate-in zoom-in duration-700">
                     {steps[step - 1].icon}
                   </div>
                 </div>

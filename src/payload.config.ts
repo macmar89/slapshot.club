@@ -21,6 +21,7 @@ import { Leagues } from './collections/Leagues'
 import { MiniLeagues } from './collections/MiniLeagues'
 import { TeamLogos } from './collections/TeamLogos'
 import { RateLimits } from './collections/RateLimits'
+import { Announcements } from './collections/Announcements'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -52,6 +53,7 @@ export default buildConfig({
     MiniLeagues,
     TeamLogos,
     RateLimits,
+    Announcements,
   ],
   globals: [GeneralSettings],
   editor: lexicalEditor(),

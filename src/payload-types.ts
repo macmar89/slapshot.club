@@ -81,6 +81,7 @@ export interface Config {
     'mini-leagues': MiniLeague;
     'team-logos': TeamLogo;
     'rate-limits': RateLimit;
+    announcements: Announcement;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -102,6 +103,7 @@ export interface Config {
     'mini-leagues': MiniLeaguesSelect<false> | MiniLeaguesSelect<true>;
     'team-logos': TeamLogosSelect<false> | TeamLogosSelect<true>;
     'rate-limits': RateLimitsSelect<false> | RateLimitsSelect<true>;
+    announcements: AnnouncementsSelect<false> | AnnouncementsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -162,6 +164,7 @@ export interface User {
   seenAnnouncements?:
     | {
         announcementId?: string | null;
+        displayCount?: number | null;
         id?: string | null;
       }[]
     | null;
@@ -513,6 +516,40 @@ export interface RateLimit {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "announcements".
+ */
+export interface Announcement {
+  id: number;
+  /**
+   * Interný názov (nezobrazuje sa používateľovi)
+   */
+  name: string;
+  isActive?: boolean | null;
+  image?: (string | null) | Media;
+  title: string;
+  content: string;
+  buttonText?: string | null;
+  /**
+   * Koľkokrát sa má oznam zobraziť jednému používateľovi (0 = nekonečno)
+   */
+  maxDisplaysPerUser?: number | null;
+  targeting?: {
+    /**
+     * Minimálny počet bodov používateľa
+     */
+    minPoints?: number | null;
+    /**
+     * Maximálny počet bodov používateľa
+     */
+    maxPoints?: number | null;
+    targetRoles?: ('admin' | 'editor' | 'user')[] | null;
+  };
+  icon?: ('bell' | 'trophy' | 'star' | 'gift' | 'alert') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -590,6 +627,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'rate-limits';
         value: number | RateLimit;
+      } | null)
+    | ({
+        relationTo: 'announcements';
+        value: number | Announcement;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -649,6 +690,7 @@ export interface UsersSelect<T extends boolean = true> {
     | T
     | {
         announcementId?: T;
+        displayCount?: T;
         id?: T;
       };
   stats?:
@@ -937,6 +979,29 @@ export interface RateLimitsSelect<T extends boolean = true> {
   ip?: T;
   count?: T;
   lastRequest?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "announcements_select".
+ */
+export interface AnnouncementsSelect<T extends boolean = true> {
+  name?: T;
+  isActive?: T;
+  image?: T;
+  title?: T;
+  content?: T;
+  buttonText?: T;
+  maxDisplaysPerUser?: T;
+  targeting?:
+    | T
+    | {
+        minPoints?: T;
+        maxPoints?: T;
+        targetRoles?: T;
+      };
+  icon?: T;
   updatedAt?: T;
   createdAt?: T;
 }
