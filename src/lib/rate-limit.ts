@@ -16,7 +16,7 @@ export async function checkRateLimit(ip: string): Promise<boolean> {
 
   try {
     const result = await payload.find({
-      collection: 'rate-limits',
+      collection: 'rate-limits' as any,
       where: {
         ip: {
           equals: ip,
@@ -29,7 +29,7 @@ export async function checkRateLimit(ip: string): Promise<boolean> {
 
     if (!record) {
       await payload.create({
-        collection: 'rate-limits',
+        collection: 'rate-limits' as any,
         data: {
           ip,
           count: 1,
@@ -48,7 +48,7 @@ export async function checkRateLimit(ip: string): Promise<boolean> {
     if (timePassed > windowMs) {
       console.log(`[RateLimit] Resetting window for IP: ${ip}`)
       await payload.update({
-        collection: 'rate-limits',
+        collection: 'rate-limits' as any,
         id: record.id,
         data: {
           count: 1,
@@ -64,7 +64,7 @@ export async function checkRateLimit(ip: string): Promise<boolean> {
     }
 
     await payload.update({
-      collection: 'rate-limits',
+      collection: 'rate-limits' as any,
       id: record.id,
       data: {
         count: (record.count || 0) + 1,

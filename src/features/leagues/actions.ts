@@ -28,7 +28,7 @@ export const getUserLeaguesForCompetition = async (competitionSlug: string, loca
   const competition = competitionRes.docs[0]
 
   if (!competition) {
-    return []
+    return { leagues: [], activeLeagueId: null }
   }
 
   // 2. Find leagues where user is a member AND linked to this competition

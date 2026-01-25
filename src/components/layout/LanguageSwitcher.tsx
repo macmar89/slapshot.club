@@ -13,7 +13,7 @@ export function LanguageSwitcher() {
   const pathname = usePathname()
 
   const toggleLanguage = (newLocale: 'en' | 'sk') => {
-    router.replace(pathname, { locale: newLocale, scroll: false })
+    router.replace(pathname as any, { locale: newLocale, scroll: false })
   }
 
   return (

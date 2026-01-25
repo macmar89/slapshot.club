@@ -117,11 +117,12 @@ export const Leagues: CollectionConfig = {
       relationTo: 'users',
       hasMany: true,
       required: true,
-      validate: async (userIds, { data, payload }) => {
+      validate: async (userIds, { data, req }) => {
+        const dataAny = data as any
         // Ak ide o public ligu, neriešime limity
-        if ((data as any)?.type === 'public') return true
+        if (dataAny?.type === 'public') return true
 
-        const targetMax = data?.maxMembers || LIMITS.maxMembersPrivate
+        const targetMax = dataAny?.maxMembers || LIMITS.maxMembersPrivate
 
         // 1. Kontrola kapacity ligy
         if (Array.isArray(userIds) && userIds.length > targetMax) {

@@ -43,7 +43,7 @@ export async function createLeague(data: {
     }
 
     // 2. Create
-    const league = await payload.create({
+    const league = await (payload.create as any)({
       collection: 'leagues',
       data: {
         name: data.name,

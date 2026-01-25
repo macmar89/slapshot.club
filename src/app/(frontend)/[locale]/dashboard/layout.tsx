@@ -1,4 +1,5 @@
 import React from 'react'
+export const dynamic = 'force-dynamic'
 import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import { Container } from '@/components/ui/Container'
 import { DashboardNav } from '@/components/layout/DashboardNav'
