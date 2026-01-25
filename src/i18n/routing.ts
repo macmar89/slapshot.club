@@ -23,6 +23,14 @@ export const routing = defineRouting({
       en: '/login',
       sk: '/prihlasenie',
     },
+    '/register': {
+      en: '/register',
+      sk: '/registracia',
+    },
+    '/forgot-password': {
+      en: '/forgot-password',
+      sk: '/zabudnute-heslo',
+    },
     // Dashboard subroutes
     '/dashboard/matches': {
       en: '/dashboard/matches',

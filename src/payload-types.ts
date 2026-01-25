@@ -80,6 +80,7 @@ export interface Config {
     leagues: League;
     'mini-leagues': MiniLeague;
     'team-logos': TeamLogo;
+    'rate-limits': RateLimit;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -100,6 +101,7 @@ export interface Config {
     leagues: LeaguesSelect<false> | LeaguesSelect<true>;
     'mini-leagues': MiniLeaguesSelect<false> | MiniLeaguesSelect<true>;
     'team-logos': TeamLogosSelect<false> | TeamLogosSelect<true>;
+    'rate-limits': RateLimitsSelect<false> | RateLimitsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -492,6 +494,18 @@ export interface MiniLeague {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rate-limits".
+ */
+export interface RateLimit {
+  id: number;
+  ip: string;
+  count: number;
+  lastRequest: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -565,6 +579,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'team-logos';
         value: string | TeamLogo;
+      } | null)
+    | ({
+        relationTo: 'rate-limits';
+        value: number | RateLimit;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -898,6 +916,17 @@ export interface TeamLogosSelect<T extends boolean = true> {
               filename?: T;
             };
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rate-limits_select".
+ */
+export interface RateLimitsSelect<T extends boolean = true> {
+  ip?: T;
+  count?: T;
+  lastRequest?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

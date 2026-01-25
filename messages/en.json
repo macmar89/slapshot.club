@@ -111,7 +111,16 @@
     "no_account": "Don't have an account?",
     "register": "Sign up",
     "email_placeholder": "name@example.com",
-    "password_placeholder": "••••••••"
+    "password_placeholder": "••••••••",
+    "username": "Username",
+    "username_placeholder": "hockeyplayer123",
+    "username_hint": "4-20 chars. Letters, numbers, . and _ (no spaces)",
+    "password_hint": "Min. 8 characters, upper and lower case, number and special character.",
+    "register_title": "Create account",
+    "register_subtitle": "Join the best hockey community",
+    "register_button": "Register",
+    "registering": "Registering...",
+    "turnstile_error": "Please confirm you are not a robot."
   },
   "Lobby": {
     "title": "Welcome to Slapshot Club",

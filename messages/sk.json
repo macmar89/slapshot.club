@@ -111,7 +111,22 @@
     "no_account": "Nemáš účet?",
     "register": "Registruj sa",
     "email_placeholder": "meno@priklad.com",
-    "password_placeholder": "••••••••"
+    "password_placeholder": "••••••••",
+    "username": "Používateľské meno",
+    "username_placeholder": "hokejista123",
+    "username_hint": "4-20 znakov. Písmená, čísla, . a _ (bez medzier)",
+    "password_hint": "Min. 8 znakov, veľké a malé písmeno, číslica a špeciálny znak.",
+    "register_title": "Vytvoriť účet",
+    "register_subtitle": "Pridaj sa k najlepšej hokejovej komunite",
+    "register_button": "Registrovať sa",
+    "registering": "Registrujem...",
+    "already_have_account": "Už máš účet?",
+    "forgot_password_title": "Zabudnuté heslo",
+    "forgot_password_subtitle": "Zadaj svoj email a my ti pošleme inštrukcie na obnovu hesla",
+    "reset_password_button": "Odoslať inštrukcie",
+    "sending": "Odosielam...",
+    "back_to_login": "Späť na prihlásenie",
+    "turnstile_error": "Potvrďte prosím, že nie ste robot."
   },
   "Lobby": {
     "title": "Vitajte v Slapshot Clube",

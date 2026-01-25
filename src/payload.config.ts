@@ -20,6 +20,7 @@ import { GeneralSettings } from './collections/GeneralSettings'
 import { Leagues } from './collections/Leagues'
 import { MiniLeagues } from './collections/MiniLeagues'
 import { TeamLogos } from './collections/TeamLogos'
+import { RateLimits } from './collections/RateLimits'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -50,6 +51,7 @@ export default buildConfig({
     Leagues,
     MiniLeagues,
     TeamLogos,
+    RateLimits,
   ],
   globals: [GeneralSettings],
   editor: lexicalEditor(),

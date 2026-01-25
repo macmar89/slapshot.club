@@ -6,6 +6,7 @@ import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import { LoginForm } from '@/features/auth/components/LoginForm'
 import { Trophy, Users, Table, Zap } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import bgImage from '@/assets/images/background/ssc_stick.png'
 
 export function LoginView() {
   const t = useTranslations('Login')
@@ -38,7 +39,7 @@ export function LoginView() {
       {/* Background Image & Overlays */}
       <div className="absolute inset-0 z-0">
         <Image
-          src='/images/background/ssc_bg.webp'
+          src={bgImage}
           alt="Background"
           fill
           className="object-cover opacity-40 blur-[2px]"
