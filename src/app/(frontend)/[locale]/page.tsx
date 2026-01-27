@@ -8,12 +8,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const { locale } = await params
   setRequestLocale(locale)
 
-  const headersList = await headers()
+  const headersList = new Headers(await headers())
   const payload = await getPayload({ config })
   const { user } = await payload.auth({ headers: headersList })
 
   if (user) {
-    redirect('/dashboard')
+    redirect('/lobby')
   } else {
     redirect('/login')
   }

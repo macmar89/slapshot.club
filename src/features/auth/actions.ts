@@ -207,18 +207,14 @@ export const getCurrentUser = async () => {
 }
 
 export const completeOnboarding = async () => {
-  console.log('[SERVER ACTION] completeOnboarding started')
   const user = await getCurrentUser()
-  console.log('[SERVER ACTION] Current user found:', user?.id)
 
   if (!user) {
-    console.error('[SERVER ACTION] No user found in session')
     return { ok: false, error: 'No user session' }
   }
 
   try {
     const payload = await getPayload({ config })
-    console.log('[SERVER ACTION] Updating user onboarding status...')
     await payload.update({
       collection: 'users',
       id: user.id,
@@ -226,11 +222,9 @@ export const completeOnboarding = async () => {
         hasSeenOnboarding: true,
       },
     })
-    console.log('[SERVER ACTION] Update successful')
     revalidatePath('/', 'layout')
     return { ok: true }
   } catch (err: any) {
-    console.error('[SERVER ACTION] Error updating onboarding status:', err)
     return { ok: false, error: err.message || 'Update failed' }
   }
 }
@@ -310,7 +304,6 @@ export const resendVerification = async (email: string) => {
       status: res.status,
     }
   } catch (err: any) {
-    console.error('Resend verification error:', err)
     return { ok: false, status: 500 }
   }
 }

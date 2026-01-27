@@ -4,7 +4,7 @@ import config from '@/payload.config'
 /**
  * Checks if an IP address has exceeded the rate limit.
  * Limit: 10 requests per 60 seconds.
- * 
+ *
  * @param ip The IP address to check
  * @returns boolean true if the request is allowed, false if rate limited
  */
@@ -36,17 +36,13 @@ export async function checkRateLimit(ip: string): Promise<boolean> {
           lastRequest: now.toISOString(),
         },
       })
-      console.log(`[RateLimit] New IP: ${ip}`)
       return true
     }
 
     const lastRequestTime = new Date(record.lastRequest).getTime()
     const timePassed = now.getTime() - lastRequestTime
-    
-    console.log(`[RateLimit] IP: ${ip}, Count: ${record.count}, Time passed: ${Math.floor(timePassed / 1000)}s`)
 
     if (timePassed > windowMs) {
-      console.log(`[RateLimit] Resetting window for IP: ${ip}`)
       await payload.update({
         collection: 'rate-limits' as any,
         id: record.id,

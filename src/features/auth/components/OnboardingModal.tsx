@@ -48,9 +48,7 @@ export const OnboardingModal = ({ isOpen, onClose }: OnboardingModalProps) => {
     } else {
       try {
         setIsClosing(true)
-        console.log('[OnboardingModal] Calling completeOnboarding...')
         const result = await completeOnboarding()
-        console.log('[OnboardingModal] Result:', result)
 
         if (result.ok) {
           onClose()

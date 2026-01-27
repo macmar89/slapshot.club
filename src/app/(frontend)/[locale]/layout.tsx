@@ -53,23 +53,17 @@ export default async function RootLayout(props: {
   // Enable static rendering
   setRequestLocale(locale)
 
-  const headersList = await headers()
+  const headersList = new Headers(await headers())
   const payload = await getPayload({ config })
   let user = null
   let activeAnnouncements: any[] = []
 
   try {
-    const authRes = await payload.auth({ headers: headersList })
+    // Use the Headers object directly, casting to any if necessary to avoid Next.js 15 internal type conflicts
+    const authRes = await payload.auth({ headers: headersList as any })
     user = authRes.user
-    console.log(
-      '[LAYOUT] User authenticated:',
-      user?.id,
-      'hasSeenOnboarding:',
-      (user as any)?.hasSeenOnboarding,
-    )
 
     if (user) {
-      console.log(`[LAYOUT] Fetching announcements for locale: ${locale}`)
       const announcementsRes = await payload.find({
         collection: 'announcements' as any,
         where: {
@@ -78,7 +72,6 @@ export default async function RootLayout(props: {
         locale: locale as any,
         depth: 1,
       })
-      console.log(`[LAYOUT] Found ${announcementsRes.docs.length} active announcements`)
       activeAnnouncements = announcementsRes.docs.map((doc) => ({
         id: doc.id,
         title: doc.title,
@@ -95,9 +88,7 @@ export default async function RootLayout(props: {
         targeting: doc.targeting,
       }))
     }
-  } catch (err) {
-    console.error('Layout auth/announcements fetch error:', err)
-  }
+  } catch (err) {}
 
   // Providing all messages to the client
   // side is the easiest way to get started

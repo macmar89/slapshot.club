@@ -27,16 +27,10 @@ export const VerifyView = ({ token, initialEmail }: VerifyViewProps) => {
       if (hasStartedVerification.current) return
       hasStartedVerification.current = true
 
-      console.log('Verification starting for token:', token)
-      console.log('Initial email from URL:', initialEmail)
-
       try {
         const res = await verifyUser(token)
-        console.log('Verification response status:', res.status)
-        console.log('Verification response data:', res.data)
 
         if (res.ok) {
-          console.log('Verification successful!')
           setStatus('success')
         } else {
           const resData = res.data as any
@@ -58,7 +52,6 @@ export const VerifyView = ({ token, initialEmail }: VerifyViewProps) => {
     if (token) {
       performVerification()
     } else {
-      console.warn('No token provided in URL')
       setStatus('error')
     }
   }, [token, initialEmail])

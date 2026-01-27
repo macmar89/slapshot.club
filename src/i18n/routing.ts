@@ -8,91 +8,34 @@ export const routing = defineRouting({
   // Used when no locale matches
   defaultLocale: 'sk',
 
+  // Disable locale prefix regarding the requirements: "Odstráň mi lokalizáciu z URL ciest. Chcem mať url iba v angličtine."
+  localePrefix: 'never',
+
   // The `pathnames` object holds pairs of internal
-  // and external paths. For example:
-  // - `/ranking` (internal)
-  // - `/rebricek` (external in Slovak)
-  // - `/ranking` (external in English)
+  // and external paths. We unify them to English paths.
   pathnames: {
     '/': '/',
-    '/dashboard': {
-      en: '/dashboard',
-      sk: '/dashboard',
-    },
-    '/login': {
-      en: '/login',
-      sk: '/prihlasenie',
-    },
-    '/register': {
-      en: '/register',
-      sk: '/registracia',
-    },
-    '/forgot-password': {
-      en: '/forgot-password',
-      sk: '/zabudnute-heslo',
-    },
+    '/dashboard': '/dashboard',
+    '/login': '/login',
+    '/register': '/register',
+    '/forgot-password': '/forgot-password',
     // Dashboard subroutes
-    '/dashboard/matches': {
-      en: '/dashboard/matches',
-      sk: '/dashboard/zapasy',
-    },
-    '/dashboard/tables': {
-      en: '/dashboard/tables',
-      sk: '/dashboard/tabulky',
-    },
-    '/dashboard/teams': {
-      en: '/dashboard/teams',
-      sk: '/dashboard/timy',
-    },
-    '/dashboard/leaderboard': {
-      en: '/dashboard/leaderboard',
-      sk: '/dashboard/rebricek',
-    },
-    '/dashboard/rules': {
-      en: '/dashboard/rules',
-      sk: '/dashboard/pravidla',
-    },
-    '/dashboard/profile': {
-      en: '/dashboard/profile',
-      sk: '/dashboard/profil',
-    },
-    '/dashboard/settings': {
-      en: '/dashboard/settings',
-      sk: '/dashboard/nastavenia',
-    },
-    '/dashboard/[slug]': {
-      en: '/dashboard/[slug]',
-      sk: '/dashboard/[slug]',
-    },
-    '/dashboard/[slug]/leagues': {
-      en: '/dashboard/[slug]/leagues',
-      sk: '/dashboard/[slug]/ligy',
-    },
-    '/dashboard/[slug]/leagues/[leagueId]': {
-      en: '/dashboard/[slug]/leagues/[leagueId]',
-      sk: '/dashboard/[slug]/ligy/[leagueId]',
-    },
-    '/dashboard/[slug]/matches': {
-      en: '/dashboard/[slug]/matches',
-      sk: '/dashboard/[slug]/zapasy',
-    },
-    '/dashboard/[slug]/leaderboard': {
-      en: '/dashboard/[slug]/leaderboard',
-      sk: '/dashboard/[slug]/rebricek',
-    },
-    '/lobby': {
-      en: '/lobby',
-      sk: '/lobby',
-    },
-    '/lobby/[slug]': {
-      en: '/lobby/[slug]',
-      sk: '/lobby/[slug]',
-    },
+    '/dashboard/matches': '/dashboard/matches',
+    '/dashboard/tables': '/dashboard/tables',
+    '/dashboard/teams': '/dashboard/teams',
+    '/dashboard/leaderboard': '/dashboard/leaderboard',
+    '/dashboard/rules': '/dashboard/rules',
+    '/dashboard/profile': '/dashboard/profile',
+    '/dashboard/settings': '/dashboard/settings',
+    '/dashboard/[slug]': '/dashboard/[slug]',
+    '/dashboard/[slug]/leagues': '/dashboard/[slug]/leagues',
+    '/dashboard/[slug]/leagues/[leagueId]': '/dashboard/[slug]/leagues/[leagueId]',
+    '/dashboard/[slug]/matches': '/dashboard/[slug]/matches',
+    '/dashboard/[slug]/leaderboard': '/dashboard/[slug]/leaderboard',
+    '/lobby': '/lobby',
+    '/lobby/[slug]': '/lobby/[slug]',
     // Example from user request
-    '/ranking': {
-      en: '/ranking',
-      sk: '/rebricek',
-    },
+    '/ranking': '/ranking',
   },
 })
 

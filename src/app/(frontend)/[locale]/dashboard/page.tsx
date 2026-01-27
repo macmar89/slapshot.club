@@ -9,7 +9,7 @@ export default async function Dashboard({ params }: { params: Promise<{ locale: 
   const { locale } = await params
   setRequestLocale(locale)
 
-  const headersList = await headers()
+  const headersList = new Headers(await headers())
   const payload = await getPayload({ config })
   const { user } = await payload.auth({ headers: headersList })
 

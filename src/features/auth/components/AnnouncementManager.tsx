@@ -34,23 +34,17 @@ export const AnnouncementManager = ({ user, announcements = [] }: AnnouncementMa
   const [currentModal, setCurrentModal] = useState<ModalItem | null>(null)
 
   useEffect(() => {
-    console.log('[AnnouncementManager] User state changed:', user)
-    console.log('[AnnouncementManager] Announcements prop:', announcements)
     if (!user) return
 
     const newQueue: ModalItem[] = []
 
     // 1. Check for Onboarding
     if (user.hasSeenOnboarding !== true) {
-      console.log('[AnnouncementManager] User has NOT seen onboarding. Adding to queue.')
       newQueue.push({ type: 'onboarding' })
-    } else {
-      console.log('[AnnouncementManager] User HAS seen onboarding.')
     }
 
     // 2. Check for dynamic announcements
     const seenAnnouncements = user.seenAnnouncements || []
-    console.log('[AnnouncementManager] User seen announcements:', seenAnnouncements)
 
     const seenMap = new Map(
       seenAnnouncements.map((a: any) => [a.announcementId, a.displayCount || 1]),
@@ -58,26 +52,17 @@ export const AnnouncementManager = ({ user, announcements = [] }: AnnouncementMa
     const userRole = (user as any).role
     const userPoints = (user as any).stats?.totalPoints || 0
 
-    console.log('[AnnouncementManager] Processing dynamic announcements...')
     announcements.forEach((ann) => {
       const displayCount = seenMap.get(ann.id) || 0
       const maxDisplays = ann.maxDisplaysPerUser || 1 // 1 is default, 0 is infinite
 
-      console.log(
-        `[AnnouncementManager] Checking "${ann.title}" (id: ${ann.id}): displayCount=${displayCount}, maxDisplays=${maxDisplays}`,
-      )
-
       // Check display frequency
       if (maxDisplays !== 0 && displayCount >= maxDisplays) {
-        console.log(`[AnnouncementManager] Skipping "${ann.title}": max displays reached.`)
         return
       }
 
       // Check targeting: Roles
       if (ann.targeting?.targetRoles?.length > 0 && !ann.targeting.targetRoles.includes(userRole)) {
-        console.log(
-          `[AnnouncementManager] Skipping "${ann.title}": user role "${userRole}" not in target roles.`,
-        )
         return
       }
 
@@ -85,7 +70,6 @@ export const AnnouncementManager = ({ user, announcements = [] }: AnnouncementMa
       if (ann.targeting?.minPoints !== undefined && userPoints < ann.targeting.minPoints) return
       if (ann.targeting?.maxPoints !== undefined && userPoints > ann.targeting.maxPoints) return
 
-      console.log(`[AnnouncementManager] Adding dynamic announcement ${ann.id} to queue`)
       newQueue.push({
         type: 'announcement',
         id: ann.id,

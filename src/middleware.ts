@@ -23,30 +23,24 @@ export function middleware(request: NextRequest) {
 
   // 2. Auth Logic
   // Check for protected routes (dashboard) and public-only routes (login)
-  // We check for "dashboard" or "nastenka" in the path
-  const isDashboardPath = pathname.includes('/dashboard') || pathname.includes('/nastenka')
-  const isLoginPath = pathname.includes('/login') || pathname.includes('/prihlasenie')
+  // We check for "dashboard" in the path (English only now)
+  const isDashboardPath = pathname.includes('/dashboard')
+  const isLobbyPath = pathname === '/lobby'
+  const isLoginPath =
+    pathname === '/login' || pathname === '/register' || pathname === '/forgot-password'
 
-  // Extract locale from pathname (first segment)
-  const segments = pathname.split('/').filter(Boolean)
-  const locale = routing.locales.includes(segments[0] as any) ? segments[0] : routing.defaultLocale
-
-  // Redirect to dashboard if user is already logged in and tries to access login page
-  if (pathname !== '/' && isLoginPath && token) {
-    // Redirect to matching dashboard path
-    const dashboardPath = locale === 'sk' ? '/sk/nastenka' : '/en/dashboard'
-    return NextResponse.redirect(new URL(dashboardPath, request.url))
-  }
+  // Redirect to lobby if user is already logged in and tries to access login page
+  // DISABLED: This causes a redirect loop if the token is invalid on the server side (e.g. dev DB reset).
+  // The server redirects to /login, and middleware redirects back to /lobby.
+  // if (isLoginPath && token) {
+  //   return NextResponse.redirect(new URL('/lobby', request.url))
+  // }
 
   // Protected routes: dashboard
-  if (isDashboardPath) {
+  if (isDashboardPath || isLobbyPath) {
     if (!token) {
       // Redirect to login if user is not authenticated
-      const loginPath = locale === 'sk' ? '/sk/prihlasenie' : '/en/login'
-      const url = new URL(loginPath, request.url)
-
-      // Optionally preserve the return URL?
-      // Simplified for now, just redirect
+      const url = new URL('/login', request.url)
       return NextResponse.redirect(url)
     }
   }
