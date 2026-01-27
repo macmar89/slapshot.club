@@ -6,13 +6,17 @@ import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { Zap } from 'lucide-react'
+import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
 
 export const RegisterView = () => {
   const t = useTranslations('Login')
 
   return (
     <div className="flex min-h-screen bg-black overflow-hidden selection:bg-gold/30 selection:text-gold-light">
-      <div className="flex flex-col lg:flex-row w-full max-w-[1920px] mx-auto relative">
+      <div className="fixed top-6 right-6 z-50">
+        <LanguageSwitcher />
+      </div>
+      <div className="flex flex-col lg:flex-row w-full max-w-[1920px] mx-auto relative text-right">
         {/* Left Column: Register Form */}
         <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 lg:p-24 relative z-10 order-2 lg:order-1">
           <div className="w-full max-w-md animate-in fade-in slide-in-from-left duration-1000">

@@ -7,6 +7,7 @@ import { LoginForm } from '@/features/auth/components/LoginForm'
 import { Trophy, Users, Table, Zap } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import bgImage from '@/assets/images/background/ssc_stick.png'
+import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
 
 export function LoginView() {
   const t = useTranslations('Login')
@@ -46,6 +47,10 @@ export function LoginView() {
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-br from-slate-950/95 via-slate-950/80 to-primary/20" />
+      </div>
+
+      <div className="fixed top-6 right-6 z-50">
+        <LanguageSwitcher />
       </div>
 
       <div className="relative z-10 w-full max-w-6xl px-6 py-12 flex flex-col lg:flex-row items-center gap-16 lg:gap-24">

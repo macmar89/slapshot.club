@@ -6,17 +6,21 @@ import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { Zap } from 'lucide-react'
+import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
 
 export const ForgotPasswordView = () => {
   const t = useTranslations('Login')
 
   return (
     <div className="flex min-h-screen bg-black overflow-hidden selection:bg-gold/30 selection:text-gold-light">
-      <div className="flex flex-col lg:flex-row w-full max-w-[1920px] mx-auto relative">
+      <div className="fixed top-6 right-6 z-50">
+        <LanguageSwitcher />
+      </div>
+      <div className="flex flex-col lg:flex-row w-full max-w-[1920px] mx-auto relative text-right">
         {/* Left Column: Forgot Password Form */}
         <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 lg:p-24 relative z-10 order-2 lg:order-1">
           <div className="w-full max-w-md animate-in fade-in slide-in-from-left duration-1000">
-             <IceGlassCard className="p-2 sm:p-4" backdropBlur="xl">
+            <IceGlassCard className="p-2 sm:p-4" backdropBlur="xl">
               <div className="flex flex-col items-center w-full bg-white/5 rounded-2xl p-8 border border-white/5 shadow-inner relative z-10">
                 <ForgotPasswordForm />
               </div>

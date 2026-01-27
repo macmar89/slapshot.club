@@ -5,6 +5,7 @@ interface IceGlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode
   backdropBlur?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'
   withGradient?: boolean
+  allowOverflow?: boolean
 }
 
 const blurMap = {
@@ -27,12 +28,13 @@ const blurMap = {
  * - Subtle inner gradient for volume
  */
 export const IceGlassCard = React.forwardRef<HTMLDivElement, IceGlassCardProps>(
-  ({ className, children, withGradient, backdropBlur, ...props }, ref) => {
+  ({ className, children, withGradient, backdropBlur, allowOverflow, ...props }, ref) => {
     return (
       <div
         ref={ref}
         className={cn(
-          'relative overflow-hidden',
+          'relative',
+          !allowOverflow && 'overflow-hidden',
           // Shape & Size
           'rounded-app',
           // Border border border-2 border-[#5d626d],

@@ -1,0 +1,257 @@
+{
+  "HomePage": {
+    "title": "Vítejte",
+    "description": "Toto je domovská stránka"
+  },
+  "Dashboard": {
+    "nav": {
+      "overview": "Přehled",
+      "matches": "Zápasy",
+      "tables": "Tabulky",
+      "teams": "Týmy",
+      "leaderboard": "Žebříček",
+      "leagues": "Mini Ligy",
+      "rules": "Pravidla",
+      "profile": "Profil",
+      "settings": "Nastavení",
+      "more": "Více",
+      "menu": "Menu"
+    },
+    "settings": {
+      "title": "Nastavení",
+      "description": "Zde si můžeš upravit svá nastavení a přizpůsobit aplikaci.",
+      "language_section": "Jazyk aplikace",
+      "current_language": "Aktuální jazyk"
+    },
+    "status_label": "Stav",
+    "teams_label": "Týmy",
+    "start_date": "Začátek",
+    "end_date": "Konec",
+    "overview": "Přehled soutěže",
+    "overview_placeholder": "Zde uvidíš přehled tvých posledních tipů a výkonů v této soutěži.",
+    "notifications": "Oznámení",
+    "no_new_notifications": "Žádná nová oznámení.",
+    "matches": {
+      "title": "Zápasy",
+      "description": "Seznam všech zápasů v této soutěži.",
+      "empty_state": "Zatím nejsou naplánovány žádné zápasy.",
+      "predict_button": "Natipovat",
+      "my_prediction": "Můj Tip",
+      "selected_day": "Vybraný Den",
+      "no_matches_day": "Na tento den nejsou naplánovány žádné zápasy",
+      "live": "Live",
+      "scheduled": "Naplánovaný",
+      "finished": "Ukončený",
+      "cancelled": "Zrušený",
+      "overtime_short": "PP",
+      "shootout_short": "SN",
+      "predictions_count": "{count, plural, one {# tip} few {# tipy} other {# tipů}}",
+      "dialog": {
+        "title": "Tvůj Tip",
+        "description": "Zadej konečné skóre (včetně OT a PP)",
+        "submit": "Potvrdit Tip",
+        "update": "Aktualizovat Tip",
+        "loading": "Ukládám..."
+      }
+    },
+    "leaderboard": {
+      "title": "Žebříček",
+      "description": "Aktuální pořadí hráčů v soutěži.",
+      "empty_state": "Žebříček bude k dispozici po začátku soutěže.",
+      "tabs": {
+        "global": "Globální",
+        "leagues": "Mini-ligy"
+      },
+      "rank": "Pořadí",
+      "player": "Hráč",
+      "points": "Body",
+      "predictions": "Tipy",
+      "exact": "Přesné",
+      "diff": "Rozdíly",
+      "winners": "Vítězové",
+      "wrong": "Nesprávné"
+    }
+  },
+  "Login": {
+    "hero": {
+      "badge": "Nová éra hokejových tipů",
+      "title_main": "SLAPSHOT",
+      "title_sub": "CLUB",
+      "description": "Vstup do světa, kde každý gól rozhoduje. Tipuj zápasy, tvoř strategie a staň se legendou v nejlepší slovenské hokejové komunitě.",
+      "footer": "© 2026 SLAPSHOT CLUB • Všechna práva vyhrazena"
+    },
+    "features": {
+      "dominance": {
+        "title": "Dominuj na ledě",
+        "description": "Získej respekt v komunitě a vystoupej na vrchol žebříčku."
+      },
+      "leagues": {
+        "title": "Tvoř vlastní ligy",
+        "description": "Pozvi přátele a změř síly v soukromých skupinách."
+      },
+      "stats": {
+        "title": "Real-time statistiky",
+        "description": "Sleduj zápasy naživo a upravuj své tipy v reálném čase."
+      },
+      "progress": {
+        "title": "Okamžitý progres",
+        "description": "Sbírej body a odemykej exkluzivní odměny."
+      }
+    }
+  },
+  "Auth": {
+    "logout": "Odhlásit se",
+    "login": "Přihlásit se",
+    "welcome_back": "Vítej zpět",
+    "continue_journey": "Pokračuj ve své vítězné cestě",
+    "email": "Email",
+    "password": "Heslo",
+    "forgot_password": "Zapomenuté heslo?",
+    "login_button": "Přihlásit se",
+    "logging_in": "Přihlašuji...",
+    "no_account": "Nemáš účet?",
+    "register": "Registruj se",
+    "email_placeholder": "jmeno@priklad.com",
+    "password_placeholder": "••••••••",
+    "username": "Uživatelské jméno",
+    "username_placeholder": "hokejista123",
+    "username_hint": "4-20 znaků. Písmena, čísla, . a _ (bez mezer)",
+    "password_hint": "Min. 8 znaků, velké a malé písmeno, číslice a speciální znak.",
+    "register_title": "Vytvořit účet",
+    "register_subtitle": "Přidej se k nejlepší hokejové komunitě",
+    "register_button": "Registrovat se",
+    "registering": "Registruji...",
+    "already_have_account": "Už máš účet?",
+    "forgot_password_title": "Zapomenuté heslo",
+    "forgot_password_subtitle": "Zadej svůj email a my ti pošleme instrukce k obnově hesla",
+    "reset_password_button": "Odeslat instrukce",
+    "sending": "Odesílám...",
+    "back_to_login": "Zpět na přihlášení",
+    "turnstile_error": "Potvrďte prosím, že nejste robot.",
+    "register_success_title": "Účet byl vytvořen!",
+    "register_success_description": "Na tvůj email jsme poslali ověřovací odkaz. Před přihlášením si prosím zkontroluj schránku a potvrď svou soupisku.",
+    "verify_title": "Ověření soupisky",
+    "verify_success": "Tvoje soupiska byla úspěšně potvrzena! Nyní se můžeš přihlásit.",
+    "verify_error": "Chyba při ověřování. Odkaz je pravděpodobně neplatný nebo již expiroval.",
+    "verify_button": "Přejít na přihlášení",
+    "resend_verification": "Odeslat nový ověřovací e-mail",
+    "verification_sent": "Nový ověřovací e-mail byl odeslán",
+    "resending": "Odesílám..."
+  },
+  "Onboarding": {
+    "title": "Vítej v týmu!",
+    "step1_title": "Staň se legendou",
+    "step1_description": "Tipuj výsledky zápasů, sbírej body a stoupej v globálním žebříčku. Tvůj progres sledujeme naživo.",
+    "step2_title": "Pravidla hry",
+    "step2_description": "5 bodů za přesný výsledek, 3 body za rozdíl a vítěze, 2 body za správného vítěze. Jednoduché, že?",
+    "step3_title": "Mini ligy",
+    "step3_description": "Vytvoř si vlastní soukromou ligu, pozvi kámoše a ukaž jim, kdo je tu skutečný expert na hokej.",
+    "next": "Dále",
+    "finish": "Vstoupit do arény"
+  },
+  "Lobby": {
+    "title": "Vítejte v Slapshot Clubu",
+    "welcome": "Vítej zpět, {username}. Vyber si svou arénu.",
+    "status": {
+      "active": "● Live",
+      "upcoming": "Připravuje se",
+      "finished": "Ukončeno"
+    },
+    "start_date": "Začátek",
+    "end_date": "Konec",
+    "status_label": "Stav",
+    "enter_button": "VSTOUPIT",
+    "view_button": "ZOBRAZIT",
+    "joined": "Přidán",
+    "join_modal": {
+      "title": "Připojit se k soutěži",
+      "description": "Nejsi přihlášen do soutěže {competitionName}. Chceš se připojit?",
+      "cancel": "Zrušit",
+      "confirm": "Připojit se",
+      "joining": "Připojování..."
+    },
+    "rules": "Pravidla",
+    "settings": "Nastavení"
+  },
+  "Leagues": {
+    "title": "Mini Ligy",
+    "create_button": "Vytvořit Ligu",
+    "owned_section": "Moje Ligy",
+    "joined_section": "Členství",
+    "join_section": "Připojit se do Ligy",
+    "join_placeholder": "Zadej pozývací kód (např. PUK-1234)",
+    "join_button": "Připojit se",
+    "members_count": "{count} členů",
+    "copy_code": "Kopírovat",
+    "copied": "Zkopírováno",
+    "create_modal": {
+      "title": "Vytvořit novou ligu",
+      "name_label": "Název ligy",
+      "name_placeholder": "Zadej název...",
+      "type_label": "Typ ligy",
+      "private": "Soukromá",
+      "public": "Veřejná",
+      "cancel": "Zrušit",
+      "submit": "Vytvořit",
+      "creating": "Vytvářím..."
+    },
+    "back_to_list": "Zpět na seznam",
+    "members_list": "Seznam členů",
+    "kick_member": "Odebrat člena",
+    "delete_league": "Vymazat ligu",
+    "delete_confirm_title": "Opravdu vymazat ligu?",
+    "delete_confirm_desc": "Tato akce je nevratná. Všichni členové budou odstraněni a liga zanikne.",
+    "delete_confirm_action": "Vymazat",
+    "kick_confirm_title": "Odebrat člena?",
+    "kick_confirm_desc": "Jste si jistý, že chcete odebrat uživatele {name} z ligy?",
+    "kick_confirm_action": "Odebrat",
+    "cancel": "Zrušit",
+    "league_deleted": "Liga byla vymazána",
+    "member_removed": "Člen byl odstraněn",
+    "members_count_label": "Členové",
+    "invite_code": "Pozývací kód",
+    "stats": "Statistiky",
+    "you": "Vy",
+    "owner": "Vlastník",
+    "deleting": "Mažu...",
+    "delete_error": "Nepodařilo se vymazat ligu",
+    "kick_error": "Nepodařilo se odebrat člena",
+    "rank": "Pozice",
+    "points": "Body",
+    "member": "Člen"
+  },
+  "NotFound": {
+    "title": "Zakázané uvolnění!",
+    "subtitle": "ROZHODČÍ ODPÍSKAL OFFSIDE",
+    "description": "Puk se nám někde ztratil v rohu kluziště a tvůj útok skončil dříve, než začal. Tato stránka na soupisce není.",
+    "button": "ZPĚT DO ŠATNY (LOBBY)"
+  },
+  "Rules": {
+    "title": "Pravidla hry",
+    "description": "Zde najdeš vše podstatné, abys mohl začít sbírat body.",
+    "scoring_title": "Bodování",
+    "exact_score": "Přesný výsledek",
+    "correct_diff": "Rozdíl gólů + vítěz",
+    "winner_only": "Jen vítěz zápasu",
+    "points": "{count, plural, one {# bod} few {# body} other {# bodů}}",
+    "general_rules_title": "Všeobecná pravidla",
+    "rules_list": {
+      "tip_before": "Tipy přijímáme do začátku zápasu. Poté se zápas uzamkne.",
+      "score_regular": "Tipuje se konečný výsledek zápasu (včetně prodloužení nebo nájezdů).",
+      "exact_desc": "Pokud trefíš přesné skóre zápasu, získáš 5 bodů.",
+      "diff_desc": "Pokud trefíš vítěze a zároveň i přesný gólový rozdíl, získáš 3 body.",
+      "winner_desc": "Pokud trefíš vítěze, ale ne přesné skóre ani rozdíl, získaš 2 body.",
+      "evaluation": "Body se k tvému kontu připíší automaticky po oficiálním vyhodnocení zápasu."
+    },
+    "no_competitions": "Momentálně nejsou aktivní žádné soutěže s vlastním bodováním."
+  },
+  "Email": {
+    "verification": {
+      "subject": "🏒 Potvrď svou soupisku v Slapshot Clubu!",
+      "title": "Vítej v týmu, {username}!",
+      "message": "Trenér ti právě přidělil místo na soupisce <strong>Slapshot Club</strong>. Tvůj dres už visí v šatně, ale předtím, než naskočíš na led, musíme potvrdit tvou identitu.",
+      "button": "Potvrdit soupisku",
+      "footer": "Uvidíme se v aréně! <br> SLAPSHOT CLUB • 2026"
+    }
+  }
+}
