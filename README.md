@@ -1,67 +1,74 @@
-# Payload Blank Template
+# Slapshot Club App
 
-This template comes configured with the bare minimum to get started on anything you need.
+**Slapshot Club** je webová aplikácia pre hokejovú komunitu, ktorá umožňuje fanúšikom tipovať výsledky zápasov, sledovať rebríčky a zapájať sa do súťaží. Aplikácia je navrhnutá s dôrazom na "mobile-first" zážitok a postavená na moderných webových technológiách.
 
-## Quick start
+## 🛠 Technický Stack
 
-This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
+Aplikácia využíva robustný stack postavený na Next.js a Payload CMS 3.0 (Beta).
 
-## Quick Start - local setup
+-   **Frontend & Backend**: [Next.js 15](https://nextjs.org/) (App Router)
+-   **CMS**: [Payload 3.0](https://payloadcms.com/) (Headless CMS integrované priamo v Next.js)
+-   **Jazyk**: TypeScript 5
+-   **Databáza**: PostgreSQL (via `@payloadcms/db-postgres`)
+-   **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
+-   **UI Komponenty**: Radix UI, Lucide React
+-   **Validácia**: Zod, React Hook Form
+-   **Internationalizácia (i18n)**: `next-intl`
+-   **Dátové úložisko (Media)**: S3 Compatible (Cloudflare R2)
+-   **Testovanie**: Vitest (Unit/Integration), Playwright (E2E)
+-   **Nasadenie (Deployment)**: Vercel
 
-To spin up this template locally, follow these steps:
+## ⏱️ Cron Endpointy
 
-### Clone
+Aplikácia používa Vercel Cron na automatizáciu úloh. Endpointy sú chránené pomocou `CRON_SECRET`.
 
-After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
+### 1. Aktualizácia Zápasov
+-   **URL**: `/api/cron/update-matches`
+-   **Frekvencia**: Každých 5 minút
+-   **Popis**: Kontroluje všetky zápasy so stavom `scheduled`. Ak aktuálny čas (`NOW`) prekročí čas začiatku zápasu (`date`), status zápasu sa automaticky zmení na `live`.
+-   **Dôvod**: Zabezpečuje, aby používatelia nemohli pridávať alebo upravovať svoje tipy po tom, čo zápas reálne začal.
 
-### Development
+## 🚀 Ako začať (Local Development)
 
-1. First [clone the repo](#clone) if you have not done so already
-2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URL` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
+Nasledujte tieto kroky pre spustenie projektu na lokálnom stroji:
 
-3. `pnpm install && pnpm dev` to install dependencies and start the dev server
-4. open `http://localhost:3000` to open the app in your browser
+### 1. Príprava
+Uistite sa, že máte nainštalovaný Node.js (v18+) a `npm` alebo `pnpm`.
 
-That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
+### 2. Inštalácia závislostí
+```bash
+npm install
+# alebo
+pnpm install
+```
 
-#### Docker (Optional)
+### 3. Nastavenie prostredia (.env)
+Vytvorte súbor `.env` v koreňovom adresári (môžete skopírovať `.env.example`) a vyplňte potrebné premenné:
+-   `DATABASE_URL`: URL k vašej PostgreSQL databáze.
+-   `PAYLOAD_SECRET`: Náhodný reťazec pre zabezpečenie Payload CMS.
+-   `CRON_SECRET`: Tajný kľúč pre zabezpečenie cron endpointov.
+-   Ďalšie kľúče pre S3, Auth a pod.
 
-If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
+### 4. Spustenie
+```bash
+npm run dev
+```
+Aplikácia bude bežať na [http://localhost:3000](http://localhost:3000).
+-   **Web**: http://localhost:3000
+-   **Admin Panel**: http://localhost:3000/admin
 
-To do so, follow these steps:
+## 📂 Štruktúra Projektu
 
-- Modify the `MONGODB_URL` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
-- Modify the `docker-compose.yml` file's `MONGODB_URL` to match the above `<dbname>`
-- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
+-   `/src/app`: Next.js App Router (stránky a API routes).
+-   `/src/collections`: Definície dátových modelov pre Payload CMS (Zápasy, Tímy, Používatelia, Tipy...).
+-   `/src/components`: Zdieľané UI komponenty (Header, Footer, Button...).
+-   `/src/features`: Logika špecifická pre domény (Auth, Matches, Leaderboard...).
+-   `/src/hooks`: Vlastné React hooky.
+-   `/src/i18n`: Konfigurácia prekladoch (Slovenčina, Angličtina).
+-   `/src/messages`: JSON súbory s prekladmi.
 
-## How it works
+## 📜 Skripty
 
-The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
-
-### Collections
-
-See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
-
-- #### Users (Authentication)
-
-  Users are auth-enabled collections that have access to the admin panel.
-
-  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/main/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
-
-- #### Media
-
-  This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
-
-### Docker
-
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
-
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
-
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
-
-## Questions
-
-If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+-   `npm run build`: Vytvorí produkčný build aplikácie.
+-   `npm run lint`: Skontroluje kód pomocou ESLint.
+-   `npm run generate:types`: Vygeneruje TypeScript typy na základe Payload kolekcií (dôležité spustiť po zmene v CMS configu).
