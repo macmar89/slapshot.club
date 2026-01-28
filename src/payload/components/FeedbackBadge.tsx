@@ -43,17 +43,32 @@ export const FeedbackBadge: React.FC = () => {
   }, [pathname])
 
   useEffect(() => {
-    // Mutation Observer to find the Feedback link and inject the badge
+    // Only run in admin
+    if (!pathname.startsWith('/admin')) return
+
+    let observer: MutationObserver | null = null
+
     const updateBadge = () => {
-      const navLinks = document.querySelectorAll('nav a, nav button')
+      // Find the Nav element to be more specific if possible
+      const nav = document.querySelector('nav')
+      if (!nav) return
+
+      const navLinks = nav.querySelectorAll('a, button')
+      let changed = false
+
       navLinks.forEach((link) => {
-        if (link.textContent?.includes('Feedback')) {
-          let badge = link.querySelector('.feedback-sidebar-badge')
+        // We look for a link that has "Feedback" text but NOT our badge text
+        // to avoid matching our own badge
+        const linkText = link.textContent || ''
+        if (linkText.includes('Feedback')) {
+          let badge = link.querySelector('.feedback-sidebar-badge') as HTMLElement
+          const badgeText = `${counts.newCount}/${counts.unread}`
+          const shouldShow = counts.unread > 0 || counts.newCount > 0
+
           if (!badge) {
             badge = document.createElement('span')
             badge.className = 'feedback-sidebar-badge'
-            // Apply some basic styling - in Payload Admin we might need to be careful
-            Object.assign((badge as HTMLElement).style, {
+            Object.assign(badge.style, {
               marginLeft: '8px',
               padding: '2px 6px',
               borderRadius: '10px',
@@ -61,26 +76,60 @@ export const FeedbackBadge: React.FC = () => {
               fontWeight: 'bold',
               backgroundColor: counts.newCount > 0 ? 'var(--theme-error-400)' : 'var(--theme-elevation-200)',
               color: counts.newCount > 0 ? 'white' : 'var(--theme-elevation-800)',
-              display: (counts.unread > 0 || counts.newCount > 0) ? 'inline-block' : 'none'
             })
+            
+            // Disconnect to avoid infinite loop when appending
+            if (observer) observer.disconnect()
             link.appendChild(badge)
+            changed = true
+          }
+
+          if (badge.textContent !== badgeText) {
+            badge.textContent = badgeText
+            changed = true
+          }
+
+          const currentDisplay = shouldShow ? 'inline-block' : 'none'
+          if (badge.style.display !== currentDisplay) {
+            badge.style.display = currentDisplay
+            changed = true
           }
           
-          if (badge) {
-             badge.textContent = `${counts.newCount}/${counts.unread}`
-             ;(badge as HTMLElement).style.display = (counts.unread > 0 || counts.newCount > 0) ? 'inline-block' : 'none'
+          if (counts.newCount > 0) {
+            badge.style.backgroundColor = 'var(--theme-error-400)'
+            badge.style.color = 'white'
+          } else {
+            badge.style.backgroundColor = 'var(--theme-elevation-200)'
+            badge.style.color = 'var(--theme-elevation-800)'
           }
         }
       })
+
+      // If we modified the DOM, we need to re-observe if we disconnected
+      if (changed && observer) {
+        observer.observe(document.body, { childList: true, subtree: true })
+      }
     }
 
     updateBadge()
     
-    const observer = new MutationObserver(updateBadge)
+    observer = new MutationObserver((mutations) => {
+      // Avoid re-triggering on our own changes if we can
+      const isOurChange = mutations.every(m => 
+        (m.target as HTMLElement).classList?.contains('feedback-sidebar-badge') ||
+        (m.target as HTMLElement).parentElement?.querySelector('.feedback-sidebar-badge') === m.target
+      )
+      if (!isOurChange) {
+        updateBadge()
+      }
+    })
+
     observer.observe(document.body, { childList: true, subtree: true })
 
-    return () => observer.disconnect()
-  }, [counts])
+    return () => {
+      if (observer) observer.disconnect()
+    }
+  }, [counts, pathname])
 
   return null // This component doesn't render anything itself
 }

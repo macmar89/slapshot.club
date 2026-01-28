@@ -20,6 +20,14 @@ export default async function AccountPage({ params }: { params: Promise<{ locale
     redirect('/login')
   }
 
+  // Fetch all countries for the location dropdown
+  const countriesRes = await payload.find({
+    collection: 'countries',
+    limit: 100,
+    sort: 'name',
+    locale: locale as any,
+  })
+
   const plainUser = {
     id: user.id,
     username: (user as any).username,
@@ -31,7 +39,13 @@ export default async function AccountPage({ params }: { params: Promise<{ locale
     <div className="min-h-screen text-white">
       <Header />
       <div className="pt-16" />
-      <AccountView user={plainUser} />
+      <AccountView 
+        user={plainUser} 
+        countries={countriesRes.docs.map(c => ({
+          id: c.id,
+          name: c.name,
+        }))} 
+      />
     </div>
   )
 }

@@ -82,6 +82,8 @@ export interface Config {
     'team-logos': TeamLogo;
     'rate-limits': RateLimit;
     announcements: Announcement;
+    countries: Country;
+    regions: Region;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -104,6 +106,8 @@ export interface Config {
     'team-logos': TeamLogosSelect<false> | TeamLogosSelect<true>;
     'rate-limits': RateLimitsSelect<false> | RateLimitsSelect<true>;
     announcements: AnnouncementsSelect<false> | AnnouncementsSelect<true>;
+    countries: CountriesSelect<false> | CountriesSelect<true>;
+    regions: RegionsSelect<false> | RegionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -201,15 +205,15 @@ export interface User {
    * Nepovinné údaje o lokácii používateľa
    */
   location?: {
-    country?: ('SK' | 'CZ' | 'other') | null;
+    country?: (number | null) | Country;
     /**
-     * Zadajte názov vašej krajiny
+     * Zadajte názov vašej krajiny (ak nie je v zozname)
      */
     customCountry?: string | null;
     /**
      * Napr. Bratislavský, Jihomoravský, ...
      */
-    region?: string | null;
+    region?: (number | null) | Region;
   };
   updatedAt: string;
   createdAt: string;
@@ -230,6 +234,31 @@ export interface User {
       }[]
     | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "countries".
+ */
+export interface Country {
+  id: number;
+  name: string;
+  /**
+   * Napr. SK, CZ
+   */
+  code: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "regions".
+ */
+export interface Region {
+  id: number;
+  name: string;
+  country: number | Country;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -659,6 +688,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'announcements';
         value: number | Announcement;
+      } | null)
+    | ({
+        relationTo: 'countries';
+        value: number | Country;
+      } | null)
+    | ({
+        relationTo: 'regions';
+        value: number | Region;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1044,6 +1081,26 @@ export interface AnnouncementsSelect<T extends boolean = true> {
         targetRoles?: T;
       };
   icon?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "countries_select".
+ */
+export interface CountriesSelect<T extends boolean = true> {
+  name?: T;
+  code?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "regions_select".
+ */
+export interface RegionsSelect<T extends boolean = true> {
+  name?: T;
+  country?: T;
   updatedAt?: T;
   createdAt?: T;
 }

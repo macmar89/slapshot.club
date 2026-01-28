@@ -291,7 +291,8 @@
     "location_select_country": "Vyber krajinu",
     "location_other": "Iné",
     "location_custom_country": "Názov krajiny",
-    "location_custom_country_placeholder": "Zadaj názov tvojej krajiny...",
-    "location_other_notice": "Ďakujeme! Administrátor doplní tvoju krajinu."
+    "location_custom_country_placeholder": "Enter your country name...",
+    "location_other_hint": "If you didn't find your country in the list, enter it here. An admin will review and add it later.",
+    "location_other_notice": "Thank you! An admin will add your country."
   }
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
@@ -40,23 +40,55 @@ interface AccountViewProps {
     username: string
     email: string
     location?: {
-      country?: 'SK' | 'CZ' | 'other' | null
-      region?: string | null
+      country?: number | { id: number; name: string } | null
+      region?: number | { id: number; name: string } | null
       customCountry?: string | null
     }
   }
+  countries: Array<{ id: number; name: string }>
 }
 
-export function AccountView({ user: initialUser }: AccountViewProps) {
+export function AccountView({ user: initialUser, countries }: AccountViewProps) {
   const t = useTranslations('Account')
   const authT = useTranslations('Auth')
   const commonT = useTranslations('Common')
   const [user, setUser] = useState(initialUser)
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false)
-  const [selectedCountry, setSelectedCountry] = useState<'SK' | 'CZ' | 'other' | null>(initialUser.location?.country || null)
-  const [region, setRegion] = useState(initialUser.location?.region || '')
+  
+  // Get initial IDs (handle potential objects from Payload)
+  const initialCountryId = typeof initialUser.location?.country === 'object' 
+    ? initialUser.location?.country?.id 
+    : initialUser.location?.country
+
+  const initialRegionId = typeof initialUser.location?.region === 'object'
+    ? initialUser.location?.region?.id
+    : initialUser.location?.region
+
+  const [selectedCountry, setSelectedCountry] = useState<number | null>(initialCountryId || null)
+  const [selectedRegion, setSelectedRegion] = useState<number | null>(initialRegionId || null)
+  const [availableRegions, setAvailableRegions] = useState<Array<{ id: number; name: string }>>([])
   const [customCountry, setCustomCountry] = useState(initialUser.location?.customCountry || '')
   const [isLocationSubmitting, setIsLocationSubmitting] = useState(false)
+  const [isLoadingRegions, setIsLoadingRegions] = useState(false)
+
+  // Fetch regions when country changes
+  useEffect(() => {
+    if (selectedCountry) {
+      setIsLoadingRegions(true)
+      fetch(`/api/regions?where[country][equals]=${selectedCountry}&limit=100`)
+        .then(res => res.json())
+        .then(data => {
+          setAvailableRegions(data.docs.map((r: any) => ({ id: r.id, name: r.name })))
+          setIsLoadingRegions(false)
+        })
+        .catch(err => {
+          console.error('Failed to fetch regions:', err)
+          setIsLoadingRegions(false)
+        })
+    } else {
+      setAvailableRegions([])
+    }
+  }, [selectedCountry])
 
   // Username Form
   const {
@@ -123,11 +155,11 @@ export function AccountView({ user: initialUser }: AccountViewProps) {
   const onLocationSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLocationSubmitting(true)
-    const res = await updateLocationAction(selectedCountry, region || null, customCountry || null)
+    const res = await updateLocationAction(selectedCountry, selectedRegion || null, customCountry || null)
     setIsLocationSubmitting(false)
     if (res.ok) {
       toast.success(commonT('success_title'))
-      if (selectedCountry === 'other' && customCountry) {
+      if (!selectedCountry && customCountry) {
         toast.info(t('location_other_notice'))
       }
     } else {
@@ -283,29 +315,36 @@ export function AccountView({ user: initialUser }: AccountViewProps) {
                       <label className="text-[10px] font-black uppercase tracking-widest text-white/40">{t('location_country')}</label>
                       <select
                         value={selectedCountry || ''}
-                        onChange={(e) => setSelectedCountry(e.target.value as 'SK' | 'CZ' | 'other' | null || null)}
+                        onChange={(e) => {
+                          const val = e.target.value ? Number(e.target.value) : null
+                          setSelectedCountry(val)
+                          setSelectedRegion(null) // Reset region when country changes
+                        }}
                         className="w-full px-4 py-2.5 md:py-3 rounded-app bg-white/5 border border-white/10 text-white outline-none focus:border-warning/50 transition-all font-bold text-sm md:text-base"
                       >
                         <option value="">{t('location_select_country')}</option>
-                        <option value="SK">Slovensko</option>
-                        <option value="CZ">Česko</option>
-                        <option value="other">{t('location_other')}</option>
+                        {countries.map(c => (
+                          <option key={c.id} value={c.id}>{c.name}</option>
+                        ))}
                       </select>
                     </div>
-                    {selectedCountry && selectedCountry !== 'other' && (
+                    {(selectedCountry || customCountry) && (
                       <div className="flex flex-col gap-2">
                         <label className="text-[10px] font-black uppercase tracking-widest text-white/40">{t('location_region')}</label>
-                        <input
-                          type="text"
-                          value={region}
-                          onChange={(e) => setRegion(e.target.value)}
+                        <select
+                          value={selectedRegion || ''}
+                          onChange={(e) => setSelectedRegion(e.target.value ? Number(e.target.value) : null)}
                           className="w-full px-4 py-2.5 md:py-3 rounded-app bg-white/5 border border-white/10 text-white outline-none focus:border-warning/50 transition-all font-bold text-sm md:text-base"
-                          placeholder={t('location_region_placeholder')}
-                        />
+                          disabled={isLoadingRegions || !selectedCountry}
+                        >
+                          <option value="">{isLoadingRegions ? commonT('loading') : t('location_region_placeholder')}</option>
+                          {availableRegions.map(r => (
+                            <option key={r.id} value={r.id}>{r.name}</option>
+                          ))}
+                        </select>
                       </div>
                     )}
-                    {selectedCountry === 'other' && (
-                      <div className="flex flex-col gap-2">
+                      <div className="flex flex-col gap-2 col-span-1 md:col-span-2">
                         <label className="text-[10px] font-black uppercase tracking-widest text-white/40">{t('location_custom_country')}</label>
                         <input
                           type="text"
@@ -314,8 +353,8 @@ export function AccountView({ user: initialUser }: AccountViewProps) {
                           className="w-full px-4 py-2.5 md:py-3 rounded-app bg-white/5 border border-white/10 text-white outline-none focus:border-warning/50 transition-all font-bold text-sm md:text-base"
                           placeholder={t('location_custom_country_placeholder')}
                         />
+                        <p className="text-[10px] text-white/30 italic">{t('location_other_hint')}</p>
                       </div>
-                    )}
                  </div>
 
                  <Button type="submit" color="warning" className="w-full md:w-auto self-end px-12 bg-warning text-black font-black uppercase italic tracking-widest text-xs md:text-sm h-10 md:h-12" disabled={isLocationSubmitting}>

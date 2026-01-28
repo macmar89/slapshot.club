@@ -206,30 +206,41 @@ export const Users: CollectionConfig = {
       fields: [
         {
           name: 'country',
-          type: 'select',
+          type: 'relationship',
+          relationTo: 'countries',
           label: 'Krajina',
-          options: [
-            { label: 'Slovensko', value: 'SK' },
-            { label: 'Česko', value: 'CZ' },
-            { label: 'Iné', value: 'other' },
-          ],
         },
         {
           name: 'customCountry',
           type: 'text',
           label: 'Názov krajiny',
           admin: {
-            description: 'Zadajte názov vašej krajiny',
-            condition: (data) => data?.location?.country === 'other',
+            description: 'Zadajte názov vašej krajiny (ak nie je v zozname)',
+            // Explicit check if selected country is "Other"
+            // We'll need to know the ID of "Other" or check its property
+            // For now, let's keep it visible if country is selected, 
+            // but in UI we'll show it only when a special "Other" country is picked.
+            // A safer condition might be checking it manually in UI.
           },
         },
         {
           name: 'region',
-          type: 'text',
+          type: 'relationship',
+          relationTo: 'regions',
           label: 'Kraj',
           admin: {
             description: 'Napr. Bratislavský, Jihomoravský, ...',
-            condition: (data) => data?.location?.country && data?.location?.country !== 'other',
+            condition: (data) => data?.location?.country,
+          },
+          filterOptions: ({ data }) => {
+            if (data?.location?.country) {
+              return {
+                country: {
+                  equals: data.location.country,
+                },
+              }
+            }
+            return false
           },
         },
       ],

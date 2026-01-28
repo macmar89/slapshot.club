@@ -102,8 +102,8 @@ export async function requestEmailChangeAction(newEmail: string, message: string
 }
 
 export async function updateLocationAction(
-  country: 'SK' | 'CZ' | 'other' | null, 
-  region: string | null,
+  countryId: number | null, 
+  regionId: number | null,
   customCountry: string | null
 ) {
   const payload = await getPayload({ config })
@@ -120,15 +120,16 @@ export async function updateLocationAction(
       id: user.id,
       data: {
         location: {
-          country: country || undefined,
-          region: region || undefined,
+          country: countryId || undefined,
+          region: regionId || undefined,
           customCountry: customCountry || undefined,
         },
       },
     })
 
-    // Ak user vybral "Iné" a zadal vlastnú krajinu, vytvor feedback
-    if (country === 'other' && customCountry) {
+    // Ak user zadal "Inú" krajinu (v UI to bude špeciálne ID), vytvor feedback
+    // Pre jednoduchosť budeme v UI posielať customCountry vždy, keď nie je v zozname.
+    if (customCountry && !countryId) {
       await payload.create({
         collection: 'feedback',
         data: {
