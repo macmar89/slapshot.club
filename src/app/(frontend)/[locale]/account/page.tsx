@@ -24,6 +24,7 @@ export default async function AccountPage({ params }: { params: Promise<{ locale
     id: user.id,
     username: (user as any).username,
     email: user.email,
+    location: (user as any).location,
   }
 
   return (

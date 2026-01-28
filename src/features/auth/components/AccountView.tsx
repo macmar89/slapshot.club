@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
-import { User, Mail, Lock, UserCog, Send, CheckCircle2, AlertCircle, ChevronRight } from 'lucide-react'
+import { User, Mail, Lock, UserCog, Send, CheckCircle2, AlertCircle, ChevronRight, MapPin } from 'lucide-react'
 import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import { Button } from '@/components/ui/Button'
 import { PasswordInput } from '@/features/auth/components/PasswordInput'
@@ -22,6 +22,7 @@ import {
   updateUsernameAction,
   updatePasswordAction,
   requestEmailChangeAction,
+  updateLocationAction,
 } from '@/features/auth/account-actions'
 import {
   Dialog,
@@ -38,6 +39,10 @@ interface AccountViewProps {
     id: string
     username: string
     email: string
+    location?: {
+      country?: 'SK' | 'CZ' | 'other' | null
+      region?: string | null
+    }
   }
 }
 
@@ -47,6 +52,9 @@ export function AccountView({ user: initialUser }: AccountViewProps) {
   const commonT = useTranslations('Common')
   const [user, setUser] = useState(initialUser)
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false)
+  const [selectedCountry, setSelectedCountry] = useState<'SK' | 'CZ' | 'other' | null>(initialUser.location?.country || null)
+  const [region, setRegion] = useState(initialUser.location?.region || '')
+  const [isLocationSubmitting, setIsLocationSubmitting] = useState(false)
 
   // Username Form
   const {
@@ -105,6 +113,21 @@ export function AccountView({ user: initialUser }: AccountViewProps) {
       toast.success(commonT('success_title'))
       setIsEmailModalOpen(false)
       resetEmail()
+    } else {
+      toast.error(res.error || commonT('error_generic'))
+    }
+  }
+
+  const onLocationSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsLocationSubmitting(true)
+    const res = await updateLocationAction(selectedCountry, region || null)
+    setIsLocationSubmitting(false)
+    if (res.ok) {
+      toast.success(commonT('success_title'))
+      if (selectedCountry === 'other') {
+        toast.info(t('location_other_notice'))
+      }
     } else {
       toast.error(res.error || commonT('error_generic'))
     }
@@ -240,6 +263,51 @@ export function AccountView({ user: initialUser }: AccountViewProps) {
                     </DialogContent>
                   </Dialog>
                 </div>
+            </IceGlassCard>
+
+            {/* Location Form */}
+            <IceGlassCard backdropBlur="md" className="p-6 md:p-8 md:col-span-2">
+               <form onSubmit={onLocationSubmit} className="flex flex-col gap-4 md:gap-6">
+                 <div className="flex flex-col gap-1">
+                    <h3 className="text-lg md:text-xl font-black text-white uppercase tracking-tight flex items-center gap-2 italic">
+                      <MapPin className="w-4 h-4 md:w-5 md:h-5 text-warning" />
+                      {t('location_section')}
+                    </h3>
+                    <p className="text-white/30 text-[10px] font-bold uppercase tracking-widest">{t('location_description')}</p>
+                 </div>
+
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                    <div className="flex flex-col gap-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-white/40">{t('location_country')}</label>
+                      <select
+                        value={selectedCountry || ''}
+                        onChange={(e) => setSelectedCountry(e.target.value as 'SK' | 'CZ' | 'other' | null || null)}
+                        className="w-full px-4 py-2.5 md:py-3 rounded-app bg-white/5 border border-white/10 text-white outline-none focus:border-warning/50 transition-all font-bold text-sm md:text-base"
+                      >
+                        <option value="">{t('location_select_country')}</option>
+                        <option value="SK">Slovensko</option>
+                        <option value="CZ">Česko</option>
+                        <option value="other">{t('location_other')}</option>
+                      </select>
+                    </div>
+                    {selectedCountry && selectedCountry !== 'other' && (
+                      <div className="flex flex-col gap-2">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-white/40">{t('location_region')}</label>
+                        <input
+                          type="text"
+                          value={region}
+                          onChange={(e) => setRegion(e.target.value)}
+                          className="w-full px-4 py-2.5 md:py-3 rounded-app bg-white/5 border border-white/10 text-white outline-none focus:border-warning/50 transition-all font-bold text-sm md:text-base"
+                          placeholder={t('location_region_placeholder')}
+                        />
+                      </div>
+                    )}
+                 </div>
+
+                 <Button type="submit" color="warning" className="w-full md:w-auto self-end px-12 bg-warning text-black font-black uppercase italic tracking-widest text-xs md:text-sm h-10 md:h-12" disabled={isLocationSubmitting}>
+                   {isLocationSubmitting ? commonT('loading') : t('save_button')}
+                 </Button>
+               </form>
             </IceGlassCard>
 
             {/* Password Form */}

@@ -277,6 +277,14 @@
       "reason_placeholder": "Enter reason why you need to change your email...",
       "cancel": "Cancel",
       "submit": "Submit request"
-    }
+    },
+    "location_section": "Location",
+    "location_description": "Optional details for statistics. Help us better understand our community.",
+    "location_country": "Country",
+    "location_region": "Region",
+    "location_region_placeholder": "E.g. Bratislava, Prague...",
+    "location_select_country": "Select country",
+    "location_other": "Other",
+    "location_other_notice": "Thank you! An admin will add your country."
   }
 }

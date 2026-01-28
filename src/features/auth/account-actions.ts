@@ -100,3 +100,47 @@ export async function requestEmailChangeAction(newEmail: string, message: string
     return { ok: false, error: err.message || 'Request failed' }
   }
 }
+
+export async function updateLocationAction(country: 'SK' | 'CZ' | 'other' | null, region: string | null) {
+  const payload = await getPayload({ config })
+  const headersList = await headers()
+  const { user } = await payload.auth({ headers: headersList })
+
+  if (!user) {
+    return { ok: false, error: 'Unauthorized' }
+  }
+
+  try {
+    await payload.update({
+      collection: 'users',
+      id: user.id,
+      data: {
+        location: {
+          country: country || undefined,
+          region: region || undefined,
+        },
+      },
+    })
+
+    // Ak user vybral "Iné", pošli email adminovi
+    if (country === 'other') {
+      const adminEmail = process.env.ADMIN_EMAIL || 'info@slapshot.club'
+      await payload.sendEmail({
+        to: adminEmail,
+        subject: '[Slapshot] Nová krajina na doplnenie',
+        html: `
+          <h2>Používateľ požiadal o inú krajinu</h2>
+          <p><strong>Používateľ:</strong> ${user.username} (${user.email})</p>
+          <p><strong>ID:</strong> ${user.id}</p>
+          <p>Prosím doplňte krajinu v Admin paneli.</p>
+        `,
+      })
+    }
+
+    revalidatePath('/', 'layout')
+    return { ok: true }
+  } catch (err: any) {
+    return { ok: false, error: err.message || 'Update failed' }
+  }
+}
+

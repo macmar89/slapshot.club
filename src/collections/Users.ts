@@ -195,6 +195,35 @@ export const Users: CollectionConfig = {
         },
       ],
     },
+    {
+      name: 'location',
+      type: 'group',
+      label: 'Lokácia',
+      admin: {
+        description: 'Nepovinné údaje o lokácii používateľa',
+      },
+      fields: [
+        {
+          name: 'country',
+          type: 'select',
+          label: 'Krajina',
+          options: [
+            { label: 'Slovensko', value: 'SK' },
+            { label: 'Česko', value: 'CZ' },
+            { label: 'Iné', value: 'other' },
+          ],
+        },
+        {
+          name: 'region',
+          type: 'text',
+          label: 'Kraj',
+          admin: {
+            description: 'Napr. Bratislavský, Jihomoravský, ...',
+            condition: (data) => data?.location?.country && data?.location?.country !== 'other',
+          },
+        },
+      ],
+    },
   ],
   endpoints: [
     {

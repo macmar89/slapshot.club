@@ -197,6 +197,16 @@ export interface User {
     previousRank?: number | null;
     trend?: ('up' | 'down' | 'stable') | null;
   };
+  /**
+   * Nepovinné údaje o lokácii používateľa
+   */
+  location?: {
+    country?: ('SK' | 'CZ' | 'other') | null;
+    /**
+     * Napr. Bratislavský, Jihomoravský, ...
+     */
+    region?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -721,6 +731,12 @@ export interface UsersSelect<T extends boolean = true> {
         globalRank?: T;
         previousRank?: T;
         trend?: T;
+      };
+  location?:
+    | T
+    | {
+        country?: T;
+        region?: T;
       };
   updatedAt?: T;
   createdAt?: T;

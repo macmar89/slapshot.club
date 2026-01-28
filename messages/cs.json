@@ -282,6 +282,14 @@
       "reason_placeholder": "Zadej důvod, proč potřebuješ změnit email...",
       "cancel": "Zrušit",
       "submit": "Odeslat žádost"
-    }
+    },
+    "location_section": "Lokace",
+    "location_description": "Nepovinné údaje pro statistiky. Pomůžeš nám lépe chápat naši komunitu.",
+    "location_country": "Země",
+    "location_region": "Kraj",
+    "location_region_placeholder": "Např. Jihomoravský, Pražský...",
+    "location_select_country": "Vyber zemi",
+    "location_other": "Jiné",
+    "location_other_notice": "Děkujeme! Administrátor doplní tvou zemi."
   }
 }
