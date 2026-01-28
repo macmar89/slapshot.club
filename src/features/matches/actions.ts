@@ -117,6 +117,21 @@ export const savePredictionAction = async (data: {
     throw new Error('Unauthorized')
   }
 
+  // 1. Fetch match to validate start time
+  const match = await payload.findByID({
+    collection: 'matches',
+    id: data.matchId,
+  })
+
+  if (!match) {
+    throw new Error('Match not found')
+  }
+
+  // 2. Strict validation: Check if match has already started
+  if (new Date() > new Date(match.date)) {
+    throw new Error('Zápas už začal. Nie je možné pridať alebo upraviť tip.')
+  }
+
   // Check if prediction already exists
   const existing = await payload.find({
     collection: 'predictions',
