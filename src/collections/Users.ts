@@ -67,25 +67,64 @@ export const Users: CollectionConfig = {
       },
     },
     {
-      name: 'isLifetime',
-      type: 'checkbox',
-      label: 'Doživotné členstvo (Admin Override)',
-      defaultValue: false,
-      access: {
-        update: isAdminFieldLevel,
-      },
-    },
-    {
       name: 'preferredLanguage',
       type: 'select',
       options: [
         { label: 'Slovenčina', value: 'sk' },
         { label: 'English', value: 'en' },
+        {label: "Čeština", value: "cz"  }
       ],
       defaultValue: 'sk',
       admin: {
         position: 'sidebar',
       },
+    },
+    {
+      name: 'subscription',
+      type: 'group',
+      admin: {
+        description: 'Informácie o predplatnom a úrovni prístupu',
+      },
+      fields: [
+        {
+          name: 'plan',
+          type: 'select',
+          defaultValue: 'free',
+          required: true,
+          saveToJWT: true, // Dôležité: Plán bude dostupný v session bez DB lookupu
+          options: [
+            { label: 'Free', value: 'free' },
+            { label: 'Pro', value: 'pro' },
+            { label: 'VIP', value: 'vip' },
+          ],
+        },
+        {
+          name: 'planType',
+          type: 'select',
+          defaultValue: 'seasonal',
+          required: true,
+          options: [
+            { label: 'Sezónne', value: 'seasonal' },
+            { label: 'Lifetime', value: 'lifetime' },
+          ],
+        },
+        {
+          name: 'activeFrom',
+          type: 'date',
+          admin: {
+            description: 'Dátum prvej aktivácie predplatného',
+          },
+        },
+        {
+          name: 'activeUntil',
+          type: 'date',
+          index: true, // Nutné pre rýchly Cron na konci sezóny
+          admin: {
+            condition: (_, siblingData) => siblingData?.planType !== 'lifetime',
+            description: 'Dátum expirácie (pri Lifetime sa ignoruje)',
+          },
+        },
+      ],
     },
     {
       name: 'hasSeenOnboarding',

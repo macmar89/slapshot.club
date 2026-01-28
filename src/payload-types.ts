@@ -158,8 +158,22 @@ export interface User {
   username: string;
   role: 'admin' | 'editor' | 'user';
   lastActivity?: string | null;
-  isLifetime?: boolean | null;
-  preferredLanguage?: ('sk' | 'en') | null;
+  preferredLanguage?: ('sk' | 'en' | 'cz') | null;
+  /**
+   * Informácie o predplatnom a úrovni prístupu
+   */
+  subscription: {
+    plan: 'free' | 'pro' | 'vip';
+    planType: 'seasonal' | 'lifetime';
+    /**
+     * Dátum prvej aktivácie predplatného
+     */
+    activeFrom?: string | null;
+    /**
+     * Dátum expirácie (pri Lifetime sa ignoruje)
+     */
+    activeUntil?: string | null;
+  };
   hasSeenOnboarding?: boolean | null;
   seenAnnouncements?:
     | {
@@ -683,8 +697,15 @@ export interface UsersSelect<T extends boolean = true> {
   username?: T;
   role?: T;
   lastActivity?: T;
-  isLifetime?: T;
   preferredLanguage?: T;
+  subscription?:
+    | T
+    | {
+        plan?: T;
+        planType?: T;
+        activeFrom?: T;
+        activeUntil?: T;
+      };
   hasSeenOnboarding?: T;
   seenAnnouncements?:
     | T

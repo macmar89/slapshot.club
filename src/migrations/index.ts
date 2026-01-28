@@ -1,9 +1,9 @@
-import * as migration_20260125_184842_add_scoring_updates_and_diffs from './20260125_184842_add_scoring_updates_and_diffs';
+import * as migration_20260128_092533_add_subscription_fields from './20260128_092533_add_subscription_fields';
 
 export const migrations = [
   {
-    up: migration_20260125_184842_add_scoring_updates_and_diffs.up,
-    down: migration_20260125_184842_add_scoring_updates_and_diffs.down,
-    name: '20260125_184842_add_scoring_updates_and_diffs'
+    up: migration_20260128_092533_add_subscription_fields.up,
+    down: migration_20260128_092533_add_subscription_fields.down,
+    name: '20260128_092533_add_subscription_fields'
   },
 ];
