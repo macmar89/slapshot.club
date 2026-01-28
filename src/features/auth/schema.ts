@@ -21,6 +21,10 @@ export const registerSchema = z.object({
     .regex(/[0-9]/, 'Heslo musí obsahovať aspoň jednu číslicu')
     .regex(/[@$!%*?&#^()]/, 'Heslo musí obsahovať aspoň jeden špeciálny znak'),
   turnstileToken: z.string().min(1, 'Potvrďte, že nie ste robot'),
+  gdprConsent: z.boolean().refine((val) => val === true, {
+    message: 'Musíte súhlasiť so spracovaním osobných údajov (GDPR)',
+  }),
+  marketingConsent: z.boolean().default(false),
 })
 
 export const forgotPasswordSchema = z.object({

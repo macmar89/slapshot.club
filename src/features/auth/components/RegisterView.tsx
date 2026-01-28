@@ -12,16 +12,17 @@ export const RegisterView = () => {
   const t = useTranslations('Login')
 
   return (
-    <div className="flex min-h-screen bg-black overflow-hidden selection:bg-gold/30 selection:text-gold-light">
+    <div className="relative flex min-h-screen overflow-hidden selection:bg-gold/30 selection:text-gold-light">
+      <div className="absolute inset-0 bg-gradient-to-l from-slate-950 via-slate-950/80 to-slate-950/40" />
       <div className="fixed top-6 right-6 z-50">
         <LanguageSwitcher />
       </div>
       <div className="flex flex-col lg:flex-row w-full max-w-[1920px] mx-auto relative text-right">
         {/* Left Column: Register Form */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 lg:p-24 relative z-10 order-2 lg:order-1">
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-8 lg:p-12 relative z-40 order-2 lg:order-1">
           <div className="w-full max-w-md animate-in fade-in slide-in-from-left duration-1000">
-            <IceGlassCard className="p-2 sm:p-4" backdropBlur="xl">
-              <div className="flex flex-col items-center w-full bg-white/5 rounded-2xl p-8 border border-white/5 shadow-inner relative z-10">
+            <IceGlassCard className="p-0 sm:p-0 border-0" backdropBlur="xl">
+              <div className="flex flex-col items-center w-full bg-white/5 rounded-2xl p-6 border border-white/5 shadow-inner relative z-10">
                 <RegisterForm />
               </div>
             </IceGlassCard>
@@ -30,31 +31,19 @@ export const RegisterView = () => {
 
         {/* Right Column: Hero Content */}
         <div className="w-full lg:w-1/2 relative min-h-[40vh] lg:min-h-screen order-1 lg:order-2 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-l from-black via-black/40 to-transparent z-10 hidden lg:block" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10 lg:hidden" />
-
-          <Image
-            src="/ssc_bg.webp"
-            alt="Slapshot Club Background"
-            fill
-            className="object-cover scale-110 animate-pulse-slow opacity-60"
-            priority
-          />
-
           <div className="relative z-20 h-full flex flex-col items-center lg:items-end justify-center p-8 sm:p-12 lg:p-24 text-right">
             <div className="space-y-4 animate-in fade-in slide-in-from-right duration-1000">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 border border-gold/20 text-gold text-xs font-bold uppercase tracking-widest backdrop-blur-md">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-xs font-bold uppercase tracking-widest backdrop-blur-md">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-gold"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
                 </span>
                 {t('hero.badge')}
               </div>
 
-              <h1 className="text-5xl sm:text-7xl lg:text-9xl font-black text-white italic tracking-tighter leading-none stroke-gold">
+              <h1 className="text-5xl lg:text-7xl font-bold text-white tracking-tighter leading-none mb-6 drop-shadow-2xl">
                 {t('hero.title_main')}
-                <br />
-                <span className="text-gold lg:mr-4">{t('hero.title_sub')}</span>
+                <span className="text-warning block lg:inline ml-2">{t('hero.title_sub')}</span>
               </h1>
 
               <p className="max-w-md text-white/60 text-lg sm:text-xl font-medium ml-auto leading-relaxed">

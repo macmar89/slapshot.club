@@ -4,8 +4,16 @@ import React, { useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Checkbox } from '@/components/ui/Checkbox'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/Dialog'
 import { registerUser } from '@/features/auth/actions'
 import { registerSchema, type RegisterFormData } from '@/features/auth/schema'
 import { useTranslations } from 'next-intl'
@@ -23,11 +31,13 @@ export const RegisterForm = () => {
   const [error, setError] = useState<string | null>(null)
   const [isUsernameAvailable, setIsUsernameAvailable] = useState(false)
   const [isEmailAvailable, setIsEmailAvailable] = useState(false)
+  const [gdprOpen, setGdprOpen] = useState(false)
 
   const {
     register,
     handleSubmit,
     setValue,
+    control,
     formState: { errors },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
@@ -36,6 +46,8 @@ export const RegisterForm = () => {
       email: '',
       password: '',
       turnstileToken: '',
+      gdprConsent: false,
+      marketingConsent: false,
     },
   })
 
@@ -85,15 +97,15 @@ export const RegisterForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm flex flex-col gap-6">
-      <div className="flex flex-col gap-1 text-center mb-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm flex flex-col gap-4">
+      <div className="flex flex-col gap-1 text-center mb-2">
         <h2 className="text-2xl font-bold text-white tracking-tighter uppercase">
           {t('register_title')}
         </h2>
         <p className="text-sm text-white/40 font-medium">{t('register_subtitle')}</p>
       </div>
 
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-3">
         {error && (
           <div className="bg-red-500/10 border border-red-500/20 text-red-500 px-4 py-2 rounded-app text-sm font-medium text-center">
             {error}
@@ -141,12 +153,73 @@ export const RegisterForm = () => {
         {errors.turnstileToken && (
           <p className="text-red-500 text-xs text-center">{errors.turnstileToken.message}</p>
         )}
+
+        <div className="flex flex-row items-start gap-2 pt-1 text-left relative">
+          <Controller
+            name="gdprConsent"
+            control={control}
+            render={({ field }) => (
+              <div className="relative flex items-center justify-center shrink-0 mt-0.5">
+                <Checkbox
+                  id="gdpr"
+                  checked={!!field.value}
+                  onCheckedChange={field.onChange}
+                  className="cursor-pointer data-[state=checked]:bg-transparent data-[state=checked]:text-[hsl(var(--warning))] data-[state=checked]:border-[hsl(var(--warning))] border-white/30"
+                />
+              </div>
+            )}
+          />
+          <div className="grid gap-1 leading-none">
+            <label
+              htmlFor="gdpr"
+              className="text-xs font-medium leading-tight peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white/80 cursor-pointer select-none"
+            >
+              {t('gdpr_label_prefix')}{' '}
+              <span
+                className="text-gold cursor-pointer hover:underline"
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  setGdprOpen(true)
+                }}
+              >
+                {t('gdpr_label_link')}
+              </span>
+            </label>
+            {errors.gdprConsent && (
+              <p className="text-red-500 text-xs">{errors.gdprConsent.message}</p>
+            )}
+          </div>
+        </div>
+
+        <div className="flex flex-row items-start gap-2 text-left relative">
+          <Controller
+            name="marketingConsent"
+            control={control}
+            render={({ field }) => (
+              <div className="relative flex items-center justify-center shrink-0 mt-0.5">
+                <Checkbox
+                  id="marketing"
+                  checked={!!field.value}
+                  onCheckedChange={field.onChange}
+                  className="cursor-pointer data-[state=checked]:bg-transparent data-[state=checked]:text-[hsl(var(--warning))] data-[state=checked]:border-[hsl(var(--warning))] border-white/30"
+                />
+              </div>
+            )}
+          />
+          <label
+            htmlFor="marketing"
+            className="text-xs font-medium leading-snug peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white/60 cursor-pointer select-none"
+          >
+            {t('marketing_label')}
+          </label>
+        </div>
       </div>
 
       <Button
         type="submit"
         color="gold"
-        className="w-full py-6 text-lg"
+        className="w-full py-4 text-base font-bold tracking-wide"
         disabled={isLoading || !isUsernameAvailable || !isEmailAvailable}
       >
         {isLoading ? t('registering') : t('register_button')}
@@ -158,6 +231,38 @@ export const RegisterForm = () => {
           {t('login')}
         </Link>
       </div>
+      <Dialog open={gdprOpen} onOpenChange={setGdprOpen}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto bg-black/90 border-white/10 text-white">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-gold">
+              {t('gdpr_modal.title')}
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 text-sm text-white/80 leading-relaxed">
+            <p>{t('gdpr_modal.intro')}</p>
+            <h3 className="text-lg font-semibold text-white mt-4">
+              {t('gdpr_modal.section1_title')}
+            </h3>
+            <p>{t('gdpr_modal.section1_content')}</p>
+            <h3 className="text-lg font-semibold text-white mt-4">
+              {t('gdpr_modal.section2_title')}
+            </h3>
+            <p>
+              {t('gdpr_modal.section2_content')}
+              <ul className="list-disc list-inside mt-2 pl-2 space-y-1">
+                <li>{t('gdpr_modal.list_item1')}</li>
+                <li>{t('gdpr_modal.list_item2')}</li>
+                <li>{t('gdpr_modal.list_item3')}</li>
+              </ul>
+            </p>
+            <h3 className="text-lg font-semibold text-white mt-4">
+              {t('gdpr_modal.section3_title')}
+            </h3>
+            <p>{t('gdpr_modal.section3_content')}</p>
+            <p className="mt-4 text-xs text-white/50">{t('gdpr_modal.footer')}</p>
+          </div>
+        </DialogContent>
+      </Dialog>
     </form>
   )
 }

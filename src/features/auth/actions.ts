@@ -109,6 +109,19 @@ export const registerUser = async (data: RegisterFormData) => {
         email: data.email,
         password: data.password,
         username: data.username,
+        gdprConsent: data.gdprConsent,
+        marketingConsent: data.marketingConsent,
+        marketingConsentDate: data.marketingConsent ? new Date().toISOString() : undefined,
+        ...(process.env.REGISTRER_PROMO === 'true'
+          ? {
+              subscription: {
+                plan: 'pro',
+                planType: 'seasonal',
+                activeFrom: new Date().toISOString(),
+                activeUntil: '2027-08-31T21:59:59.000Z', // Midnight Slovak time
+              },
+            }
+          : {}),
       }),
     },
   )

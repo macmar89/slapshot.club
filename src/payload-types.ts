@@ -179,6 +179,9 @@ export interface User {
     activeUntil?: string | null;
   };
   hasSeenOnboarding?: boolean | null;
+  gdprConsent: boolean;
+  marketingConsent?: boolean | null;
+  marketingConsentDate?: string | null;
   seenAnnouncements?:
     | {
         announcementId?: string | null;
@@ -758,6 +761,9 @@ export interface UsersSelect<T extends boolean = true> {
         activeUntil?: T;
       };
   hasSeenOnboarding?: T;
+  gdprConsent?: T;
+  marketingConsent?: T;
+  marketingConsentDate?: T;
   seenAnnouncements?:
     | T
     | {

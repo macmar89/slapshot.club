@@ -5,72 +5,94 @@ import { ForgotPasswordForm } from '@/features/auth/components/ForgotPasswordFor
 import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { Zap } from 'lucide-react'
+import bgImage from '@/assets/images/background/ssc_stick.png'
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
+import { Trophy, Users, Table, Zap } from 'lucide-react'
 
 export const ForgotPasswordView = () => {
   const t = useTranslations('Login')
 
+  const features = [
+    {
+      title: t('features.dominance.title'),
+      description: t('features.dominance.description'),
+      icon: Trophy,
+    },
+    {
+      title: t('features.leagues.title'),
+      description: t('features.leagues.description'),
+      icon: Users,
+    },
+    {
+      title: t('features.stats.title'),
+      description: t('features.stats.description'),
+      icon: Table,
+    },
+    {
+      title: t('features.progress.title'),
+      description: t('features.progress.description'),
+      icon: Zap,
+    },
+  ]
+
   return (
-    <div className="flex min-h-screen bg-black overflow-hidden selection:bg-gold/30 selection:text-gold-light">
+    <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden font-sans">
+      <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-slate-950/40" />
       <div className="fixed top-6 right-6 z-50">
         <LanguageSwitcher />
       </div>
-      <div className="flex flex-col lg:flex-row w-full max-w-[1920px] mx-auto relative text-right">
-        {/* Left Column: Forgot Password Form */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 lg:p-24 relative z-10 order-2 lg:order-1">
-          <div className="w-full max-w-md animate-in fade-in slide-in-from-left duration-1000">
-            <IceGlassCard className="p-2 sm:p-4" backdropBlur="xl">
-              <div className="flex flex-col items-center w-full bg-white/5 rounded-2xl p-8 border border-white/5 shadow-inner relative z-10">
+
+      <div className="relative z-10 w-full max-w-6xl px-6 py-12 flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+        {/* Left Column: Marketing / Branding */}
+        <div className="flex-1 text-center lg:text-left">
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white text-xs font-bold uppercase tracking-[0.2em] mb-8 animate-in slide-in-from-left duration-700 backdrop-blur-md">
+            <Zap className="w-3 h-3 fill-white" />
+            {t('hero.badge')}
+          </div>
+
+          <h1 className="text-5xl lg:text-7xl font-bold text-white tracking-tighter leading-none mb-6 drop-shadow-2xl">
+            {t('hero.title_main')}
+            <span className="text-warning block lg:inline ml-2">{t('hero.title_sub')}</span>
+          </h1>
+
+          <p className="text-xl text-white/50 max-w-xl mb-12 leading-relaxed">
+            {t('hero.description')}
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl">
+            {features.map((feature, i) => (
+              <div
+                key={feature.title}
+                className="flex items-start gap-4 group animate-in slide-in-from-left duration-1000 fill-mode-backwards"
+                style={{ animationDelay: `${(i + 1) * 150}ms` }}
+              >
+                <div className="mt-1 p-3 rounded-xl bg-white/5 border border-white/10 group-hover:bg-primary/20 group-hover:border-primary/30 transition-all duration-300">
+                  <feature.icon className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-white font-bold uppercase text-sm tracking-widest mb-1">
+                    {feature.title}
+                  </h3>
+                  <p className="text-white/40 text-sm leading-snug">{feature.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Right Column: Forgot Password Form */}
+        <div className="w-full max-w-md animate-in zoom-in fade-in duration-1000">
+          <IceGlassCard className="p-0 sm:p-0 border-0" backdropBlur="xl">
+            <div className="flex flex-col items-center w-full bg-white/5 rounded-2xl p-6 border border-white/5 shadow-inner">
+              <React.Suspense fallback={<div className="text-white/50">Loading...</div>}>
                 <ForgotPasswordForm />
-              </div>
-            </IceGlassCard>
-          </div>
-        </div>
-
-        {/* Right Column: Hero Content */}
-        <div className="w-full lg:w-1/2 relative min-h-[40vh] lg:min-h-screen order-1 lg:order-2 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-l from-black via-black/40 to-transparent z-10 hidden lg:block" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10 lg:hidden" />
-
-          <Image
-            src="/ssc_bg.webp"
-            alt="Slapshot Club Background"
-            fill
-            className="object-cover scale-110 animate-pulse-slow opacity-60"
-            priority
-          />
-
-          <div className="relative z-20 h-full flex flex-col items-center lg:items-end justify-center p-8 sm:p-12 lg:p-24 text-right">
-            <div className="space-y-4 animate-in fade-in slide-in-from-right duration-1000">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 border border-gold/20 text-gold text-xs font-bold uppercase tracking-widest backdrop-blur-md">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-gold"></span>
-                </span>
-                {t('hero.badge')}
-              </div>
-
-              <h1 className="text-5xl sm:text-7xl lg:text-9xl font-black text-white italic tracking-tighter leading-none stroke-gold">
-                {t('hero.title_main')}
-                <br />
-                <span className="text-gold lg:mr-4">{t('hero.title_sub')}</span>
-              </h1>
-
-              <p className="max-w-md text-white/60 text-lg sm:text-xl font-medium ml-auto leading-relaxed">
-                {t('hero.description')}
-              </p>
+              </React.Suspense>
             </div>
+          </IceGlassCard>
 
-            <div className="absolute bottom-8 lg:bottom-12 right-8 lg:right-24 text-white/30 text-xs font-medium tracking-widest uppercase z-20">
-              {t('hero.footer')}
-            </div>
+          <div className="mt-8 text-center text-white/30 text-xs font-medium uppercase tracking-[0.3em]">
+            {t('hero.footer')}
           </div>
-        </div>
-
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none overflow-hidden opacity-20">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gold filter blur-[160px] animate-pulse-slow rounded-full opacity-50" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gold-dark filter blur-[160px] animate-pulse-slow delay-700 rounded-full opacity-30" />
         </div>
       </div>
     </div>

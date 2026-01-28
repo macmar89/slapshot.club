@@ -144,6 +144,34 @@ export const Users: CollectionConfig = {
       },
     },
     {
+      name: 'gdprConsent',
+      type: 'checkbox',
+      required: true,
+      label: 'GDPR Súhlas',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'marketingConsent',
+      type: 'checkbox',
+      label: 'Marketingový súhlas',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'marketingConsentDate',
+      type: 'date',
+      label: 'Dátum marketingového súhlasu',
+      admin: {
+        position: 'sidebar',
+        readOnly: true,
+        condition: (data) => Boolean(data?.marketingConsent),
+      },
+    },
+    {
       name: 'seenAnnouncements',
       type: 'array',
       fields: [
