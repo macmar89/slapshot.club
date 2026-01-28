@@ -293,5 +293,19 @@
     "location_custom_country": "Název země",
     "location_custom_country_placeholder": "Zadej název své země...",
     "location_other_notice": "Děkujeme! Administrátor doplní tvou zemi."
+  },
+  "Feedback": {
+    "title": "Zpětná vazba",
+    "description": "Máš nápad nebo jsi našel chybu? Dej nám vědět!",
+    "type_label": "O co jde?",
+    "message_label": "Zpráva",
+    "message_placeholder": "Popiš nám svůj nápad nebo nahlas chybu...",
+    "submit": "Odeslat",
+    "success": "Děkujeme! Tvoji zprávu jsme přijali.",
+    "types": {
+      "idea": "Nápad",
+      "bug": "Chyba",
+      "other": "Jiné"
+    }
   }
 }

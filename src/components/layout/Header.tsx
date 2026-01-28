@@ -38,6 +38,8 @@ import {
 } from '@/components/ui/Dialog'
 
 import { usePathname, useRouter, useSearchParams, useParams } from 'next/navigation'
+import { FeedbackModal } from '@/components/feedback/FeedbackModal'
+import { MessageSquarePlus } from 'lucide-react'
 
 interface HeaderProps {
   title?: React.ReactNode
@@ -430,9 +432,18 @@ export function Header({ title }: HeaderProps) {
 
                     <div className="h-px bg-white/5 my-6" />
 
-                    <div className="flex items-center justify-between">
-                       <LogoutButton />
-                       <span className="text-[10px] font-black text-white/10 uppercase tracking-[0.5em] italic">SSC v1.0</span>
+                    <div className="flex flex-col gap-4">
+                       <FeedbackModal triggerClassName="w-full">
+                           <div className="flex items-center gap-3 p-3 rounded-app bg-warning/10 border border-warning/20 text-warning hover:bg-warning/20 transition-all cursor-pointer">
+                              <MessageSquarePlus className="w-4 h-4" />
+                              <span className="font-black uppercase tracking-widest text-[10px]">Feedback</span>
+                           </div>
+                        </FeedbackModal>
+                       
+                       <div className="flex items-center justify-between">
+                          <LogoutButton />
+                          <span className="text-[10px] font-black text-white/10 uppercase tracking-[0.5em] italic">SSC v1.0</span>
+                       </div>
                     </div>
                 </div>
               </SheetContent>
@@ -557,7 +568,16 @@ export function Header({ title }: HeaderProps) {
                           <span className="font-bold uppercase tracking-widest text-[10px]">Nastavenia</span>
                        </Link>
                     </div>
-                    <LogoutButton />
+                        <LogoutButton />
+
+                     <div className="mt-4 pt-4 border-t border-white/5">
+                        <FeedbackModal triggerClassName="w-full">
+                           <div className="flex items-center justify-center gap-2 p-3 rounded-app bg-warning/10 border border-warning/20 text-warning hover:bg-warning/20 transition-all cursor-pointer">
+                              <MessageSquarePlus className="w-4 h-4" />
+                              <span className="font-black uppercase tracking-widest text-[10px]">Feedback</span>
+                           </div>
+                        </FeedbackModal>
+                     </div>
                 </div>
               </SheetContent>
             </Sheet>

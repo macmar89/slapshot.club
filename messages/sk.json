@@ -294,5 +294,19 @@
     "location_custom_country_placeholder": "Enter your country name...",
     "location_other_hint": "If you didn't find your country in the list, enter it here. An admin will review and add it later.",
     "location_other_notice": "Thank you! An admin will add your country."
+  },
+  "Feedback": {
+    "title": "Spätná väzba",
+    "description": "Máš nápad alebo si našiel chybu? Daj nám vedieť!",
+    "type_label": "O čo ide?",
+    "message_label": "Správa",
+    "message_placeholder": "Opíš nám svoj nápad alebo nahlás chybu...",
+    "submit": "Odoslať",
+    "success": "Ďakujeme! Tvoju správu sme prijali.",
+    "types": {
+      "idea": "Nápad",
+      "bug": "Chyba",
+      "other": "Iné"
+    }
   }
 }

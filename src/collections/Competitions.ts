@@ -28,7 +28,6 @@ export const Competitions: CollectionConfig = {
       name: 'slug',
       type: 'text',
       unique: true,
-      localized: true,
       hooks: { beforeValidate: [formatSlug('name')] }, // Auto-slug z názvu
       admin: { position: 'sidebar' },
     },

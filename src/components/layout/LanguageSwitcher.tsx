@@ -5,11 +5,13 @@ import { useLocale } from 'next-intl'
 import { routing, usePathname, useRouter } from '@/i18n/routing'
 import { cn } from '@/lib/utils'
 import { Languages, ChevronDown, Check } from 'lucide-react'
+import { useParams } from 'next/navigation'
 
 export function LanguageSwitcher() {
   const locale = useLocale()
   const router = useRouter()
   const pathname = usePathname()
+  const params = useParams()
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -20,7 +22,8 @@ export function LanguageSwitcher() {
   ]
 
   const toggleLanguage = (newLocale: string) => {
-    router.replace(pathname as any, { locale: newLocale as any, scroll: false })
+    // @ts-expect-error -- we need to pass params for dynamic routes
+    router.replace({ pathname, params }, { locale: newLocale, scroll: false })
     setIsOpen(false)
   }
 

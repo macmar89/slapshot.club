@@ -16,6 +16,8 @@ import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/routing'
 import { useParams } from 'next/navigation'
 import { Button } from '@/components/ui/Button'
+import { FeedbackModal } from '@/components/feedback/FeedbackModal'
+import { MessageSquarePlus } from 'lucide-react'
 
 export function MobileTabNav() {
   const t = useTranslations('Dashboard.nav')
@@ -110,6 +112,15 @@ export function MobileTabNav() {
                     </span>
                   </Link>
                 ))}
+                
+                <FeedbackModal triggerClassName="flex flex-col items-center gap-4 py-6 px-2 rounded-app bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 transition-all active:scale-95 group col-span-3 mt-4">
+                  <div className="flex flex-col items-center gap-2 cursor-pointer w-full h-full justify-center">
+                    <MessageSquarePlus className="w-8 h-8 text-warning group-hover:scale-110 transition-transform" />
+                    <span className="text-[10px] font-bold text-white/70 group-hover:text-white uppercase tracking-tight text-center leading-tight">
+                      Feedback
+                    </span>
+                  </div>
+                </FeedbackModal>
               </div>
             </DialogContent>
           </Dialog>

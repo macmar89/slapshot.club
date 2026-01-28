@@ -288,5 +288,19 @@
     "location_custom_country": "Country name",
     "location_custom_country_placeholder": "Enter your country name...",
     "location_other_notice": "Thank you! An admin will add your country."
+  },
+  "Feedback": {
+    "title": "Feedback",
+    "description": "Have an idea or found a bug? Let us know!",
+    "type_label": "What is it?",
+    "message_label": "Message",
+    "message_placeholder": "Describe your idea or bug report...",
+    "submit": "Send Feedback",
+    "success": "Thank you! We received your feedback.",
+    "types": {
+      "idea": "Idea",
+      "bug": "Bug",
+      "other": "Other"
+    }
   }
 }
