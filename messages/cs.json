@@ -143,7 +143,16 @@
     "verify_button": "Přejít na přihlášení",
     "resend_verification": "Odeslat nový ověřovací e-mail",
     "verification_sent": "Nový ověřovací e-mail byl odeslán",
-    "resending": "Odesílám..."
+    "resending": "Odesílám...",
+    "reset_password_title": "Nové heslo",
+    "reset_password_subtitle": "Zadej své nové heslo a vrať se do hry",
+    "reset_password_success": "Heslo bylo úspěšně změněno! Nyní se můžeš přihlásit.",
+    "forgot_password_success": "Instrukce byly odeslány na váš email.",
+    "forgot_password_success_desc": "Zkontrolujte si svou e-mailovou schránku pro další postup.",
+    "confirm_password": "Zopakuj nové heslo",
+    "loading": "Ukládám...",
+    "success_title": "Úspěch!",
+    "error_generic": "Nastala neočekávaná chyba"
   },
   "Onboarding": {
     "title": "Vítej v týmu!",
@@ -259,6 +268,13 @@
       "message": "Trenér ti právě přidělil místo na soupisce <strong>Slapshot Club</strong>. Tvůj dres už visí v šatně, ale předtím, než naskočíš na led, musíme potvrdit tvou identitu.",
       "button": "Potvrdit soupisku",
       "footer": "Uvidíme se v aréně! <br> SLAPSHOT CLUB • 2026"
+    },
+    "forgotPassword": {
+      "subject": "🔑 Ztracený puk? Resetuj si heslo!",
+      "title": "Oddechový čas, {username}?",
+      "message": "Vypadá to, že jsi ztratil puk (nebo heslo) někde v rohu kluziště. Žádný strach, vybavíme ti rychý reset, abys mohl v dalším střídání znovu skórovat.",
+      "button": "Nastavit nové heslo",
+      "footer": "Nenech se vyloučit ze hry! <br> SLAPSHOT CLUB • 2026"
     }
   },
   "Account": {

@@ -60,7 +60,8 @@ export const ForgotPasswordForm = () => {
             {t('forgot_password_title')}
           </h2>
           <p className="text-white/60 font-medium">
-            {t('forgot_password_success_desc') || 'Skontrolujte si svoju e-mailovú schránku pre ďalší postup.'}
+            {t('forgot_password_success_desc') ||
+              'Skontrolujte si svoju e-mailovú schránku pre ďalší postup.'}
           </p>
         </div>
         <Link href="/login" className="text-gold hover:underline font-semibold">
@@ -86,7 +87,7 @@ export const ForgotPasswordForm = () => {
           </div>
         )}
 
-        <div className="space-y-2">
+        <div className="space-y-2 text-left">
           <label
             htmlFor="email"
             className="text-xs font-medium text-white/80 uppercase tracking-wider ml-1"
@@ -116,7 +117,9 @@ export const ForgotPasswordForm = () => {
           onError={() => setError(t('turnstile_error'))}
           onExpire={() => setValue('turnstileToken', '')}
         />
-        {errors.turnstileToken && <p className="text-red-500 text-xs text-center">{errors.turnstileToken.message}</p>}
+        {errors.turnstileToken && (
+          <p className="text-red-500 text-xs text-center">{errors.turnstileToken.message}</p>
+        )}
       </div>
 
       <Button type="submit" color="gold" className="w-full py-6 text-lg" disabled={isLoading}>

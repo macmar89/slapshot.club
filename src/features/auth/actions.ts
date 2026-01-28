@@ -169,6 +169,29 @@ export const forgotPassword = async (data: ForgotPasswordFormData) => {
   }
 }
 
+export const resetPassword = async (data: any) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}/api/users/reset-password`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        token: data.token,
+        password: data.password,
+      }),
+    },
+  )
+
+  const responseData = await res.json()
+  return {
+    ok: res.ok,
+    status: res.status,
+    data: responseData,
+  }
+}
+
 export const logoutUser = async () => {
   const headersList = await headers()
   const cookieHeader = headersList.get('cookie')

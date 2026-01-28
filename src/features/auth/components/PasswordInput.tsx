@@ -28,7 +28,7 @@ export function PasswordInput({
   }
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 text-left">
       <div className="flex items-center justify-between">
         <label
           htmlFor={props.id}
@@ -38,7 +38,7 @@ export function PasswordInput({
         </label>
         {rightElement}
       </div>
-      
+
       <div className="relative group">
         <input
           {...props}
@@ -51,7 +51,7 @@ export function PasswordInput({
             'hover:bg-white/10 hover:border-white/20',
             props.disabled && 'opacity-50 cursor-not-allowed',
             error && 'border-red-500 focus:border-red-500 focus:ring-red-500',
-            className
+            className,
           )}
         />
         <button
@@ -61,11 +61,7 @@ export function PasswordInput({
           className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-white/30 hover:text-white transition-colors outline-none focus:text-white disabled:pointer-events-none"
           tabIndex={-1}
         >
-          {showPassword ? (
-            <EyeOff className="w-4 h-4" />
-          ) : (
-            <Eye className="w-4 h-4" />
-          )}
+          {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
         </button>
       </div>
 

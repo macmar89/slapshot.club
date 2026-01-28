@@ -143,7 +143,16 @@
     "verify_button": "Prejsť na prihlásenie",
     "resend_verification": "Odoslať nový overovací e-mail",
     "verification_sent": "Nový overovací e-mail bol odoslaný",
-    "resending": "Odosielam..."
+    "resending": "Odosielam...",
+    "reset_password_title": "Nové heslo",
+    "reset_password_subtitle": "Zadaj svoje nové heslo a vráť sa do hry",
+    "reset_password_success": "Heslo bolo úspešne zmenené! Teraz sa môžeš prihlásiť.",
+    "forgot_password_success": "Inštrukcie boli odoslané na váš email.",
+    "forgot_password_success_desc": "Skontrolujte si svoju e-mailovú schránku pre ďalší postup.",
+    "confirm_password": "Zopakuj nové heslo",
+    "loading": "Ukladám...",
+    "success_title": "Úspech!",
+    "error_generic": "Nastala neočakávaná chyba"
   },
   "Onboarding": {
     "title": "Vitaj v tíme!",
@@ -257,8 +266,15 @@
       "subject": "🏒 Potvrď svoju súpisku v Slapshot Clube!",
       "title": "Vitaj v tíme, {username}!",
       "message": "Tréner ti práve pridelil miesto na súpiske <strong>Slapshot Club</strong>. Tvoj dres už visí v šatni, ale predtým, než naskočíš na ľad, musíme potvrdiť tvoju identitu.",
-      "button": "Potvrdiť súpisku",
+      "button": "Potvrď súpisku",
       "footer": "Vidíme sa v aréne! <br> SLAPSHOT CLUB • 2026"
+    },
+    "forgotPassword": {
+      "subject": "🔑 Zabudnutý puk? Resetuj si heslo!",
+      "title": "Oddychový čas, {username}?",
+      "message": "Vyzerá to, že si stratil puk (alebo heslo) niekde v rohu klziska. Žiadny strach, vybavíme ti rýchly reset, aby si mohol v ďalšom striedaní znova skórovať.",
+      "button": "Nastaviť nové heslo",
+      "footer": "Nenechaj sa vylúčiť z hry! <br> SLAPSHOT CLUB • 2026"
     }
   },
   "Account": {

@@ -138,7 +138,16 @@
     "verify_button": "Go to Login",
     "resend_verification": "Resend verification email",
     "verification_sent": "A new verification email has been sent",
-    "resending": "Sending..."
+    "resending": "Resending...",
+    "reset_password_title": "New Password",
+    "reset_password_subtitle": "Enter your new password and get back in the game",
+    "reset_password_success": "Password changed successfully! You can now log in.",
+    "forgot_password_success": "Instructions have been sent to your email.",
+    "forgot_password_success_desc": "Please check your inbox for further instructions.",
+    "confirm_password": "Confirm new password",
+    "loading": "Saving...",
+    "success_title": "Success!",
+    "error_generic": "An unexpected error occurred"
   },
   "Onboarding": {
     "title": "Welcome to the Team!",
@@ -254,6 +263,13 @@
       "message": "The coach has just assigned you a spot on the <strong>Slapshot Club</strong> roster. Your jersey is already hanging in the locker room, but before you hit the ice, we need to confirm your identity.",
       "button": "Confirm Roster Spot",
       "footer": "See you in the arena! <br> SLAPSHOT CLUB • 2026"
+    },
+    "forgotPassword": {
+      "subject": "🔑 Lost puck? Reset your password!",
+      "title": "Timeout, {username}?",
+      "message": "Looks like you lost the puck (or your password) somewhere in the corner of the rink. No worries, we'll get you a quick reset so you can score again in the next shift.",
+      "button": "Set new password",
+      "footer": "Don't get benched! <br> SLAPSHOT CLUB • 2026"
     }
   },
   "Account": {

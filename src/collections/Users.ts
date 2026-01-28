@@ -2,6 +2,10 @@ import type { CollectionConfig } from 'payload'
 import { isAdmin, isAdminFieldLevel, isAdminOrSelf } from '../access'
 import { createId } from '@paralleldrive/cuid2'
 import { renderVerificationEmail, getVerificationSubject } from '../payload/emails/verification'
+import {
+  renderForgotPasswordEmail,
+  getForgotPasswordSubject,
+} from '../payload/emails/forgot-password'
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -13,6 +17,10 @@ export const Users: CollectionConfig = {
     verify: {
       generateEmailHTML: (args) => renderVerificationEmail(args),
       generateEmailSubject: ({ user }) => getVerificationSubject(user),
+    },
+    forgotPassword: {
+      generateEmailHTML: (args) => renderForgotPasswordEmail(args as any),
+      generateEmailSubject: ({ user }) => getForgotPasswordSubject(user),
     },
   },
   access: {
@@ -72,7 +80,7 @@ export const Users: CollectionConfig = {
       options: [
         { label: 'Slovenčina', value: 'sk' },
         { label: 'English', value: 'en' },
-        {label: "Čeština", value: "cz"  }
+        { label: 'Čeština', value: 'cz' },
       ],
       defaultValue: 'sk',
       admin: {
@@ -218,7 +226,7 @@ export const Users: CollectionConfig = {
             description: 'Zadajte názov vašej krajiny (ak nie je v zozname)',
             // Explicit check if selected country is "Other"
             // We'll need to know the ID of "Other" or check its property
-            // For now, let's keep it visible if country is selected, 
+            // For now, let's keep it visible if country is selected,
             // but in UI we'll show it only when a special "Other" country is picked.
             // A safer condition might be checking it manually in UI.
           },

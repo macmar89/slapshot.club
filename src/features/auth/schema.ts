@@ -28,6 +28,25 @@ export const forgotPasswordSchema = z.object({
   turnstileToken: z.string().min(1, 'Potvrďte, že nie ste robot'),
 })
 
+export const resetPasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .min(8, 'Heslo musí mať aspoň 8 znakov')
+      .regex(/[A-Z]/, 'Heslo musí obsahovať aspoň jedno veľké písmeno')
+      .regex(/[a-z]/, 'Heslo musí obsahovať aspoň jedno malé písmeno')
+      .regex(/[0-9]/, 'Heslo musí obsahovať aspoň jednu číslicu')
+      .regex(/[@$!%*?&#^()]/, 'Heslo musí obsahovať aspoň jeden špeciálny znak'),
+    confirmPassword: z.string().min(1, 'Zopakujte nové heslo'),
+    token: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Heslá sa nezhodujú',
+    path: ['confirmPassword'],
+  })
+
+export type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>
+
 export const usernameUpdateSchema = z.object({
   username: z
     .string()

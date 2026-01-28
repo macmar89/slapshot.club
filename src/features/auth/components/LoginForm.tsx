@@ -72,7 +72,7 @@ export const LoginForm = () => {
           </div>
         )}
 
-        <div className="space-y-2">
+        <div className="space-y-2 text-left">
           <label
             htmlFor="email"
             className="text-xs font-medium text-white/80 uppercase tracking-wider ml-1"
@@ -104,15 +104,16 @@ export const LoginForm = () => {
           disabled={isLoading}
           error={errors.password?.message}
           register={register('password')}
-          rightElement={
-            <Link
-              href="/forgot-password"
-              className="text-xs text-white/50 hover:text-white transition-colors"
-            >
-              {t('forgot_password')}
-            </Link>
-          }
         />
+
+        <div className="flex justify-end -mt-2">
+          <Link
+            href="/forgot-password"
+            className="text-xs text-white/50 hover:text-white transition-colors"
+          >
+            {t('forgot_password')}
+          </Link>
+        </div>
 
         <Turnstile
           onSuccess={(token) => setValue('turnstileToken', token)}
