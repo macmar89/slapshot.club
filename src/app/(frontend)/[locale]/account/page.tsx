@@ -44,6 +44,7 @@ export default async function AccountPage({ params }: { params: Promise<{ locale
         countries={countriesRes.docs.map(c => ({
           id: c.id,
           name: c.name,
+          code: c.code,
         }))} 
       />
     </div>
