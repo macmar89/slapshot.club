@@ -37,6 +37,9 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    components: {
+      afterNavLinks: ['/payload/components/FeedbackBadge#FeedbackBadge'],
+    },
   },
   collections: [
     Users,

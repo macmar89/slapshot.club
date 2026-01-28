@@ -32,6 +32,7 @@ export const Feedback: CollectionConfig = {
         { label: 'Chyba (Bug)', value: 'bug' },
         { label: 'Nápad (Idea)', value: 'idea' },
         { label: 'Zmena emailu (Request)', value: 'change_user_email_request' },
+        { label: 'Nová krajina (Country)', value: 'custom_country_request' },
         { label: 'Iné (Other)', value: 'other' },
       ],
       defaultValue: 'idea',

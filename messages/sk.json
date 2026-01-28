@@ -290,6 +290,8 @@
     "location_region_placeholder": "Napr. Bratislavský, Žilinský...",
     "location_select_country": "Vyber krajinu",
     "location_other": "Iné",
+    "location_custom_country": "Názov krajiny",
+    "location_custom_country_placeholder": "Zadaj názov tvojej krajiny...",
     "location_other_notice": "Ďakujeme! Administrátor doplní tvoju krajinu."
   }
 }

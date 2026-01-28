@@ -203,6 +203,10 @@ export interface User {
   location?: {
     country?: ('SK' | 'CZ' | 'other') | null;
     /**
+     * Zadajte názov vašej krajiny
+     */
+    customCountry?: string | null;
+    /**
      * Napr. Bratislavský, Jihomoravský, ...
      */
     region?: string | null;
@@ -297,7 +301,7 @@ export interface MembershipTier {
  */
 export interface Feedback {
   id: string;
-  type: 'bug' | 'idea' | 'change_user_email_request' | 'other';
+  type: 'bug' | 'idea' | 'change_user_email_request' | 'custom_country_request' | 'other';
   message: string;
   pageUrl?: string | null;
   user?: (string | null) | User;
@@ -736,6 +740,7 @@ export interface UsersSelect<T extends boolean = true> {
     | T
     | {
         country?: T;
+        customCountry?: T;
         region?: T;
       };
   updatedAt?: T;

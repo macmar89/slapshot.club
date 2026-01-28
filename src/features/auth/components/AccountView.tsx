@@ -42,6 +42,7 @@ interface AccountViewProps {
     location?: {
       country?: 'SK' | 'CZ' | 'other' | null
       region?: string | null
+      customCountry?: string | null
     }
   }
 }
@@ -54,6 +55,7 @@ export function AccountView({ user: initialUser }: AccountViewProps) {
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false)
   const [selectedCountry, setSelectedCountry] = useState<'SK' | 'CZ' | 'other' | null>(initialUser.location?.country || null)
   const [region, setRegion] = useState(initialUser.location?.region || '')
+  const [customCountry, setCustomCountry] = useState(initialUser.location?.customCountry || '')
   const [isLocationSubmitting, setIsLocationSubmitting] = useState(false)
 
   // Username Form
@@ -121,11 +123,11 @@ export function AccountView({ user: initialUser }: AccountViewProps) {
   const onLocationSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLocationSubmitting(true)
-    const res = await updateLocationAction(selectedCountry, region || null)
+    const res = await updateLocationAction(selectedCountry, region || null, customCountry || null)
     setIsLocationSubmitting(false)
     if (res.ok) {
       toast.success(commonT('success_title'))
-      if (selectedCountry === 'other') {
+      if (selectedCountry === 'other' && customCountry) {
         toast.info(t('location_other_notice'))
       }
     } else {
@@ -299,6 +301,18 @@ export function AccountView({ user: initialUser }: AccountViewProps) {
                           onChange={(e) => setRegion(e.target.value)}
                           className="w-full px-4 py-2.5 md:py-3 rounded-app bg-white/5 border border-white/10 text-white outline-none focus:border-warning/50 transition-all font-bold text-sm md:text-base"
                           placeholder={t('location_region_placeholder')}
+                        />
+                      </div>
+                    )}
+                    {selectedCountry === 'other' && (
+                      <div className="flex flex-col gap-2">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-white/40">{t('location_custom_country')}</label>
+                        <input
+                          type="text"
+                          value={customCountry}
+                          onChange={(e) => setCustomCountry(e.target.value)}
+                          className="w-full px-4 py-2.5 md:py-3 rounded-app bg-white/5 border border-white/10 text-white outline-none focus:border-warning/50 transition-all font-bold text-sm md:text-base"
+                          placeholder={t('location_custom_country_placeholder')}
                         />
                       </div>
                     )}

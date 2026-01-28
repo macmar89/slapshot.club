@@ -285,6 +285,8 @@
     "location_region_placeholder": "E.g. Bratislava, Prague...",
     "location_select_country": "Select country",
     "location_other": "Other",
+    "location_custom_country": "Country name",
+    "location_custom_country_placeholder": "Enter your country name...",
     "location_other_notice": "Thank you! An admin will add your country."
   }
 }

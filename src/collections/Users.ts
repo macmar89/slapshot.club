@@ -199,6 +199,7 @@ export const Users: CollectionConfig = {
       name: 'location',
       type: 'group',
       label: 'Lokácia',
+      localized: true,
       admin: {
         description: 'Nepovinné údaje o lokácii používateľa',
       },
@@ -212,6 +213,15 @@ export const Users: CollectionConfig = {
             { label: 'Česko', value: 'CZ' },
             { label: 'Iné', value: 'other' },
           ],
+        },
+        {
+          name: 'customCountry',
+          type: 'text',
+          label: 'Názov krajiny',
+          admin: {
+            description: 'Zadajte názov vašej krajiny',
+            condition: (data) => data?.location?.country === 'other',
+          },
         },
         {
           name: 'region',

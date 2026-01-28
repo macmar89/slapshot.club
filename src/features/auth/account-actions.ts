@@ -101,7 +101,11 @@ export async function requestEmailChangeAction(newEmail: string, message: string
   }
 }
 
-export async function updateLocationAction(country: 'SK' | 'CZ' | 'other' | null, region: string | null) {
+export async function updateLocationAction(
+  country: 'SK' | 'CZ' | 'other' | null, 
+  region: string | null,
+  customCountry: string | null
+) {
   const payload = await getPayload({ config })
   const headersList = await headers()
   const { user } = await payload.auth({ headers: headersList })
@@ -118,22 +122,21 @@ export async function updateLocationAction(country: 'SK' | 'CZ' | 'other' | null
         location: {
           country: country || undefined,
           region: region || undefined,
+          customCountry: customCountry || undefined,
         },
       },
     })
 
-    // Ak user vybral "Iné", pošli email adminovi
-    if (country === 'other') {
-      const adminEmail = process.env.ADMIN_EMAIL || 'info@slapshot.club'
-      await payload.sendEmail({
-        to: adminEmail,
-        subject: '[Slapshot] Nová krajina na doplnenie',
-        html: `
-          <h2>Používateľ požiadal o inú krajinu</h2>
-          <p><strong>Používateľ:</strong> ${user.username} (${user.email})</p>
-          <p><strong>ID:</strong> ${user.id}</p>
-          <p>Prosím doplňte krajinu v Admin paneli.</p>
-        `,
+    // Ak user vybral "Iné" a zadal vlastnú krajinu, vytvor feedback
+    if (country === 'other' && customCountry) {
+      await payload.create({
+        collection: 'feedback',
+        data: {
+          type: 'custom_country_request',
+          message: `Používateľ ${user.username} (${user.email}) žiada o pridanie krajiny: ${customCountry}`,
+          user: user.id,
+          status: 'new',
+        },
       })
     }
 
@@ -143,4 +146,3 @@ export async function updateLocationAction(country: 'SK' | 'CZ' | 'other' | null
     return { ok: false, error: err.message || 'Update failed' }
   }
 }
-
