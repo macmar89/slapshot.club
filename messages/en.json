@@ -30,6 +30,10 @@
       "language_section": "App Language",
       "current_language": "Current language"
     },
+    "upcoming_matches_label": "{count, plural, one {Next Face-off} other {Next Face-offs}}",
+    "place_prediction": "Predict now",
+    "all_predicted_message": "You're all done! Take a break in the locker room, more matches are coming soon.",
+    "all_done_status": "All predicted",
     "status_label": "Status",
     "teams_label": "Teams",
     "start_date": "Start Date",

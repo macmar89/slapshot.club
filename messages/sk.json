@@ -30,6 +30,10 @@
       "language_section": "Jazyk aplikácie",
       "current_language": "Aktuálny jazyk"
     },
+    "upcoming_matches_label": "{count, plural, one {Najbližšie buly} few {Najbližšie buly} other {Najbližšie buly}}",
+    "place_prediction": "Natipuj výsledok",
+    "all_predicted_message": "Máš splnené! Oddýchni si v kabíne, ďalšie zápasy sa pripravujú.",
+    "all_done_status": "Všetko odtipované",
     "status_label": "Stav",
     "teams_label": "Tímy",
     "start_date": "Začiatok",
