@@ -44,14 +44,14 @@ export function LanguageSwitcher() {
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          'flex items-center gap-2.5 px-4 py-2 rounded-full transition-all duration-300',
+          'flex items-center gap-2.5 px-4 py-2 rounded-md transition-all duration-300',
           'bg-white/5 border border-white/10 backdrop-blur-md shadow-lg shadow-black/20',
           'hover:bg-white/10 hover:border-white/20 active:scale-95 group',
-          isOpen && 'bg-white/15 border-white/30 ring-2 ring-primary/20',
+          isOpen && 'bg-white/15 border-white/30 ring-2 ring-warning/20',
         )}
       >
-        <div className="flex items-center justify-center w-5 h-5 rounded-full bg-primary/20 border border-primary/30 group-hover:bg-primary/30 transition-colors">
-          <Languages className="w-3 h-3 text-primary" />
+        <div className="flex items-center justify-center w-5 h-5 rounded-full bg-warning/20 border border-warning/30 group-hover:bg-warning/30 transition-colors">
+          <Languages className="w-3 h-3 text-warning" />
         </div>
         <span className="text-sm font-black uppercase tracking-widest text-white/90 group-hover:text-white transition-colors">
           {currentLang.code}
@@ -59,7 +59,7 @@ export function LanguageSwitcher() {
         <ChevronDown
           className={cn(
             'w-3.5 h-3.5 text-white/40 transition-transform duration-300',
-            isOpen && 'rotate-180 text-primary',
+            isOpen && 'rotate-180 text-warning',
           )}
         />
       </button>
@@ -79,13 +79,13 @@ export function LanguageSwitcher() {
                   className={cn(
                     'w-full flex items-center justify-between px-4 py-3 text-sm transition-all duration-200',
                     'hover:bg-white/10 group',
-                    locale === lang.code ? 'text-primary' : 'text-white/60 hover:text-white',
+                    locale === lang.code ? 'text-warning' : 'text-white/60 hover:text-white',
                   )}
                 >
                   <span className="font-bold tracking-tight uppercase text-xs">{lang.label}</span>
                   {locale === lang.code && (
-                    <div className="w-4 h-4 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20 shadow-[0_0_10px_rgba(var(--primary-rgb),0.3)]">
-                      <Check className="w-2.5 h-2.5 text-primary stroke-[3px]" />
+                    <div className="w-4 h-4 rounded-full bg-warning/10 flex items-center justify-center border border-warning/20 shadow-[0_0_10px_rgba(var(--warning-rgb),0.3)]">
+                      <Check className="w-2.5 h-2.5 text-warning stroke-[3px]" />
                     </div>
                   )}
                 </button>

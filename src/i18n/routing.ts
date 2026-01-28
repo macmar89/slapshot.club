@@ -19,6 +19,7 @@ export const routing = defineRouting({
     '/login': '/login',
     '/register': '/register',
     '/forgot-password': '/forgot-password',
+    '/account': '/account',
     // Dashboard subroutes
     '/dashboard/matches': '/dashboard/matches',
     '/dashboard/tables': '/dashboard/tables',
@@ -27,6 +28,7 @@ export const routing = defineRouting({
     '/dashboard/rules': '/dashboard/rules',
     '/dashboard/profile': '/dashboard/profile',
     '/dashboard/settings': '/dashboard/settings',
+    '/settings': '/settings',
     '/dashboard/[slug]': '/dashboard/[slug]',
     '/dashboard/[slug]/leagues': '/dashboard/[slug]/leagues',
     '/dashboard/[slug]/leagues/[leagueId]': '/dashboard/[slug]/leagues/[leagueId]',

@@ -26,9 +26,10 @@ export function LogoutButton() {
   return (
     <Button
       variant="ghost"
+      color="destructive"
       size="sm"
       onClick={handleLogout}
-      className="text-white/50 hover:text-white hover:bg-white/10 gap-2"
+      className="gap-2 border border-destructive/20 text-destructive hover:bg-destructive/10 transition-colors"
     >
       <LogOut className="w-4 h-4" />
       <span className="hidden sm:inline">{t('logout')}</span>

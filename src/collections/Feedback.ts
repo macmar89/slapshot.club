@@ -31,6 +31,7 @@ export const Feedback: CollectionConfig = {
       options: [
         { label: 'Chyba (Bug)', value: 'bug' },
         { label: 'Nápad (Idea)', value: 'idea' },
+        { label: 'Zmena emailu (Request)', value: 'change_user_email_request' },
         { label: 'Iné (Other)', value: 'other' },
       ],
       defaultValue: 'idea',

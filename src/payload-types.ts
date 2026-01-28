@@ -273,7 +273,7 @@ export interface MembershipTier {
  */
 export interface Feedback {
   id: string;
-  type: 'bug' | 'idea' | 'other';
+  type: 'bug' | 'idea' | 'change_user_email_request' | 'other';
   message: string;
   pageUrl?: string | null;
   user?: (string | null) | User;

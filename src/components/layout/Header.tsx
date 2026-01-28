@@ -11,15 +11,22 @@ import {
   ChevronDown,
   Trophy,
   Loader2,
+  User as UserIcon,
+  Calendar,
+  AlertTriangle,
+  ChevronRight,
 } from 'lucide-react'
 import { Link } from '@/i18n/routing'
 import { Button } from '@/components/ui/Button'
-import { useTranslations } from 'next-intl'
-
+import { useTranslations, useLocale } from 'next-intl'
+import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
+import { logoutUser, getCurrentUser } from '@/features/auth/actions'
 import { LogoutButton } from '@/features/auth/components/LogoutButton'
 import { Container } from '@/components/ui/Container'
 import { HockeyLoader } from '@/components/ui/HockeyLoader'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/Sheet'
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/Sheet'
+import { format } from 'date-fns'
+import { sk, enUS, cs } from 'date-fns/locale'
 import {
   Dialog,
   DialogContent,
@@ -44,6 +51,11 @@ export function Header({ title }: HeaderProps) {
   const params = useParams()
   const slug = params?.slug as string
   const isDashboard = pathname?.includes('/dashboard')
+  const locale = useLocale()
+  const [user, setUser] = React.useState<any>(null)
+  const [upcomingMatches, setUpcomingMatches] = React.useState<any[]>([])
+  const [isProfileOpen, setIsProfileOpen] = React.useState(false)
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
   /* eslint-disable @typescript-eslint/no-unused-vars */
   const [leagues, setLeagues] = React.useState<any[]>([])
@@ -81,6 +93,42 @@ export function Header({ title }: HeaderProps) {
     }
     fetchLeagues()
   }, [slug]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Fetch User and Matches to tip
+  React.useEffect(() => {
+    const fetchData = async () => {
+      // 1. Fetch User
+      const currentUser = await getCurrentUser()
+      setUser(currentUser)
+
+      // 2. Fetch Matches to tip if slug is present
+      if (slug && currentUser) {
+        try {
+          const { getMatchesAction } = await import('@/features/matches/actions')
+          const { matches, userPredictions } = await getMatchesAction(slug)
+          
+          // Filter: Not finished, no prediction, and close in time
+          const tippedMatchIds = new Set(userPredictions.map((p: any) => 
+            typeof p.match === 'string' ? p.match : p.match.id
+          ))
+          
+          const now = new Date()
+          const toTip = matches
+            .filter((m: any) => {
+              const matchDate = new Date(m.date)
+              return matchDate > now && !tippedMatchIds.has(m.id)
+            })
+            .sort((a: any, b: any) => new Date(a.date).getTime() - new Date(b.date).getTime())
+            .slice(0, 5) // Just show top 5
+
+          setUpcomingMatches(toTip)
+        } catch (error) {
+          console.error('Failed to fetch matches for drawer:', error)
+        }
+      }
+    }
+    fetchData()
+  }, [slug, pathname]) // Re-fetch on path change to catch new tips
 
   // Restore active league when navigating (if URL param is dropped)
   React.useEffect(() => {
@@ -273,38 +321,127 @@ export function Header({ title }: HeaderProps) {
               </Dialog>
             )}
 
-            {!isDashboard && (
-              <>
-                <Link href="/dashboard/rules">
-                  <Button
-                    variant="ghost"
-                    className="text-white/50 hover:text-white gap-2 text-xs uppercase tracking-widest font-bold"
-                  >
-                    <Book className="w-4 h-4" />
-                    {t('rules')}
-                  </Button>
-                </Link>
-                <div className="w-px h-6 bg-white/10" />
-                <Link href="/dashboard/settings">
-                  <Button
-                    variant="ghost"
-                    className="text-white/50 hover:text-white gap-2 text-xs uppercase tracking-widest font-bold"
-                  >
-                    <Settings className="w-4 h-4" />
-                    {t('settings')}
-                  </Button>
-                </Link>
-              </>
-            )}
-            {/** Language Switcher Removed */}
-            <div className="scale-75 origin-right">
-              <LogoutButton />
-            </div>
+            {/* Profile Drawer Trigger */}
+            <Sheet open={isProfileOpen} onOpenChange={setIsProfileOpen}>
+              <SheetTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="group flex items-center gap-3 px-3 py-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all"
+                >
+                  <div className="w-8 h-8 rounded-full bg-warning/20 border border-warning/30 flex items-center justify-center text-warning group-hover:bg-warning/30 transition-colors">
+                    <UserIcon className="w-4 h-4" />
+                  </div>
+                  <span className="text-sm font-bold text-white/80 group-hover:text-white transition-colors">
+                    {user?.username || 'Účet'}
+                  </span>
+                  <ChevronDown className={cn("w-3 h-3 text-white/40 transition-transform", isProfileOpen && "rotate-180 text-warning")} />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-full sm:max-w-md bg-black/95 backdrop-blur-2xl border-l border-white/10 p-0 flex flex-col">
+                <SheetHeader className="sr-only">
+                  <SheetTitle>Užívateľské menu</SheetTitle>
+                  <SheetDescription>Profil, nastavenia a feed zápasov.</SheetDescription>
+                </SheetHeader>
+                {/* Header Section */}
+                <div className="p-8 border-b border-white/5 bg-gradient-to-b from-warning/10 to-transparent">
+                  <div className="flex items-center justify-between mb-8">
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 rounded-app bg-warning/20 border border-warning/30 flex items-center justify-center shadow-[0_0_20px_-5px_rgba(var(--warning-rgb),0.4)]">
+                        <UserIcon className="w-8 h-8 text-warning" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-black text-white uppercase italic tracking-tighter">{user?.username || 'Hosť'}</h3>
+                        <p className="text-white/40 text-xs font-medium uppercase tracking-widest">{user?.email}</p>
+                      </div>
+                    </div>
+                    <LanguageSwitcher />
+                  </div>
+                </div>
+
+                {/* Match Feed Section */}
+                <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
+                  <div className="flex items-center justify-between mb-6">
+                    <h4 className="text-xs font-black uppercase tracking-[0.3em] text-white/30 flex items-center gap-2">
+                       <Calendar className="w-3 h-3" />
+                       Nezabudni natipovať
+                    </h4>
+                    {upcomingMatches.length > 0 && (
+                      <span className="px-2 py-0.5 rounded text-[10px] bg-warning/20 text-warning font-black uppercase tracking-tighter">
+                        {upcomingMatches.length} Zápasy
+                      </span>
+                    )}
+                  </div>
+
+                  {upcomingMatches.length > 0 ? (
+                    <div className="grid gap-4">
+                       {upcomingMatches.map((match) => (
+                         <Link 
+                            key={match.id} 
+                            href={`/dashboard/${slug}/matches?matchId=${match.id}` as any}
+                            onClick={() => setIsProfileOpen(false)}
+                            className="group block p-4 rounded-app bg-white/5 border border-white/5 hover:border-primary/30 hover:bg-white/10 transition-all"
+                         >
+                            <div className="flex items-center justify-between mb-3">
+                               <span className="text-[10px] font-black text-white/30 uppercase tracking-widest">
+                                 {match.date ? format(new Date(match.date), 'EEEE, d. MMM HH:mm', { locale: locale === 'sk' ? sk : (locale === 'cs' ? cs : enUS) }) : ''}
+                               </span>
+                               <div className="w-1.5 h-1.5 rounded-full bg-warning animate-pulse" />
+                            </div>
+                            <div className="flex items-center justify-between gap-4">
+                               <div className="flex-1 text-right truncate text-sm font-bold text-white/80">{match.homeTeam?.name}</div>
+                               <div className="text-xs font-black text-warning italic">VS</div>
+                               <div className="flex-1 text-left truncate text-sm font-bold text-white/80">{match.awayTeam?.name}</div>
+                            </div>
+                         </Link>
+                       ))}
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center py-12 px-6 rounded-app bg-white/[0.02] border border-dashed border-white/10 text-center">
+                       <AlertTriangle className="w-8 h-8 text-white/10 mb-4" />
+                       <p className="text-sm font-medium text-white/20 italic">
+                         Skvelá práca! Máš natipované všetky nadchádzajúce zápasy.
+                       </p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Bottom Navigation */}
+                <div className="p-8 border-t border-white/5 bg-black/40 mt-auto">
+                    <div className="grid gap-2">
+                       <Link 
+                        href="/account" 
+                        onClick={() => setIsProfileOpen(false)}
+                        className="flex items-center gap-3 p-4 rounded-app bg-white/5 text-white/60 hover:text-white hover:bg-white/10 transition-all group"
+                       >
+                          <UserIcon className="w-5 h-5 group-hover:text-primary transition-colors" />
+                          <span className="font-bold uppercase tracking-widest text-xs">Môj Účet</span>
+                          <ChevronRight className="w-4 h-4 ml-auto opacity-20 group-hover:opacity-100 transition-all" />
+                       </Link>
+                       <Link 
+                        href="/settings" 
+                        onClick={() => setIsProfileOpen(false)}
+                        className="flex items-center gap-3 p-4 rounded-app bg-white/5 text-white/60 hover:text-white hover:bg-white/10 transition-all group"
+                       >
+                          <Settings className="w-5 h-5 group-hover:text-primary transition-colors" />
+                          <span className="font-bold uppercase tracking-widest text-xs">{t('settings')}</span>
+                          <ChevronRight className="w-4 h-4 ml-auto opacity-20 group-hover:opacity-100 transition-all" />
+                       </Link>
+                    </div>
+
+                    <div className="h-px bg-white/5 my-6" />
+
+                    <div className="flex items-center justify-between">
+                       <LogoutButton />
+                       <span className="text-[10px] font-black text-white/10 uppercase tracking-[0.5em] italic">SSC v1.0</span>
+                    </div>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
 
           {/* Mobile View */}
           <div className="ml-auto md:hidden">
-            <Sheet>
+            <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="text-white">
                   <Menu className="w-6 h-6" />
@@ -312,74 +449,115 @@ export function Header({ title }: HeaderProps) {
               </SheetTrigger>
               <SheetContent
                 side="right"
-                className="border-l border-white/10 bg-black/95 backdrop-blur-xl"
+                className="w-full bg-black/95 backdrop-blur-xl border-l border-white/10 p-0 flex flex-col"
               >
-                <div className="flex flex-col gap-6 mt-8">
-                  {/* Mobile League Switcher */}
+                <SheetHeader className="sr-only">
+                  <SheetTitle>Mobilné menu</SheetTitle>
+                  <SheetDescription>Profil, nastavenia a ligy.</SheetDescription>
+                </SheetHeader>
+                 {/* Reusing content */}
+                 <div className="p-6 border-b border-white/5 bg-gradient-to-b from-primary/10 to-transparent">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-app bg-warning/20 border border-warning/30 flex items-center justify-center">
+                        <UserIcon className="w-6 h-6 text-warning" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-black text-white uppercase italic tracking-tighter">{user?.username || 'Hosť'}</h3>
+                        <p className="text-white/40 text-[10px] font-medium uppercase tracking-widest truncate max-w-[150px]">{user?.email}</p>
+                      </div>
+                    </div>
+                    <LanguageSwitcher />
+                  </div>
+                </div>
+
+                <div className="flex-1 overflow-y-auto p-6">
+                  {/* League Switcher in Mobile Drawer */}
                   {slug && (
-                    <div className="flex flex-col gap-2 p-4 bg-white/5 rounded-app border border-white/10">
-                      <span className="text-xs font-black uppercase tracking-widest text-white/40 mb-2">
-                        Liga
-                      </span>
-                      <div className="grid grid-cols-1 gap-2">
-                        <Button
-                          variant="ghost"
-                          onClick={() => handleLeagueChange('global')}
-                          className={cn(
-                            'justify-start text-xs font-bold uppercase tracking-wider',
-                            !effectiveLeagueId
-                              ? 'bg-[#eab308] text-black'
-                              : 'text-white/60 bg-white/5',
-                          )}
-                        >
-                          Globálna
-                        </Button>
-                        {leagues.map((league) => (
+                    <div className="mb-8">
+                       <span className="text-[10px] font-black uppercase tracking-widest text-white/20 mb-3 block">Aktívna Liga</span>
+                       <div className="grid grid-cols-1 gap-1">
                           <Button
-                            key={league.id}
                             variant="ghost"
-                            onClick={() => handleLeagueChange(league.id)}
+                            onClick={() => { handleLeagueChange('global'); setIsMenuOpen(false); }}
                             className={cn(
-                              'justify-start text-xs font-bold uppercase tracking-wider',
-                              effectiveLeagueId === league.id
-                                ? 'bg-[#eab308] text-black'
-                                : 'text-white/60 bg-white/5',
+                              'justify-start text-[10px] font-black uppercase tracking-widest h-10 px-4 rounded-lg transition-all',
+                              !effectiveLeagueId
+                                ? 'bg-warning text-black shadow-[0_0_15px_-5px_rgba(var(--warning-rgb),0.6)]'
+                                : 'text-white/40 hover:text-white hover:bg-white/5',
                             )}
                           >
-                            {league.name}
+                            Globálna
                           </Button>
-                        ))}
-                      </div>
+                          {leagues.map((league) => (
+                            <Button
+                              key={league.id}
+                              variant="ghost"
+                              onClick={() => { handleLeagueChange(league.id); setIsMenuOpen(false); }}
+                              className={cn(
+                                'justify-start text-[10px] font-black uppercase tracking-widest h-10 px-4 rounded-lg transition-all',
+                                effectiveLeagueId === league.id
+                                  ? 'bg-warning text-black shadow-[0_0_15px_-5px_rgba(var(--warning-rgb),0.6)]'
+                                  : 'text-white/40 hover:text-white hover:bg-white/5',
+                              )}
+                            >
+                              {league.name}
+                            </Button>
+                          ))}
+                       </div>
                     </div>
                   )}
 
-                  {!isDashboard && (
-                    <>
-                      <div className="flex flex-col gap-2">
-                        <Link
-                          href="/dashboard/rules"
-                          className="flex items-center gap-3 p-3 rounded-app bg-white/5 text-white/70 hover:text-white hover:bg-white/10 transition-colors"
-                        >
-                          <Book className="w-5 h-5" />
-                          <span className="font-bold uppercase tracking-widest text-sm">
-                            {t('rules')}
-                          </span>
-                        </Link>
-                        <Link
-                          href="/dashboard/settings"
-                          className="flex items-center gap-3 p-3 rounded-app bg-white/5 text-white/70 hover:text-white hover:bg-white/10 transition-colors"
-                        >
-                          <Settings className="w-5 h-5" />
-                          <span className="font-bold uppercase tracking-widest text-sm">
-                            {t('settings')}
-                          </span>
-                        </Link>
-                      </div>
-                      <div className="h-px bg-white/10" />
-                    </>
+                  <div className="flex items-center justify-between mb-4">
+                    <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 flex items-center gap-2">
+                       Nezabudni natipovať
+                    </h4>
+                  </div>
+                  
+                  {upcomingMatches.length > 0 ? (
+                    <div className="grid gap-3">
+                       {upcomingMatches.map((match) => (
+                         <Link 
+                            key={match.id} 
+                            href={`/dashboard/${slug}/matches?matchId=${match.id}` as any}
+                            onClick={() => setIsMenuOpen(false)}
+                            className="block p-3 rounded-app bg-white/5 border border-white/5"
+                         >
+                            <div className="flex items-center justify-between gap-3 text-xs font-bold text-white/70">
+                               <div className="flex-1 text-right truncate">{match.homeTeam?.shortName || match.homeTeam?.name}</div>
+                               <div className="text-[10px] font-black text-warning italic">VS</div>
+                               <div className="flex-1 text-left truncate">{match.awayTeam?.shortName || match.awayTeam?.name}</div>
+                            </div>
+                         </Link>
+                       ))}
+                    </div>
+                  ) : (
+                    <p className="text-[10px] font-medium text-white/10 italic text-center py-4 bg-white/[0.01] rounded-app border border-dashed border-white/5">
+                      Všetko natipované!
+                    </p>
                   )}
-                  {/** Language Switcher Removed */}
-                  <LogoutButton />
+                </div>
+
+                <div className="p-6 border-t border-white/5 bg-black/40 mt-auto">
+                    <div className="grid grid-cols-2 gap-2 mb-4">
+                       <Link 
+                        href="/account" 
+                        onClick={() => setIsMenuOpen(false)}
+                        className="flex flex-col items-center justify-center gap-2 p-4 rounded-app bg-white/5 text-white/60"
+                       >
+                          <UserIcon className="w-5 h-5" />
+                          <span className="font-bold uppercase tracking-widest text-[10px]">Účet</span>
+                       </Link>
+                       <Link 
+                        href="/settings" 
+                        onClick={() => setIsMenuOpen(false)}
+                        className="flex flex-col items-center justify-center gap-2 p-4 rounded-app bg-white/5 text-white/60"
+                       >
+                          <Settings className="w-5 h-5" />
+                          <span className="font-bold uppercase tracking-widest text-[10px]">Nastavenia</span>
+                       </Link>
+                    </div>
+                    <LogoutButton />
                 </div>
               </SheetContent>
             </Sheet>

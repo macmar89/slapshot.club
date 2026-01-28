@@ -1,4 +1,11 @@
 {
+  "Common": {
+    "success_title": "Úspech!",
+    "error_generic": "Nastala neočakávaná chyba",
+    "loading": "Ukladám...",
+    "new_password": "Nové heslo",
+    "confirm_password": "Zopakuj nové heslo"
+  },
   "HomePage": {
     "title": "Vítajte",
     "description": "Toto je domovská stránka"
@@ -252,6 +259,29 @@
       "message": "Tréner ti práve pridelil miesto na súpiske <strong>Slapshot Club</strong>. Tvoj dres už visí v šatni, ale predtým, než naskočíš na ľad, musíme potvrdiť tvoju identitu.",
       "button": "Potvrdiť súpisku",
       "footer": "Vidíme sa v aréne! <br> SLAPSHOT CLUB • 2026"
+    }
+  },
+  "Account": {
+    "title": "Môj Účet",
+    "subtitle": "Spravuj svoje osobné údaje a zabezpečenie.",
+    "username_section": "Meno",
+    "username_description": "Zmeň si svoje verejné meno v rebríčkoch.",
+    "save_button": "Uložiť zmeny",
+    "email_section": "Email",
+    "email_hint": "Z bezpečnostných dôvodov môže email zmeniť len administrátor.",
+    "request_change": "Požiadať o zmenu",
+    "security_section": "Zabezpečenie",
+    "security_description": "Uisti sa, že tvoje heslo je dostatočne silné.",
+    "change_password": "Zmeniť heslo",
+    "encrypted_notice": "Bezpečne šifrované systémom Slapshot",
+    "email_modal": {
+      "title": "Žiadosť o zmenu emailu",
+      "description": "Zadaj tvoj nový email a odôvodnenie. Administrátor ťa bude kontaktovať.",
+      "new_email": "Nový email",
+      "reason": "Dôvod zmeny",
+      "reason_placeholder": "Zadaj dôvod, prečo potrebuješ zmeniť email...",
+      "cancel": "Zrušiť",
+      "submit": "Odoslať žiadosť"
     }
   }
 }

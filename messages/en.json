@@ -1,4 +1,11 @@
 {
+  "Common": {
+    "success_title": "Success!",
+    "error_generic": "An unexpected error occurred",
+    "loading": "Saving...",
+    "new_password": "New Password",
+    "confirm_password": "Repeat New Password"
+  },
   "HomePage": {
     "title": "Welcome",
     "description": "This is the home page"
@@ -247,6 +254,29 @@
       "message": "The coach has just assigned you a spot on the <strong>Slapshot Club</strong> roster. Your jersey is already hanging in the locker room, but before you hit the ice, we need to confirm your identity.",
       "button": "Confirm Roster Spot",
       "footer": "See you in the arena! <br> SLAPSHOT CLUB • 2026"
+    }
+  },
+  "Account": {
+    "title": "My Account",
+    "subtitle": "Manage your personal details and security.",
+    "username_section": "Name",
+    "username_description": "Change your public name in the leaderboards.",
+    "save_button": "Save changes",
+    "email_section": "Email",
+    "email_hint": "For security reasons, the email can only be changed by an administrator.",
+    "request_change": "Request change",
+    "security_section": "Security",
+    "security_description": "Make sure your password is strong enough.",
+    "change_password": "Change password",
+    "encrypted_notice": "Securely encrypted by Slapshot",
+    "email_modal": {
+      "title": "Email Change Request",
+      "description": "Enter your new email and reason. An administrator will contact you.",
+      "new_email": "New email",
+      "reason": "Reason for change",
+      "reason_placeholder": "Enter reason why you need to change your email...",
+      "cancel": "Cancel",
+      "submit": "Submit request"
     }
   }
 }
