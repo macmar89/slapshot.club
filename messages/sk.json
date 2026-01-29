@@ -320,7 +320,9 @@
       "winner_desc": "Ak trafíš víťaza, ale nie presný skóre ani rozdiel, získaš 2 body.",
       "evaluation": "Body sa k tvojmu kontu pripíšu automaticky po oficiálnom vyhodnotení zápasu."
     },
-    "no_competitions": "Momentálne nie sú aktívne žiadne súťaže s vlastným bodovaním."
+    "no_competitions": "Momentálne nie sú aktívne žiadne súťaže s vlastným bodovaním.",
+    "tabs_rules": "Pravidlá",
+    "tabs_minileagues": "Mini ligy"
   },
   "Email": {
     "verification": {

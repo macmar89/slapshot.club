@@ -315,7 +315,9 @@
       "winner_desc": "If you guess the winner but not the exact score or difference, you get 2 points.",
       "evaluation": "Points are added to your account automatically after official evaluation."
     },
-    "no_competitions": "There are currently no active competitions with custom scoring."
+    "no_competitions": "There are currently no active competitions with custom scoring.",
+    "tabs_rules": "Rules",
+    "tabs_minileagues": "Mini Leagues"
   },
   "Email": {
     "verification": {
