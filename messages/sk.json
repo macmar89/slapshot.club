@@ -232,7 +232,8 @@
     "joined_section": "Členstvá",
     "join_section": "Pripojiť sa do Ligy",
     "join_placeholder": "Zadaj pozývací kód (napr. PUK-1234)",
-    "join_button": "Pripojiť sa",
+    "join_button": "Odoslať žiadosť",
+    "join_request_sent": "Žiadosť odoslaná! Čakajte na schválenie majiteľom.",
     "members_count": "{count} členov",
     "copy_code": "Kopírovať",
     "copied": "Skopírované",
@@ -270,7 +271,31 @@
     "kick_error": "Nepodarilo sa odobrať člena",
     "rank": "Pozícia",
     "points": "Body",
-    "member": "Člen"
+    "member": "Člen",
+    "predictions": "Tipy",
+    "exact_guesses": "Presné",
+    "trend": "Trend",
+    "col_win_diff": "V + R",
+    "col_winner": "Víťaz",
+    "col_missed": "Mimo",
+    "captain": "Kapitán",
+    "assistant": "Asistent",
+    "mobile_management_hint": "Pre správu členov použite desktop verziu",
+    "tabs": {
+      "ranking": "Rebríček",
+      "cabin": "Kabína",
+      "office": "Kancelária"
+    },
+    "cabin": {
+      "title": "Kabína & Podpichovanie",
+      "description": "Čoskoro tu pribudne priestor na diskusiu, hecovanie a zdieľanie tipov s ostatnými členmi ligy."
+    },
+    "office": {
+      "requests_title": "Žiadosti o vstup",
+      "no_requests": "Žiadne čakajúce žiadosti."
+    },
+    "header_rules": "Pravidlá",
+    "header_members": "{count} / {max} Členov"
   },
   "NotFound": {
     "title": "Zakázané uvoľnenie!",

@@ -232,7 +232,8 @@
     "joined_section": "Členství",
     "join_section": "Připojit se do Ligy",
     "join_placeholder": "Zadej pozývací kód (např. PUK-1234)",
-    "join_button": "Připojit se",
+    "join_button": "Odeslat žádost",
+    "join_request_sent": "Žádost odeslána! Vyčkejte na schválení majitelem.",
     "members_count": "{count} členů",
     "copy_code": "Kopírovat",
     "copied": "Zkopírováno",
@@ -270,7 +271,31 @@
     "kick_error": "Nepodařilo se odebrat člena",
     "rank": "Pozice",
     "points": "Body",
-    "member": "Člen"
+    "member": "Člen",
+    "predictions": "Tipy",
+    "exact_guesses": "Přesné",
+    "trend": "Trend",
+    "col_win_diff": "V + R",
+    "col_winner": "Vítěz",
+    "col_missed": "Mimo",
+    "captain": "Kapitán",
+    "assistant": "Asistent",
+    "mobile_management_hint": "Pro správu členů použijte desktop verzi",
+    "tabs": {
+      "ranking": "Žebříček",
+      "cabin": "Kabina",
+      "office": "Kancelář"
+    },
+    "cabin": {
+      "title": "Kabina & Hecování",
+      "description": "Brzy zde přibude prostor na diskuzi, hecování a sdílení tipů s ostatními členy ligy."
+    },
+    "office": {
+      "requests_title": "Žádosti o vstup",
+      "no_requests": "Žádné čekající žádosti."
+    },
+    "header_rules": "Pravidla",
+    "header_members": "{count} / {max} Členů"
   },
   "NotFound": {
     "title": "Zakázané uvolnění!",

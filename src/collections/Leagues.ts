@@ -129,10 +129,16 @@ export const Leagues: CollectionConfig = {
           return `Liga je plná (max ${targetMax} hráčov).`
         }
 
-        // Poznámka: Komplexnú validáciu max 5 joined líg pre každého člena
-        // je lepšie riešiť v Server Actions kvôli výkonu, ale basic check tu nezaškodí.
-
         return true
+      },
+    },
+    {
+      name: 'waitingList',
+      type: 'relationship',
+      relationTo: 'users',
+      hasMany: true,
+      admin: {
+        description: 'Hráči čakajúci na schválenie vstupu.',
       },
     },
     {

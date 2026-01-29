@@ -227,7 +227,8 @@
     "joined_section": "Memberships",
     "join_section": "Join League",
     "join_placeholder": "Enter invite code (e.g. PUK-1234)",
-    "join_button": "Join",
+    "join_button": "Send Request",
+    "join_request_sent": "Request sent! Waiting for owner's approval.",
     "members_count": "{count} members",
     "copy_code": "Copy",
     "copied": "Copied",
@@ -265,7 +266,31 @@
     "kick_error": "Failed to remove member",
     "rank": "Rank",
     "points": "Points",
-    "member": "Member"
+    "member": "Member",
+    "predictions": "Tips",
+    "exact_guesses": "Exact",
+    "trend": "Trend",
+    "col_win_diff": "Diff",
+    "col_winner": "Winner",
+    "col_missed": "Missed",
+    "captain": "Captain",
+    "assistant": "Assistant",
+    "mobile_management_hint": "Use desktop version for member management",
+    "tabs": {
+      "ranking": "Ranking",
+      "cabin": "Cabin",
+      "office": "Office"
+    },
+    "cabin": {
+      "title": "Cabin & Banter",
+      "description": "A space for discussion, heckling, and sharing tips with other league members is coming soon."
+    },
+    "office": {
+      "requests_title": "Join Requests",
+      "no_requests": "No pending requests."
+    },
+    "header_rules": "Rules",
+    "header_members": "{count} / {max} Members"
   },
   "NotFound": {
     "title": "Icing!",

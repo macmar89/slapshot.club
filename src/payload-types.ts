@@ -421,6 +421,10 @@ export interface League {
   code?: string | null;
   owner: string | User;
   members: (string | User)[];
+  /**
+   * Hráči čakajúci na schválenie vstupu.
+   */
+  waitingList?: (string | User)[] | null;
   competition: string | Competition;
   /**
    * Maximálny počet členov. Pre Public ligy zvýšiť manuálne.
@@ -1015,6 +1019,7 @@ export interface LeaguesSelect<T extends boolean = true> {
   code?: T;
   owner?: T;
   members?: T;
+  waitingList?: T;
   competition?: T;
   maxMembers?: T;
   stats?:

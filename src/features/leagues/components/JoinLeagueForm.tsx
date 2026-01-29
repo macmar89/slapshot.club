@@ -24,7 +24,7 @@ export function JoinLeagueForm() {
       const res = await joinLeague(code.trim().toUpperCase())
 
       if (res.success) {
-        toast.success(`Úspešne pripojený k lige ${res.league.name}`)
+        toast.success(t('join_request_sent'))
         setCode('')
         router.refresh()
       } else {

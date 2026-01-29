@@ -1,0 +1,6 @@
+export const REFRESH_INTERVALS = {
+  ONE_MINUTE: 60 * 1000,
+  TWO_MINUTES: 2 * 60 * 1000,
+  FIVE_MINUTES: 5 * 60 * 1000,
+  FIFTEEN_MINUTES: 15 * 60 * 1000,
+} as const
