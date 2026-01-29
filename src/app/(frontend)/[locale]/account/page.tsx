@@ -33,6 +33,7 @@ export default async function AccountPage({ params }: { params: Promise<{ locale
     username: (user as any).username,
     email: user.email,
     location: (user as any).location,
+    jersey: (user as any).jersey,
   }
 
   return (

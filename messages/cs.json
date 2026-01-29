@@ -346,6 +346,31 @@
     "location_custom_country_placeholder": "Zadej název své země...",
     "location_other_notice": "Děkujeme! Administrátor doplní tvou zemi."
   },
+  "Jersey": {
+    "title": "Tvůrce Dresu",
+    "colors_title": "Barvy",
+    "primary": "Primární",
+    "secondary": "Sekundární",
+    "design_title": "Design",
+    "pattern": "Vzor",
+    "number": "Číslo",
+    "style": "Styl",
+    "save": "Uložit Dres",
+    "saving": "Ukládám...",
+    "success": "Dres byl uložen!",
+    "error": "Chyba při ukládání dresu",
+    "patterns": {
+      "stripes": "Pruhy",
+      "bands": "Pásy",
+      "plain": "Čistý",
+      "chevrons": "Šípky",
+      "hoops": "Obruče"
+    },
+    "styles": {
+      "classic": "Klasik",
+      "modern": "Modern"
+    }
+  },
   "Feedback": {
     "title": "Zpětná vazba",
     "description": "Máš nápad nebo jsi našel chybu? Dej nám vědět!",

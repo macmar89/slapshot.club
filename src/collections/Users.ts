@@ -252,11 +252,6 @@ export const Users: CollectionConfig = {
           label: 'Názov krajiny',
           admin: {
             description: 'Zadajte názov vašej krajiny (ak nie je v zozname)',
-            // Explicit check if selected country is "Other"
-            // We'll need to know the ID of "Other" or check its property
-            // For now, let's keep it visible if country is selected,
-            // but in UI we'll show it only when a special "Other" country is picked.
-            // A safer condition might be checking it manually in UI.
           },
         },
         {
@@ -280,6 +275,56 @@ export const Users: CollectionConfig = {
           },
         },
       ],
+    },
+    {
+      name: 'jersey',
+      type: 'group',
+      label: 'Dres',
+      admin: {
+        description: 'Vlastný dres používateľa',
+      },
+      fields: [
+        {
+          name: 'primaryColor',
+          type: 'text',
+          defaultValue: '#ef4444', 
+        },
+        {
+          name: 'secondaryColor',
+          type: 'text',
+          defaultValue: '#ffffff',
+        },
+        {
+          name: 'pattern',
+          type: 'select',
+          defaultValue: 'stripes',
+          options: [
+            { label: 'Pruhy', value: 'stripes' },
+            { label: 'Pásy', value: 'bands' },
+            { label: 'Čistý', value: 'plain' },
+            { label: 'Šípky', value: 'chevrons' },
+            { label: 'Obruče', value: 'hoops' },
+          ],
+        },
+        {
+          name: 'number',
+          type: 'text',
+          defaultValue: '10',
+          validate: (val: string | null | undefined) => {
+             if (val && val.length > 2) return 'Maximálne 2 cifry'
+             return true
+          }
+        },
+        {
+          name: 'style',
+          type: 'select',
+          defaultValue: 'classic',
+          options: [
+            { label: 'Klasický', value: 'classic' },
+            { label: 'Moderný', value: 'modern' },
+          ],
+        }
+      ]
     },
   ],
   endpoints: [

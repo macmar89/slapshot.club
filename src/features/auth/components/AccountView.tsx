@@ -20,6 +20,13 @@ interface AccountViewProps {
       region?: number | { id: number; name: string } | null
       customCountry?: string | null
     }
+    jersey?: {
+      primaryColor?: string
+      secondaryColor?: string
+      pattern?: string
+      number?: string
+      style?: string
+    }
   }
   countries: Array<{ id: number; name: string; code: string }>
 }
@@ -46,7 +53,7 @@ export function AccountView({ user: initialUser, countries }: AccountViewProps) 
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <ProfileOverview user={user} />
-            
+                      
             <UsernameForm 
               initialUsername={user.username} 
               onUsernameUpdated={handleUsernameUpdated} 

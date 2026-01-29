@@ -147,3 +147,45 @@ export async function updateLocationAction(
     return { ok: false, error: err.message || 'Update failed' }
   }
 }
+
+export async function updateJerseyAction(data: {
+  primaryColor: string
+  secondaryColor: string
+  pattern: 'stripes' | 'bands' | 'plain' | 'chevrons' | 'hoops'
+  number: string
+  style: 'classic' | 'modern'
+}) {
+  const payload = await getPayload({ config })
+  const headersList = await headers()
+  const { user } = await payload.auth({ headers: headersList })
+
+  if (!user) {
+    return { ok: false, error: 'Unauthorized' }
+  }
+
+  // Basic validation
+  if (data.number.length > 2) {
+    return { ok: false, error: 'Number too long' }
+  }
+
+  try {
+    await payload.update({
+      collection: 'users',
+      id: user.id,
+      data: {
+        jersey: {
+          primaryColor: data.primaryColor,
+          secondaryColor: data.secondaryColor,
+          pattern: data.pattern,
+          number: data.number,
+          style: data.style,
+        },
+      },
+    })
+    
+    revalidatePath('/', 'layout')
+    return { ok: true }
+  } catch (err: any) {
+    return { ok: false, error: err.message || 'Update failed' }
+  }
+}

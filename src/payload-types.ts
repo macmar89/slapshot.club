@@ -218,6 +218,16 @@ export interface User {
      */
     region?: (number | null) | Region;
   };
+  /**
+   * Vlastný dres používateľa
+   */
+  jersey?: {
+    primaryColor?: string | null;
+    secondaryColor?: string | null;
+    pattern?: ('stripes' | 'bands' | 'plain' | 'chevrons' | 'hoops') | null;
+    number?: string | null;
+    style?: ('classic' | 'modern') | null;
+  };
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -785,6 +795,15 @@ export interface UsersSelect<T extends boolean = true> {
         country?: T;
         customCountry?: T;
         region?: T;
+      };
+  jersey?:
+    | T
+    | {
+        primaryColor?: T;
+        secondaryColor?: T;
+        pattern?: T;
+        number?: T;
+        style?: T;
       };
   updatedAt?: T;
   createdAt?: T;

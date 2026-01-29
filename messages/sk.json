@@ -344,8 +344,33 @@
     "location_other": "Iné",
     "location_custom_country": "Názov krajiny",
     "location_custom_country_placeholder": "Enter your country name...",
-    "location_other_hint": "If you didn't find your country in the list, enter it here. An admin will review and add it later.",
-    "location_other_notice": "Thank you! An admin will add your country."
+    "location_other_hint": "Ak si nenašiel svoju krajinu v zozname, zadaj ju sem. Administrátor ju skontroluje a neskôr pridá.",
+    "location_other_notice": "Ďakujeme! Administrátor doplní tvoju krajinu."
+  },
+  "Jersey": {
+    "title": "Tvorca Dresu",
+    "colors_title": "Farby",
+    "primary": "Primárna",
+    "secondary": "Sekundárna",
+    "design_title": "Dizajn",
+    "pattern": "Vzor",
+    "number": "Číslo",
+    "style": "Štýl",
+    "save": "Uložiť Dres",
+    "saving": "Ukladám...",
+    "success": "Dres bol uložený!",
+    "error": "Chyba pri ukladaní dresu",
+    "patterns": {
+      "stripes": "Pruhy",
+      "bands": "Pásy",
+      "plain": "Čistý",
+      "chevrons": "Šípky",
+      "hoops": "Obruče"
+    },
+    "styles": {
+      "classic": "Klasik",
+      "modern": "Modern"
+    }
   },
   "Feedback": {
     "title": "Spätná väzba",

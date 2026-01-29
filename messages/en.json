@@ -341,6 +341,31 @@
     "location_custom_country_placeholder": "Enter your country name...",
     "location_other_notice": "Thank you! An admin will add your country."
   },
+  "Jersey": {
+    "title": "Jersey Creator",
+    "colors_title": "Colors",
+    "primary": "Primary",
+    "secondary": "Secondary",
+    "design_title": "Design",
+    "pattern": "Pattern",
+    "number": "Number",
+    "style": "Style",
+    "save": "Save Jersey",
+    "saving": "Saving...",
+    "success": "Jersey saved!",
+    "error": "Error saving jersey",
+    "patterns": {
+      "stripes": "Stripes",
+      "bands": "Bands",
+      "plain": "Plain",
+      "chevrons": "Chevrons",
+      "hoops": "Hoops"
+    },
+    "styles": {
+      "classic": "Classic",
+      "modern": "Modern"
+    }
+  },
   "Feedback": {
     "title": "Feedback",
     "description": "Have an idea or found a bug? Let us know!",
