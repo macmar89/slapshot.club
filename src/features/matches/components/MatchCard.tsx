@@ -5,9 +5,11 @@ import type { Match, Prediction, Team, Media } from '@/payload-types'
 import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
-import { PencilLine, Trophy } from 'lucide-react'
+import { useTranslations, useLocale } from 'next-intl'
+import { useParams } from 'next/navigation'
+import { Link } from '@/i18n/routing'
+import { PencilLine, Trophy, ArrowUpRight, Eye } from 'lucide-react'
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
 
 interface MatchCardProps {
   match: Match
@@ -23,6 +25,7 @@ interface MatchCardProps {
 
 export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCardProps) {
   const t = useTranslations('Dashboard.matches')
+  const { slug } = useParams()
   const homeTeam = match.homeTeam as Team
   const awayTeam = match.awayTeam as Team
 
@@ -149,9 +152,9 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
       </div>
 
       {/* Prediction Stats & User Action */}
-      <div className="pt-6 border-t border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-6">
-        {/* Tipping Percentages - 2-Way split */}
-        <div className="flex-1 max-w-xs relative">
+      <div className="pt-6 border-t border-white/5 space-y-6">
+        {/* Tipping Percentages - Full Width */}
+        <div className="w-full relative">
           <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden flex">
             {binaryTotal > 0 ? (
               <>
@@ -169,79 +172,89 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
             )}
           </div>
 
-          <div className="flex justify-between mt-1 px-0.5 relative">
+          <div className="flex justify-between mt-1 px-1 relative">
             <div className="flex flex-col">
-              <span className="text-[0.6rem] font-bold text-white/60 uppercase">
+              <span className="text-[0.6rem] font-bold text-white/40 uppercase tracking-tighter text-left">
                 {homeTeam.shortName}
               </span>
-              <span className="text-[0.6rem] font-black text-warning">{homeWinPct}%</span>
+              <span className="text-[0.6rem] font-black text-warning leading-none text-left">{homeWinPct}%</span>
             </div>
 
             {/* Total Tips Counter - Absolute center */}
             <div className="absolute left-1/2 top-0 -translate-x-1/2 flex flex-col items-center">
-              <span className="text-[0.5rem] font-bold text-white/30 uppercase tracking-tighter">
+              <span className="text-[0.5rem] font-bold text-white/20 uppercase tracking-[0.2em]">
                 {t('predictions_count', { count: totalTips })}
               </span>
             </div>
 
             <div className="flex flex-col items-end">
-              <span className="text-[0.6rem] font-bold text-white/60 uppercase">
+              <span className="text-[0.6rem] font-bold text-white/40 uppercase tracking-tighter text-right">
                 {awayTeam.shortName}
               </span>
-              <span className="text-[0.6rem] font-black text-white/80">{awayWinPct}%</span>
+              <span className="text-[0.6rem] font-black text-white/60 leading-none text-right">{awayWinPct}%</span>
             </div>
           </div>
         </div>
 
-        {/* User Prediction Status */}
-        <div className="flex items-center gap-3">
-          {userPrediction ? (
-            <div className="flex items-center gap-3 px-4 py-2 rounded-app bg-white/5 border border-white/10">
-              <div className="flex flex-col">
-                <span className="text-[0.55rem] font-black uppercase tracking-widest text-warning">
-                  {t('my_prediction')}
-                </span>
-                <span className="text-sm font-black text-white">
-                  {userPrediction.homeGoals} : {userPrediction.awayGoals}
-                </span>
-              </div>
-              {!isStarted && match.status === 'scheduled' && (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => onPredict(match)}
-                  className="h-8 w-8 text-white/40 hover:text-white"
-                >
-                  <PencilLine className="w-4 h-4" />
-                </Button>
-              )}
-            </div>
-          ) : (
-            !isStarted &&
-            match.status === 'scheduled' && (
-              <Button
-                onClick={() => onPredict(match)}
-                variant="solid"
-                color="warning"
-                className="w-full md:w-auto rounded-app px-8 py-3 h-auto text-xs md:text-sm font-black uppercase tracking-[0.15em] gap-2 
-        bg-warning text-warning-foreground
-        shadow-[0_4px_15px_rgba(234,179,8,0.2)] 
-        hover:shadow-[0_0_30px_hsl(var(--warning)/0.6)] 
-        hover:scale-105 active:scale-95
-        transition-all duration-300 relative overflow-hidden group"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700 ease-in-out skew-x-12" />
-                <span className="relative z-10 drop-shadow-sm">{t('predict_button')}</span>
-              </Button>
-            )
-          )}
+        {/* User Status & Actions Row */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            {userPrediction ? (
+              <>
+                <div className="flex items-center gap-3 px-3 py-1.5 rounded-app bg-white/5 border border-white/10 transition-colors">
+                  <div className="flex flex-col">
+                    <span className="text-[0.5rem] font-black uppercase tracking-[0.2em] text-white/30">
+                      {t('my_prediction')}
+                    </span>
+                    <span className="text-sm font-black text-white italic">
+                      {userPrediction.homeGoals} : {userPrediction.awayGoals}
+                    </span>
+                  </div>
+                  {!isStarted && match.status === 'scheduled' && (
+                    <button
+                      onClick={() => onPredict(match)}
+                      className="p-1 text-white/20 hover:text-warning transition-colors outline-none"
+                    >
+                      <PencilLine className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
 
-          {isStarted && userPrediction && userPrediction.points !== null && (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-app bg-[#eab308]/10 border border-[#eab308]/20">
-              <Trophy className="w-3.5 h-3.5 text-warning" />
-              <span className="text-xs font-black text-warning">+{userPrediction.points}</span>
-            </div>
-          )}
+                {userPrediction.points !== null && (
+                  <div className="flex items-center gap-1.5 px-3 py-2 rounded-app bg-warning/10 border border-warning/20 shadow-[0_0_20px_rgba(234,179,8,0.15)]">
+                    <Trophy className="w-4 h-4 text-warning" />
+                    <span className="text-xs font-black text-warning">+{userPrediction.points}</span>
+                  </div>
+                )}
+              </>
+            ) : (
+              !isStarted && match.status === 'scheduled' && (
+                <Button
+                  onClick={() => onPredict(match)}
+                  variant="solid"
+                  color="warning"
+                  className="rounded-app px-8 py-3 h-auto text-xs font-black uppercase tracking-[0.1em] gap-2 shadow-[0_4px_15px_rgba(234,179,8,0.2)] hover:scale-105 transition-all"
+                >
+                  {t('predict_button')}
+                </Button>
+              )
+            )}
+          </div>
+
+          <div className="flex items-center gap-2">
+            {isStarted && (
+              // @ts-expect-error -- dynamic path
+              <Link href={`/dashboard/${slug}/matches/${match.id}`} className="w-full sm:w-auto">
+                <Button
+                  variant="outline"
+                  className="w-full sm:w-auto rounded-app border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 text-[0.6rem] font-black uppercase tracking-[0.2em] gap-2 h-10 px-6 transition-all"
+                >
+                  <Eye className="w-4 h-4 text-white/40" />
+                  {t('view_detail')}
+                </Button>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </IceGlassCard>
