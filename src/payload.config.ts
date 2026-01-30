@@ -30,7 +30,7 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   localization: {
-    locales: ['sk', 'en'],
+    locales: ['sk', 'en', 'cz'],
     defaultLocale: 'sk',
     fallback: true,
   },

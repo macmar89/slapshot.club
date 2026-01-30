@@ -116,14 +116,14 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('sk' | 'en') | ('sk' | 'en')[];
+  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('sk' | 'en' | 'cz') | ('sk' | 'en' | 'cz')[];
   globals: {
     'general-settings': GeneralSetting;
   };
   globalsSelect: {
     'general-settings': GeneralSettingsSelect<false> | GeneralSettingsSelect<true>;
   };
-  locale: 'sk' | 'en';
+  locale: 'sk' | 'en' | 'cz';
   user: User & {
     collection: 'users';
   };

@@ -26,6 +26,7 @@ export const GeneralSettings: GlobalConfig = {
           label: 'Obsah',
           type: 'richText',
           required: true,
+          localized: true,
           editor: lexicalEditor({
             features: ({ defaultFeatures }) => [
               ...defaultFeatures,
