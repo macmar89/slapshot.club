@@ -47,12 +47,7 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
   }
 
   const renderTeam = (team: Team, type: 'home' | 'away') => (
-    <div
-      className={cn(
-        'flex flex-col items-center gap-3 w-1/3',
-        type === 'away' && 'flex-col-reverse md:flex-col',
-      )}
-    >
+    <div className={cn('flex flex-col items-center gap-3 w-1/3')}>
       <div
         className={cn(
           'h-10 w-20 md:h-14 md:w-28 flex items-center justify-center relative group',
@@ -177,7 +172,9 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
               <span className="text-[0.6rem] font-bold text-white/40 uppercase tracking-tighter text-left">
                 {homeTeam.shortName}
               </span>
-              <span className="text-[0.6rem] font-black text-warning leading-none text-left">{homeWinPct}%</span>
+              <span className="text-[0.6rem] font-black text-warning leading-none text-left">
+                {homeWinPct}%
+              </span>
             </div>
 
             {/* Total Tips Counter - Absolute center */}
@@ -191,7 +188,9 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
               <span className="text-[0.6rem] font-bold text-white/40 uppercase tracking-tighter text-right">
                 {awayTeam.shortName}
               </span>
-              <span className="text-[0.6rem] font-black text-white/60 leading-none text-right">{awayWinPct}%</span>
+              <span className="text-[0.6rem] font-black text-white/60 leading-none text-right">
+                {awayWinPct}%
+              </span>
             </div>
           </div>
         </div>
@@ -223,12 +222,15 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
                 {userPrediction.points !== null && (
                   <div className="flex items-center gap-2 px-4 h-11 rounded-app bg-warning/10 border border-warning/20 shadow-[0_0_20px_rgba(234,179,8,0.15)]">
                     <Trophy className="w-4 h-4 text-warning" />
-                    <span className="text-sm font-black text-warning">+{userPrediction.points}</span>
+                    <span className="text-sm font-black text-warning">
+                      +{userPrediction.points}
+                    </span>
                   </div>
                 )}
               </>
             ) : (
-              !isStarted && match.status === 'scheduled' && (
+              !isStarted &&
+              match.status === 'scheduled' && (
                 <Button
                   onClick={() => onPredict(match)}
                   variant="solid"

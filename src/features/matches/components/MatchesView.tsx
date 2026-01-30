@@ -146,7 +146,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
         </div>
 
         {/* Premium Day Selector */}
-        <div className="flex items-center gap-4 bg-white/10 border border-white/20 p-1.5 rounded-app backdrop-blur-xl shadow-2xl">
+        <div className="flex items-center justify-between md:justify-start w-full md:w-auto gap-4 bg-white/10 border border-white/20 p-1.5 rounded-app backdrop-blur-xl shadow-2xl">
           <Button
             variant="outline"
             size="icon"
@@ -172,7 +172,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
           <Button
             variant="ghost"
             onClick={() => setIsCalendarOpen(true)}
-            className="flex flex-col items-center px-4 md:px-6 min-w-[100px] md:min-w-[140px] hover:bg-white/5 rounded-app h-auto py-1 group/center"
+            className="flex-1 md:flex-none flex flex-col items-center px-4 md:px-6 min-w-[100px] md:min-w-[140px] hover:bg-white/5 rounded-app h-auto py-1 group/center"
           >
             <div className="flex items-center gap-2 mb-0.5">
               <CalendarDays className="w-3.5 h-3.5 text-warning group-hover/center:scale-110 transition-transform" />

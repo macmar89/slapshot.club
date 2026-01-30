@@ -95,7 +95,12 @@
       "exact": "Přesné",
       "diff": "Rozdíly",
       "winners": "Vítězové",
-      "wrong": "Nesprávné"
+      "wrong": "Nesprávné",
+      "top_tippers": "Top Tipaři",
+      "current_rank_label": "Aktuální pořadí",
+      "evaluated": "Vyhodnoceno",
+      "click_to_go_to_your_position": "Klikni pro přechod na tvou pozici",
+      "name": "Jméno"
     }
   },
   "Login": {

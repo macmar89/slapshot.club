@@ -95,7 +95,12 @@
       "exact": "Presné",
       "diff": "Rozdiely",
       "winners": "Víťazi",
-      "wrong": "Nesprávne"
+      "wrong": "Nesprávne",
+      "top_tippers": "Top Tipéri",
+      "current_rank_label": "Aktuálne poradie",
+      "evaluated": "Vyhodnotené",
+      "click_to_go_to_your_position": "Klikni pre prechod na tvoju pozíciu",
+      "name": "Meno"
     }
   },
   "Login": {

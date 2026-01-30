@@ -29,15 +29,15 @@ export function LeaderboardView({
   return (
     <div className="h-[calc(100dvh-8rem)] md:h-[calc(100dvh-7rem)] flex flex-col overflow-hidden">
       {/* Header Section */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-6 shrink-0">
-        <div className="flex flex-col gap-1">
-          <h1 className="text-lg md:text-3xl font-black uppercase text-[#eab308] md:text-white tracking-widest md:tracking-wide text-center md:text-left leading-none">
-            {competition.name}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6">
+        <div className="flex flex-col gap-2">
+          <h1 className="text-3xl md:text-5xl font-black italic uppercase text-white tracking-tighter leading-none">
+            <span className="text-warning">{competition.name}</span>
           </h1>
-          <p className="hidden md:block text-white/60 text-base">{t('description')}</p>
+          <p className="text-white font-bold uppercase tracking-[0.3em] text-[0.65rem] md:text-xs ">
+            {t('description')}
+          </p>
         </div>
-
-        {/* Tabs / Navigation - Removed as handled by global Header */}
       </div>
 
       <div className="flex-1 min-h-0">

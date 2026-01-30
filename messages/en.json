@@ -95,7 +95,12 @@
       "exact": "Exact",
       "diff": "Diffs",
       "winners": "Winners",
-      "wrong": "Wrong"
+      "wrong": "Wrong",
+      "top_tippers": "Top Tippers",
+      "current_rank_label": "Current Rank",
+      "evaluated": "Evaluated",
+      "click_to_go_to_your_position": "Click to jump to your position",
+      "name": "Name"
     }
   },
   "Login": {

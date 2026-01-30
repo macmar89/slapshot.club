@@ -87,7 +87,7 @@ export function PredictionDialog({
           className="h-full w-auto object-contain rounded-app"
         />
       ) : (
-        <span className="text-xl font-black text-white/20">{team.shortName}</span>
+        <span className="text-xl font-black text-white/20">{team.name}</span>
       )}
     </div>
   )
@@ -104,7 +104,7 @@ export function PredictionDialog({
     <div className="flex flex-col items-center gap-4 flex-1">
       {renderLogo(team)}
       <span className="text-[0.6rem] font-black uppercase tracking-widest text-white/40">
-        {team.shortName}
+        {team.name}
       </span>
       <div className="flex items-center gap-2 md:gap-3">
         <Button

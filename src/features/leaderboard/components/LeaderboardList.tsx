@@ -6,6 +6,7 @@ import { RankRow } from './RankRow'
 import { LeaderboardEntry as UILeaderboardEntry } from '../types'
 import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import type { LeaderboardEntry, User } from '@/payload-types'
+import { useTranslations } from 'next-intl'
 
 interface LeaderboardListProps {
   tab: string
@@ -24,6 +25,7 @@ export function LeaderboardList({
   currentUser,
   competitionId,
 }: LeaderboardListProps) {
+  const t = useTranslations('Dashboard.leaderboard')
   const containerRef = useRef<HTMLDivElement>(null)
   const userRowRef = useRef<HTMLDivElement>(null)
 
@@ -33,7 +35,7 @@ export function LeaderboardList({
     return {
       id: entry.id,
       rank: entry.currentRank || index + 1,
-      name: user.username || user.email || 'Hráč',
+      name: user.username || user.email || t('player'),
       avatarUrl: null,
       points: entry.totalPoints || 0,
       trend: (entry.rankChange || 0) > 0 ? 'up' : (entry.rankChange || 0) < 0 ? 'down' : 'same',
@@ -67,10 +69,10 @@ export function LeaderboardList({
             </div>
             <div>
               <h2 className="text-xl font-black uppercase tracking-tighter text-white leading-none">
-                Top Tipéri
+                {t('top_tippers')}
               </h2>
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#eab308]/60 mt-1">
-                Aktuálne poradie
+                {t('current_rank_label')}
               </p>
             </div>
           </div>
@@ -79,14 +81,18 @@ export function LeaderboardList({
             <div className="flex flex-col items-center px-3 border-r border-white/10">
               <div className="flex items-center gap-1.5 text-white/40 mb-1">
                 <Activity className="w-3 h-3 text-[#eab308]" />
-                <span className="text-[8px] font-black uppercase tracking-widest">Zápasy</span>
+                <span className="text-[8px] font-black uppercase tracking-widest">
+                  {t('predictions')}
+                </span>
               </div>
               <span className="text-sm font-black text-white italic">124</span>
             </div>
             <div className="flex flex-col items-center px-3">
               <div className="flex items-center gap-1.5 text-white/40 mb-1">
                 <CheckCircle2 className="w-3 h-3 text-emerald-500" />
-                <span className="text-[8px] font-black uppercase tracking-widest">Vyhodnotené</span>
+                <span className="text-[8px] font-black uppercase tracking-widest">
+                  {t('evaluated')}
+                </span>
               </div>
               <span className="text-sm font-black text-white italic">118</span>
             </div>
@@ -100,7 +106,7 @@ export function LeaderboardList({
       {/* Scrollable List */}
       <div
         ref={containerRef}
-        className="flex-1 overflow-y-auto divide-y divide-white/[0.05] pb-32 md:pb-24 scroll-smooth"
+        className="flex-1 overflow-y-auto divide-y divide-white/[0.05] pb-10 md:pb-24 scroll-smooth"
       >
         {entries.map((entry) => (
           <div key={entry.id} ref={entry.isCurrentUser ? userRowRef : null}>
@@ -111,17 +117,17 @@ export function LeaderboardList({
         {entries.length === 0 && (
           <div className="flex flex-col items-center justify-center h-full py-20 text-white/20">
             <Trophy className="w-12 h-12 mb-4 opacity-10" />
-            <p className="font-bold uppercase tracking-widest">Zatiaľ žiadne dáta</p>
+            <p className="font-bold uppercase tracking-widest">{t('empty_state')}</p>
           </div>
         )}
       </div>
 
       {/* Sticky Footer for Current User */}
       {currentUserEntry && (
-        <div className="absolute bottom-20 md:bottom-0 left-0 right-0 p-2 md:p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-8 md:pt-12 shrink-0 z-20">
+        <div className="block absolute bottom-0 left-0 right-0 p-2 md:p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-8 md:pt-12 shrink-0 z-20">
           <div className="absolute top-2 md:top-6 left-1/2 -translate-x-1/2">
             <span className="text-[7px] md:text-[8px] font-black uppercase tracking-[0.3em] text-[#eab308] animate-pulse">
-              Klikni pre prechod na tvoju pozíciu
+              {t('click_to_go_to_your_position')}
             </span>
           </div>
           <RankRow
