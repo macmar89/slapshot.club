@@ -1191,6 +1191,23 @@ export interface GeneralSetting {
     description?: string | null;
     image?: (string | null) | Media;
   };
+  gdpr: {
+    content: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1205,6 +1222,11 @@ export interface GeneralSettingsSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         image?: T;
+      };
+  gdpr?:
+    | T
+    | {
+        content?: T;
       };
   updatedAt?: T;
   createdAt?: T;

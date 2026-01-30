@@ -21,6 +21,12 @@ import { Turnstile } from '@/components/auth/Turnstile'
 import { Link } from '@/i18n/routing'
 import { AvailabilityInput } from './AvailabilityInput'
 import { PasswordInput } from './PasswordInput'
+import dynamic from 'next/dynamic'
+
+const GdprModalContent = dynamic(
+  () => import('./GdprModalContent'),
+  { ssr: false }
+)
 
 export const RegisterForm = () => {
   const router = useRouter()
@@ -231,38 +237,10 @@ export const RegisterForm = () => {
           {t('login')}
         </Link>
       </div>
-      <Dialog open={gdprOpen} onOpenChange={setGdprOpen}>
-        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto bg-black/90 border-white/10 text-white">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-gold">
-              {t('gdpr_modal.title')}
-            </DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4 text-sm text-white/80 leading-relaxed">
-            <p>{t('gdpr_modal.intro')}</p>
-            <h3 className="text-lg font-semibold text-white mt-4">
-              {t('gdpr_modal.section1_title')}
-            </h3>
-            <p>{t('gdpr_modal.section1_content')}</p>
-            <h3 className="text-lg font-semibold text-white mt-4">
-              {t('gdpr_modal.section2_title')}
-            </h3>
-            <p>
-              {t('gdpr_modal.section2_content')}
-              <ul className="list-disc list-inside mt-2 pl-2 space-y-1">
-                <li>{t('gdpr_modal.list_item1')}</li>
-                <li>{t('gdpr_modal.list_item2')}</li>
-                <li>{t('gdpr_modal.list_item3')}</li>
-              </ul>
-            </p>
-            <h3 className="text-lg font-semibold text-white mt-4">
-              {t('gdpr_modal.section3_title')}
-            </h3>
-            <p>{t('gdpr_modal.section3_content')}</p>
-            <p className="mt-4 text-xs text-white/50">{t('gdpr_modal.footer')}</p>
-          </div>
-        </DialogContent>
-      </Dialog>
+      
+      {gdprOpen && (
+        <GdprModalContent open={gdprOpen} onOpenChange={setGdprOpen} />
+      )}
     </form>
   )
 }
