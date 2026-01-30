@@ -20,7 +20,7 @@ export const Users: CollectionConfig = {
     },
     forgotPassword: {
       generateEmailHTML: (args) => renderForgotPasswordEmail(args as any),
-      generateEmailSubject: ({ user }) => getForgotPasswordSubject(user),
+      generateEmailSubject: (args: any) => getForgotPasswordSubject(args?.user),
     },
   },
   access: {

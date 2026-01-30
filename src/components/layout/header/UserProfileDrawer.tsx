@@ -28,6 +28,7 @@ interface UserProfileDrawerProps {
   upcomingMatches: any[]
   slug: string
   locale: string
+  effectiveLeagueId: string | null
 }
 
 export function UserProfileDrawer({
@@ -37,6 +38,7 @@ export function UserProfileDrawer({
   upcomingMatches,
   slug,
   locale,
+  effectiveLeagueId,
 }: UserProfileDrawerProps) {
   const t = useTranslations('Header')
   const dt = useTranslations('Dashboard.nav')
@@ -109,7 +111,7 @@ export function UserProfileDrawer({
               {upcomingMatches.map((match) => (
                 <Link
                   key={match.id}
-                  href={`/dashboard/${slug}/matches?matchId=${match.id}` as any}
+                  href={`/dashboard/${slug}/matches?matchId=${match.id}${effectiveLeagueId ? `&leagueId=${effectiveLeagueId}` : ''}` as any}
                   onClick={() => onOpenChange(false)}
                   className="group block p-4 rounded-app bg-white/5 border border-white/5 hover:border-primary/30 hover:bg-white/10 transition-all"
                 >

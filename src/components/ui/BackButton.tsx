@@ -2,11 +2,11 @@
 
 import React from 'react'
 import { useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/Button'
+import { Button, ButtonProps } from '@/components/ui/Button'
 import { ArrowLeft } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-interface BackButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface BackButtonProps extends ButtonProps {
   label?: React.ReactNode
   fallbackPath?: string
 }

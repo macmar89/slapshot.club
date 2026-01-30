@@ -29,7 +29,7 @@ import { LeagueCabinTab } from './LeagueCabinTab'
 import { LeagueOfficeTab } from './LeagueOfficeTab'
 
 interface LeagueDetailViewProps {
-  league: League & { waitingList?: User[] }
+  league: League
   currentUser: User
   competitionSlug: string
   leaderboardEntries?: Record<string, PayloadLeaderboardEntry>

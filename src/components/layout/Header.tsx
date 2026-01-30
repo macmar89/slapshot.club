@@ -171,6 +171,7 @@ export function Header({ title }: HeaderProps) {
               upcomingMatches={upcomingMatches}
               slug={slug}
               locale={locale}
+              effectiveLeagueId={effectiveLeagueId}
             />
           </div>
 

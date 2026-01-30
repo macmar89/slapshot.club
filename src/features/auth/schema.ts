@@ -24,7 +24,7 @@ export const registerSchema = z.object({
   gdprConsent: z.boolean().refine((val) => val === true, {
     message: 'Musíte súhlasiť so spracovaním osobných údajov (GDPR)',
   }),
-  marketingConsent: z.boolean().default(false),
+  marketingConsent: z.boolean(),
 })
 
 export const forgotPasswordSchema = z.object({

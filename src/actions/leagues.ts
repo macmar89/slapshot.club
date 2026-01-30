@@ -207,7 +207,7 @@ export async function approveMember(leagueId: string, userId: string): Promise<A
       },
     })
 
-    if (joinedCount >= targetLimits.joined) {
+    if (joinedCount.totalDocs >= targetLimits.joined) {
       return { success: false, error: `Hráč dosiahol limit (${targetLimits.joined}) pre počet líg.` }
     }
 

@@ -137,7 +137,7 @@ export function MobileMenu({
                 {upcomingMatches.map((match) => (
                   <Link
                     key={match.id}
-                    href={`/dashboard/${slug}/matches?matchId=${match.id}` as any}
+                    href={`/dashboard/${slug}/matches?matchId=${match.id}${effectiveLeagueId ? `&leagueId=${effectiveLeagueId}` : ''}` as any}
                     onClick={() => onOpenChange(false)}
                     className="block p-3 rounded-app bg-white/5 border border-white/5"
                   >
