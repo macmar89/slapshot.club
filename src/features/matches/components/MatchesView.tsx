@@ -140,7 +140,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
           <h1 className="text-3xl md:text-5xl font-black italic uppercase text-white tracking-tighter leading-none">
             <span className="text-warning">{competition.name}</span>
           </h1>
-          <p className="text-white/40 font-bold uppercase tracking-[0.3em] text-[0.65rem] md:text-xs">
+          <p className="text-white font-bold uppercase tracking-[0.3em] text-[0.65rem] md:text-xs">
             {t('description')}
           </p>
         </div>

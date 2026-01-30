@@ -406,5 +406,24 @@
       "bug": "Bug",
       "other": "Other"
     }
+  },
+  "Header": {
+    "loading_league": "Loading league...",
+    "select_league": "Select League",
+    "select_league_desc": "Choose the leaderboard you want to follow.",
+    "global_league": "Global League",
+    "no_leagues": "You are not in any other mini-leagues yet.",
+    "account_menu": "User Menu",
+    "account_menu_desc": "Profile, settings, and match feed.",
+    "host": "Guest",
+    "dont_forget_to_tip": "Don't forget to predict",
+    "matches_count": "{count, plural, one {# Match} other {# Matches}}",
+    "all_tipped_message": "Great job! You have predicted all upcoming matches.",
+    "my_account": "My Account",
+    "feedback": "Feedback",
+    "mobile_menu": "Mobile Menu",
+    "mobile_menu_desc": "Profile, settings, and leagues.",
+    "active_league": "Active League",
+    "all_done": "All predicted!"
   }
 }

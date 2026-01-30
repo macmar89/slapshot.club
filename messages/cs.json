@@ -411,5 +411,24 @@
       "bug": "Chyba",
       "other": "Jiné"
     }
+  },
+  "Header": {
+    "loading_league": "Načítám ligu...",
+    "select_league": "Vyber ligu",
+    "select_league_desc": "Zvol si žebříček, který chceš sledovat.",
+    "global_league": "Globální Liga",
+    "no_leagues": "Zatím nejsi v žádné jiné mini-lize.",
+    "account_menu": "Uživatelské menu",
+    "account_menu_desc": "Profil, nastavení a feed zápasů.",
+    "host": "Host",
+    "dont_forget_to_tip": "Nezapomeň natipovat",
+    "matches_count": "{count, plural, one {# zápas} few {# zápasy} other {# zápasů}}",
+    "all_tipped_message": "Skvělá práce! Máš natipované všechny nadcházející zápasy.",
+    "my_account": "Můj Účet",
+    "feedback": "Feedback",
+    "mobile_menu": "Mobilní menu",
+    "mobile_menu_desc": "Profil, nastavení a ligy.",
+    "active_league": "Aktivní Liga",
+    "all_done": "Vše odtipováno!"
   }
 }
