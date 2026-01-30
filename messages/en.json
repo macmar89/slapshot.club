@@ -323,7 +323,8 @@
     },
     "no_competitions": "There are currently no active competitions with custom scoring.",
     "tabs_rules": "Rules",
-    "tabs_minileagues": "Mini Leagues"
+    "tabs_minileagues": "Mini Leagues",
+    "tabs_gdpr": "GDPR"
   },
   "Email": {
     "verification": {

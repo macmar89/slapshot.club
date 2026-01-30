@@ -7,6 +7,7 @@ import type { Competition } from '@/payload-types'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/Tabs'
 import { MiniLeagueRules } from './MiniLeagueRules'
 import { GeneralRulesTab } from './GeneralRulesTab'
+import { GdprTab } from './GdprTab'
 import { PageLayout } from '@/components/layout/PageLayout'
 import { PageHeader } from '@/components/layout/PageHeader'
 
@@ -43,7 +44,7 @@ export function RulesView({ competitions }: RulesViewProps) {
 
       <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
         <div className="px-1 mb-4">
-          <TabsList className="bg-white/5 border border-white/10 p-1 backdrop-blur-md w-full grid grid-cols-2 h-auto">
+          <TabsList className="bg-white/5 border border-white/10 p-1 backdrop-blur-md w-full grid grid-cols-3 h-auto">
             <TabsTrigger
               value="rules"
               className="data-[state=active]:bg-warning data-[state=active]:text-black text-white/50 text-[10px] sm:text-xs md:text-base px-1 sm:px-4 py-2 sm:py-2.5 uppercase font-black tracking-wider sm:tracking-widest cursor-pointer transition-all hover:text-white truncate"
@@ -56,6 +57,12 @@ export function RulesView({ competitions }: RulesViewProps) {
             >
               {t('tabs_minileagues')}
             </TabsTrigger>
+            <TabsTrigger
+              value="gdpr"
+              className="data-[state=active]:bg-warning data-[state=active]:text-black text-white/50 text-[10px] sm:text-xs md:text-base px-1 sm:px-4 py-2 sm:py-2.5 uppercase font-black tracking-wider sm:tracking-widest cursor-pointer transition-all hover:text-white truncate"
+            >
+              {t('tabs_gdpr')}
+            </TabsTrigger>
           </TabsList>
         </div>
 
@@ -65,6 +72,10 @@ export function RulesView({ competitions }: RulesViewProps) {
 
         <TabsContent value="minileagues" className="mt-0">
           <MiniLeagueRules />
+        </TabsContent>
+
+        <TabsContent value="gdpr" className="mt-0">
+          <GdprTab />
         </TabsContent>
       </Tabs>
     </PageLayout>

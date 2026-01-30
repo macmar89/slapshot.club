@@ -328,7 +328,8 @@
     },
     "no_competitions": "Momentálne nie sú aktívne žiadne súťaže s vlastným bodovaním.",
     "tabs_rules": "Pravidlá",
-    "tabs_minileagues": "Mini ligy"
+    "tabs_minileagues": "Mini ligy",
+    "tabs_gdpr": "GDPR"
   },
   "Email": {
     "verification": {
