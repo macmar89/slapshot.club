@@ -249,6 +249,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
       </div>
 
       <PredictionDialog
+        key={predictingMatch?.id || 'none'}
         match={predictingMatch}
         isOpen={!!predictingMatch}
         onClose={() => setPredictingMatch(null)}

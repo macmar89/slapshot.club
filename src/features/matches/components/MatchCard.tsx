@@ -201,29 +201,29 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
           <div className="flex items-center gap-2">
             {userPrediction ? (
               <>
-                <div className="flex items-center gap-3 px-3 py-1.5 rounded-app bg-white/5 border border-white/10 transition-colors">
+                <div className="flex items-center gap-4 px-4 h-11 rounded-app bg-white/10 border border-white/20 shadow-[0_4px_15px_rgba(0,0,0,0.2)] transition-all">
                   <div className="flex flex-col">
-                    <span className="text-[0.5rem] font-black uppercase tracking-[0.2em] text-white/30">
+                    <span className="text-[0.5rem] font-black uppercase tracking-[0.2em] text-white/40">
                       {t('my_prediction')}
                     </span>
-                    <span className="text-sm font-black text-white italic">
+                    <span className="text-sm font-black text-white italic leading-none">
                       {userPrediction.homeGoals} : {userPrediction.awayGoals}
                     </span>
                   </div>
                   {!isStarted && match.status === 'scheduled' && (
                     <button
                       onClick={() => onPredict(match)}
-                      className="p-1 text-white/20 hover:text-warning transition-colors outline-none"
+                      className="p-1.5 -mr-1 text-white/40 hover:text-warning transition-colors outline-none cursor-pointer rounded-full hover:bg-white/5"
                     >
-                      <PencilLine className="w-3.5 h-3.5" />
+                      <PencilLine className="w-4 h-4" />
                     </button>
                   )}
                 </div>
 
                 {userPrediction.points !== null && (
-                  <div className="flex items-center gap-1.5 px-3 py-2 rounded-app bg-warning/10 border border-warning/20 shadow-[0_0_20px_rgba(234,179,8,0.15)]">
+                  <div className="flex items-center gap-2 px-4 h-11 rounded-app bg-warning/10 border border-warning/20 shadow-[0_0_20px_rgba(234,179,8,0.15)]">
                     <Trophy className="w-4 h-4 text-warning" />
-                    <span className="text-xs font-black text-warning">+{userPrediction.points}</span>
+                    <span className="text-sm font-black text-warning">+{userPrediction.points}</span>
                   </div>
                 )}
               </>
