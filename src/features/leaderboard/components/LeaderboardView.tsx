@@ -8,6 +8,7 @@ import { LeaderboardList } from './LeaderboardList'
 import { useRouter, usePathname } from '@/i18n/routing'
 import { useSearchParams, useParams } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import { PageHeader } from '@/components/layout/PageHeader'
 interface LeaderboardViewProps {
   competition: Competition
   userLeagues: League[]
@@ -29,16 +30,7 @@ export function LeaderboardView({
   return (
     <div className="h-[calc(100dvh-8rem)] md:h-[calc(100dvh-7rem)] flex flex-col overflow-hidden">
       {/* Header Section */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6">
-        <div className="flex flex-col gap-2">
-          <h1 className="text-3xl md:text-5xl font-black italic uppercase text-white tracking-tighter leading-none">
-            <span className="text-warning">{competition.name}</span>
-          </h1>
-          <p className="text-white font-bold uppercase tracking-[0.3em] text-[0.65rem] md:text-xs ">
-            {t('description')}
-          </p>
-        </div>
-      </div>
+      <PageHeader title={competition.name} description={t('description')} className="mb-6" />
 
       <div className="flex-1 min-h-0">
         <LeaderboardList

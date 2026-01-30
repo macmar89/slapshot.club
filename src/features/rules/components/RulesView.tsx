@@ -9,6 +9,8 @@ import { Trophy, Info, Target, CheckCircle2 } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/Tabs'
 import { MiniLeagueRules } from './MiniLeagueRules'
+import { PageLayout } from '@/components/layout/PageLayout'
+import { PageHeader } from '@/components/layout/PageHeader'
 
 interface RulesViewProps {
   competitions: Competition[]
@@ -29,7 +31,7 @@ export function RulesView({ competitions }: RulesViewProps) {
       params.set(name, value)
       return params.toString()
     },
-    [searchParams]
+    [searchParams],
   )
 
   const handleTabChange = (value: string) => {
@@ -38,26 +40,19 @@ export function RulesView({ competitions }: RulesViewProps) {
   }
 
   return (
-    <Container className="py-8 pb-24 md:pb-12 max-w-7xl">
-      <div className="flex flex-col gap-2 mb-6 px-1">
-        <h1 className="text-3xl md:text-5xl font-black italic uppercase text-white tracking-tighter leading-none">
-          {t('title')}
-        </h1>
-        <p className="text-white/40 font-bold uppercase tracking-[0.3em] text-[0.65rem] md:text-xs">
-          {t('description')}
-        </p>
-      </div>
+    <PageLayout>
+      <PageHeader title={t('title')} description={t('description')} />
 
       <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
         <div className="px-1 mb-4">
           <TabsList className="bg-white/5 border border-white/10 p-1 backdrop-blur-md w-full grid grid-cols-2 h-auto">
-            <TabsTrigger 
-              value="rules" 
+            <TabsTrigger
+              value="rules"
               className="data-[state=active]:bg-warning data-[state=active]:text-black text-white/50 text-[10px] sm:text-xs md:text-base px-1 sm:px-4 py-2 sm:py-2.5 uppercase font-black tracking-wider sm:tracking-widest cursor-pointer transition-all hover:text-white truncate"
             >
               {t('tabs_rules')}
             </TabsTrigger>
-            <TabsTrigger 
+            <TabsTrigger
               value="minileagues"
               className="data-[state=active]:bg-warning data-[state=active]:text-black text-white/50 text-[10px] sm:text-xs md:text-base px-1 sm:px-4 py-2 sm:py-2.5 uppercase font-black tracking-wider sm:tracking-widest cursor-pointer transition-all hover:text-white truncate"
             >
@@ -66,7 +61,7 @@ export function RulesView({ competitions }: RulesViewProps) {
           </TabsList>
         </div>
 
-        <TabsContent value="rules" className="mt-0 space-y-8 h-[calc(100vh-21rem)] overflow-y-auto pr-2 -mr-2 scrollbar-hide">
+        <TabsContent value="rules" className="mt-0 space-y-8">
           {/* Scoring Section */}
           <section className="space-y-4">
             <div className="flex items-center gap-3 px-1">
@@ -88,7 +83,9 @@ export function RulesView({ competitions }: RulesViewProps) {
                       <div className="flex items-center justify-between p-3 rounded-app bg-white/5 border border-white/10">
                         <div className="flex items-center gap-3">
                           <Target className="w-5 h-5 text-warning/70" />
-                          <span className="text-sm font-bold text-white/80">{t('exact_score')}</span>
+                          <span className="text-sm font-bold text-white/80">
+                            {t('exact_score')}
+                          </span>
                         </div>
                         <span className="text-xl font-black text-white">
                           {t('points', { count: 5 })}
@@ -97,7 +94,9 @@ export function RulesView({ competitions }: RulesViewProps) {
                       <div className="flex items-center justify-between p-3 rounded-app bg-white/5 border border-white/10">
                         <div className="flex items-center gap-3">
                           <CheckCircle2 className="w-5 h-5 text-warning/70" />
-                          <span className="text-sm font-bold text-white/80">{t('correct_diff')}</span>
+                          <span className="text-sm font-bold text-white/80">
+                            {t('correct_diff')}
+                          </span>
                         </div>
                         <span className="text-xl font-black text-white">
                           {t('points', { count: 3 })}
@@ -106,7 +105,9 @@ export function RulesView({ competitions }: RulesViewProps) {
                       <div className="flex items-center justify-between p-3 rounded-app bg-white/5 border border-white/10">
                         <div className="flex items-center gap-3">
                           <Info className="w-5 h-5 text-warning/70" />
-                          <span className="text-sm font-bold text-white/80">{t('winner_only')}</span>
+                          <span className="text-sm font-bold text-white/80">
+                            {t('winner_only')}
+                          </span>
                         </div>
                         <span className="text-xl font-black text-white">
                           {t('points', { count: 2 })}
@@ -154,10 +155,10 @@ export function RulesView({ competitions }: RulesViewProps) {
           </section>
         </TabsContent>
 
-        <TabsContent value="minileagues" className="mt-0 h-[calc(100vh-21rem)] overflow-y-auto pr-2 -mr-2 scrollbar-hide">
+        <TabsContent value="minileagues" className="mt-0">
           <MiniLeagueRules />
         </TabsContent>
       </Tabs>
-    </Container>
+    </PageLayout>
   )
 }

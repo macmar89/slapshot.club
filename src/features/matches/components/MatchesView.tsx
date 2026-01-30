@@ -13,6 +13,8 @@ import { ChevronLeft, ChevronRight, CalendarDays } from 'lucide-react'
 import { MatchesSkeleton } from './MatchesSkeleton'
 import { useTranslations } from 'next-intl'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
+import { PageLayout } from '@/components/layout/PageLayout'
+import { PageHeader } from '@/components/layout/PageHeader'
 
 interface MatchesViewProps {
   competition: Competition
@@ -133,18 +135,8 @@ export function MatchesView({ competition }: MatchesViewProps) {
   }
 
   return (
-    <div className="space-y-8 pb-20 md:pb-8">
-      {/* Header with Day Selector */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-        <div className="flex flex-col gap-2">
-          <h1 className="text-3xl md:text-5xl font-black italic uppercase text-white tracking-tighter leading-none">
-            <span className="text-warning">{competition.name}</span>
-          </h1>
-          <p className="text-white font-bold uppercase tracking-[0.3em] text-[0.65rem] md:text-xs">
-            {t('description')}
-          </p>
-        </div>
-
+    <PageLayout>
+      <PageHeader title={competition.name} description={t('description')}>
         {/* Premium Day Selector */}
         <div className="flex items-center justify-between md:justify-start w-full md:w-auto gap-4 bg-white/10 border border-white/20 p-1.5 rounded-app backdrop-blur-xl shadow-2xl">
           <Button
@@ -220,7 +212,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
             />
           </Button>
         </div>
-      </div>
+      </PageHeader>
 
       {/* Matches Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-6 -mx-1 md:mx-0 animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -267,6 +259,6 @@ export function MatchesView({ competition }: MatchesViewProps) {
         availableDates={availableDates}
         onSelectDate={setUrlDate}
       />
-    </div>
+    </PageLayout>
   )
 }

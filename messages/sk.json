@@ -17,12 +17,13 @@
       "tables": "Tabuľky",
       "teams": "Tímy",
       "leaderboard": "Rebríček",
-      "leagues": "Mini Ligy",
+      "leagues": "Mini-ligy",
       "rules": "Pravidlá",
-      "profile": "Profil",
+      "profile": "Účet",
       "settings": "Nastavenia",
       "more": "Viac",
-      "menu": "Menu"
+      "menu": "Menu",
+      "feedback": "Feedback"
     },
     "settings": {
       "title": "Nastavenia",
