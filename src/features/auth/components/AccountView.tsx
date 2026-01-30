@@ -48,20 +48,22 @@ export function AccountView({ user: initialUser, countries }: AccountViewProps) 
               <UserCog className="w-6 h-6 md:w-10 md:h-10 text-warning" />
               {t('title')}
             </h1>
-            <p className="text-white/40 text-[10px] md:text-lg font-medium italic uppercase tracking-[0.2em] md:tracking-widest">{t('subtitle')}</p>
+            <p className="text-white/40 text-[10px] md:text-lg font-medium italic uppercase tracking-[0.2em] md:tracking-widest">
+              {t('subtitle')}
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <ProfileOverview user={user} />
-                      
-            <UsernameForm 
-              initialUsername={user.username} 
-              onUsernameUpdated={handleUsernameUpdated} 
+
+            <UsernameForm
+              initialUsername={user.username}
+              onUsernameUpdated={handleUsernameUpdated}
             />
 
             <EmailSection email={user.email} />
 
-            <LocationForm 
+            <LocationForm
               initialCountry={user.location?.country}
               initialRegion={user.location?.region}
               initialCustomCountry={user.location?.customCountry}

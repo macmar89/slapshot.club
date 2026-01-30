@@ -13,20 +13,28 @@ export function MiniLeagueRules() {
   }
 
   return (
-    <IceGlassCard className="p-6 md:p-8 space-y-8">
+    <IceGlassCard className="p-4 md:p-8 space-y-8" backdropBlur="lg">
       <section>
-        <h2 className="text-2xl font-black uppercase text-warning mb-6 flex items-center gap-3">
-          <Users className="w-6 h-6" />
-          {t('subscriptions_title')}
-        </h2>
-        
+        <div className="flex items-center gap-3 px-1 pb-6">
+          <Users className="w-5 h-5 text-warning" />
+          <h2 className="text-xl font-bold uppercase tracking-wider text-white">
+            {t('subscriptions_title')}
+          </h2>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Free */}
           <div className="bg-white/5 rounded-xl p-6 border border-white/5">
             <h3 className="text-xl font-bold text-white mb-4">{t('subscription_free_title')}</h3>
             <ul className="space-y-3 text-sm text-white/70">
-              <li className="flex gap-2"><span className="text-destructive font-bold">✕</span> {t('subscription_free_cannot_create')}</li>
-              <li className="flex gap-2"><span className="text-emerald-500 font-bold">✓</span> {t('subscription_free_max_joined')}</li>
+              <li className="flex gap-2">
+                <span className="text-destructive font-bold">✕</span>{' '}
+                {t('subscription_free_cannot_create')}
+              </li>
+              <li className="flex gap-2">
+                <span className="text-emerald-500 font-bold">✓</span>{' '}
+                {t('subscription_free_max_joined')}
+              </li>
             </ul>
           </div>
 
@@ -37,10 +45,22 @@ export function MiniLeagueRules() {
               <h3 className="text-xl font-bold text-blue-100">{t('subscription_pro_title')}</h3>
             </div>
             <ul className="space-y-3 text-sm text-blue-100/70">
-              <li className="flex gap-2"><span className="text-emerald-400 font-bold">✓</span> {t('subscription_pro_max_created')}</li>
-              <li className="flex gap-2"><span className="text-emerald-400 font-bold">✓</span> {t('subscription_pro_max_active')}</li>
-              <li className="flex gap-2"><span className="text-blue-300 font-bold">ℹ</span> {t('subscription_pro_captain_tag')}</li>
-              <li className="flex gap-2"><span className="text-blue-300 font-bold">ℹ</span> {t('subscription_pro_assistant_tag')}</li>
+              <li className="flex gap-2">
+                <span className="text-emerald-400 font-bold">✓</span>{' '}
+                {t('subscription_pro_max_created')}
+              </li>
+              <li className="flex gap-2">
+                <span className="text-emerald-400 font-bold">✓</span>{' '}
+                {t('subscription_pro_max_active')}
+              </li>
+              <li className="flex gap-2">
+                <span className="text-blue-300 font-bold">ℹ</span>{' '}
+                {t('subscription_pro_captain_tag')}
+              </li>
+              <li className="flex gap-2">
+                <span className="text-blue-300 font-bold">ℹ</span>{' '}
+                {t('subscription_pro_assistant_tag')}
+              </li>
             </ul>
           </div>
 
@@ -54,9 +74,16 @@ export function MiniLeagueRules() {
               <h3 className="text-xl font-bold text-warning">{t('subscription_vip_title')}</h3>
             </div>
             <ul className="space-y-3 text-sm text-white/70">
-              <li className="flex gap-2"><span className="text-warning font-bold">✓</span> {t('subscription_vip_max_created')}</li>
-              <li className="flex gap-2"><span className="text-warning font-bold">✓</span> {t('subscription_vip_max_active')}</li>
-              <li className="flex gap-2"><span className="text-warning font-bold">ℹ</span> {t('subscription_vip_both_tags')}</li>
+              <li className="flex gap-2">
+                <span className="text-warning font-bold">✓</span>{' '}
+                {t('subscription_vip_max_created')}
+              </li>
+              <li className="flex gap-2">
+                <span className="text-warning font-bold">✓</span> {t('subscription_vip_max_active')}
+              </li>
+              <li className="flex gap-2">
+                <span className="text-warning font-bold">ℹ</span> {t('subscription_vip_both_tags')}
+              </li>
             </ul>
           </div>
         </div>
@@ -77,17 +104,13 @@ export function MiniLeagueRules() {
               <li>• {t.rich('capacity_rule_pro', rich)}</li>
               <li>• {t.rich('capacity_rule_vip', rich)}</li>
             </ul>
-            <p className="text-white/40 text-xs mt-2 italic">
-              {t('capacity_hint')}
-            </p>
+            <p className="text-white/40 text-xs mt-2 italic">{t('capacity_hint')}</p>
           </div>
         </div>
       </section>
 
       <section>
-        <h2 className="text-xl font-black uppercase text-white mb-4">
-          {t('owner_rights_title')}
-        </h2>
+        <h2 className="text-xl font-black uppercase text-white mb-4">{t('owner_rights_title')}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="bg-white/5 p-4 rounded-lg">
             <h4 className="font-bold text-white mb-1">{t('owner_right_invite_title')}</h4>

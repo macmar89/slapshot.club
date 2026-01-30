@@ -439,7 +439,7 @@
     "all_done": "Všetko natipované!"
   },
   "MiniLeagueRules": {
-    "subscriptions_title": "Typy Predplatného",
+    "subscriptions_title": "Predplatné",
     "subscription_free_title": "Free",
     "subscription_free_cannot_create": "Nemôže vytvárať ligy",
     "subscription_free_max_joined": "Max 1 pripojená liga (s kódom)",
