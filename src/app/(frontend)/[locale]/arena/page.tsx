@@ -4,10 +4,10 @@ import config from '@/payload.config'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { setRequestLocale } from 'next-intl/server'
-import { LobbyView } from '@/features/lobby/components/LobbyView'
+import { ArenaView } from '@/features/arena/components/ArenaView'
 import type { User } from '@/payload-types'
 
-export default async function LobbyPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function ArenaPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   setRequestLocale(locale)
 
@@ -42,7 +42,7 @@ export default async function LobbyPage({ params }: { params: Promise<{ locale: 
   }) as string[]
 
   return (
-    <LobbyView
+    <ArenaView
       user={user as unknown as User}
       competitions={competitions.docs}
       joinedCompetitionIds={joinedCompetitionIds}

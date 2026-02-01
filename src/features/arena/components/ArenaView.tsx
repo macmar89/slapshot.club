@@ -6,14 +6,14 @@ import { useTranslations } from 'next-intl'
 import { CompetitionCard } from './CompetitionCard'
 import { Header } from '@/components/layout/Header'
 
-interface LobbyViewProps {
+interface ArenaViewProps {
   user: User
   competitions: Competition[]
   joinedCompetitionIds: string[]
 }
 
-export function LobbyView({ user, competitions, joinedCompetitionIds }: LobbyViewProps) {
-  const t = useTranslations('Lobby')
+export function ArenaView({ user, competitions, joinedCompetitionIds }: ArenaViewProps) {
+  const t = useTranslations('Arena')
   const [showFinished, setShowFinished] = useState(false)
 
   const liveCompetitions = competitions.filter((c) => c.status === 'active')

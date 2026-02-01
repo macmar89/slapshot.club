@@ -4,7 +4,7 @@ Vitajte v manuáli aplikácie Slapshot Club. Tento dokument slúži ako prehľad
 
 ## Obsah
 
-1. [Lobby](features/lobby.md) - Prehľad aktívnych a nadchádzajúcich udalostí.
+1. [Aréna](features/arena.md) - Prehľad aktívnych a nadchádzajúcich udalostí.
 2. [Matches](features/matches.md) - Správa a prehľad zápasov.
 3. [Rules](features/rules.md) - Pravidlá súťaží.
 4. [Tables](features/tables.md) - Tabuľky a poradie tímov.

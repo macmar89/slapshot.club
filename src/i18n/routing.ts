@@ -35,8 +35,8 @@ export const routing = defineRouting({
     '/dashboard/[slug]/leagues/[leagueId]': '/dashboard/[slug]/leagues/[leagueId]',
     '/dashboard/[slug]/matches': '/dashboard/[slug]/matches',
     '/dashboard/[slug]/leaderboard': '/dashboard/[slug]/leaderboard',
-    '/lobby': '/lobby',
-    '/lobby/[slug]': '/lobby/[slug]',
+    '/arena': '/arena',
+    '/arena/[slug]': '/arena/[slug]',
     // Example from user request
     '/ranking': '/ranking',
   },

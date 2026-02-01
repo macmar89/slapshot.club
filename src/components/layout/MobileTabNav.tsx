@@ -77,7 +77,7 @@ export function MobileTabNav() {
         {/* Logo in the center */}
         <div className="flex items-center justify-center -mt-10 px-2 relative z-50">
           <Link
-            href={getHref('/dashboard') as any}
+            href={getHref('/arena') as any}
             className="w-24 h-24 flex items-center justify-center rotate-3 animate-in fade-in zoom-in duration-500 group relative z-10"
           >
             <Image
@@ -88,6 +88,9 @@ export function MobileTabNav() {
               className="w-full h-full object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] group-hover:scale-110 transition-transform duration-300"
               priority
             />
+            <span className="absolute -right-2 top-4 px-1.5 py-0.5 text-[8px] font-black bg-warning text-black rounded-sm tracking-normal normal-case shadow-[0_0_15px_rgba(var(--warning-rgb),0.5)] rotate-12 transition-transform duration-300 pointer-events-none">
+              BETA
+            </span>
           </Link>
         </div>
 

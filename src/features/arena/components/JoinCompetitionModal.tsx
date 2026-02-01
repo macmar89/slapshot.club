@@ -27,15 +27,13 @@ export function JoinCompetitionModal({
   competitionName,
   isLoading,
 }: JoinCompetitionModalProps) {
-  const t = useTranslations('Lobby.join_modal')
+  const t = useTranslations('Arena.join_modal')
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="bg-[#1a1a1a] border-[#eab308]/20 text-white">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-[#eab308]">
-            {t('title')}
-          </DialogTitle>
+          <DialogTitle className="text-2xl font-bold text-[#eab308]">{t('title')}</DialogTitle>
           <DialogDescription className="text-white/60">
             {t('description', { competitionName })}
           </DialogDescription>
@@ -49,11 +47,7 @@ export function JoinCompetitionModal({
           >
             {t('cancel')}
           </Button>
-          <Button
-            color="gold"
-            onClick={onConfirm}
-            disabled={isLoading}
-          >
+          <Button color="gold" onClick={onConfirm} disabled={isLoading}>
             {isLoading ? t('joining') : t('confirm')}
           </Button>
         </DialogFooter>

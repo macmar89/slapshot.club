@@ -204,7 +204,7 @@
     "next": "Next",
     "finish": "Enter the Arena"
   },
-  "Lobby": {
+  "Arena": {
     "title": "Welcome to Slapshot Club",
     "welcome": "Welcome back, {username}. Choose your arena.",
     "status": {
@@ -304,7 +304,7 @@
     "title": "Icing!",
     "subtitle": "REF CALLED AN OFFSIDE",
     "description": "The puck got lost somewhere in the corner and your attack ended before it even started. This page isn't on the roster.",
-    "button": "BACK TO LOCKER ROOM (LOBBY)"
+    "button": "BACK TO LOCKER ROOM (ARENA)"
   },
   "Rules": {
     "title": "Game Rules",

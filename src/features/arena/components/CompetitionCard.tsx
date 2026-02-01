@@ -29,7 +29,7 @@ export function CompetitionCard({
   userId,
   compact = false,
 }: CompetitionCardProps) {
-  const t = useTranslations('Lobby')
+  const t = useTranslations('Arena')
   const router = useRouter()
 
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false)

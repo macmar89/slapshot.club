@@ -150,24 +150,42 @@ export function Header({ title }: HeaderProps) {
 
       <header className="fixed top-0 left-0 right-0 h-16 z-50 border-b border-white/10 bg-black/20 backdrop-blur-lg hidden md:block">
         <Container className="flex items-center h-full gap-4 max-w-auto">
-          <Link
-            href={(slug ? `/dashboard/${slug}` : '/lobby') as any}
-            className="relative h-16 w-60 mr-8 group flex items-center"
-          >
-            <div className="absolute top-0 left-0 h-32 flex items-center pointer-events-none transition-all duration-300 group-hover:-translate-y-1">
-              <Image
-                src={logo}
-                alt="Slapshot Club"
-                width={240}
-                height={128}
-                className="h-full w-auto object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.6)] group-hover:drop-shadow-[0_15px_25px_rgba(var(--warning-rgb),0.25)]"
-                priority
-              />
-              <span className="absolute -right-4 top-8 px-2 py-0.5 text-[10px] font-black bg-warning text-black rounded-md tracking-normal normal-case shadow-[0_0_20px_rgba(var(--warning-rgb),0.5)] rotate-12 group-hover:rotate-0 transition-transform duration-300">
-                BETA
-              </span>
+          {pathname === '/arena' ? (
+            <div className="relative h-16 w-60 mr-8 group flex items-center">
+              <div className="absolute top-0 left-0 h-32 flex items-center pointer-events-none transition-all duration-300">
+                <Image
+                  src={logo}
+                  alt="Slapshot Club"
+                  width={240}
+                  height={128}
+                  className="h-full w-auto object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.6)]"
+                  priority
+                />
+                <span className="absolute -right-4 top-8 px-2 py-0.5 text-[10px] font-black bg-warning text-black rounded-md tracking-normal normal-case shadow-[0_0_20px_rgba(var(--warning-rgb),0.5)] rotate-12 transition-transform duration-300">
+                  BETA
+                </span>
+              </div>
             </div>
-          </Link>
+          ) : (
+            <Link
+              href={(slug ? `/dashboard/${slug}` : '/arena') as any}
+              className="relative h-16 w-60 mr-8 group flex items-center"
+            >
+              <div className="absolute top-0 left-0 h-32 flex items-center pointer-events-none transition-all duration-300 group-hover:-translate-y-1">
+                <Image
+                  src={logo}
+                  alt="Slapshot Club"
+                  width={240}
+                  height={128}
+                  className="h-full w-auto object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.6)] group-hover:drop-shadow-[0_15px_25px_rgba(var(--warning-rgb),0.25)]"
+                  priority
+                />
+                <span className="absolute -right-4 top-8 px-2 py-0.5 text-[10px] font-black bg-warning text-black rounded-md tracking-normal normal-case shadow-[0_0_20px_rgba(var(--warning-rgb),0.5)] rotate-12 group-hover:rotate-0 transition-transform duration-300">
+                  BETA
+                </span>
+              </div>
+            </Link>
+          )}
           {/* Desktop View */}
           <div className="ml-auto hidden md:flex items-center gap-4">
             {/* <LeagueSwitcher

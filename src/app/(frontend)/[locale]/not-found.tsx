@@ -47,7 +47,7 @@ export default function NotFoundPage() {
             </div>
 
             <div className="pt-4">
-              <Link href="/lobby">
+              <Link href="/arena">
                 <Button
                   color="gold"
                   className="px-8 py-6 rounded-2xl font-black text-sm uppercase tracking-widest shadow-[0_10px_30px_rgba(234,179,8,0.3)] hover:shadow-[0_15px_40px_rgba(234,179,8,0.4)] transition-all"

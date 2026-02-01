@@ -39,13 +39,13 @@ export function DashboardNav() {
     <nav className="flex flex-col gap-2 mt-4">
       {/* Global Aréna Link */}
       <Link
-        href="/lobby"
+        href="/arena"
         className={cn(
           'flex gap-3 px-4 py-3 transition-all duration-200 text-sm font-medium uppercase tracking-wider relative group overflow-hidden',
-          pathname === '/lobby' ? 'text-white ' : 'text-white/70 hover:text-white',
+          pathname === '/arena' ? 'text-white ' : 'text-white/70 hover:text-white',
         )}
       >
-        {pathname === '/lobby' && (
+        {pathname === '/arena' && (
           <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-warning to-transparent shadow-[0_-2px_10px_rgba(234,179,8,0.7)]" />
         )}
         <div className="absolute bottom-0 left-0 right-0 h-[2px] w-1/3 bg-gradient-to-r from-transparent via-warning to-transparent opacity-0 group-hover:opacity-100 animate-knight-rider pointer-events-none blur-[1px]" />

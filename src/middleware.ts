@@ -25,19 +25,19 @@ export function middleware(request: NextRequest) {
   // Check for protected routes (dashboard) and public-only routes (login)
   // We check for "dashboard" in the path (English only now)
   const isDashboardPath = pathname.includes('/dashboard')
-  const isLobbyPath = pathname === '/lobby'
+  const isArenaPath = pathname === '/arena'
   const isLoginPath =
     pathname === '/login' || pathname === '/register' || pathname === '/forgot-password'
 
-  // Redirect to lobby if user is already logged in and tries to access login page
+  // Redirect to arena if user is already logged in and tries to access login page
   // DISABLED: This causes a redirect loop if the token is invalid on the server side (e.g. dev DB reset).
-  // The server redirects to /login, and middleware redirects back to /lobby.
+  // The server redirects to /login, and middleware redirects back to /arena.
   // if (isLoginPath && token) {
-  //   return NextResponse.redirect(new URL('/lobby', request.url))
+  //   return NextResponse.redirect(new URL('/arena', request.url))
   // }
 
   // Protected routes: dashboard
-  if (isDashboardPath || isLobbyPath) {
+  if (isDashboardPath || isArenaPath) {
     if (!token) {
       // Redirect to login if user is not authenticated
       const url = new URL('/login', request.url)

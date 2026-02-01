@@ -13,7 +13,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const { user } = await payload.auth({ headers: headersList })
 
   if (user) {
-    redirect('/lobby')
+    redirect('/arena')
   } else {
     redirect('/login')
   }

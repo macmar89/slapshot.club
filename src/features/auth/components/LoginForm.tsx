@@ -16,7 +16,7 @@ import { PasswordInput } from './PasswordInput'
 export const LoginForm = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const redirectUrl = searchParams.get('redirect') || '/lobby'
+  const redirectUrl = searchParams.get('redirect') || '/arena'
   const t = useTranslations('Auth')
 
   const [isLoading, setIsLoading] = useState(false)
@@ -94,7 +94,9 @@ export const LoginForm = () => {
               errors.identifier && 'border-red-500 focus:border-red-500 focus:ring-red-500',
             )}
           />
-          {errors.identifier && <p className="text-red-500 text-xs ml-1">{errors.identifier.message}</p>}
+          {errors.identifier && (
+            <p className="text-red-500 text-xs ml-1">{errors.identifier.message}</p>
+          )}
         </div>
 
         <PasswordInput

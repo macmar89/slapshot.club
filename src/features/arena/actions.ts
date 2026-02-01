@@ -12,10 +12,7 @@ export async function joinCompetition(competitionId: string, userId: string) {
     const existingEntry = await payload.find({
       collection: 'leaderboard-entries',
       where: {
-        and: [
-          { user: { equals: userId } },
-          { competition: { equals: competitionId } },
-        ],
+        and: [{ user: { equals: userId } }, { competition: { equals: competitionId } }],
       },
     })
 
@@ -36,7 +33,7 @@ export async function joinCompetition(competitionId: string, userId: string) {
       },
     })
 
-    revalidatePath('/lobby')
+    revalidatePath('/arena')
     return { ok: true }
   } catch (error) {
     console.error('Error joining competition:', error)

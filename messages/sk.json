@@ -209,7 +209,7 @@
     "next": "Ďalej",
     "finish": "Vstúpiť do arény"
   },
-  "Lobby": {
+  "Arena": {
     "title": "Vitajte v Slapshot Clube",
     "welcome": "Vitaj späť, {username}. Vyber si svoju arénu.",
     "status": {
@@ -309,7 +309,7 @@
     "title": "Zakázané uvoľnenie!",
     "subtitle": "ROZHODCA ODPÍSKAL OFFSIDE",
     "description": "Puk sa nám niekde stratil v rohu klziska a tvoj útok skončil skôr, než začal. Táto stránka na súpiske nie je.",
-    "button": "NASPÄŤ DO ŠATNE (LOBBY)"
+    "button": "NASPÄŤ DO ŠATNE (ARÉNA)"
   },
   "Rules": {
     "title": "Pravidlá hry",
