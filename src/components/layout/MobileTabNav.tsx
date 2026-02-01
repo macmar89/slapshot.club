@@ -13,6 +13,8 @@ import { Button } from '@/components/ui/Button'
 import { FeedbackModal } from '@/components/feedback/FeedbackModal'
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
 import { LogoutButton } from '@/features/auth/components/LogoutButton'
+import Image from 'next/image'
+import logo from '@/assets/images/logo/ssc_logo_2.png'
 
 export function MobileTabNav() {
   const t = useTranslations('Dashboard.nav')
@@ -52,8 +54,9 @@ export function MobileTabNav() {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden">
       <IceGlassCard
-        className="h-20 w-full flex items-center justify-between px-1 rounded-t-app rounded-b-none border-x-0 border-b-0"
+        className="h-20 w-full flex items-center justify-between px-1 rounded-t-app rounded-b-none border-x-0 border-b-0 overflow-visible"
         backdropBlur="lg"
+        allowOverflow
       >
         {/* Left 2 items */}
         <div className="flex flex-1 justify-around items-center">
@@ -72,10 +75,20 @@ export function MobileTabNav() {
         </div>
 
         {/* Logo in the center */}
-        <div className="flex items-center justify-center -mt-10 px-2">
-          <div className="w-16 h-16 rounded-app bg-primary text-white flex items-center justify-center font-bold text-3xl shadow-[0_8px_32px_rgba(var(--primary-rgb),0.4)] border-2 border-white/20 rotate-3 animate-in fade-in zoom-in duration-500">
-            S
-          </div>
+        <div className="flex items-center justify-center -mt-10 px-2 relative z-50">
+          <Link
+            href={getHref('/dashboard') as any}
+            className="w-24 h-24 flex items-center justify-center rotate-3 animate-in fade-in zoom-in duration-500 group relative z-10"
+          >
+            <Image
+              src={logo}
+              alt="Slapshot Club"
+              width={80}
+              height={80}
+              className="w-full h-full object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] group-hover:scale-110 transition-transform duration-300"
+              priority
+            />
+          </Link>
         </div>
 
         {/* Right 1 item + More */}

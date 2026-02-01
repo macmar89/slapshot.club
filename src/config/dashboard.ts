@@ -42,15 +42,5 @@ export const dashboardConfig = {
       href: '/dashboard/rules',
       icon: FileText,
     },
-    {
-      labelKey: 'profile',
-      href: '/dashboard/profile',
-      icon: User,
-    },
-    {
-      labelKey: 'settings',
-      href: '/dashboard/settings',
-      icon: Settings,
-    },
   ] as DashboardItem[],
 }

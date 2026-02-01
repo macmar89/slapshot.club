@@ -15,7 +15,14 @@ import { Link } from '@/i18n/routing'
 import { Button } from '@/components/ui/Button'
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
 import { LogoutButton } from '@/features/auth/components/LogoutButton'
-import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/Sheet'
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from '@/components/ui/Sheet'
 import { format } from 'date-fns'
 import { sk, enUS, cs } from 'date-fns/locale'
 import { FeedbackModal } from '@/components/feedback/FeedbackModal'
@@ -49,7 +56,7 @@ export function UserProfileDrawer({
       <SheetTrigger asChild>
         <Button
           variant="ghost"
-          className="group flex items-center gap-3 px-3 py-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all"
+          className="group flex items-center gap-3 px-3 py-2 rounded-xs bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all"
         >
           <div className="w-8 h-8 rounded-full bg-warning/20 border border-warning/30 flex items-center justify-center text-warning group-hover:bg-warning/30 transition-colors">
             <UserIcon className="w-4 h-4" />
@@ -84,9 +91,6 @@ export function UserProfileDrawer({
                 <h3 className="text-xl font-black text-white uppercase italic tracking-tighter">
                   {user?.username || t('host')}
                 </h3>
-                <p className="text-white/40 text-xs font-medium uppercase tracking-widest">
-                  {user?.email}
-                </p>
               </div>
             </div>
             <LanguageSwitcher />
@@ -95,7 +99,7 @@ export function UserProfileDrawer({
 
         {/* Match Feed Section */}
         <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
-          <div className="flex items-center justify-between mb-6">
+          {/* <div className="flex items-center justify-between mb-6">
             <h4 className="text-xs font-black uppercase tracking-[0.3em] text-white/30 flex items-center gap-2">
               <Calendar className="w-3 h-3" />
               {t('dont_forget_to_tip')}
@@ -105,14 +109,16 @@ export function UserProfileDrawer({
                 {t('matches_count', { count: upcomingMatches.length })}
               </span>
             )}
-          </div>
+          </div> */}
 
-          {upcomingMatches.length > 0 ? (
+          {/* {upcomingMatches.length > 0 ? (
             <div className="grid gap-4">
               {upcomingMatches.map((match) => (
                 <Link
                   key={match.id}
-                  href={`/dashboard/${slug}/matches?matchId=${match.id}${effectiveLeagueId ? `&leagueId=${effectiveLeagueId}` : ''}` as any}
+                  href={
+                    `/dashboard/${slug}/matches?matchId=${match.id}${effectiveLeagueId ? `&leagueId=${effectiveLeagueId}` : ''}` as any
+                  }
                   onClick={() => onOpenChange(false)}
                   className="group block p-4 rounded-app bg-white/5 border border-white/5 hover:border-primary/30 hover:bg-white/10 transition-all"
                 >
@@ -141,11 +147,9 @@ export function UserProfileDrawer({
           ) : (
             <div className="flex flex-col items-center justify-center py-12 px-6 rounded-app bg-white/[0.02] border border-dashed border-white/10 text-center">
               <AlertTriangle className="w-8 h-8 text-white/10 mb-4" />
-              <p className="text-sm font-medium text-white/20 italic">
-                {t('all_tipped_message')}
-              </p>
+              <p className="text-sm font-medium text-white/20 italic">{t('all_tipped_message')}</p>
             </div>
-          )}
+          )} */}
         </div>
 
         {/* Bottom Navigation */}
@@ -157,16 +161,14 @@ export function UserProfileDrawer({
               className="flex items-center gap-3 p-4 rounded-app bg-white/5 text-white/60 hover:text-white hover:bg-white/10 transition-all group"
             >
               <UserIcon className="w-5 h-5 group-hover:text-primary transition-colors" />
-              <span className="font-bold uppercase tracking-widest text-xs">
-                {t('my_account')}
-              </span>
+              <span className="font-bold uppercase tracking-widest text-xs">{t('my_account')}</span>
               <ChevronRight className="w-4 h-4 ml-auto opacity-20 group-hover:opacity-100 transition-all" />
             </Link>
             {user?.referralData?.referralCode && (
               <div className="p-4 rounded-app bg-white/5 border border-white/5">
-                <ReferralLink 
-                  code={user.referralData.referralCode} 
-                  align="center" 
+                <ReferralLink
+                  code={user.referralData.referralCode}
+                  align="center"
                   className="w-full"
                 />
               </div>

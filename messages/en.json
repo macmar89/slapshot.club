@@ -13,6 +13,7 @@
   "Dashboard": {
     "nav": {
       "overview": "Overview",
+      "arena": "Arena",
       "matches": "Matches",
       "tables": "Tables",
       "teams": "Teams",

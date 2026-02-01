@@ -28,7 +28,7 @@ export function UpcomingMatches({ upcomingMatches, competition, locale }: Upcomi
 
   return (
     <>
-      <IceGlassCard className="p-8 relative overflow-hidden" withGradient>
+      <IceGlassCard className="p-4 md:p-8 relative overflow-hidden" withGradient>
         <div className="absolute -right-4 -top-4 opacity-5 pointer-events-none">
           <Zap className="w-64 h-64" />
         </div>

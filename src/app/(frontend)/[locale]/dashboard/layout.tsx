@@ -15,6 +15,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <Header />
       <MobileTabNav />
 
+      {/* Bottom Fade Gradient for Mobile - Taller and Smoother */}
+      <div className="fixed bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-slate-950 via-slate-950/80 via-slate-950/40 to-transparent pointer-events-none z-40 lg:hidden" />
+
       {/* Floating Sidebar - Left side, detached from edges */}
       <aside className="fixed left-4 top-20 bottom-4 w-64 z-40 hidden lg:block">
         <IceGlassCard className="h-full w-full flex flex-col p-4" backdropBlur="md">
@@ -31,7 +34,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </aside>
 
       {/* Main Content Area */}
-      <main className="pt-4 md:pt-20 lg:pl-72 min-h-screen">
+      <main className="pt-4 md:pt-20 lg:pl-72 min-h-screen pb-32 md:pb-0">
         <Container className="h-full">{children}</Container>
       </main>
     </div>

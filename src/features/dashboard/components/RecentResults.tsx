@@ -8,7 +8,7 @@ interface RecentResultsProps {
 
 export function RecentResults({ recentPredictions }: RecentResultsProps) {
   return (
-    <IceGlassCard className="p-6">
+    <IceGlassCard className="p-4 md:p-6">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-sm font-black uppercase tracking-widest text-white/60">
           Posledné výsledky

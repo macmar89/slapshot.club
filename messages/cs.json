@@ -13,6 +13,7 @@
   "Dashboard": {
     "nav": {
       "overview": "Přehled",
+      "arena": "Aréna",
       "matches": "Zápasy",
       "tables": "Tabulky",
       "teams": "Týmy",

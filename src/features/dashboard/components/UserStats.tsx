@@ -8,7 +8,7 @@ interface UserStatsProps {
 
 export function UserStats({ leaderboardEntry }: UserStatsProps) {
   return (
-    <IceGlassCard className="p-6">
+    <IceGlassCard className="p-4 md:p-6">
       <h2 className="text-sm font-black uppercase tracking-widest text-white/60 mb-6">
         Detailné Štatistiky
       </h2>

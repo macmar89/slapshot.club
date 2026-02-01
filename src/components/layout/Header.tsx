@@ -1,6 +1,9 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
+import logo from '@/assets/images/logo/ssc_logo_2.png'
+
 import { Link } from '@/i18n/routing'
 import { useLocale } from 'next-intl'
 import { getCurrentUser } from '@/features/auth/actions'
@@ -24,7 +27,7 @@ export function Header({ title }: HeaderProps) {
   const params = useParams()
   const slug = params?.slug as string
   const locale = useLocale()
-  
+
   const [user, setUser] = React.useState<any>(null)
   const [upcomingMatches, setUpcomingMatches] = React.useState<any[]>([])
   const [isProfileOpen, setIsProfileOpen] = React.useState(false)
@@ -78,12 +81,12 @@ export function Header({ title }: HeaderProps) {
         try {
           const { getMatchesAction } = await import('@/features/matches/actions')
           const { matches, userPredictions } = await getMatchesAction(slug)
-          
+
           // Filter: Not finished, no prediction, and close in time
-          const tippedMatchIds = new Set(userPredictions.map((p: any) => 
-            typeof p.match === 'string' ? p.match : p.match.id
-          ))
-          
+          const tippedMatchIds = new Set(
+            userPredictions.map((p: any) => (typeof p.match === 'string' ? p.match : p.match.id)),
+          )
+
           const now = new Date()
           const toTip = matches
             .filter((m: any) => {
@@ -145,27 +148,35 @@ export function Header({ title }: HeaderProps) {
     <>
       <InitializationOverlay isVisible={!!(slug && isInitializing)} />
 
-      <header className="fixed top-0 left-0 right-0 h-16 z-50 border-b border-white/10 bg-black/20 backdrop-blur-md hidden md:block">
-        <Container className="flex items-center h-full gap-4">
+      <header className="fixed top-0 left-0 right-0 h-16 z-50 border-b border-white/10 bg-black/20 backdrop-blur-lg hidden md:block">
+        <Container className="flex items-center h-full gap-4 max-w-auto">
           <Link
-            href="/lobby"
-            className="text-xl font-bold text-white tracking-widest uppercase hover:opacity-80 transition-opacity group flex items-center gap-2 mr-4"
+            href={(slug ? `/dashboard/${slug}` : '/lobby') as any}
+            className="relative h-16 w-60 mr-8 group flex items-center"
           >
-            {title || 'Slapshot Club'}
-            <span className="px-1.5 py-0.5 text-[10px] font-black bg-warning text-black rounded-md tracking-normal normal-case shadow-[0_0_10px_rgba(var(--warning-rgb),0.3)]">
-              BETA
-            </span>
+            <div className="absolute top-0 left-0 h-32 flex items-center pointer-events-none transition-all duration-300 group-hover:-translate-y-1">
+              <Image
+                src={logo}
+                alt="Slapshot Club"
+                width={240}
+                height={128}
+                className="h-full w-auto object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.6)] group-hover:drop-shadow-[0_15px_25px_rgba(var(--warning-rgb),0.25)]"
+                priority
+              />
+              <span className="absolute -right-4 top-8 px-2 py-0.5 text-[10px] font-black bg-warning text-black rounded-md tracking-normal normal-case shadow-[0_0_20px_rgba(var(--warning-rgb),0.5)] rotate-12 group-hover:rotate-0 transition-transform duration-300">
+                BETA
+              </span>
+            </div>
           </Link>
-
           {/* Desktop View */}
           <div className="ml-auto hidden md:flex items-center gap-4">
-            <LeagueSwitcher
+            {/* <LeagueSwitcher
               slug={slug}
               effectiveLeagueId={effectiveLeagueId}
               selectedLeague={selectedLeague}
               leagues={leagues}
               onLeagueChange={handleLeagueChange}
-            />
+            /> */}
 
             <UserProfileDrawer
               user={user}
