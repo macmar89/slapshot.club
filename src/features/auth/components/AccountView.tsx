@@ -27,6 +27,13 @@ interface AccountViewProps {
       number?: string
       style?: string
     }
+    referralData?: {
+      referralCode?: string
+      stats?: {
+        totalRegistered?: number
+        totalPaid?: number
+      }
+    }
   }
   countries: Array<{ id: number; name: string; code: string }>
 }

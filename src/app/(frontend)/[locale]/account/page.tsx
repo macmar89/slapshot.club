@@ -25,7 +25,8 @@ export default async function AccountPage({ params }: { params: Promise<{ locale
     collection: 'countries',
     limit: 100,
     sort: 'name',
-    locale: locale as any,
+    // Payload uses 'cz' for Czech, routing uses 'cs'
+    locale: (locale === 'cs' ? 'cz' : locale) as any,
   })
 
   const plainUser = {
@@ -34,6 +35,7 @@ export default async function AccountPage({ params }: { params: Promise<{ locale
     email: user.email,
     location: (user as any).location,
     jersey: (user as any).jersey,
+    referralData: (user as any).referralData,
   }
 
   return (

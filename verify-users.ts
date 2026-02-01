@@ -7,8 +7,6 @@ dotenv.config()
 async function run() {
   const payload = await getPayload({ config })
 
-  console.log('--- Manually Verifying Users ---')
-
   try {
     const users = await payload.find({
       collection: 'users',
@@ -21,8 +19,6 @@ async function run() {
       },
     })
 
-    console.log(`Found ${users.totalDocs} unverified users.`)
-
     for (const user of users.docs) {
       await payload.update({
         collection: 'users',
@@ -31,10 +27,8 @@ async function run() {
           _verified: true,
         },
       })
-      console.log(`User ${user.username} (${user.email}) is now verified.`)
     }
 
-    console.log('--- Verification Completed ---')
     process.exit(0)
   } catch (err) {
     console.error('Manual verification failed:', err)

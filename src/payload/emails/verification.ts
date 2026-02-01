@@ -11,11 +11,29 @@ interface VerificationEmailData {
   }
 }
 
-export const renderVerificationEmail = ({ token, user }: VerificationEmailData) => {
-  const lang = user.preferredLanguage === 'en' ? 'en' : 'sk'
-  const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/${lang}/verify?token=${token}&email=${encodeURIComponent(user.email)}`
+import csTranslations from '../../../messages/cs.json'
 
-  const translations = lang === 'en' ? enTranslations : skTranslations
+interface VerificationEmailData {
+  token: string
+  user: {
+    username: string
+    email: string
+    preferredLanguage?: string
+  }
+}
+
+const getTranslations = (lang?: string) => {
+  if (lang === 'en') return enTranslations
+  if (lang === 'cz' || lang === 'cs') return csTranslations
+  return skTranslations
+}
+
+export const renderVerificationEmail = ({ token, user }: VerificationEmailData) => {
+  const lang = user.preferredLanguage || 'sk'
+  const urlLocale = lang === 'cz' ? 'cs' : lang // URL needs 'cs'
+  const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/${urlLocale}/verify?token=${token}&email=${encodeURIComponent(user.email)}`
+
+  const translations = getTranslations(lang)
   const emailT = (translations as any).Email.verification
 
   // Simple template helper to replace {username} in strings
@@ -42,7 +60,6 @@ export const renderVerificationEmail = ({ token, user }: VerificationEmailData) 
 }
 
 export const getVerificationSubject = (user: any) => {
-  const lang = user.preferredLanguage === 'en' ? 'en' : 'sk'
-  const translations = lang === 'en' ? enTranslations : skTranslations
+  const translations = getTranslations(user.preferredLanguage)
   return (translations as any).Email.verification.subject
 }

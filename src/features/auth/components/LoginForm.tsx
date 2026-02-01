@@ -30,7 +30,7 @@ export const LoginForm = () => {
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: '',
+      identifier: '',
       password: '',
       turnstileToken: '',
     },
@@ -74,27 +74,27 @@ export const LoginForm = () => {
 
         <div className="space-y-2 text-left">
           <label
-            htmlFor="email"
+            htmlFor="identifier"
             className="text-xs font-medium text-white/80 uppercase tracking-wider ml-1"
           >
-            {t('email')}
+            {t('email_or_username')}
           </label>
           <input
-            id="email"
-            type="email"
+            id="identifier"
+            type="text"
             placeholder={t('email_placeholder')}
             disabled={isLoading}
-            {...register('email')}
+            {...register('identifier')}
             className={cn(
               'w-full px-4 py-3 rounded-app outline-none transition-all duration-200',
               'bg-white/5 border border-white/10 text-white placeholder:text-white/30',
               'focus:bg-white/10 focus:border-white/30 focus:ring-1 focus:ring-white/30',
               'hover:bg-white/10 hover:border-white/20',
               isLoading && 'opacity-50 cursor-not-allowed',
-              errors.email && 'border-red-500 focus:border-red-500 focus:ring-red-500',
+              errors.identifier && 'border-red-500 focus:border-red-500 focus:ring-red-500',
             )}
           />
-          {errors.email && <p className="text-red-500 text-xs ml-1">{errors.email.message}</p>}
+          {errors.identifier && <p className="text-red-500 text-xs ml-1">{errors.identifier.message}</p>}
         </div>
 
         <PasswordInput

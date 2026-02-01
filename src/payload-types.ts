@@ -218,6 +218,26 @@ export interface User {
      */
     region?: (number | null) | Region;
   };
+  referralData?: {
+    /**
+     * Unikátny kód pre pozývanie nových používateľov.
+     */
+    referralCode?: string | null;
+    /**
+     * Používateľ, ktorý odporučil tohto člena.
+     */
+    referredBy?: (string | null) | User;
+    stats?: {
+      /**
+       * Počet registrovaných cez tento kód.
+       */
+      totalRegistered?: number | null;
+      /**
+       * Počet platiacich (Pro/VIP) z registrovaných.
+       */
+      totalPaid?: number | null;
+    };
+  };
   /**
    * Vlastný dres používateľa
    */
@@ -799,6 +819,18 @@ export interface UsersSelect<T extends boolean = true> {
         country?: T;
         customCountry?: T;
         region?: T;
+      };
+  referralData?:
+    | T
+    | {
+        referralCode?: T;
+        referredBy?: T;
+        stats?:
+          | T
+          | {
+              totalRegistered?: T;
+              totalPaid?: T;
+            };
       };
   jersey?:
     | T

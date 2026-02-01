@@ -14,6 +14,7 @@ export const Users: CollectionConfig = {
     defaultColumns: ['username', 'email', 'role'],
   },
   auth: {
+    tokenExpiration: process.env.SESSION_EXPIRATION_SECONDS ? parseInt(process.env.SESSION_EXPIRATION_SECONDS) : 7200,
     verify: {
       generateEmailHTML: (args) => renderVerificationEmail(args),
       generateEmailSubject: ({ user }) => getVerificationSubject(user),
@@ -277,6 +278,54 @@ export const Users: CollectionConfig = {
       ],
     },
     {
+      name: 'referralData',
+      type: 'group',
+      label: 'Referral System',
+      admin: {
+        position: 'sidebar',
+      },
+      fields: [
+        {
+          name: 'referralCode',
+          type: 'text',
+          unique: true,
+          index: true,
+          admin: {
+            readOnly: true,
+            description: 'Unikátny kód pre pozývanie nových používateľov.',
+          },
+        },
+        {
+          name: 'referredBy',
+          type: 'relationship',
+          relationTo: 'users',
+          admin: {
+            readOnly: true,
+            description: 'Používateľ, ktorý odporučil tohto člena.',
+          },
+        },
+        {
+          name: 'stats',
+          type: 'group',
+          label: 'Štatistiky',
+          fields: [
+            {
+              name: 'totalRegistered',
+              type: 'number',
+              defaultValue: 0,
+              admin: { readOnly: true, description: 'Počet registrovaných cez tento kód.' },
+            },
+            {
+              name: 'totalPaid',
+              type: 'number',
+              defaultValue: 0,
+              admin: { readOnly: true, description: 'Počet platiacich (Pro/VIP) z registrovaných.' },
+            },
+          ],
+        },
+      ],
+    },
+    {
       name: 'jersey',
       type: 'group',
       label: 'Dres',
@@ -367,4 +416,103 @@ export const Users: CollectionConfig = {
       },
     },
   ],
+  hooks: {
+    beforeChange: [
+      async ({ data, operation }) => {
+        if (operation === 'create' && !data.referralData?.referralCode) {
+          // Generate unique referral code
+          const code = createId().slice(0, 8)
+          
+          data.referralData = {
+            ...data.referralData,
+            referralCode: code,
+          }
+        }
+        return data
+      },
+    ],
+    afterChange: [
+      async ({ doc, operation, req, previousDoc }) => {
+        // 1. New Registration Tracking
+        if (operation === 'create' && (doc as any).referralData?.referredBy) {
+          try {
+            const referrerId = typeof (doc as any).referralData.referredBy === 'object' 
+              ? (doc as any).referralData.referredBy.id 
+              : (doc as any).referralData.referredBy
+
+            // Prevent self-referral (should be handled in frontend/action too, but safety net)
+            if (referrerId === doc.id) return
+
+            const referrer = await req.payload.findByID({
+              collection: 'users',
+              id: referrerId,
+            })
+
+            if (referrer) {
+              // Execute update asynchronously without blocking the main hook
+              // and without sharing the transaction to avoid deadlocks.
+               req.payload.update({
+                collection: 'users',
+                id: referrerId,
+                data: {
+                  referralData: {
+                    ...(referrer as any).referralData,
+                    stats: {
+                      ...(referrer as any).referralData?.stats,
+                      totalRegistered: ((referrer as any).referralData?.stats?.totalRegistered || 0) + 1,
+                    },
+                  },
+                } as any,
+                overrideAccess: true, 
+              }).catch(err => {
+                 req.payload.logger.error({ msg: 'Error updating referrer stats (async)', err })
+              })
+            }
+          } catch (error) {
+            req.payload.logger.error({ msg: 'Error setup referrer update', error })
+          }
+        }
+
+        // 2. Paid Upgrade Tracking
+        if (operation === 'update') {
+          const isNowPaid = (doc as any).subscription?.plan === 'pro' || (doc as any).subscription?.plan === 'vip'
+          const wasPaid = (previousDoc as any)?.subscription?.plan === 'pro' || (previousDoc as any)?.subscription?.plan === 'vip'
+
+          // If user surely upgraded just now
+          if (isNowPaid && !wasPaid && (doc as any).referralData?.referredBy) {
+             try {
+              const referrerId = typeof (doc as any).referralData.referredBy === 'object' 
+                ? (doc as any).referralData.referredBy.id 
+                : (doc as any).referralData.referredBy
+
+              if (referrerId === doc.id) return
+
+              const referrer = await req.payload.findByID({
+                collection: 'users',
+                id: referrerId,
+              })
+
+              if (referrer) {
+                await req.payload.update({
+                  collection: 'users',
+                  id: referrerId,
+                  data: {
+                    referralData: {
+                      ...(referrer as any).referralData,
+                      stats: {
+                        ...(referrer as any).referralData?.stats,
+                        totalPaid: ((referrer as any).referralData?.stats?.totalPaid || 0) + 1,
+                      },
+                    },
+                  } as any,
+                })
+              }
+            } catch (error) {
+               req.payload.logger.error({ msg: 'Error updating referrer stats (upgrade)', error })
+            }
+          }
+        }
+      },
+    ],
+  },
 }

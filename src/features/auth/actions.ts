@@ -17,6 +17,23 @@ export const loginUser = async (data: LoginFormData) => {
     }
   }
 
+  const payload = await getPayload({ config })
+  let email = data.identifier
+
+  // If identifier doesn't look like an email, try to find user by username
+  if (!data.identifier.includes('@')) {
+    const { docs } = await payload.find({
+      collection: 'users',
+      where: {
+        username: { equals: data.identifier },
+      },
+    })
+
+    if (docs.length > 0) {
+      email = docs[0].email
+    }
+  }
+
   // We call the API because the client expects a Response-like object
   // or we can just proxy it.
   const res = await fetch(
@@ -27,7 +44,7 @@ export const loginUser = async (data: LoginFormData) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email: data.email,
+        email,
         password: data.password,
       }),
     },
@@ -45,11 +62,15 @@ export const loginUser = async (data: LoginFormData) => {
     if (setCookie) {
       const tokenMatch = setCookie.match(/payload-token=([^;]+)/)
       if (tokenMatch) {
+        const expiration = process.env.SESSION_EXPIRATION_SECONDS
+          ? parseInt(process.env.SESSION_EXPIRATION_SECONDS)
+          : 7200
         cookieStore.set('payload-token', tokenMatch[1], {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           sameSite: 'lax',
           path: '/',
+          maxAge: expiration,
         })
       }
     }
@@ -98,6 +119,19 @@ export const registerUser = async (data: RegisterFormData) => {
     }
   }
 
+  let referredBy: string | undefined
+  if (data.referralCode) {
+    const { docs: referrers } = await payload.find({
+      collection: 'users',
+      where: {
+        'referralData.referralCode': { equals: data.referralCode },
+      },
+    })
+    if (referrers.length > 0) {
+      referredBy = referrers[0].id
+    }
+  }
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}/api/users`,
     {
@@ -111,7 +145,15 @@ export const registerUser = async (data: RegisterFormData) => {
         username: data.username,
         gdprConsent: data.gdprConsent,
         marketingConsent: data.marketingConsent,
+        preferredLanguage: data.preferredLanguage === 'cs' ? 'cz' : data.preferredLanguage, // Map 'cs' to 'cz' for Payload
         marketingConsentDate: data.marketingConsent ? new Date().toISOString() : undefined,
+        // Ensure referralData is a full object or undefined, to avoid validation issues
+        referralData: referredBy 
+          ? { 
+              referredBy,
+              // We omit referralCode here so the beforeChange hook generates it
+            } 
+          : undefined,
         ...(process.env.REGISTRER_PROMO === 'true'
           ? {
               subscription: {
@@ -134,11 +176,15 @@ export const registerUser = async (data: RegisterFormData) => {
     if (setCookie) {
       const tokenMatch = setCookie.match(/payload-token=([^;]+)/)
       if (tokenMatch) {
+        const expiration = process.env.SESSION_EXPIRATION_SECONDS
+          ? parseInt(process.env.SESSION_EXPIRATION_SECONDS)
+          : 7200
         cookieStore.set('payload-token', tokenMatch[1], {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           sameSite: 'lax',
           path: '/',
+          maxAge: expiration,
         })
       }
     }

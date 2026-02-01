@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const loginSchema = z.object({
-  email: z.string().email('Zadajte platný email'),
+  identifier: z.string().min(3, 'Zadajte email alebo užívateľské meno'),
   password: z.string().min(1, 'Zadajte heslo'),
   turnstileToken: z.string().min(1, 'Potvrďte, že nie ste robot'),
 })
@@ -25,6 +25,8 @@ export const registerSchema = z.object({
     message: 'Musíte súhlasiť so spracovaním osobných údajov (GDPR)',
   }),
   marketingConsent: z.boolean(),
+  referralCode: z.string().optional(),
+  preferredLanguage: z.string().optional(),
 })
 
 export const forgotPasswordSchema = z.object({

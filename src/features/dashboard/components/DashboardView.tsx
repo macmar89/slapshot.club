@@ -2,13 +2,15 @@
 
 import React from 'react'
 import type { Competition, User, LeaderboardEntry, Match, Prediction } from '@/payload-types'
+import { useTranslations } from 'next-intl'
 import { DashboardHeader } from './DashboardHeader'
 import { UserHeroCard } from './UserHeroCard'
 import { UpcomingMatches } from './UpcomingMatches'
 import { RecentResults } from './RecentResults'
 import { UserStats } from './UserStats'
-import { MiniLeaderboard } from './MiniLeaderboard'
 import { CompetitionSummary } from './CompetitionSummary'
+import { ReferralLink } from '@/features/auth/components/ReferralLink'
+import { IceGlassCard } from '@/components/ui/IceGlassCard'
 
 interface DashboardViewProps {
   competition: Competition
@@ -29,6 +31,8 @@ export function DashboardView({
   upcomingMatches,
   recentPredictions,
 }: DashboardViewProps) {
+  const t = useTranslations('Account')
+  
   return (
     <div className="space-y-6">
       {/* Row 1: Header and Hero Card */}
@@ -49,13 +53,19 @@ export function DashboardView({
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <RecentResults recentPredictions={recentPredictions} />
         <UserStats leaderboardEntry={leaderboardEntry} />
-        <MiniLeaderboard
-          neighbors={neighbors}
-          user={user}
-          competitionId={competition.id}
-          locale={locale}
-          leaderboardEntry={leaderboardEntry}
-        />
+        <IceGlassCard className="p-6 flex flex-col justify-center">
+          {user?.referralData?.referralCode ? (
+            <ReferralLink 
+              code={user.referralData.referralCode} 
+              align="center" 
+              className="w-full"
+            />
+          ) : (
+             <div className="text-center py-6 text-white/20 text-xs font-bold uppercase tracking-[0.2em]">
+                {t('referral_not_available')}
+             </div>
+          )}
+        </IceGlassCard>
       </div>
 
       {/* Row 4: Competition Info */}

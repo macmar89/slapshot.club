@@ -18,6 +18,7 @@ export const routing = defineRouting({
     '/dashboard': '/dashboard',
     '/login': '/login',
     '/register': '/register',
+    '/register/[referralCode]': '/register/[referralCode]',
     '/forgot-password': '/forgot-password',
     '/account': '/account',
     // Dashboard subroutes

@@ -8,7 +8,7 @@ import Image from 'next/image'
 import { Zap } from 'lucide-react'
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
 
-export const RegisterView = () => {
+export const RegisterView = ({ referralCode }: { referralCode?: string }) => {
   const t = useTranslations('Login')
 
   return (
@@ -23,7 +23,7 @@ export const RegisterView = () => {
           <div className="w-full max-w-md animate-in fade-in slide-in-from-left duration-1000">
             <IceGlassCard className="p-0 sm:p-0 border-0" backdropBlur="xl">
               <div className="flex flex-col items-center w-full bg-white/5 rounded-2xl p-6 border border-white/5 shadow-inner relative z-10">
-                <RegisterForm />
+                <RegisterForm referralCode={referralCode} />
               </div>
             </IceGlassCard>
           </div>

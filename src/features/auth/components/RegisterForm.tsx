@@ -16,9 +16,9 @@ import {
 } from '@/components/ui/Dialog'
 import { registerUser } from '@/features/auth/actions'
 import { registerSchema, type RegisterFormData } from '@/features/auth/schema'
-import { useTranslations } from 'next-intl'
-import { Turnstile } from '@/components/auth/Turnstile'
 import { Link } from '@/i18n/routing'
+import { useTranslations, useLocale } from 'next-intl'
+import { Turnstile } from '@/components/auth/Turnstile'
 import { AvailabilityInput } from './AvailabilityInput'
 import { PasswordInput } from './PasswordInput'
 import dynamic from 'next/dynamic'
@@ -28,7 +28,7 @@ const GdprModalContent = dynamic(
   { ssr: false }
 )
 
-export const RegisterForm = () => {
+export const RegisterForm = ({ referralCode }: { referralCode?: string }) => {
   const router = useRouter()
   const t = useTranslations('Auth')
 
@@ -54,15 +54,21 @@ export const RegisterForm = () => {
       turnstileToken: '',
       gdprConsent: false,
       marketingConsent: false,
+      referralCode: referralCode || '',
     },
   })
+
+  const locale = useLocale()
 
   const onSubmit = async (data: RegisterFormData) => {
     setIsLoading(true)
     setError(null)
 
     try {
-      const res = await registerUser(data)
+      const res = await registerUser({
+        ...data,
+        preferredLanguage: locale,
+      })
 
       if (res.ok) {
         setIsSuccess(true)
