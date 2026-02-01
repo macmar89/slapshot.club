@@ -39,7 +39,7 @@ export function ArenaView({ user, competitions, joinedCompetitionIds }: ArenaVie
       <Header />
       <div className="pt-20 md:pt-16" />
 
-      <h1 className="text-xl md:text-3xl text-white/50 font-medium  text-center mb-8">
+      <h1 className="text-xl md:text-3xl text-white font-medium  text-center mb-8">
         {t('welcome', { username: user.username || user.email })}
       </h1>
 
