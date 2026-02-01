@@ -34,7 +34,7 @@ export const RegisterView = ({ referralCode }: { referralCode?: string }) => {
         <div className="w-full lg:w-1/2 relative min-h-[40vh] lg:min-h-screen order-1 lg:order-2 overflow-hidden">
           <div className="relative z-20 h-full flex flex-col items-center lg:items-end justify-center p-8 sm:p-12 lg:p-24 text-right">
             <div className="space-y-4 animate-in fade-in slide-in-from-right duration-1000">
-              <div className="relative w-48 h-24 mb-6 mx-auto lg:mx-0 lg:ml-auto animate-in fade-in slide-in-from-top-4 duration-700">
+              <div className="relative w-64 h-32 mb-8 mx-auto lg:mx-0 lg:ml-auto animate-in fade-in slide-in-from-top-4 duration-700">
                 <Image
                   src={logo}
                   alt="Slapshot Club"

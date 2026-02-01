@@ -46,7 +46,7 @@ export const ForgotPasswordView = () => {
       <div className="relative z-10 w-full max-w-6xl px-6 py-12 flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
         {/* Left Column: Marketing / Branding */}
         <div className="flex-1 text-center lg:text-left">
-          <div className="relative w-48 h-24 mb-6 mx-auto lg:mx-0 animate-in fade-in slide-in-from-top-4 duration-700">
+          <div className="relative w-64 h-32 mb-8 mx-auto lg:mx-0 animate-in fade-in slide-in-from-top-4 duration-700">
             <Image
               src={logo}
               alt="Slapshot Club"
@@ -69,26 +69,6 @@ export const ForgotPasswordView = () => {
           <p className="text-xl text-white/50 max-w-xl mb-12 leading-relaxed">
             {t('hero.description')}
           </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl">
-            {features.map((feature, i) => (
-              <div
-                key={feature.title}
-                className="flex items-start gap-4 group animate-in slide-in-from-left duration-1000 fill-mode-backwards"
-                style={{ animationDelay: `${(i + 1) * 150}ms` }}
-              >
-                <div className="mt-1 p-3 rounded-xl bg-white/5 border border-white/10 group-hover:bg-primary/20 group-hover:border-primary/30 transition-all duration-300">
-                  <feature.icon className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-white font-bold uppercase text-sm tracking-widest mb-1">
-                    {feature.title}
-                  </h3>
-                  <p className="text-white/40 text-sm leading-snug">{feature.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* Right Column: Forgot Password Form */}
