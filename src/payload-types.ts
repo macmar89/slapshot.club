@@ -84,6 +84,8 @@ export interface Config {
     announcements: Announcement;
     countries: Country;
     regions: Region;
+    badges: Badge;
+    'badge-media': BadgeMedia;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -108,6 +110,8 @@ export interface Config {
     announcements: AnnouncementsSelect<false> | AnnouncementsSelect<true>;
     countries: CountriesSelect<false> | CountriesSelect<true>;
     regions: RegionsSelect<false> | RegionsSelect<true>;
+    badges: BadgesSelect<false> | BadgesSelect<true>;
+    'badge-media': BadgeMediaSelect<false> | BadgeMediaSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -248,6 +252,10 @@ export interface User {
     number?: string | null;
     style?: ('classic' | 'modern') | null;
   };
+  /**
+   * Získané odznaky používateľa.
+   */
+  badges?: (string | Badge)[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -292,6 +300,77 @@ export interface Region {
   country: number | Country;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "badges".
+ */
+export interface Badge {
+  id: string;
+  /**
+   * Unikátny identifikátor pre systémové prideľovanie (napr. beta-tester, referral-1)
+   */
+  slug: string;
+  name: string;
+  /**
+   * Podmienky získania odznaku
+   */
+  description?: string | null;
+  iconType?: ('lucide' | 'upload') | null;
+  /**
+   * Názov ikonky z lucide-react
+   */
+  iconLucide?: string | null;
+  iconMedia?: (string | null) | BadgeMedia;
+  /**
+   * Váha pre výpočet prestíže (1-10)
+   */
+  weight?: number | null;
+  rarity?: ('bronze' | 'silver' | 'gold' | 'platinum') | null;
+  /**
+   * Určuje, či ho prideľuje systém automaticky
+   */
+  isAutomatic?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "badge-media".
+ */
+export interface BadgeMedia {
+  id: string;
+  alt: string;
+  prefix?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    badge?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -733,6 +812,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'regions';
         value: number | Region;
+      } | null)
+    | ({
+        relationTo: 'badges';
+        value: string | Badge;
+      } | null)
+    | ({
+        relationTo: 'badge-media';
+        value: string | BadgeMedia;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -841,6 +928,7 @@ export interface UsersSelect<T extends boolean = true> {
         number?: T;
         style?: T;
       };
+  badges?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -1165,6 +1253,68 @@ export interface RegionsSelect<T extends boolean = true> {
   country?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "badges_select".
+ */
+export interface BadgesSelect<T extends boolean = true> {
+  id?: T;
+  slug?: T;
+  name?: T;
+  description?: T;
+  iconType?: T;
+  iconLucide?: T;
+  iconMedia?: T;
+  weight?: T;
+  rarity?: T;
+  isAutomatic?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "badge-media_select".
+ */
+export interface BadgeMediaSelect<T extends boolean = true> {
+  id?: T;
+  alt?: T;
+  prefix?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        thumbnail?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        badge?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

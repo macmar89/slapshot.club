@@ -6,6 +6,7 @@ import {
   renderForgotPasswordEmail,
   getForgotPasswordSubject,
 } from '../payload/emails/forgot-password'
+import { BADGE_SLUGS } from '../lib/constants'
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -375,6 +376,16 @@ export const Users: CollectionConfig = {
         }
       ]
     },
+    {
+      name: 'badges',
+      type: 'relationship',
+      relationTo: 'badges',
+      hasMany: true,
+      admin: {
+        position: 'sidebar',
+        description: 'Získané odznaky používateľa.',
+      },
+    },
   ],
   endpoints: [
     {
@@ -433,14 +444,13 @@ export const Users: CollectionConfig = {
     ],
     afterChange: [
       async ({ doc, operation, req, previousDoc }) => {
-        // 1. New Registration Tracking
+        // --- 1. REFERRAL TRACKING (Original Logic) ---
         if (operation === 'create' && (doc as any).referralData?.referredBy) {
           try {
             const referrerId = typeof (doc as any).referralData.referredBy === 'object' 
               ? (doc as any).referralData.referredBy.id 
               : (doc as any).referralData.referredBy
 
-            // Prevent self-referral (should be handled in frontend/action too, but safety net)
             if (referrerId === doc.id) return
 
             const referrer = await req.payload.findByID({
@@ -449,9 +459,7 @@ export const Users: CollectionConfig = {
             })
 
             if (referrer) {
-              // Execute update asynchronously without blocking the main hook
-              // and without sharing the transaction to avoid deadlocks.
-               req.payload.update({
+              req.payload.update({
                 collection: 'users',
                 id: referrerId,
                 data: {
@@ -473,44 +481,124 @@ export const Users: CollectionConfig = {
           }
         }
 
-        // 2. Paid Upgrade Tracking
-        if (operation === 'update') {
-          const isNowPaid = (doc as any).subscription?.plan === 'pro' || (doc as any).subscription?.plan === 'vip'
-          const wasPaid = (previousDoc as any)?.subscription?.plan === 'pro' || (previousDoc as any)?.subscription?.plan === 'vip'
+        // --- 2. AUTOMATIC BADGES ASSIGNMENT ---
+        const userBadges = (doc.badges || []) as any[]
+        const newUserBadges = [...userBadges]
+        let hasBadgeChanges = false
 
-          // If user surely upgraded just now
-          if (isNowPaid && !wasPaid && (doc as any).referralData?.referredBy) {
-             try {
-              const referrerId = typeof (doc as any).referralData.referredBy === 'object' 
-                ? (doc as any).referralData.referredBy.id 
-                : (doc as any).referralData.referredBy
+        // A. BETA TESTER (Only for new users in BETA mode)
+        if (operation === 'create' && process.env.APP_STATUS === 'BETA') {
+          const betaBadge = await req.payload.find({
+            collection: 'badges',
+            where: { slug: { equals: BADGE_SLUGS.BETA_TESTER } },
+            limit: 1,
+          })
 
-              if (referrerId === doc.id) return
-
-              const referrer = await req.payload.findByID({
-                collection: 'users',
-                id: referrerId,
-              })
-
-              if (referrer) {
-                await req.payload.update({
-                  collection: 'users',
-                  id: referrerId,
-                  data: {
-                    referralData: {
-                      ...(referrer as any).referralData,
-                      stats: {
-                        ...(referrer as any).referralData?.stats,
-                        totalPaid: ((referrer as any).referralData?.stats?.totalPaid || 0) + 1,
-                      },
-                    },
-                  } as any,
-                })
-              }
-            } catch (error) {
-               req.payload.logger.error({ msg: 'Error updating referrer stats (upgrade)', error })
+          if (betaBadge.docs.length > 0) {
+            const badgeId = betaBadge.docs[0].id
+            if (!newUserBadges.some(b => (typeof b === 'object' ? b.id : b) === badgeId)) {
+              newUserBadges.push(badgeId)
+              hasBadgeChanges = true
             }
           }
+        }
+
+        // B. REFERRAL TIERS (For all users during any update)
+        // Note: We check if totalRegistered changed or if it's a regular check
+        const totalRegistered = (doc as any).referralData?.stats?.totalRegistered || 0
+        
+        if (totalRegistered >= 3) {
+          // Find all referral badges to know what to replace
+          const referralBadges = await req.payload.find({
+            collection: 'badges',
+            where: {
+              slug: {
+                in: [
+                  BADGE_SLUGS.REFERRAL_TIER_1,
+                  BADGE_SLUGS.REFERRAL_TIER_2,
+                  BADGE_SLUGS.REFERRAL_TIER_3,
+                  BADGE_SLUGS.REFERRAL_TIER_4,
+                ]
+              }
+            }
+          })
+
+          const badgeMap = referralBadges.docs.reduce((acc, b) => {
+            acc[b.slug] = b.id
+            return acc
+          }, {} as Record<string, string>)
+
+          // Helper to check active referrals
+          const getActiveCount = async () => {
+             const referredUsers = await req.payload.find({
+               collection: 'users',
+               where: { 'referralData.referredBy': { equals: doc.id } },
+               limit: 100, // Reasonable limit for now
+             })
+
+             let activeCount = 0
+             for (const u of referredUsers.docs) {
+               const predictions = await req.payload.count({
+                 collection: 'predictions',
+                 where: { user: { equals: u.id } },
+               })
+               if (predictions.totalDocs >= 25) {
+                 activeCount++
+               }
+             }
+             return activeCount
+          }
+
+          let targetBadgeSlug: string | null = null
+          
+          if (totalRegistered >= 20) {
+            const activeCount = await getActiveCount()
+            if (activeCount >= 5) targetBadgeSlug = BADGE_SLUGS.REFERRAL_TIER_4
+          }
+          
+          if (!targetBadgeSlug && totalRegistered >= 10) {
+            const activeCount = await getActiveCount()
+            if (activeCount >= 2) targetBadgeSlug = BADGE_SLUGS.REFERRAL_TIER_3
+          }
+
+          if (!targetBadgeSlug && totalRegistered >= 5) {
+            const activeCount = await getActiveCount()
+            if (activeCount >= 1) targetBadgeSlug = BADGE_SLUGS.REFERRAL_TIER_2
+          }
+
+          if (!targetBadgeSlug && totalRegistered >= 3) {
+            targetBadgeSlug = BADGE_SLUGS.REFERRAL_TIER_1
+          }
+
+          if (targetBadgeSlug) {
+            const targetBadgeId = badgeMap[targetBadgeSlug]
+            const referralBadgeIds = Object.values(badgeMap)
+
+            // Remove existing referral badges
+            const filteredBadges = newUserBadges.filter(b => {
+              const id = typeof b === 'object' ? b.id : b
+              return !referralBadgeIds.includes(id)
+            })
+
+            // Add target badge if not present
+            if (filteredBadges.length !== newUserBadges.length || !newUserBadges.some(b => (typeof b === 'object' ? b.id : b) === targetBadgeId)) {
+                filteredBadges.push(targetBadgeId!)
+                newUserBadges.length = 0
+                newUserBadges.push(...filteredBadges)
+                hasBadgeChanges = true
+            }
+          }
+        }
+
+        if (hasBadgeChanges) {
+          await req.payload.update({
+            collection: 'users',
+            id: doc.id,
+            data: {
+              badges: newUserBadges,
+            } as any,
+            overrideAccess: true,
+          })
         }
       },
     ],

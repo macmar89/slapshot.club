@@ -24,6 +24,8 @@ import { RateLimits } from './collections/RateLimits'
 import { Announcements } from './collections/Announcements'
 import { Countries } from './collections/Countries'
 import { Regions } from './collections/Regions'
+import { Badges } from './collections/Badges'
+import { BadgeMedia } from './collections/BadgeMedia'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -61,6 +63,8 @@ export default buildConfig({
     Announcements,
     Countries,
     Regions,
+    Badges,
+    BadgeMedia,
   ],
   globals: [GeneralSettings],
   editor: lexicalEditor(),
@@ -129,6 +133,12 @@ export default buildConfig({
         },
         'team-logos': {
           prefix: 'team_logo',
+          generateFileURL: ({ filename, prefix }: { filename: string; prefix?: string }) => {
+            return `${process.env.NEXT_PUBLIC_UPLOAD_URL}/${prefix ? `${prefix}/` : ''}${filename}`
+          },
+        },
+        'badge-media': {
+          prefix: 'badge',
           generateFileURL: ({ filename, prefix }: { filename: string; prefix?: string }) => {
             return `${process.env.NEXT_PUBLIC_UPLOAD_URL}/${prefix ? `${prefix}/` : ''}${filename}`
           },
