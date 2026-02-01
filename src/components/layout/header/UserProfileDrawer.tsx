@@ -187,9 +187,14 @@ export function UserProfileDrawer({
 
             <div className="flex items-center justify-between">
               <LogoutButton />
-              <span className="text-[10px] font-black text-white/10 uppercase tracking-[0.5em] italic">
-                SSC v1.0
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-black text-white uppercase tracking-widest">
+                  v1.0.0
+                </span>
+                <span className="px-1.5 py-0.5 text-[8px] font-black bg-warning text-black rounded-sm tracking-normal normal-case">
+                  BETA
+                </span>
+              </div>
             </div>
           </div>
         </div>

@@ -152,6 +152,9 @@ export function Header({ title }: HeaderProps) {
             className="text-xl font-bold text-white tracking-widest uppercase hover:opacity-80 transition-opacity group flex items-center gap-2 mr-4"
           >
             {title || 'Slapshot Club'}
+            <span className="px-1.5 py-0.5 text-[10px] font-black bg-warning text-black rounded-md tracking-normal normal-case shadow-[0_0_10px_rgba(var(--warning-rgb),0.3)]">
+              BETA
+            </span>
           </Link>
 
           {/* Desktop View */}
