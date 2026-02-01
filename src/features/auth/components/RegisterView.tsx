@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { Zap } from 'lucide-react'
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
+import logo from '@/assets/images/logo/ssc_logo_2.png'
 
 export const RegisterView = ({ referralCode }: { referralCode?: string }) => {
   const t = useTranslations('Login')
@@ -33,7 +34,17 @@ export const RegisterView = ({ referralCode }: { referralCode?: string }) => {
         <div className="w-full lg:w-1/2 relative min-h-[40vh] lg:min-h-screen order-1 lg:order-2 overflow-hidden">
           <div className="relative z-20 h-full flex flex-col items-center lg:items-end justify-center p-8 sm:p-12 lg:p-24 text-right">
             <div className="space-y-4 animate-in fade-in slide-in-from-right duration-1000">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-xs font-bold uppercase tracking-widest backdrop-blur-md">
+              <div className="relative w-48 h-24 mb-6 mx-auto lg:mx-0 lg:ml-auto animate-in fade-in slide-in-from-top-4 duration-700">
+                <Image
+                  src={logo}
+                  alt="Slapshot Club"
+                  fill
+                  className="object-contain drop-shadow-[0_0_15px_rgba(234,179,8,0.3)]"
+                  priority
+                />
+              </div>
+
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-xs font-bold uppercase tracking-widest backdrop-blur-md ml-auto">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>

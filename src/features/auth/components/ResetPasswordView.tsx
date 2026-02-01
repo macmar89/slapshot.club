@@ -8,6 +8,7 @@ import { Trophy, Users, Table, Zap } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import bgImage from '@/assets/images/background/ssc_stick.png'
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
+import logo from '@/assets/images/logo/ssc_logo_2.png'
 
 export function ResetPasswordView() {
   const t = useTranslations('Login')
@@ -45,6 +46,16 @@ export function ResetPasswordView() {
       <div className="relative z-10 w-full max-w-6xl px-6 py-12 flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
         {/* Left Column: Marketing / Branding */}
         <div className="flex-1 text-center lg:text-left">
+          <div className="relative w-48 h-24 mb-6 mx-auto lg:mx-0 animate-in fade-in slide-in-from-top-4 duration-700">
+            <Image
+              src={logo}
+              alt="Slapshot Club"
+              fill
+              className="object-contain drop-shadow-[0_0_15px_rgba(234,179,8,0.3)]"
+              priority
+            />
+          </div>
+
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white text-xs font-bold uppercase tracking-[0.2em] mb-8 animate-in slide-in-from-left duration-700 backdrop-blur-md">
             <Zap className="w-3 h-3 fill-white" />
             {t('hero.badge')}
