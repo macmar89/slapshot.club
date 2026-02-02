@@ -77,7 +77,7 @@ export function MobileTabNav() {
         {/* Logo in the center */}
         <div className="flex items-center justify-center -mt-10 px-2 relative z-50">
           <Link
-            href={getHref('/arena') as any}
+            href={`/dashboard/${slug}` as any}
             className="w-24 h-24 flex items-center justify-center rotate-3 animate-in fade-in zoom-in duration-500 group relative z-10"
           >
             <Image
