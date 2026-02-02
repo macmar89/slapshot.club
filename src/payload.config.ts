@@ -26,6 +26,7 @@ import { Countries } from './collections/Countries'
 import { Regions } from './collections/Regions'
 import { Badges } from './collections/Badges'
 import { BadgeMedia } from './collections/BadgeMedia'
+import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -121,6 +122,8 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
+    prodMigrations: migrations,
+    push: process.env.NODE_ENV === 'development' && process.env.PAYLOAD_PUSH !== 'false',
   }),
   sharp,
   plugins: [

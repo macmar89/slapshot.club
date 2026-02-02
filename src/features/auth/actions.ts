@@ -160,7 +160,13 @@ export const registerUser = async (data: RegisterFormData) => {
                 plan: 'pro',
                 planType: 'seasonal',
                 activeFrom: new Date().toISOString(),
-                activeUntil: '2027-08-31T21:59:59.000Z', // Midnight Slovak time
+                activeUntil: (() => {
+                  const now = new Date()
+                  const currentYear = now.getUTCFullYear()
+                  const currentMonth = now.getUTCMonth() // 0-indexed, 8 is September
+                  const expiryYear = currentMonth >= 8 ? currentYear + 1 : currentYear
+                  return `${expiryYear}-08-31T21:59:59.000Z` // Midnight Slovak time
+                })(),
               },
             }
           : {}),
