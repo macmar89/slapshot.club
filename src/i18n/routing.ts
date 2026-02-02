@@ -36,6 +36,7 @@ export const routing = defineRouting({
     '/dashboard/[slug]/matches': '/dashboard/[slug]/matches',
     '/dashboard/[slug]/leaderboard': '/dashboard/[slug]/leaderboard',
     '/arena': '/arena',
+    '/arena/rules': '/arena/rules',
     '/arena/[slug]': '/arena/[slug]',
     // Example from user request
     '/ranking': '/ranking',

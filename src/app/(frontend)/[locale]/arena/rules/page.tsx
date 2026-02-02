@@ -1,15 +1,14 @@
 import React from 'react'
 import { getPayload } from 'payload'
 import config from '@/payload.config'
+import { setRequestLocale } from 'next-intl/server'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { setRequestLocale } from 'next-intl/server'
-import { AccountView } from '@/features/auth/components/AccountView'
+import { RulesView } from '@/features/rules/components/RulesView'
 import { Header } from '@/components/layout/Header'
 import { MainMobileNav } from '@/components/layout/MainMobileNav'
-import type { User } from '@/payload-types'
 
-export default async function AccountPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function ArenaRulesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   setRequestLocale(locale)
 
@@ -21,13 +20,12 @@ export default async function AccountPage({ params }: { params: Promise<{ locale
     redirect('/login')
   }
 
-  // Fetch all countries for the location dropdown
-  const countriesRes = await payload.find({
-    collection: 'countries',
+  // Fetch competitions (limit to 100 for now)
+  const competitions = await payload.find({
+    collection: 'competitions',
+    sort: 'startDate',
     limit: 100,
-    sort: 'name',
-    // Payload uses 'cz' for Czech, routing uses 'cs'
-    locale: (locale === 'cs' ? 'cz' : locale) as any,
+    locale: locale as any,
   })
 
   const plainUser = {
@@ -40,17 +38,14 @@ export default async function AccountPage({ params }: { params: Promise<{ locale
   }
 
   return (
-    <div className="min-h-screen text-white pb-24 md:pb-8">
+    <div className="min-h-screen text-white pb-24 md:pb-8 bg-[radial-gradient(circle_at_top_right,rgba(234,179,8,0.05),transparent),radial-gradient(circle_at_bottom_left,rgba(234,179,8,0.02),transparent)]">
       <Header />
-      <AccountView 
-        user={plainUser} 
-        countries={countriesRes.docs.map(c => ({
-          id: c.id,
-          name: c.name,
-          code: c.code,
-        }))} 
-      />
+      <div className="pt-8 sm:pt-20 md:pt-24" />
+      <main className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+        <RulesView competitions={competitions.docs} />
+      </main>
       <MainMobileNav user={plainUser} />
     </div>
   )
 }
+

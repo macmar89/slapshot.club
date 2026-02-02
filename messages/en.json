@@ -22,6 +22,8 @@
       "rules": "Rules",
       "profile": "Profile",
       "settings": "Settings",
+      "management": "Management",
+      "share_app": "Share app",
       "more": "More",
       "menu": "Menu",
       "feedback": "Feedback"
@@ -208,7 +210,7 @@
     "title": "Welcome to Slapshot Club",
     "welcome": "Welcome back, {username}. Choose your arena.",
     "status": {
-      "active": "● Live",
+      "active": "Ongoing",
       "upcoming": "Upcoming",
       "finished": "Finished"
     },

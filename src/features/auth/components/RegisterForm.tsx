@@ -109,8 +109,8 @@ export const RegisterForm = ({ referralCode }: { referralCode?: string }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm flex flex-col gap-4">
-      <div className="flex flex-col gap-1 text-center mb-2">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm flex flex-col gap-6 pb-2">
+      <div className="flex flex-col gap-1 text-center mb-4">
         <h2 className="text-2xl font-bold text-white tracking-tighter uppercase">
           {t('register_title')}
         </h2>

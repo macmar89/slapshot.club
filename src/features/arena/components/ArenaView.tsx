@@ -5,6 +5,8 @@ import type { Competition, User } from '@/payload-types'
 import { useTranslations } from 'next-intl'
 import { CompetitionCard } from './CompetitionCard'
 import { Header } from '@/components/layout/Header'
+import { UserProfileDrawer } from '@/components/layout/header/UserProfileDrawer'
+import { MainMobileNav } from '@/components/layout/MainMobileNav'
 
 interface ArenaViewProps {
   user: User
@@ -35,9 +37,9 @@ export function ArenaView({ user, competitions, joinedCompetitionIds }: ArenaVie
   )
 
   return (
-    <div className="min-h-screen p-4 md:p-6 lg:p-8 bg-[radial-gradient(circle_at_top_right,rgba(234,179,8,0.05),transparent),radial-gradient(circle_at_bottom_left,rgba(234,179,8,0.02),transparent)] text-white">
+    <div className="min-h-screen p-4 md:p-6 lg:p-8 pb-24 md:pb-8 bg-[radial-gradient(circle_at_top_right,rgba(234,179,8,0.05),transparent),radial-gradient(circle_at_bottom_left,rgba(234,179,8,0.02),transparent)] text-white">
       <Header />
-      <div className="pt-20 md:pt-16" />
+      <div className="sm:pt-20 md:pt-16" />
 
       <h1 className="text-xl md:text-3xl text-white font-medium  text-center mb-8">
         {t('welcome', { username: user.username || user.email })}
@@ -55,7 +57,7 @@ export function ArenaView({ user, competitions, joinedCompetitionIds }: ArenaVie
             <div className="flex items-center gap-6 mb-12">
               <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#eab308]/50 to-transparent shadow-[0_0_10px_rgba(234,179,8,0.3)]" />
               <h2 className="text-2xl font-black uppercase tracking-[0.2em] text-[#eab308] drop-shadow-[0_0_25px_rgba(234,179,8,0.8)] px-4">
-                {t('status.active')}
+                {t('status.active')} 
               </h2>
               <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#eab308]/50 to-transparent shadow-[0_0_10px_rgba(234,179,8,0.3)]" />
             </div>
@@ -66,16 +68,17 @@ export function ArenaView({ user, competitions, joinedCompetitionIds }: ArenaVie
         {upcomingCompetitions.length > 0 && (
           <div className="mb-10 md:mb-16 lg:mb-20">
             <div className="flex items-center gap-4 mb-10">
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-              <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-white/30">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/80 to-transparent" />
+              <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-white">
                 {t('status.upcoming')}
               </h2>
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/80 to-transparent" />
             </div>
             {renderCompetitionGrid(upcomingCompetitions, true)}
           </div>
         )}
       </main>
+      <MainMobileNav user={user} />
     </div>
   )
 }

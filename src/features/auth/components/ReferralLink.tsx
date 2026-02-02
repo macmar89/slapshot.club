@@ -36,13 +36,13 @@ export function ReferralLink({
   }
 
   const alignmentClasses = {
-    left: 'items-start text-left',
-    center: 'items-center text-center',
-    right: 'items-center md:items-end text-center md:text-right'
+    left: 'items-stretch text-left',
+    center: 'items-stretch text-center',
+    right: 'items-stretch md:items-end text-center md:text-right'
   }
 
   return (
-    <div className={cn("flex flex-col gap-2", alignmentClasses[align], className)}>
+    <div className={cn("flex flex-col gap-2 w-full", alignmentClasses[align], className)}>
       <div className="flex flex-col gap-1">
         <div className="text-sm uppercase tracking-widest text-white font-bold">
           {title || t('referral_section')}
@@ -50,7 +50,7 @@ export function ReferralLink({
       </div>
       <div 
         onClick={handleCopy}
-        className="cursor-pointer group relative px-3 py-2 bg-black/40 border border-white/10 rounded-lg flex items-center gap-3 hover:border-warning/50 hover:bg-warning/10 transition-all duration-300 max-w-full"
+        className="cursor-pointer group relative px-3 py-2 bg-black/40 border border-white/10 rounded-lg flex items-center justify-between gap-3 hover:border-warning/50 hover:bg-warning/10 transition-all duration-300 w-full"
       >
         <div className="flex flex-col min-w-0 overflow-hidden">
           <span className="font-mono text-[9px] uppercase tracking-tighter text-white/30 truncate leading-none mb-1">

@@ -188,7 +188,6 @@ export function UserProfileDrawer({
             </FeedbackModal>
 
             <div className="flex items-center justify-between">
-              <LogoutButton />
               <div className="flex items-center gap-2">
                 <span className="text-[10px] font-black text-white uppercase tracking-widest">
                   v1.0.0
@@ -197,6 +196,7 @@ export function UserProfileDrawer({
                   BETA
                 </span>
               </div>
+              <LogoutButton />
             </div>
           </div>
         </div>

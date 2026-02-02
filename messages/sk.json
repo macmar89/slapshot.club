@@ -22,6 +22,8 @@
       "rules": "Pravidlá",
       "profile": "Účet",
       "settings": "Nastavenia",
+      "management": "Manažment",
+      "share_app": "Zdieľaj appku",
       "more": "Viac",
       "menu": "Menu",
       "feedback": "Feedback"
@@ -213,7 +215,7 @@
     "title": "Vitajte v Slapshot Clube",
     "welcome": "Vitaj späť, {username}. Vyber si svoju arénu.",
     "status": {
-      "active": "● Live",
+      "active": "Prebiehajúce",
       "upcoming": "Pripravuje sa",
       "finished": "Ukončené"
     },

@@ -12,7 +12,7 @@ export function PageHeader({ title, description, children, className }: PageHead
   return (
     <div className={cn('flex flex-col md:flex-row md:items-end justify-between gap-6', className)}>
       <div className="flex flex-col gap-2">
-        <h1 className="text-3xl md:text-5xl font-black italic uppercase text-white tracking-tighter leading-none">
+        <h1 className="text-3xl md:text-5xl font-black italic uppercase text-white text-center sm:text-left tracking-tighter leading-none">
           <span className="text-warning">{title}</span>
         </h1>
         {description && (
