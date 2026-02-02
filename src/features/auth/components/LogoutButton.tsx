@@ -49,7 +49,7 @@ export function LogoutButton({ className, children }: LogoutButtonProps) {
       )}
     >
       <LogOut className="w-4 h-4" />
-      <span className="hidden sm:inline">{t('logout')}</span>
+      <span className="inline">{t('logout')}</span>
     </Button>
   )
 }

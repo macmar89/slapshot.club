@@ -42,5 +42,10 @@ export const dashboardConfig = {
       href: '/dashboard/rules',
       icon: FileText,
     },
+    {
+      labelKey: 'profile',
+      href: '/account',
+      icon: User,
+    },
   ] as DashboardItem[],
 }

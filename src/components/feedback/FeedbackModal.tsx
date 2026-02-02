@@ -90,7 +90,7 @@ export function FeedbackModal({ children, triggerClassName, defaultOpen, onOpenC
                   type="button"
                   onClick={() => setType(tType)}
                   className={cn(
-                    "flex flex-col items-center gap-2 p-3 rounded-xl border transition-all duration-200 cursor-pointer",
+                    "flex flex-col items-center gap-2 p-3 rounded-app border transition-all duration-200 cursor-pointer",
                     type === tType
                       ? "bg-warning/20 border-warning text-warning"
                       : "bg-white/5 border-white/5 text-white/40 hover:bg-white/10 hover:text-white/70"
