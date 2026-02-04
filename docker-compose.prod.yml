@@ -1,21 +1,6 @@
 version: '3.8'
 
 services:
-  postgres:
-    image: postgres:16-alpine
-    restart: always
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
-      POSTGRES_DB: ${POSTGRES_DB:-slapshot}
-    volumes:
-      - db_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
   app:
     build:
       context: .
@@ -26,7 +11,7 @@ services:
       - "3000:3000"
     environment:
       # Database connection
-      DATABASE_URL: postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-password}@postgres:5432/${POSTGRES_DB:-slapshot}
+      DATABASE_URL: ${DATABASE_URL}
       
       # App secrets and config
       PAYLOAD_SECRET: ${PAYLOAD_SECRET}
@@ -51,9 +36,6 @@ services:
       TURNSTILE_SECRET_KEY: ${TURNSTILE_SECRET_KEY}
       REGISTRER_PROMO: ${REGISTRER_PROMO}
       SESSION_EXPIRATION_SECONDS: ${SESSION_EXPIRATION_SECONDS}
-    depends_on:
-      postgres:
-        condition: service_healthy
 
   migrator:
     build:
@@ -62,18 +44,12 @@ services:
       target: builder
     command: sh -c "npx payload migrate"
     environment:
-      DATABASE_URL: postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-password}@postgres:5432/${POSTGRES_DB:-slapshot}
+      DATABASE_URL: ${DATABASE_URL}
       PAYLOAD_SECRET: ${PAYLOAD_SECRET}
-      # Include storage env vars if migrations need to access storage (unlikely for schema changes but good to have)
+      # Include storage env vars if migrations need to access storage
       R2_ACCESS_KEY_ID: ${R2_ACCESS_KEY_ID}
       R2_SECRET_ACCESS_KEY: ${R2_SECRET_ACCESS_KEY}
       R2_REGION: ${R2_REGION}
       R2_ENDPOINT: ${R2_ENDPOINT}
       R2_BUCKET: ${R2_BUCKET}
-    depends_on:
-      postgres:
-        condition: service_healthy
     profiles: ["tools"] 
-
-volumes:
-  db_data:
