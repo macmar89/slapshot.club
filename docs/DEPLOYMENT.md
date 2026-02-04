@@ -42,6 +42,8 @@ This guide explains how to deploy the Slapshot Club app to a VPS or Coolify usin
     docker compose -f docker-compose.prod.yml up -d
     ```
 
+    Your app should now be running on port `3300`.
+
 ## Coolify Deployment
 
 If deploying via Coolify:

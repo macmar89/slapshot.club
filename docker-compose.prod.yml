@@ -6,13 +6,14 @@ services:
       target: runner
     restart: always
     ports:
-      - "3000:3000"
+      - "3300:3000"
     environment:
       # Database connection
       DATABASE_URL: ${DATABASE_URL}
       
       # App secrets and config
       PAYLOAD_SECRET: ${PAYLOAD_SECRET}
+      PAYLOAD_PUSH: ${PAYLOAD_PUSH:-false}
       NEXT_PUBLIC_SERVER_URL: ${NEXT_PUBLIC_SERVER_URL:-https://your-domain.com}
       NODE_ENV: production
       
