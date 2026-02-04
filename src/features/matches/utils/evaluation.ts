@@ -1,6 +1,7 @@
 import { Payload } from 'payload'
 import { calculatePoints } from './scoring'
-import type { Match, Competition, Prediction } from '@/payload-types'
+import type {  Competition, Prediction } from '@/payload-types'
+import { MAX_POSSIBLE_POINTS } from '@/lib/constants'
 
 /**
  * EVALUATE MATCH
@@ -115,7 +116,11 @@ export async function evaluateMatch(matchId: string, payload: Payload) {
             data: {
               stats: {
                 ...(userDoc.stats || {}),
-                totalPoints: (userDoc.stats?.totalPoints || 0) + points,
+                // New stats
+                totalPredictions: (userDoc.stats?.totalPredictions || 0) + 1,
+                lifetimePoints: (userDoc.stats?.lifetimePoints || 0) + points,
+                lifetimePossiblePoints:
+                  (userDoc.stats?.lifetimePossiblePoints || 0) + MAX_POSSIBLE_POINTS,
               },
             },
           })
@@ -222,7 +227,13 @@ export async function revertMatchEvaluation(matchId: string, payload: Payload) {
             data: {
               stats: {
                 ...(userDoc.stats || {}),
-                totalPoints: Math.max(0, (userDoc.stats?.totalPoints || 0) - pointsToSubtract),
+                // Revert new stats
+                totalPredictions: Math.max(0, (userDoc.stats?.totalPredictions || 0) - 1),
+                lifetimePoints: Math.max(0, (userDoc.stats?.lifetimePoints || 0) - pointsToSubtract),
+                lifetimePossiblePoints: Math.max(
+                  0,
+                  (userDoc.stats?.lifetimePossiblePoints || 0) - MAX_POSSIBLE_POINTS,
+                ),
               },
             },
           })

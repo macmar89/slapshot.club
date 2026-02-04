@@ -201,13 +201,6 @@ export const Users: CollectionConfig = {
       },
       fields: [
         {
-          name: 'totalPoints',
-          type: 'number',
-          defaultValue: 0,
-          index: true, // Kľúčové pre globálny rebríček
-          admin: { readOnly: true },
-        },
-        {
           name: 'globalRank',
           type: 'number',
           min: 1,
@@ -229,6 +222,36 @@ export const Users: CollectionConfig = {
             { label: 'Klesá 🔻', value: 'down' },
             { label: 'Stabilný ➖', value: 'stable' },
           ],
+          admin: { readOnly: true },
+        },
+        {
+          name: 'totalPredictions',
+          type: 'number',
+          defaultValue: 0,
+          admin: { readOnly: true },
+        },
+        {
+          name: 'lifetimePoints',
+          type: 'number',
+          defaultValue: 0,
+          admin: { readOnly: true },
+        },
+        {
+          name: 'lifetimePossiblePoints',
+          type: 'number',
+          defaultValue: 0,
+          admin: { readOnly: true },
+        },
+        {
+          name: 'currentOvr',
+          type: 'number',
+          defaultValue: 0,
+          admin: { readOnly: true },
+        },
+        {
+          name: 'maxOvrEver',
+          type: 'number',
+          defaultValue: 0,
           admin: { readOnly: true },
         },
       ],

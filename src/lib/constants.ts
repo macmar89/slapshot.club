@@ -12,3 +12,5 @@ export const BADGE_SLUGS = {
   REFERRAL_TIER_3: 'referral-3',
   REFERRAL_TIER_4: 'referral-4',
 } as const
+
+export const MAX_POSSIBLE_POINTS = 5

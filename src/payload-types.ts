@@ -197,7 +197,6 @@ export interface User {
    * Automaticky počítané systémom. Nemeňte manuálne.
    */
   stats?: {
-    totalPoints?: number | null;
     /**
      * Aktuálne poradie v globálnom rebríčku.
      */
@@ -207,6 +206,11 @@ export interface User {
      */
     previousRank?: number | null;
     trend?: ('up' | 'down' | 'stable') | null;
+    totalPredictions?: number | null;
+    lifetimePoints?: number | null;
+    lifetimePossiblePoints?: number | null;
+    currentOvr?: number | null;
+    maxOvrEver?: number | null;
   };
   /**
    * Nepovinné údaje o lokácii používateľa
@@ -895,10 +899,14 @@ export interface UsersSelect<T extends boolean = true> {
   stats?:
     | T
     | {
-        totalPoints?: T;
         globalRank?: T;
         previousRank?: T;
         trend?: T;
+        totalPredictions?: T;
+        lifetimePoints?: T;
+        lifetimePossiblePoints?: T;
+        currentOvr?: T;
+        maxOvrEver?: T;
       };
   location?:
     | T

@@ -2,6 +2,10 @@ import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
+   DO $$
+   BEGIN
+     IF to_regclass('public.users') IS NULL THEN
+
    CREATE TYPE "public"."_locales" AS ENUM('sk', 'en', 'cz');
   CREATE TYPE "public"."enum_users_role" AS ENUM('admin', 'editor', 'user');
   CREATE TYPE "public"."enum_users_preferred_language" AS ENUM('sk', 'en', 'cz');
@@ -750,7 +754,11 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "payload_migrations_updated_at_idx" ON "payload_migrations" USING btree ("updated_at");
   CREATE INDEX "payload_migrations_created_at_idx" ON "payload_migrations" USING btree ("created_at");
   CREATE INDEX "general_settings_seo_seo_image_idx" ON "general_settings" USING btree ("seo_image_id");
-  CREATE UNIQUE INDEX "general_settings_locales_locale_parent_id_unique" ON "general_settings_locales" USING btree ("_locale","_parent_id");`)
+  CREATE UNIQUE INDEX "general_settings_locales_locale_parent_id_unique" ON "general_settings_locales" USING btree ("_locale","_parent_id");
+
+    END IF;
+   END $$;
+  `)
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
