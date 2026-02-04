@@ -87,7 +87,12 @@ export function PredictionDialog({
           className="h-full w-auto object-contain rounded-app"
         />
       ) : (
-        <span className="text-xl font-black text-white/20">{team.name}</span>
+        <div
+          className="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center shadow-lg border-2 border-white/10"
+          style={{ backgroundColor: team.colors.primary }}
+        >
+          <span className="text-[0.6rem] font-black text-white">{team.shortName}</span>
+        </div>
       )}
     </div>
   )

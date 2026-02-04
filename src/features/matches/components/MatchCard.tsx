@@ -74,9 +74,6 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
         )}
       </div>
       <div className="text-center">
-        <div className="text-xs font-black uppercase tracking-widest text-white/60 mb-1">
-          {team.shortName}
-        </div>
         <div className="text-sm font-bold text-white line-clamp-1 hidden md:block">{team.name}</div>
       </div>
     </div>

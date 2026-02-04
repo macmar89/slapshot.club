@@ -54,18 +54,23 @@ export function UpcomingMatches({ upcomingMatches, competition, locale }: Upcomi
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex flex-col items-center gap-2">
-                        <div className="w-16 h-16 rounded-app bg-white/5 border border-white/10 flex items-center justify-center p-3 relative overflow-hidden shadow-xl">
+                        <div className="w-16 h-16 flex items-center justify-center relative">
                           {homeTeam.logo?.url ? (
                             <Image
                               src={homeTeam.logo.url}
                               alt={homeTeam.name}
                               fill
-                              className="object-contain p-2"
+                              className="object-contain"
                             />
                           ) : (
-                            <span className="text-2xl font-black text-white opacity-20 capitalize">
-                              {homeTeam.name?.charAt(0)}
-                            </span>
+                            <div
+                              className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg border-2 border-white/10"
+                              style={{ backgroundColor: homeTeam.colors?.primary || '#333' }}
+                            >
+                              <span className="text-sm font-black text-white">
+                                {homeTeam.shortName}
+                              </span>
+                            </div>
                           )}
                         </div>
                         <span className="text-xs font-bold text-white uppercase tracking-wider">
@@ -87,18 +92,23 @@ export function UpcomingMatches({ upcomingMatches, competition, locale }: Upcomi
                       </div>
 
                       <div className="flex flex-col items-center gap-2">
-                        <div className="w-16 h-16 rounded-app bg-white/5 border border-white/10 flex items-center justify-center p-3 relative overflow-hidden shadow-xl">
+                        <div className="w-16 h-16 flex items-center justify-center relative">
                           {awayTeam.logo?.url ? (
                             <Image
                               src={awayTeam.logo.url}
                               alt={awayTeam.name}
                               fill
-                              className="object-contain p-2"
+                              className="object-contain"
                             />
                           ) : (
-                            <span className="text-2xl font-black text-white opacity-20 capitalize">
-                              {awayTeam.name?.charAt(0)}
-                            </span>
+                            <div
+                              className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg border-2 border-white/10"
+                              style={{ backgroundColor: awayTeam.colors?.primary || '#333' }}
+                            >
+                              <span className="text-sm font-black text-white">
+                                {awayTeam.shortName}
+                              </span>
+                            </div>
                           )}
                         </div>
                         <span className="text-xs font-bold text-white uppercase tracking-wider">
@@ -109,8 +119,9 @@ export function UpcomingMatches({ upcomingMatches, competition, locale }: Upcomi
 
                     <Button
                       onClick={() => setSelectedMatch(match)}
-                      variant="ghost"
-                      className="w-full py-6 bg-white/5 hover:bg-yellow-500 hover:text-black text-white/60 text-[10px] font-black uppercase tracking-[0.1em] border-none"
+                      variant="solid"
+                      color="warning"
+                      className="w-full py-4 text-[10px] font-black uppercase tracking-[0.1em] gap-2 shadow-[0_4px_15px_rgba(234,179,8,0.2)] hover:scale-[1.02] transition-all"
                     >
                       {t('place_prediction')}
                       <ArrowUpRight className="w-3 h-3" />
