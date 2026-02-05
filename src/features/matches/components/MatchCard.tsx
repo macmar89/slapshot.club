@@ -176,7 +176,7 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
 
             {/* Total Tips Counter - Absolute center */}
             <div className="absolute left-1/2 top-0 -translate-x-1/2 flex flex-col items-center">
-              <span className="text-[0.5rem] font-bold text-white/20 uppercase tracking-[0.2em]">
+              <span className="text-xs font-bold text-white/50 uppercase tracking-[0.2em]">
                 {t('predictions_count', { count: totalTips })}
               </span>
             </div>

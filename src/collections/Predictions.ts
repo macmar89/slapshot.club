@@ -132,6 +132,14 @@ export const Predictions: CollectionConfig = {
           }
         }
 
+        // VALIDÁCIA: Nedovoľ remízu
+        const homeGoals = data.homeGoals ?? (originalDoc as any)?.homeGoals
+        const awayGoals = data.awayGoals ?? (originalDoc as any)?.awayGoals
+
+        if (homeGoals !== undefined && awayGoals !== undefined && homeGoals === awayGoals) {
+          throw new Error('Remíza nie je povolená. Vyberte víťaza.')
+        }
+
         // KONTROLA ČASU: Nedovoľ tipovať po začiatku zápasu (Bypass pre admina)
         const isAdmin = req.user?.role === 'admin'
 

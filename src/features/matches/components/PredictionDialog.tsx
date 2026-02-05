@@ -43,7 +43,11 @@ export function PredictionDialog({
   const homeTeam = match.homeTeam as Team
   const awayTeam = match.awayTeam as Team
 
+  const isDraw = homeGoals === awayGoals
+
   const handleSave = async () => {
+    if (isDraw) return
+
     setIsSubmitting(true)
 
     const optimisticPrediction = {
@@ -151,21 +155,29 @@ export function PredictionDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex items-center gap-4 relative z-10 mb-8">
-          <ScoreInput value={homeGoals} onChange={setHomeGoals} team={homeTeam} />
+        <div className="flex flex-col gap-8 mb-8">
+          <div className="flex items-center gap-4 relative z-10">
+            <ScoreInput value={homeGoals} onChange={setHomeGoals} team={homeTeam} />
 
-          <div className="text-white/20 text-4xl font-black italic items-center pt-8">:</div>
+            <div className="text-white/20 text-4xl font-black italic items-center pt-8">:</div>
 
-          <ScoreInput value={awayGoals} onChange={setAwayGoals} team={awayTeam} />
+            <ScoreInput value={awayGoals} onChange={setAwayGoals} team={awayTeam} />
+          </div>
+
+          {isDraw && (
+            <div className="text-center text-red-500 text-[0.6rem] font-black uppercase tracking-widest animate-pulse">
+              {t('no_draws')}
+            </div>
+          )}
         </div>
 
         <DialogFooter className="relative z-10 sm:justify-center">
           <Button
             onClick={handleSave}
-            disabled={isSubmitting}
+            disabled={isSubmitting || isDraw}
             variant="solid"
             color="gold"
-            className="w-full py-6 rounded-app text-sm font-black uppercase tracking-[0.2em] shadow-[0_10px_30px_rgba(234,179,8,0.2)] hover:shadow-[0_15px_40px_rgba(234,179,8,0.3)] transition-all hover:-translate-y-1"
+            className="w-full py-6 rounded-app text-sm font-black uppercase tracking-[0.2em] shadow-[0_10px_30px_rgba(234,179,8,0.2)] hover:shadow-[0_15px_40px_rgba(234,179,8,0.3)] transition-all hover:-translate-y-1 disabled:opacity-50 disabled:hover:translate-y-0 disabled:shadow-none"
           >
             {isSubmitting ? t('loading') : existingPrediction ? t('update') : t('submit')}
           </Button>

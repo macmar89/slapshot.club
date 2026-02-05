@@ -117,6 +117,11 @@ export const savePredictionAction = async (data: {
     throw new Error('Unauthorized')
   }
 
+  // 0. Validate if it's not a draw
+  if (data.homeGoals === data.awayGoals) {
+    throw new Error('Remíza nie je povolená. Vyberte víťaza.')
+  }
+
   // 1. Fetch match to validate start time
   const match = await payload.findByID({
     collection: 'matches',

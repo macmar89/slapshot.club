@@ -80,13 +80,13 @@ export function UpcomingMatches({ upcomingMatches, competition, locale }: Upcomi
 
                       <div className="flex flex-col items-center gap-1">
                         <div className="text-xl font-black text-white/40 italic">VS</div>
-                        <div className="text-[10px] text-yellow-500 font-bold uppercase tracking-widest italic">
+                        <div className="text-[12px] text-yellow-500 font-bold uppercase tracking-widest italic">
                           {new Date(match.date).toLocaleTimeString(locale, {
                             hour: '2-digit',
                             minute: '2-digit',
                           })}
                         </div>
-                        <div className="text-[9px] text-white/30 font-bold uppercase">
+                        <div className="text-[10px] text-white/50 font-bold uppercase">
                           {new Date(match.date).toLocaleDateString(locale)}
                         </div>
                       </div>

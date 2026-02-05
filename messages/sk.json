@@ -81,7 +81,8 @@
         "description": "Zadaj konečné skóre (vrátane OT a PP)",
         "submit": "Potvrdiť Tip",
         "update": "Aktualizovať Tip",
-        "loading": "Ukladám..."
+        "loading": "Ukladám...",
+        "no_draws": "Remíza nie je povolená. Vyberte víťaza."
       }
     },
     "leaderboard": {
