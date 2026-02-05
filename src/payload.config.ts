@@ -123,7 +123,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URL || '',
     },
     prodMigrations: migrations,
-    push: process.env.NODE_ENV === 'development' && process.env.PAYLOAD_PUSH !== 'false',
+    push: process.env.PAYLOAD_PUSH === 'true',
   }),
   sharp,
   plugins: [
