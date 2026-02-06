@@ -19,11 +19,7 @@ export function LogoutButton({ className, children }: LogoutButtonProps) {
 
   const handleLogout = async () => {
     try {
-      const res = await logoutUser()
-      if (res.ok) {
-        router.push('/login')
-        router.refresh()
-      }
+      await logoutUser()
     } catch (error) {
       console.error('Logout failed:', error)
     }

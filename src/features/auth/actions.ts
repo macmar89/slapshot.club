@@ -6,6 +6,7 @@ import { getPayload } from 'payload'
 import config from '@/payload.config'
 import { cookies, headers } from 'next/headers'
 import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 
 export const loginUser = async (data: LoginFormData) => {
   const isVerified = await verifyTurnstileToken(data.turnstileToken)
@@ -258,28 +259,12 @@ export const resetPassword = async (data: any) => {
 }
 
 export const logoutUser = async () => {
-  const headersList = await headers()
-  const cookieHeader = headersList.get('cookie')
-
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}/api/users/logout`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Cookie: cookieHeader || '',
-      },
-    },
-  )
-
-  // Always delete the cookie on logout attempt to be safe
+  // Clear the authentication cookie
   const cookieStore = await cookies()
   cookieStore.delete('payload-token')
 
-  return {
-    ok: res.ok,
-    status: res.status,
-  }
+  // Standard Next.js server-side redirect
+  redirect('/login')
 }
 
 export const getCurrentUser = async () => {

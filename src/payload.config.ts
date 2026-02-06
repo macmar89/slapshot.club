@@ -26,12 +26,41 @@ import { Countries } from './collections/Countries'
 import { Regions } from './collections/Regions'
 import { Badges } from './collections/Badges'
 import { BadgeMedia } from './collections/BadgeMedia'
+import { updateMatchesTask } from './payload/tasks/updateMatches'
 import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  jobs: {
+    tasks: [
+      {
+        slug: 'update-matches',
+        label: 'Update Matches',
+        inputSchema: [
+          {
+            name: 'manual',
+            type: 'checkbox',
+            label: 'Manual Trigger',
+          }
+        ],
+        schedule: [
+          {
+            cron: '*/5 * * * *',
+            queue: 'default',
+          }
+        ],
+        handler: '/payload/tasks/updateMatches#updateMatchesTask'
+      }
+    ],
+    autoRun: [
+      {
+        cron: '*/1 * * * *',
+        allQueues: true,
+      }
+    ]
+  },
   localization: {
     locales: ['sk', 'en', 'cz'],
     defaultLocale: 'sk',

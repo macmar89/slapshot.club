@@ -39,5 +39,21 @@ export const GeneralSettings: GlobalConfig = {
         },
       ],
     },
+    {
+      name: 'cronSettings',
+      label: 'Nastavenia Cronu',
+      type: 'group',
+      fields: [
+        {
+          name: 'updateMatchesEnabled',
+          label: 'Automatická aktualizácia zápasov (Live)',
+          type: 'checkbox',
+          defaultValue: true,
+          admin: {
+            description: 'Ak je zapnuté, systém bude automaticky prepínať naplánované zápasy do stavu LIVE po ich začatí.',
+          },
+        },
+      ],
+    },
   ],
 };

@@ -1,5 +1,13 @@
 import { z } from 'zod'
 
+export const basePasswordSchema = z
+  .string()
+  .min(8, 'Heslo musí mať aspoň 8 znakov')
+  .regex(/[A-Z]/, 'Heslo musí obsahovať aspoň jedno veľké písmeno')
+  .regex(/[a-z]/, 'Heslo musí obsahovať aspoň jedno malé písmeno')
+  .regex(/[0-9]/, 'Heslo musí obsahovať aspoň jednu číslicu')
+  .regex(/[@$!%*?&#^()._+\-=\[\]{};:,.]/, 'Heslo musí obsahovať aspoň jeden špeciálny znak')
+
 export const loginSchema = z.object({
   identifier: z.string().min(3, 'Zadajte email alebo užívateľské meno'),
   password: z.string().min(1, 'Zadajte heslo'),
@@ -13,13 +21,7 @@ export const registerSchema = z.object({
     .max(20, 'Užívateľské meno môže mať maximálne 20 znakov')
     .regex(/^[a-zA-Z0-9_.]+$/, 'Povolené sú len písmená, čísla, bodka a podčiarkovník'),
   email: z.string().email('Zadajte platný email'),
-  password: z
-    .string()
-    .min(8, 'Heslo musí mať aspoň 8 znakov')
-    .regex(/[A-Z]/, 'Heslo musí obsahovať aspoň jedno veľké písmeno')
-    .regex(/[a-z]/, 'Heslo musí obsahovať aspoň jedno malé písmeno')
-    .regex(/[0-9]/, 'Heslo musí obsahovať aspoň jednu číslicu')
-    .regex(/[@$!%*?&#^()]/, 'Heslo musí obsahovať aspoň jeden špeciálny znak'),
+  password: basePasswordSchema,
   turnstileToken: z.string().min(1, 'Potvrďte, že nie ste robot'),
   gdprConsent: z.boolean().refine((val) => val === true, {
     message: 'Musíte súhlasiť so spracovaním osobných údajov (GDPR)',
@@ -36,13 +38,7 @@ export const forgotPasswordSchema = z.object({
 
 export const resetPasswordSchema = z
   .object({
-    password: z
-      .string()
-      .min(8, 'Heslo musí mať aspoň 8 znakov')
-      .regex(/[A-Z]/, 'Heslo musí obsahovať aspoň jedno veľké písmeno')
-      .regex(/[a-z]/, 'Heslo musí obsahovať aspoň jedno malé písmeno')
-      .regex(/[0-9]/, 'Heslo musí obsahovať aspoň jednu číslicu')
-      .regex(/[@$!%*?&#^()]/, 'Heslo musí obsahovať aspoň jeden špeciálny znak'),
+    password: basePasswordSchema,
     confirmPassword: z.string().min(1, 'Zopakujte nové heslo'),
     token: z.string(),
   })
@@ -64,13 +60,7 @@ export const usernameUpdateSchema = z.object({
 export const passwordUpdateSchema = z
   .object({
     currentPassword: z.string().min(1, 'Zadajte aktuálne heslo'),
-    newPassword: z
-      .string()
-      .min(8, 'Heslo musí mať aspoň 8 znakov')
-      .regex(/[A-Z]/, 'Heslo musí obsahovať aspoň jedno veľké písmeno')
-      .regex(/[a-z]/, 'Heslo musí obsahovať aspoň jedno malé písmeno')
-      .regex(/[0-9]/, 'Heslo musí obsahovať aspoň jednu číslicu')
-      .regex(/[@$!%*?&#^()]/, 'Heslo musí obsahovať aspoň jeden špeciálny znak'),
+    newPassword: basePasswordSchema,
     confirmPassword: z.string().min(1, 'Zopakujte nové heslo'),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
