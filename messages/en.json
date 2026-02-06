@@ -11,6 +11,23 @@
     "description": "This is the home page"
   },
   "Dashboard": {
+    "hero": {
+      "rank": "Rank",
+      "points": "Points",
+      "avg_points": "P / G",
+      "member_since": "Member since {date}",
+      "card_title": "Hockey Card",
+      "badge_elite": "League Elite",
+      "badge_top_10": "Top 10% of league",
+      "badge_stable": "Stable Player",
+      "badge_rookie": "Rookie of the Season",
+      "stats": {
+        "tips": "Tips",
+        "exact": "Exact",
+        "diff": "Diff",
+        "winner": "Winner"
+      }
+    },
     "nav": {
       "overview": "Overview",
       "arena": "Arena",

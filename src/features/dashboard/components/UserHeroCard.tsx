@@ -2,6 +2,7 @@ import type { User, LeaderboardEntry } from '@/payload-types'
 import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import { Trophy, Star } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useTranslations } from 'next-intl'
 
 interface UserHeroCardProps {
   user: User
@@ -9,20 +10,35 @@ interface UserHeroCardProps {
 }
 
 export function UserHeroCard({ user, leaderboardEntry }: UserHeroCardProps) {
+  const t = useTranslations('Dashboard.hero')
+
   const getRankBadge = (rank: number, totalUsers: number = 100) => {
     const percent = (rank / totalUsers) * 100
-    if (rank <= 3) return { label: 'Elita ligy', color: 'bg-yellow-500' }
-    if (percent <= 10) return { label: 'Top 10% ligy', color: 'bg-purple-500' }
-    if (rank > 0) return { label: 'Stabilný hráč', color: 'bg-blue-500' }
-    return { label: 'Nováčik sezóny', color: 'bg-green-500' }
+    if (rank <= 3) return { label: t('badge_elite'), color: 'bg-yellow-500' }
+    if (percent <= 10) return { label: t('badge_top_10'), color: 'bg-purple-500' }
+    if (rank > 0) return { label: t('badge_stable'), color: 'bg-blue-500' }
+    return { label: t('badge_rookie'), color: 'bg-green-500' }
   }
 
   const badge = leaderboardEntry?.currentRank
     ? getRankBadge(leaderboardEntry.currentRank as number)
-    : { label: 'Nováčik sezóny', color: 'bg-green-500' }
+    : { label: t('badge_rookie'), color: 'bg-green-500' }
+
+  const avgPoints =
+    leaderboardEntry?.totalMatches && leaderboardEntry.totalMatches > 0
+      ? (leaderboardEntry.totalPoints! / leaderboardEntry.totalMatches).toFixed(2)
+      : '0.00'
+
+  const registrationDate = new Date(user.createdAt).toLocaleDateString(
+    t('member_since').includes('Člen') ? 'sk-SK' : 'en-US',
+    {
+      month: 'short',
+      year: 'numeric',
+    },
+  )
 
   return (
-    <IceGlassCard className="lg:col-span-4 group overflow-hidden" withGradient>
+    <IceGlassCard className="lg:col-span-4 group overflow-hidden flex flex-col" withGradient>
       <div className="p-6 relative">
         <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
           <Trophy className="w-24 h-24 rotate-12" />
@@ -37,21 +53,16 @@ export function UserHeroCard({ user, leaderboardEntry }: UserHeroCardProps) {
               <div className="text-white font-black text-xl uppercase leading-none">
                 {user.username}
               </div>
-              <div
-                className={cn(
-                  'inline-block mt-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-white uppercase tracking-wider',
-                  badge.color,
-                )}
-              >
-                {badge.label}
+              <div className="text-[9px] text-white/50 uppercase font-medium tracking-tight mt-1">
+                {t('member_since', { date: registrationDate })}
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-3 gap-4">
             <div>
               <div className="text-[10px] uppercase font-bold text-white/40 tracking-widest mb-1">
-                Poradie
+                {t('rank')}
               </div>
               <div className="text-3xl font-black text-white italic">
                 #{leaderboardEntry?.currentRank || '--'}
@@ -59,41 +70,50 @@ export function UserHeroCard({ user, leaderboardEntry }: UserHeroCardProps) {
             </div>
             <div>
               <div className="text-[10px] uppercase font-bold text-white/40 tracking-widest mb-1">
-                Body
+                {t('points')}
               </div>
               <div className="text-3xl font-black text-yellow-500 italic">
                 {leaderboardEntry?.totalPoints || 0}
               </div>
             </div>
-          </div>
-
-          <div className="mt-6 pt-6 border-t border-white/10 flex justify-between items-center text-xs">
-            <span className="text-white/40 uppercase font-bold tracking-widest italic">
-              Hokejová Karta
-            </span>
-            <div className="flex gap-1 text-yellow-500">
-              <Star className="w-3 h-3 fill-current" />
-              <Star className="w-3 h-3 fill-current" />
-              <Star className="w-3 h-3 fill-current" />
+            <div>
+              <div className="text-[10px] uppercase font-bold text-white/40 tracking-widest mb-1">
+                {t('avg_points')}
+              </div>
+              <div className="text-3xl font-black text-blue-400 italic">{avgPoints}</div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Stats Overlay/Card Style */}
-      <div className="bg-white/5 p-4 grid grid-cols-3 text-center border-t border-white/10">
+      <div className="mt-auto bg-black/40 p-4 grid grid-cols-4 text-center border-t border-white/5 divide-x divide-white/5">
         <div>
-          <div className="text-[9px] text-white/40 font-bold uppercase">Tipy</div>
+          <div className="text-[8px] text-white/30 font-bold uppercase mb-0.5">
+            {t('stats.tips')}
+          </div>
           <div className="text-sm font-black text-white">{leaderboardEntry?.totalMatches || 0}</div>
         </div>
         <div>
-          <div className="text-[9px] text-white/40 font-bold uppercase">Presné</div>
+          <div className="text-[8px] text-white/30 font-bold uppercase mb-0.5">
+            {t('stats.exact')}
+          </div>
           <div className="text-sm font-black text-green-500">
             {leaderboardEntry?.exactGuesses || 0}
           </div>
         </div>
         <div>
-          <div className="text-[9px] text-white/40 font-bold uppercase">Trend</div>
+          <div className="text-[8px] text-white/30 font-bold uppercase mb-0.5">
+            {t('stats.diff')}
+          </div>
+          <div className="text-sm font-black text-yellow-500">
+            {leaderboardEntry?.correctDiffs || 0}
+          </div>
+        </div>
+        <div>
+          <div className="text-[8px] text-white/30 font-bold uppercase mb-0.5">
+            {t('stats.winner')}
+          </div>
           <div className="text-sm font-black text-blue-500">
             {leaderboardEntry?.correctTrends || 0}
           </div>

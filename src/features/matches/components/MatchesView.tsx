@@ -160,6 +160,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
                   ? 'text-white/20'
                   : 'text-warning group-hover/btn:text-black',
               )}
+              strokeWidth={availableDates.indexOf(selectedDate!) === 0 ? 2 : 3}
             />
           </Button>
 
@@ -211,6 +212,9 @@ export function MatchesView({ competition }: MatchesViewProps) {
                   ? 'text-white/20'
                   : 'text-warning group-hover/btn:text-black',
               )}
+              strokeWidth={
+                availableDates.indexOf(selectedDate!) === availableDates.length - 1 ? 2 : 3
+              }
             />
           </Button>
         </div>
@@ -226,11 +230,11 @@ export function MatchesView({ competition }: MatchesViewProps) {
               userPrediction={optimisticPredictions.find(
                 (p) => (typeof p.match === 'string' ? p.match : p.match.id) === match.id,
               )}
-               stats={stats[match.id]}
-               onPredict={setPredictingMatch}
-               onRefresh={fetchData}
-               onMatchLocked={() => setIsLockedModalOpen(true)}
-             />
+              stats={stats[match.id]}
+              onPredict={setPredictingMatch}
+              onRefresh={fetchData}
+              onMatchLocked={() => setIsLockedModalOpen(true)}
+            />
           ))
         ) : (
           <IceGlassCard className="lg:col-span-2 p-12 border-dashed border-white/10 bg-white/[0.02]">
@@ -264,10 +268,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
         onSelectDate={setUrlDate}
       />
 
-      <MatchLockedDialog
-        isOpen={isLockedModalOpen}
-        onClose={() => setIsLockedModalOpen(false)}
-      />
+      <MatchLockedDialog isOpen={isLockedModalOpen} onClose={() => setIsLockedModalOpen(false)} />
     </PageLayout>
   )
 }

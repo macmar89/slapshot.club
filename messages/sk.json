@@ -11,6 +11,23 @@
     "description": "Toto je domovská stránka"
   },
   "Dashboard": {
+    "hero": {
+      "rank": "Poradie",
+      "points": "Body",
+      "avg_points": "P / Z",
+      "member_since": "Členom od {date}",
+      "card_title": "Hokejová Karta",
+      "badge_elite": "Elita ligy",
+      "badge_top_10": "Top 10% ligy",
+      "badge_stable": "Stabilný hráč",
+      "badge_rookie": "Nováčik sezóny",
+      "stats": {
+        "tips": "Tipy",
+        "exact": "Presné",
+        "diff": "Rozdiel",
+        "winner": "Víťaz"
+      }
+    },
     "nav": {
       "overview": "Prehľad",
       "arena": "Aréna",
