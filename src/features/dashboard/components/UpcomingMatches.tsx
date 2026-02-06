@@ -9,6 +9,7 @@ import { useTranslations } from 'next-intl'
 import { PredictionDialog } from '@/features/matches/components/PredictionDialog'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/Button'
+import { MatchLockedDialog } from '@/features/matches/components/MatchLockedDialog'
 
 interface UpcomingMatchesProps {
   upcomingMatches: Match[]
@@ -20,6 +21,20 @@ export function UpcomingMatches({ upcomingMatches, competition, locale }: Upcomi
   const t = useTranslations('Dashboard')
   const router = useRouter()
   const [selectedMatch, setSelectedMatch] = useState<Match | null>(null)
+  const [isLockedModalOpen, setIsLockedModalOpen] = useState(false)
+
+  const handlePredict = (match: Match) => {
+    const matchDate = new Date(match.date)
+    const isStarted = new Date() >= matchDate || match.status !== 'scheduled'
+
+    if (isStarted) {
+      setIsLockedModalOpen(true)
+      router.refresh()
+      return
+    }
+
+    setSelectedMatch(match)
+  }
 
   const handleSuccess = () => {
     setSelectedMatch(null)
@@ -118,7 +133,7 @@ export function UpcomingMatches({ upcomingMatches, competition, locale }: Upcomi
                     </div>
 
                     <Button
-                      onClick={() => setSelectedMatch(match)}
+                      onClick={() => handlePredict(match)}
                       variant="solid"
                       color="warning"
                       className="w-full py-4 text-[10px] font-black uppercase tracking-[0.1em] gap-2 shadow-[0_4px_15px_rgba(234,179,8,0.2)] hover:scale-[1.02] transition-all"
@@ -148,6 +163,11 @@ export function UpcomingMatches({ upcomingMatches, competition, locale }: Upcomi
         isOpen={!!selectedMatch}
         onClose={() => setSelectedMatch(null)}
         onSuccess={handleSuccess}
+      />
+
+      <MatchLockedDialog
+        isOpen={isLockedModalOpen}
+        onClose={() => setIsLockedModalOpen(false)}
       />
     </>
   )
