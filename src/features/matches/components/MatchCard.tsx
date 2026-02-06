@@ -21,9 +21,18 @@ interface MatchCardProps {
     total: number
   }
   onPredict: (match: Match) => void
+  onRefresh?: () => void
+  onMatchLocked?: () => void
 }
 
-export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCardProps) {
+export function MatchCard({
+  match,
+  userPrediction,
+  stats,
+  onPredict,
+  onRefresh,
+  onMatchLocked,
+}: MatchCardProps) {
   const t = useTranslations('Dashboard.matches')
   const { slug } = useParams()
   const homeTeam = match.homeTeam as Team
@@ -31,6 +40,16 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
 
   const matchDate = new Date(match.date)
   const isStarted = new Date() >= matchDate || match.status !== 'scheduled'
+
+  const handlePredict = () => {
+    if (new Date() > matchDate) {
+      onMatchLocked?.()
+      onRefresh?.()
+      return
+    }
+
+    onPredict(match)
+  }
 
   // Recalculate percentages for 2-way (no Draw)
   const statsData = stats || { homeWin: 0, draw: 0, awayWin: 0, total: 0 }
@@ -207,12 +226,15 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
                     </span>
                   </div>
                   {!isStarted && match.status === 'scheduled' && (
-                    <button
-                      onClick={() => onPredict(match)}
-                      className="p-1.5 -mr-1 text-white/40 hover:text-warning transition-colors outline-none cursor-pointer rounded-full hover:bg-white/5"
+                    <Button
+                      variant="ghost"
+                      color="warning"
+                      size="icon"
+                      onClick={handlePredict}
+                      className="p-1.5 -mr-1 h-8 w-8 rounded-full"
                     >
                       <PencilLine className="w-4 h-4" />
-                    </button>
+                    </Button>
                   )}
                 </div>
 
@@ -229,7 +251,7 @@ export function MatchCard({ match, userPrediction, stats, onPredict }: MatchCard
               !isStarted &&
               match.status === 'scheduled' && (
                 <Button
-                  onClick={() => onPredict(match)}
+                  onClick={handlePredict}
                   variant="solid"
                   color="warning"
                   className="rounded-app px-8 py-3 h-auto text-xs font-black uppercase tracking-[0.1em] gap-2 shadow-[0_4px_15px_rgba(234,179,8,0.2)] hover:scale-105 transition-all"

@@ -49,6 +49,7 @@
     "matches": {
       "title": "Zápasy",
       "description": "Seznam všech zápasů v této soutěži.",
+      "match_locked": "Na tento zápas již není možné tipovat.",
       "empty_state": "Zatím nejsou naplánovány žádné zápasy.",
       "predict_button": "Natipovat",
       "my_prediction": "Můj Tip",
@@ -82,7 +83,10 @@
         "submit": "Potvrdit Tip",
         "update": "Aktualizovat Tip",
         "loading": "Ukládám...",
-        "no_draws": "Remíza není povolena. Vyberte vítěze."
+        "no_draws": "Remíza není povolena. Vyberte vítěze.",
+        "match_live": "Zápas již začal. Tipování je uzavřeno.",
+        "match_finished": "Zápas již skončil. Tipování je uzavřeno.",
+        "close": "Zavřít"
       }
     },
     "leaderboard": {

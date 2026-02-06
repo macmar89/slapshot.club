@@ -15,6 +15,7 @@ import { useTranslations } from 'next-intl'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { PageLayout } from '@/components/layout/PageLayout'
 import { PageHeader } from '@/components/layout/PageHeader'
+import { MatchLockedDialog } from './MatchLockedDialog'
 
 interface MatchesViewProps {
   competition: Competition
@@ -52,6 +53,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
   )
 
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
+  const [isLockedModalOpen, setIsLockedModalOpen] = useState(false)
   const [predictingMatch, setPredictingMatch] = useState<Match | null>(null)
 
   const groupMatchesByDate = useCallback((matches: Match[]) => {
@@ -224,9 +226,11 @@ export function MatchesView({ competition }: MatchesViewProps) {
               userPrediction={optimisticPredictions.find(
                 (p) => (typeof p.match === 'string' ? p.match : p.match.id) === match.id,
               )}
-              stats={stats[match.id]}
-              onPredict={setPredictingMatch}
-            />
+               stats={stats[match.id]}
+               onPredict={setPredictingMatch}
+               onRefresh={fetchData}
+               onMatchLocked={() => setIsLockedModalOpen(true)}
+             />
           ))
         ) : (
           <IceGlassCard className="lg:col-span-2 p-12 border-dashed border-white/10 bg-white/[0.02]">
@@ -258,6 +262,11 @@ export function MatchesView({ competition }: MatchesViewProps) {
         selectedDate={selectedDate}
         availableDates={availableDates}
         onSelectDate={setUrlDate}
+      />
+
+      <MatchLockedDialog
+        isOpen={isLockedModalOpen}
+        onClose={() => setIsLockedModalOpen(false)}
       />
     </PageLayout>
   )

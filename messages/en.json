@@ -49,6 +49,7 @@
     "matches": {
       "title": "Matches",
       "description": "List of all matches in this competition.",
+      "match_locked": "It is no longer possible to predict this match.",
       "empty_state": "No matches scheduled yet.",
       "predict_button": "Predict",
       "my_prediction": "My Prediction",
@@ -82,7 +83,10 @@
         "submit": "Submit Prediction",
         "update": "Update Prediction",
         "loading": "Saving...",
-        "no_draws": "Draw is not allowed. Choose a winner."
+        "no_draws": "Draw is not allowed. Choose a winner.",
+        "match_live": "The match has already started. Predictions are closed.",
+        "match_finished": "The match has already finished. Predictions are closed.",
+        "close": "Close"
       }
     },
     "leaderboard": {

@@ -125,9 +125,11 @@ export interface Config {
   fallbackLocale: ('false' | 'none' | 'null') | false | null | ('sk' | 'en' | 'cz') | ('sk' | 'en' | 'cz')[];
   globals: {
     'general-settings': GeneralSetting;
+    'payload-jobs-stats': PayloadJobsStat;
   };
   globalsSelect: {
     'general-settings': GeneralSettingsSelect<false> | GeneralSettingsSelect<true>;
+    'payload-jobs-stats': PayloadJobsStatsSelect<false> | PayloadJobsStatsSelect<true>;
   };
   locale: 'sk' | 'en' | 'cz';
   user: User & {
@@ -839,6 +841,15 @@ export interface PayloadJob {
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
+  meta?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1460,6 +1471,7 @@ export interface PayloadJobsSelect<T extends boolean = true> {
   queue?: T;
   waitUntil?: T;
   processing?: T;
+  meta?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1540,6 +1552,24 @@ export interface GeneralSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs-stats".
+ */
+export interface PayloadJobsStat {
+  id: number;
+  stats?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "general-settings_select".
  */
 export interface GeneralSettingsSelect<T extends boolean = true> {
@@ -1560,6 +1590,16 @@ export interface GeneralSettingsSelect<T extends boolean = true> {
     | {
         updateMatchesEnabled?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs-stats_select".
+ */
+export interface PayloadJobsStatsSelect<T extends boolean = true> {
+  stats?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

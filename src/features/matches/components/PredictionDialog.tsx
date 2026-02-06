@@ -44,9 +44,12 @@ export function PredictionDialog({
   const awayTeam = match.awayTeam as Team
 
   const isDraw = homeGoals === awayGoals
+  const isLive = match.status === 'live'
+  const isFinished = match.status === 'finished'
+  const isLocked = isLive || isFinished
 
   const handleSave = async () => {
-    if (isDraw) return
+    if (isDraw || isLocked) return
 
     setIsSubmitting(true)
 
@@ -105,10 +108,12 @@ export function PredictionDialog({
     value,
     onChange,
     team,
+    disabled = false,
   }: {
     value: number
     onChange: (v: number) => void
     team: Team
+    disabled?: boolean
   }) => (
     <div className="flex flex-col items-center gap-4 flex-1">
       {renderLogo(team)}
@@ -119,8 +124,9 @@ export function PredictionDialog({
         <Button
           variant="outline"
           size="icon"
-          onClick={() => onChange(Math.max(0, value - 1))}
-          className="rounded-full bg-white/10 border-white/20 hover:bg-white/20 text-white shadow-sm"
+          onClick={() => !disabled && onChange(Math.max(0, value - 1))}
+          disabled={disabled}
+          className="rounded-full bg-white/10 border-white/20 hover:bg-white/20 text-white shadow-sm disabled:opacity-30"
         >
           <Minus className="w-4 h-4" />
         </Button>
@@ -130,8 +136,9 @@ export function PredictionDialog({
         <Button
           variant="outline"
           size="icon"
-          onClick={() => onChange(value + 1)}
-          className="rounded-full bg-white/10 border-white/20 hover:bg-white/20 text-white shadow-sm"
+          onClick={() => !disabled && onChange(value + 1)}
+          disabled={disabled}
+          className="rounded-full bg-white/10 border-white/20 hover:bg-white/20 text-white shadow-sm disabled:opacity-30"
         >
           <Plus className="w-4 h-4" />
         </Button>
@@ -157,30 +164,53 @@ export function PredictionDialog({
 
         <div className="flex flex-col gap-8 mb-8">
           <div className="flex items-center gap-4 relative z-10">
-            <ScoreInput value={homeGoals} onChange={setHomeGoals} team={homeTeam} />
+            <ScoreInput value={homeGoals} onChange={setHomeGoals} team={homeTeam} disabled={isLocked} />
 
             <div className="text-white/20 text-4xl font-black italic items-center pt-8">:</div>
 
-            <ScoreInput value={awayGoals} onChange={setAwayGoals} team={awayTeam} />
+            <ScoreInput value={awayGoals} onChange={setAwayGoals} team={awayTeam} disabled={isLocked} />
           </div>
 
-          {isDraw && (
+          {isDraw && !isLocked && (
             <div className="text-center text-red-500 text-[0.6rem] font-black uppercase tracking-widest animate-pulse">
               {t('no_draws')}
+            </div>
+          )}
+
+          {isLive && (
+            <div className="text-center text-warning text-[0.6rem] font-black uppercase tracking-widest animate-pulse">
+              {t('match_live')}
+            </div>
+          )}
+
+          {isFinished && (
+            <div className="text-center text-white/40 text-[0.6rem] font-black uppercase tracking-widest">
+              {t('match_finished')}
             </div>
           )}
         </div>
 
         <DialogFooter className="relative z-10 sm:justify-center">
-          <Button
-            onClick={handleSave}
-            disabled={isSubmitting || isDraw}
-            variant="solid"
-            color="gold"
-            className="w-full py-6 rounded-app text-sm font-black uppercase tracking-[0.2em] shadow-[0_10px_30px_rgba(234,179,8,0.2)] hover:shadow-[0_15px_40px_rgba(234,179,8,0.3)] transition-all hover:-translate-y-1 disabled:opacity-50 disabled:hover:translate-y-0 disabled:shadow-none"
-          >
-            {isSubmitting ? t('loading') : existingPrediction ? t('update') : t('submit')}
-          </Button>
+          {!isLocked && (
+            <Button
+              onClick={handleSave}
+              disabled={isSubmitting || isDraw}
+              variant="solid"
+              color="gold"
+              className="w-full py-6 rounded-app text-sm font-black uppercase tracking-[0.2em] shadow-[0_10px_30px_rgba(234,179,8,0.2)] hover:shadow-[0_15px_40px_rgba(234,179,8,0.3)] transition-all hover:-translate-y-1 disabled:opacity-50 disabled:hover:translate-y-0 disabled:shadow-none"
+            >
+              {isSubmitting ? t('loading') : existingPrediction ? t('update') : t('submit')}
+            </Button>
+          )}
+          {isLocked && (
+            <Button
+              onClick={onClose}
+              variant="outline"
+              className="w-full py-6 rounded-app text-sm font-black uppercase tracking-[0.2em] border-white/10 hover:bg-white/5 transition-all"
+            >
+              {t('close')}
+            </Button>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>
