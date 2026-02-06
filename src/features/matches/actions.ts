@@ -171,3 +171,62 @@ export const savePredictionAction = async (data: {
     })
   }
 }
+
+/**
+ * Fetches paginated predictions for a match with optional search.
+ */
+export const getMatchPredictionsAction = async ({
+  matchId,
+  page = 1,
+  limit = 10,
+  search,
+}: {
+  matchId: string
+  page?: number
+  limit?: number
+  search?: string
+}) => {
+  const payload = await getPayload({ config })
+  
+  const where: any = {
+    match: { equals: matchId },
+  }
+
+  if (search) {
+     const users = await payload.find({
+       collection: 'users',
+       where: {
+         username: { like: search },
+       },
+       limit: 100,
+     })
+     
+     if (users.docs.length === 0) {
+       return {
+         docs: [],
+         totalDocs: 0,
+         limit,
+         totalPages: 0,
+         page,
+         pagingCounter: 0,
+         hasPrevPage: false,
+         hasNextPage: false,
+         prevPage: null,
+         nextPage: null,
+       }
+     }
+     
+     where.user = { in: users.docs.map(u => u.id) }
+  }
+
+  const predictions = await payload.find({
+    collection: 'predictions',
+    where,
+    limit,
+    page,
+    sort: '-points', 
+    depth: 1, 
+  })
+
+  return predictions
+}

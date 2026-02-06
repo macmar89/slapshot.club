@@ -88,7 +88,11 @@
         "match_live": "The match has already started. Predictions are closed.",
         "match_finished": "The match has already finished. Predictions are closed.",
         "close": "Close"
-      }
+      },
+      "player_tips": "Player Tips",
+      "search_by_username": "Search by username...",
+      "no_search_results": "No search results found",
+      "no_predictions_yet": "No predictions yet"
     },
     "leaderboard": {
       "title": "Leaderboard",

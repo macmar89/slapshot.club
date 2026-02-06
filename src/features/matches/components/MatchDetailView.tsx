@@ -10,6 +10,7 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/routing'
 import { useParams } from 'next/navigation'
+import { MatchPredictionsList } from './MatchPredictionsList'
 
 interface MatchDetailViewProps {
   match: Match
@@ -103,9 +104,9 @@ export function MatchDetailView({ match, userPrediction, stats }: MatchDetailVie
   }
 
   return (
-    <div className="max-w-[1000px] mx-auto space-y-6 md:space-y-8 px-4 pb-12">
+    <div className="max-w-[1000px] mx-auto space-y-6 md:space-y-8 sm:px-4 pb-12">
       {/* Back Button Container */}
-      <div className="flex items-center justify-start py-4">
+      <div className="flex items-center justify-start sm:py-4">
         <Link 
           href={`/dashboard/${slug}/matches` as any} 
           className="group flex items-center gap-4 pl-2 pr-6 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-warning hover:border-warning transition-all duration-300 shadow-xl backdrop-blur-md"
@@ -175,7 +176,7 @@ export function MatchDetailView({ match, userPrediction, stats }: MatchDetailVie
         </div>
 
         {/* Content: Stats & Prediction */}
-        <div className="p-6 md:p-10 space-y-10">
+        <div className="p-4 md:p-6 space-y-10">
           
           {/* Accuracy Breakdown (Show when finished OR live) */}
           {(match.status === 'finished' || match.status === 'live') && totalTips > 0 && (
@@ -292,6 +293,11 @@ export function MatchDetailView({ match, userPrediction, stats }: MatchDetailVie
 
           </div>
         </div>
+      </IceGlassCard>
+
+      {/* Predictions List */}
+      <IceGlassCard className="p-2 sm:p-4" withGradient>
+         <MatchPredictionsList matchId={match.id} />
       </IceGlassCard>
     </div>
   )

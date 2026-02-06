@@ -88,7 +88,11 @@
         "match_live": "Zápas sa už začal. Tipovanie je uzavreté.",
         "match_finished": "Zápas už skončil. Tipovanie je uzavreté.",
         "close": "Zavrieť"
-      }
+      },
+      "player_tips": "Tipy hráčov",
+      "search_by_username": "Hľadať podľa mena...",
+      "no_search_results": "Žiadne výsledky vyhľadávania",
+      "no_predictions_yet": "Zatiaľ žiadne tipy"
     },
     "leaderboard": {
       "title": "Rebríček",
