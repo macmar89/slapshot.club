@@ -48,7 +48,7 @@ export const Matches: CollectionConfig = {
       method: 'post',
       handler: async (req) => {
         const id = req.routeParams?.id
-        
+
         // 🔐 Security: Check if user is admin
         const { user } = req
         if (!user || (user as any).role !== 'admin') {
@@ -56,12 +56,14 @@ export const Matches: CollectionConfig = {
         }
 
         try {
-          req.payload.logger.info(`🔄 Manual recalculation triggered for match ${id} by ${user.email}`)
+          req.payload.logger.info(
+            `🔄 Manual recalculation triggered for match ${id} by ${user.email}`,
+          )
           // Revert first to clear old points accurately
           await revertMatchEvaluation(id as string, req.payload)
           // Then evaluate with current scores
           await evaluateMatch(id as string, req.payload)
-          
+
           return Response.json({ message: 'Points recalculated successfully' })
         } catch (error: any) {
           req.payload.logger.error(`Manual recalculation failed: ${error.message}`)
@@ -308,27 +310,55 @@ export const Matches: CollectionConfig = {
 
           // 2. STATUS CHANGE: Finished -> Anything else (Revert)
           if (previousDoc?.status === 'finished' && doc.status !== 'finished') {
-            req.payload.logger.info(`[HOOK] Status changed FROM finished to ${doc.status} for: ${doc.displayTitle}`)
+            req.payload.logger.info(
+              `[HOOK] Status changed FROM finished to ${doc.status} for: ${doc.displayTitle}`,
+            )
             await revertMatchEvaluation(doc.id, req.payload)
             return
           }
 
           // 3. SCORE CHANGE while Finished (Revert & Re-evaluate)
           if (doc.status === 'finished' && previousDoc?.status === 'finished') {
-             const scoreChanged = 
+            const scoreChanged =
               doc.result?.homeScore !== previousDoc.result?.homeScore ||
               doc.result?.awayScore !== previousDoc.result?.awayScore ||
               doc.result?.endingType !== previousDoc.result?.endingType ||
               doc.result?.stage_type !== previousDoc.result?.stage_type
 
-             if (scoreChanged) {
-               req.payload.logger.info(`[HOOK] Score/Type changed for finished match: ${doc.displayTitle}`)
-               await revertMatchEvaluation(doc.id, req.payload)
-               await evaluateMatch(doc.id, req.payload)
-             }
+            if (scoreChanged) {
+              req.payload.logger.info(
+                `[HOOK] Score/Type changed for finished match: ${doc.displayTitle}`,
+              )
+              await revertMatchEvaluation(doc.id, req.payload)
+              await evaluateMatch(doc.id, req.payload)
+            }
+          }
+          // 4. DYNAMIC SCHEDULING: Schedule update-matches task when a match is created or date changes
+          const dateChanged = doc.date !== previousDoc?.date
+          const isScheduled = doc.status === 'scheduled'
+
+          if (isScheduled && dateChanged) {
+            const matchDate = new Date(doc.date)
+            const now = new Date()
+
+            // Only queue if the match is in the future
+            if (matchDate > now) {
+              req.payload.logger.info(
+                `[HOOK] Scheduling update-matches task for match ${doc.id} at ${doc.date}`,
+              )
+              await req.payload.jobs.queue({
+                task: 'update-matches',
+                input: {
+                  manual: false,
+                },
+                waitUntil: matchDate,
+              })
+            }
           }
         } catch (error: any) {
-          req.payload.logger.error(`[HOOK ERROR] Failed to process match evaluation: ${error.message}`)
+          req.payload.logger.error(
+            `[HOOK ERROR] Failed to process match evaluation: ${error.message}`,
+          )
         }
       },
     ],

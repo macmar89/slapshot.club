@@ -49,7 +49,7 @@ export default buildConfig({
         ],
         schedule: [
           {
-            cron: '*/5 * * * *',
+            cron: '0 * * * *',
             queue: 'default',
           },
         ],
