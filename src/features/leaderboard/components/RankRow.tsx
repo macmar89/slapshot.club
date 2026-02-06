@@ -15,7 +15,7 @@ interface RankRowProps {
 }
 
 export const GRID_LAYOUT =
-  'grid grid-cols-[40px_1fr_60px] md:grid-cols-[40px_1fr_60px_60px_60px_60px_80px] items-center gap-2 md:gap-4'
+  'grid grid-cols-[40px_1fr_60px] md:grid-cols-[40px_1fr_60px_60px_60px_60px_60px_80px] items-center gap-2 md:gap-4'
 
 export function RankRow({ entry, className, onClick, isHeader }: RankRowProps) {
   const t = useTranslations('Dashboard.leaderboard')
@@ -73,6 +73,9 @@ export function RankRow({ entry, className, onClick, isHeader }: RankRowProps) {
         </span>
         <span className="text-[10px] font-black uppercase text-white/30 tracking-widest text-right hidden md:block">
           {t('exact')}
+        </span>
+        <span className="text-[10px] font-black uppercase text-white/30 tracking-widest text-right hidden md:block">
+          {t('diff')}
         </span>
         <span className="text-[10px] font-black uppercase text-white/30 tracking-widest text-right hidden md:block">
           {t('winners')}
@@ -147,6 +150,9 @@ export function RankRow({ entry, className, onClick, isHeader }: RankRowProps) {
       </span>
       <span className="text-xs font-black text-[#eab308] text-right hidden md:block">
         {entry.exactScores}
+      </span>
+      <span className="text-xs font-black text-blue-400/80 text-right hidden md:block">
+        {entry.correctDiffs}
       </span>
       <span className="text-xs font-black text-emerald-500/80 text-right hidden md:block">
         {entry.winners}

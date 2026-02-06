@@ -11,6 +11,7 @@ export interface LeaderboardEntry {
   // Extended stats
   predictionsCount: number
   exactScores: number
+  correctDiffs: number
   winners: number
   wrongGuesses: number
   highlightedPoints?: number // Optional highlighted points

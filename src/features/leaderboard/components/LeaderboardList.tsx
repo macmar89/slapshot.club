@@ -42,6 +42,7 @@ export function LeaderboardList({
       isCurrentUser: user.id === currentUser.id,
       predictionsCount: entry.totalMatches || 0,
       exactScores: entry.exactGuesses || 0,
+      correctDiffs: entry.correctDiffs || 0,
       winners: entry.correctTrends || 0,
       wrongGuesses: entry.wrongGuesses || 0,
     }
