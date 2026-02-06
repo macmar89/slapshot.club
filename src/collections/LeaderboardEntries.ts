@@ -95,6 +95,11 @@ export const LeaderboardEntries: CollectionConfig = {
       admin: { readOnly: true },
     },
     {
+      name: 'ovr',
+      type: 'number',
+      admin: { readOnly: true },
+    },
+    {
       name: 'activeLeague',
       type: 'relationship',
       relationTo: 'leagues',

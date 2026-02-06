@@ -74,6 +74,7 @@ export interface Config {
     'membership-tiers': MembershipTier;
     'user-memberships': UserMembership;
     'leaderboard-entries': LeaderboardEntry;
+    'competition-snapshots': CompetitionSnapshot;
     teams: Team;
     matches: Match;
     predictions: Prediction;
@@ -101,6 +102,7 @@ export interface Config {
     'membership-tiers': MembershipTiersSelect<false> | MembershipTiersSelect<true>;
     'user-memberships': UserMembershipsSelect<false> | UserMembershipsSelect<true>;
     'leaderboard-entries': LeaderboardEntriesSelect<false> | LeaderboardEntriesSelect<true>;
+    'competition-snapshots': CompetitionSnapshotsSelect<false> | CompetitionSnapshotsSelect<true>;
     teams: TeamsSelect<false> | TeamsSelect<true>;
     matches: MatchesSelect<false> | MatchesSelect<true>;
     predictions: PredictionsSelect<false> | PredictionsSelect<true>;
@@ -138,6 +140,7 @@ export interface Config {
   jobs: {
     tasks: {
       'update-matches': TaskUpdateMatches;
+      'update-leaderboards': TaskUpdateLeaderboards;
       inline: {
         input: unknown;
         output: unknown;
@@ -428,6 +431,10 @@ export interface Competition {
   requiredTiers: (string | MembershipTier)[];
   totalPlayedMatches?: number | null;
   totalPossiblePoints?: number | null;
+  /**
+   * Hodina (0-23), kedy sa má prepočítať rebríček (default: 5:00).
+   */
+  recalculationHour?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -512,6 +519,7 @@ export interface LeaderboardEntry {
    */
   previousRank?: number | null;
   rankChange?: number | null;
+  ovr?: number | null;
   /**
    * Posledná zvolená liga používateľa v tejto súťaži (pre perzistenciu prepínača).
    */
@@ -551,6 +559,28 @@ export interface League {
     memberCount?: number | null;
     rank?: number | null;
   };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * História bodov a poradia pre grafy.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "competition-snapshots".
+ */
+export interface CompetitionSnapshot {
+  id: string;
+  competition: string | Competition;
+  user: string | User;
+  rank: number;
+  ovr: number;
+  points: number;
+  exactGuesses?: number | null;
+  winnerDiff?: number | null;
+  winner?: number | null;
+  adjacent?: number | null;
+  totalTips?: number | null;
+  date: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -806,7 +836,7 @@ export interface PayloadJob {
     | {
         executedAt: string;
         completedAt: string;
-        taskSlug: 'inline' | 'update-matches';
+        taskSlug: 'inline' | 'update-matches' | 'update-leaderboards';
         taskID: string;
         input?:
           | {
@@ -839,7 +869,7 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  taskSlug?: ('inline' | 'update-matches') | null;
+  taskSlug?: ('inline' | 'update-matches' | 'update-leaderboards') | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
@@ -889,6 +919,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'leaderboard-entries';
         value: string | LeaderboardEntry;
+      } | null)
+    | ({
+        relationTo: 'competition-snapshots';
+        value: string | CompetitionSnapshot;
       } | null)
     | ({
         relationTo: 'teams';
@@ -1105,6 +1139,7 @@ export interface CompetitionsSelect<T extends boolean = true> {
   requiredTiers?: T;
   totalPlayedMatches?: T;
   totalPossiblePoints?: T;
+  recalculationHour?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1177,7 +1212,28 @@ export interface LeaderboardEntriesSelect<T extends boolean = true> {
   currentRank?: T;
   previousRank?: T;
   rankChange?: T;
+  ovr?: T;
   activeLeague?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "competition-snapshots_select".
+ */
+export interface CompetitionSnapshotsSelect<T extends boolean = true> {
+  id?: T;
+  competition?: T;
+  user?: T;
+  rank?: T;
+  ovr?: T;
+  points?: T;
+  exactGuesses?: T;
+  winnerDiff?: T;
+  winner?: T;
+  adjacent?: T;
+  totalTips?: T;
+  date?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1615,6 +1671,16 @@ export interface PayloadJobsStatsSelect<T extends boolean = true> {
 export interface TaskUpdateMatches {
   input: {
     manual?: boolean | null;
+  };
+  output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskUpdate-leaderboards".
+ */
+export interface TaskUpdateLeaderboards {
+  input: {
+    force?: boolean | null;
   };
   output?: unknown;
 }

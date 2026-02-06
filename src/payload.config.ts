@@ -13,6 +13,7 @@ import { Feedback } from './collections/Feedback'
 import { MembershipTiers } from './collections/MembershipTiers'
 import { UserMemberships } from './collections/UserMemberships'
 import { LeaderboardEntries } from './collections/LeaderboardEntries'
+import { CompetitionSnapshots } from './collections/CompetitionSnapshots'
 import { Teams } from './collections/Teams'
 import { Matches } from './collections/Matches'
 import { Predictions } from './collections/Predictions'
@@ -27,6 +28,7 @@ import { Regions } from './collections/Regions'
 import { Badges } from './collections/Badges'
 import { BadgeMedia } from './collections/BadgeMedia'
 import { updateMatchesTask, runUpdateMatches } from './payload/tasks/updateMatches'
+import { updateLeaderboardsTask } from './payload/cron/updateLeaderboards' // Import
 import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
@@ -52,6 +54,24 @@ export default buildConfig({
           },
         ],
         handler: updateMatchesTask,
+      },
+      {
+        slug: 'update-leaderboards',
+        label: 'Update Leaderboards (Hourly)',
+        inputSchema: [
+          {
+            name: 'force',
+            type: 'checkbox',
+            label: 'Force Update (Ignore hour and match check)',
+          },
+        ],
+        schedule: [
+          {
+            cron: '0 * * * *', // Every hour
+            queue: 'default',
+          },
+        ],
+        handler: updateLeaderboardsTask,
       },
     ],
     autoRun: [
@@ -90,6 +110,7 @@ export default buildConfig({
     MembershipTiers,
     UserMemberships,
     LeaderboardEntries,
+    CompetitionSnapshots,
     Teams,
     Matches,
     Predictions,

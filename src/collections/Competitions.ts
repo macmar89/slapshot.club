@@ -108,5 +108,16 @@ export const Competitions: CollectionConfig = {
       },
       label: 'Počet možných bodov',
     },
+    {
+      name: 'recalculationHour',
+      type: 'number',
+      defaultValue: 5,
+      min: 0,
+      max: 23,
+      admin: {
+        position: 'sidebar',
+        description: 'Hodina (0-23), kedy sa má prepočítať rebríček (default: 5:00).',
+      },
+    },
   ],
 }
