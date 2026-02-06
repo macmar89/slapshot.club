@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, startTransition } from 'react'
+import React, { useState, startTransition, useEffect } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -37,6 +37,13 @@ export function PredictionDialog({
   const [homeGoals, setHomeGoals] = useState<number>(existingPrediction?.homeGoals ?? 0)
   const [awayGoals, setAwayGoals] = useState<number>(existingPrediction?.awayGoals ?? 0)
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  useEffect(() => {
+    if (isOpen) {
+      setHomeGoals(existingPrediction?.homeGoals ?? 0)
+      setAwayGoals(existingPrediction?.awayGoals ?? 0)
+    }
+  }, [isOpen, existingPrediction])
 
   if (!match) return null
 

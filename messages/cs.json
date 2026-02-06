@@ -35,8 +35,9 @@
       "current_language": "Aktuální jazyk"
     },
     "upcoming_matches_label": "{count, plural, one {Nejbližší buly} few {Nejbližší buly} other {Nejbližší buly}}",
+    "matches_remaining_count": "Zbývá ti tipnout {count, plural, one {# zápas} few {# zápasy} other {# zápasů}} na 7 nejbližších dní",
     "place_prediction": "Natipuj výsledek",
-    "all_predicted_message": "Máš splněno! Odpočiň si v šatně, další zápasy se připravují.",
+    "all_predicted_message": "Skvělá práce! Máš natipovaný každý zápas na nejbližší týden.",
     "all_done_status": "Vše odtipováno",
     "status_label": "Stav",
     "teams_label": "Týmy",

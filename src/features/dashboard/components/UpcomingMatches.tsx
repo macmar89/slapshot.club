@@ -14,10 +14,16 @@ import { MatchLockedDialog } from '@/features/matches/components/MatchLockedDial
 interface UpcomingMatchesProps {
   upcomingMatches: Match[]
   competition: Competition
+  allMatchesPredicted?: boolean
   locale: string
 }
 
-export function UpcomingMatches({ upcomingMatches, competition, locale }: UpcomingMatchesProps) {
+export function UpcomingMatches({
+  upcomingMatches,
+  competition,
+  locale,
+  allMatchesPredicted,
+}: UpcomingMatchesProps) {
   const t = useTranslations('Dashboard')
   const router = useRouter()
   const [selectedMatch, setSelectedMatch] = useState<Match | null>(null)
@@ -41,6 +47,8 @@ export function UpcomingMatches({ upcomingMatches, competition, locale }: Upcomi
     router.refresh()
   }
 
+  const visibleMatches = upcomingMatches.slice(0, 3)
+
   return (
     <>
       <IceGlassCard className="p-4 md:p-8 relative overflow-hidden" withGradient>
@@ -52,13 +60,15 @@ export function UpcomingMatches({ upcomingMatches, competition, locale }: Upcomi
           <div className="flex items-center gap-2 mb-8">
             <span className="w-2 h-2 rounded-full bg-yellow-500 animate-pulse" />
             <h2 className="text-sm uppercase font-black tracking-[0.2em] text-yellow-500">
-              {t('upcoming_matches_label', { count: upcomingMatches.length })}
+              {upcomingMatches.length > 0
+                ? t('matches_remaining_count', { count: upcomingMatches.length })
+                : t('upcoming_matches_label', { count: 0 })}
             </h2>
           </div>
 
-          {upcomingMatches.length > 0 ? (
+          {visibleMatches.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {upcomingMatches.map((match) => {
+              {visibleMatches.map((match) => {
                 const homeTeam = match.homeTeam as any
                 const awayTeam = match.awayTeam as any
 
@@ -145,7 +155,7 @@ export function UpcomingMatches({ upcomingMatches, competition, locale }: Upcomi
                 )
               })}
             </div>
-          ) : (
+          ) : allMatchesPredicted ? (
             <div className="flex items-center justify-between">
               <p className="text-lg text-white font-medium italic opacity-80">
                 {t('all_predicted_message')}
@@ -153,6 +163,10 @@ export function UpcomingMatches({ upcomingMatches, competition, locale }: Upcomi
               <div className="px-4 py-2 bg-green-500/10 border border-green-500/20 rounded-app text-green-500 text-xs font-bold uppercase tracking-widest">
                 {t('all_done_status')}
               </div>
+            </div>
+          ) : (
+            <div className="text-center py-8 text-white/40 italic text-sm font-medium tracking-wide">
+              {t('matches.empty_state')}
             </div>
           )}
         </div>

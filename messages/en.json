@@ -35,8 +35,9 @@
       "current_language": "Current language"
     },
     "upcoming_matches_label": "{count, plural, one {Next Face-off} other {Next Face-offs}}",
+    "matches_remaining_count": "You have {count, plural, one {# match} other {# matches}} left to predict for the next 7 days",
     "place_prediction": "Predict now",
-    "all_predicted_message": "You're all done! Take a break in the locker room, more matches are coming soon.",
+    "all_predicted_message": "Great job! You have predicted every match for the next week.",
     "all_done_status": "All predicted",
     "status_label": "Status",
     "teams_label": "Teams",

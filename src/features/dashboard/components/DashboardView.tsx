@@ -19,6 +19,7 @@ interface DashboardViewProps {
   leaderboardEntry: LeaderboardEntry | null
   neighbors: LeaderboardEntry[]
   upcomingMatches: Match[]
+  allMatchesPredicted?: boolean
   recentPredictions: Prediction[]
 }
 
@@ -29,6 +30,7 @@ export function DashboardView({
   leaderboardEntry,
   neighbors,
   upcomingMatches,
+  allMatchesPredicted,
   recentPredictions,
 }: DashboardViewProps) {
   const t = useTranslations('Account')
@@ -45,6 +47,7 @@ export function DashboardView({
       {/* Row 2: Upcoming Matches Section */}
       <UpcomingMatches
         upcomingMatches={upcomingMatches}
+        allMatchesPredicted={allMatchesPredicted}
         competition={competition}
         locale={locale}
       />

@@ -38,6 +38,7 @@ export default async function CompetitionDashboard({
   let neighbors: any[] = []
   let upcomingMatches: any[] = []
   let recentPredictions: any[] = []
+  let allMatchesPredicted = false
 
   if (user) {
     // 1. Leaderboard Entry
@@ -88,29 +89,40 @@ export default async function CompetitionDashboard({
       typeof p.match === 'string' ? p.match : p.match.id,
     )
 
-    const { docs: fetchedUpcoming } = await payload.find({
+    const nextWeekDate = new Date()
+    nextWeekDate.setDate(nextWeekDate.getDate() + 7)
+
+    const { docs: matchesNextWeek } = await payload.find({
       collection: 'matches',
       where: {
         and: [
           { competition: { equals: competition.id } },
           { status: { equals: 'scheduled' } },
           {
-            id: {
-              not_in: predictedMatchIds,
+            date: {
+              greater_than: new Date().toISOString(),
             },
           },
           {
             date: {
-              greater_than: new Date().toISOString(),
+              less_than_equal: nextWeekDate.toISOString(),
             },
           },
         ],
       },
       sort: 'date',
-      limit: 3,
+      limit: 100, // Fetch all reasonable matches in next 7 days
       depth: 2,
     })
-    upcomingMatches = fetchedUpcoming
+
+    // Filter unpredicted matches
+    upcomingMatches = matchesNextWeek.filter(
+      (match) => !predictedMatchIds.includes(match.id)
+    )
+
+    // Check if all matches in the next 7 days are predicted
+    // (Only if there ARE matches in the next 7 days)
+    allMatchesPredicted = matchesNextWeek.length > 0 && upcomingMatches.length === 0
 
     // 4. Recent Predictions (last 3 evaluated)
     const { docs: recent } = await payload.find({
@@ -132,6 +144,7 @@ export default async function CompetitionDashboard({
       leaderboardEntry={leaderboardEntry}
       neighbors={neighbors}
       upcomingMatches={upcomingMatches || []}
+      allMatchesPredicted={allMatchesPredicted}
       recentPredictions={recentPredictions}
     />
   )
