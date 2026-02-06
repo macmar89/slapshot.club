@@ -90,5 +90,23 @@ export const Competitions: CollectionConfig = {
         description: 'Ktoré úrovne členstva majú prístup do tejto súťaže?',
       },
     },
+    {
+      name: 'totalPlayedMatches',
+      type: 'number',
+      defaultValue: 0,
+      admin: {
+        position: 'sidebar',
+      },
+      label: 'Celkový počet odohratých zápasov',
+    },
+    {
+      name: 'totalPossiblePoints',
+      type: 'number',
+      defaultValue: 0,
+      admin: {
+        position: 'sidebar',
+      },
+      label: 'Počet možných bodov',
+    },
   ],
 }

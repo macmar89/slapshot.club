@@ -39,6 +39,8 @@ export function LeaderboardView({
           initialEntries={initialEntries}
           currentUser={currentUser}
           competitionId={competition.id}
+          totalPlayedMatches={competition.totalPlayedMatches}
+          totalPossiblePoints={competition.totalPossiblePoints}
         />
       </div>
     </div>

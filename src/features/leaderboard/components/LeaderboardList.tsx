@@ -14,6 +14,8 @@ interface LeaderboardListProps {
   initialEntries: LeaderboardEntry[]
   currentUser: User
   competitionId: string
+  totalPlayedMatches?: number | null
+  totalPossiblePoints?: number | null
 }
 
 // We'll use the entries passed from the server or fetched via client
@@ -24,6 +26,8 @@ export function LeaderboardList({
   initialEntries,
   currentUser,
   competitionId,
+  totalPlayedMatches,
+  totalPossiblePoints,
 }: LeaderboardListProps) {
   const t = useTranslations('Dashboard.leaderboard')
   const containerRef = useRef<HTMLDivElement>(null)
@@ -81,21 +85,25 @@ export function LeaderboardList({
           <div className="flex items-center gap-4 bg-white/5 p-3 border border-white/10">
             <div className="flex flex-col items-center px-3 border-r border-white/10">
               <div className="flex items-center gap-1.5 text-white/40 mb-1">
-                <Activity className="w-3 h-3 text-[#eab308]" />
-                <span className="text-[8px] font-black uppercase tracking-widest">
-                  {t('predictions')}
-                </span>
-              </div>
-              <span className="text-sm font-black text-white italic">124</span>
-            </div>
-            <div className="flex flex-col items-center px-3">
-              <div className="flex items-center gap-1.5 text-white/40 mb-1">
                 <CheckCircle2 className="w-3 h-3 text-emerald-500" />
                 <span className="text-[8px] font-black uppercase tracking-widest">
                   {t('evaluated')}
                 </span>
               </div>
-              <span className="text-sm font-black text-white italic">118</span>
+              <span className="text-sm font-black text-white italic">
+                {totalPlayedMatches ?? 0}
+              </span>
+            </div>
+            <div className="flex flex-col items-center px-3">
+              <div className="flex items-center gap-1.5 text-white/40 mb-1">
+                <Activity className="w-3 h-3 text-[#eab308]" />
+                <span className="text-[8px] font-black uppercase tracking-widest">
+                  {t('max_points')}
+                </span>
+              </div>
+              <span className="text-sm font-black text-white italic">
+                {totalPossiblePoints ?? 0}
+              </span>
             </div>
           </div>
         </div>

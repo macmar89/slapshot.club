@@ -426,6 +426,8 @@ export interface Competition {
    * Ktoré úrovne členstva majú prístup do tejto súťaže?
    */
   requiredTiers: (string | MembershipTier)[];
+  totalPlayedMatches?: number | null;
+  totalPossiblePoints?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1101,6 +1103,8 @@ export interface CompetitionsSelect<T extends boolean = true> {
   endDate?: T;
   description?: T;
   requiredTiers?: T;
+  totalPlayedMatches?: T;
+  totalPossiblePoints?: T;
   updatedAt?: T;
   createdAt?: T;
 }
