@@ -66,6 +66,13 @@
     "no_new_notifications": "No new notifications.",
     "matches": {
       "title": "Matches",
+      "info_tab": "Info",
+      "tips_tab": "Tips",
+      "match_label": "Hockey Match",
+      "potential_points": "Potential",
+      "point_label": "PT",
+      "match_not_started_title": "Match not started yet",
+      "match_not_started_desc": "Predictions from other users will be visible after the match starts",
       "description": "List of all matches in this competition.",
       "match_locked": "It is no longer possible to predict this match.",
       "empty_state": "No matches scheduled yet.",
@@ -114,7 +121,8 @@
       "daily_points": "{count, plural, one {# point} other {# points}}",
       "status_complete": "Complete",
       "status_in_progress": "In Progress",
-      "predicted_label": "Predicted"
+      "predicted_label": "Predicted",
+      "tips_label": "tips"
     },
     "leaderboard": {
       "title": "Leaderboard",

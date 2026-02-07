@@ -9,11 +9,8 @@ export const Predictions: CollectionConfig = {
     defaultColumns: ['user', 'match', 'homeData', 'awayData', 'points', 'isExact', 'isTrend'],
   },
   access: {
-    // User vidí len svoje tipy, Admin všetky
-    read: ({ req: { user } }) => {
-      if (user?.role === 'admin') return true
-      return { user: { equals: user?.id } }
-    },
+    // User vidí tipy (pre štatistiky a teaser), Admin všetky
+    read: ({ req: { user } }) => !!user,
     // Vytvoriť tip môže len prihlásený user
     create: ({ req: { user } }) => !!user,
     // Upraviť tip môže user len kým nezačal zápas (rieši hook nižšie)

@@ -66,6 +66,13 @@
     "no_new_notifications": "Žádná nová oznámení.",
     "matches": {
       "title": "Zápasy",
+      "info_tab": "Info",
+      "tips_tab": "Tipy",
+      "match_label": "Hokejový zápas",
+      "potential_points": "Potenciálně",
+      "point_label": "BOD",
+      "match_not_started_title": "Zápas ještě nezačal",
+      "match_not_started_desc": "Tipy ostatních uživatelů se zobrazí až po začátku zápasu",
       "description": "Seznam všech zápasů v této soutěži.",
       "match_locked": "Na tento zápas již není možné tipovat.",
       "empty_state": "Zatím nejsou naplánovány žádné zápasy.",
@@ -114,7 +121,8 @@
       "daily_points": "{count, plural, one {# bod} few {# body} other {# bodov}}",
       "status_complete": "Kompletní",
       "status_in_progress": "V průběhu",
-      "predicted_label": "Natipováno"
+      "predicted_label": "Natipováno",
+      "tips_label": "tipů"
     },
     "leaderboard": {
       "title": "Žebříček",

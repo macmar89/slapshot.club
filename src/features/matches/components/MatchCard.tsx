@@ -113,7 +113,7 @@ export function MatchCard({
       <div className="absolute top-4 right-4 md:top-6 md:right-6">
         <div
           className={cn(
-            'px-3 py-1 rounded-app border text-[0.6rem] font-black uppercase tracking-widest flex items-center gap-2',
+            'px-3 py-1 rounded-app border  text-[0.6rem] font-black uppercase tracking-widest flex items-center gap-2',
             statusStyles[match.status as keyof typeof statusStyles] || statusStyles.scheduled,
           )}
         >
@@ -228,11 +228,11 @@ export function MatchCard({
                   </div>
                   {!isStarted && match.status === 'scheduled' && (
                     <Button
-                      variant="ghost"
+                      variant="solid"
                       color="warning"
                       size="icon"
                       onClick={handlePredict}
-                      className="p-1.5 -mr-1 h-8 w-8 rounded-full"
+                      className="p-1.5 -mr-1 h-8 w-8 rounded-lg"
                     >
                       <PencilLine className="w-4 h-4" />
                     </Button>
@@ -264,18 +264,16 @@ export function MatchCard({
           </div>
 
           <div className="flex items-center gap-2">
-            {isStarted && (
-              // @ts-expect-error -- dynamic path
-              <Link href={`/dashboard/${slug}/matches/${match.id}`} className="w-full sm:w-auto">
-                <Button
-                  variant="outline"
-                  className="w-full sm:w-auto rounded-app border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 text-[0.6rem] font-black uppercase tracking-[0.2em] gap-2 h-10 px-6 transition-all"
-                >
-                  <Eye className="w-4 h-4 text-white/40" />
-                  {t('view_detail')}
-                </Button>
-              </Link>
-            )}
+            {/* @ts-expect-error -- dynamic path */}
+            <Link href={`/dashboard/${slug}/matches/${match.id}`} className="w-full sm:w-auto">
+              <Button
+                variant="solid"
+                className="w-full sm:w-auto rounded-app border-white/20 bg-white/10 hover:bg-white/20 hover:border-white/40 text-[0.6rem] font-black uppercase tracking-[0.2em] gap-2 h-10 px-6 transition-all shadow-[0_4px_15px_rgba(0,0,0,0.1)]"
+              >
+                <Eye className="w-4 h-4 text-white/70" />
+                {t('view_detail')}
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
