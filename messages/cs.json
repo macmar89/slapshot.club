@@ -146,7 +146,8 @@
       "max_points": "Možné body",
       "click_to_go_to_your_position": "Klikni pro přechod na tvou pozici",
       "name": "Jméno",
-      "last_updated": "Poslední aktualizace {date}"
+      "last_updated": "Poslední aktualizace {date}",
+      "rank_update_info": "Pořadí se aktualizuje 1x denně (05:00). Body naskakují ihned."
     }
   },
   "Login": {

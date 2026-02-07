@@ -146,7 +146,8 @@
       "max_points": "Možné body",
       "click_to_go_to_your_position": "Klikni pre prechod na tvoju pozíciu",
       "name": "Meno",
-      "last_updated": "Posledná aktualizácia {date}"
+      "last_updated": "Posledná aktualizácia {date}",
+      "rank_update_info": "Poradie sa aktualizuje 1x denne (05:00). Body naskakujú ihneď."
     }
   },
   "Login": {

@@ -146,7 +146,8 @@
       "max_points": "Possible Points",
       "click_to_go_to_your_position": "Click to jump to your position",
       "name": "Name",
-      "last_updated": "Last updated {date}"
+      "last_updated": "Last updated {date}",
+      "rank_update_info": "Ranks update daily (05:00). Points update instantly."
     }
   },
   "Login": {
