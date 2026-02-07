@@ -132,7 +132,8 @@
       "evaluated": "Vyhodnotené",
       "max_points": "Možné body",
       "click_to_go_to_your_position": "Klikni pre prechod na tvoju pozíciu",
-      "name": "Meno"
+      "name": "Meno",
+      "last_updated": "Posledná aktualizácia {date}"
     }
   },
   "Login": {

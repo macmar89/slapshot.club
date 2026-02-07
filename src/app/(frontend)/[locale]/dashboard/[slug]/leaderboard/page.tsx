@@ -71,22 +71,35 @@ export default async function CompetitionLeaderboard(props: {
         where: {
           and: [{ competition: { equals: competition.id } }, { user: { in: memberIds } }],
         },
-        sort: '-totalPoints',
+        sort: 'currentRank',
         limit: 100,
       })
-      entries = leaderboardEntries.docs as unknown as LeaderboardEntry[]
+      entries = (leaderboardEntries.docs as unknown as LeaderboardEntry[]).sort((a, b) => {
+        const rankA = a.currentRank || 0
+        const rankB = b.currentRank || 0
+
+        if (rankA === 0 && rankB !== 0) return 1
+        if (rankA !== 0 && rankB === 0) return -1
+        return rankA - rankB
+      })
     }
   } else {
-    // 3. Fetch initial leaderboard entries for this competition (top 100 global)
     const leaderboardEntries = await payload.find({
       collection: 'leaderboard-entries',
       where: {
         competition: { equals: competition.id },
       },
-      sort: '-totalPoints',
+      sort: 'currentRank',
       limit: 100,
     })
-    entries = leaderboardEntries.docs as unknown as LeaderboardEntry[]
+    entries = (leaderboardEntries.docs as unknown as LeaderboardEntry[]).sort((a, b) => {
+      const rankA = a.currentRank || 0
+      const rankB = b.currentRank || 0
+
+      if (rankA === 0 && rankB !== 0) return 1
+      if (rankA !== 0 && rankB === 0) return -1
+      return rankA - rankB
+    })
   }
 
   return (

@@ -2,7 +2,7 @@ import type { User, LeaderboardEntry } from '@/payload-types'
 import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import { Trophy, Star } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 
 interface UserHeroCardProps {
   user: User
@@ -11,6 +11,7 @@ interface UserHeroCardProps {
 
 export function UserHeroCard({ user, leaderboardEntry }: UserHeroCardProps) {
   const t = useTranslations('Dashboard.hero')
+  const locale = useLocale()
 
   const getRankBadge = (rank: number, totalUsers: number = 100) => {
     const percent = (rank / totalUsers) * 100
@@ -30,7 +31,7 @@ export function UserHeroCard({ user, leaderboardEntry }: UserHeroCardProps) {
       : '0.00'
 
   const registrationDate = new Date(user.createdAt).toLocaleDateString(
-    t('member_since').includes('Člen') ? 'sk-SK' : 'en-US',
+    locale === 'sk' ? 'sk-SK' : locale === 'cs' ? 'cs-CZ' : 'en-US',
     {
       month: 'short',
       year: 'numeric',

@@ -30,7 +30,12 @@ export function LeaderboardView({
   return (
     <div className="h-[calc(100dvh-8rem)] md:h-[calc(100dvh-7rem)] flex flex-col overflow-hidden">
       {/* Header Section */}
-      <PageHeader title={competition.name} description={t('description')} className="mb-6" />
+      <PageHeader
+        title={competition.name}
+        description={t('description')}
+        className="mb-6"
+        hideDescriptionOnMobile
+      />
 
       <div className="flex-1 min-h-0">
         <LeaderboardList

@@ -6,9 +6,16 @@ interface PageHeaderProps {
   description?: string
   children?: React.ReactNode
   className?: string
+  hideDescriptionOnMobile?: boolean
 }
 
-export function PageHeader({ title, description, children, className }: PageHeaderProps) {
+export function PageHeader({
+  title,
+  description,
+  children,
+  className,
+  hideDescriptionOnMobile,
+}: PageHeaderProps) {
   return (
     <div className={cn('flex flex-col md:flex-row md:items-end justify-between gap-6', className)}>
       <div className="flex flex-col gap-2">
@@ -16,7 +23,12 @@ export function PageHeader({ title, description, children, className }: PageHead
           <span className="text-warning">{title}</span>
         </h1>
         {description && (
-          <p className="text-white font-bold uppercase tracking-[0.3em] text-[0.65rem] md:text-xs">
+          <p
+            className={cn(
+              'text-white font-bold uppercase tracking-[0.3em] text-[0.65rem] md:text-xs',
+              hideDescriptionOnMobile && 'hidden md:block',
+            )}
+          >
             {description}
           </p>
         )}

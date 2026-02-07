@@ -12,12 +12,13 @@ interface RankRowProps {
   className?: string
   onClick?: () => void
   isHeader?: boolean
+  hideRank?: boolean
 }
 
 export const GRID_LAYOUT =
-  'grid grid-cols-[40px_1fr_60px] md:grid-cols-[40px_1fr_60px_60px_60px_60px_60px_80px] items-center gap-2 md:gap-4'
+  'grid grid-cols-[40px_1fr_60px] md:grid-cols-[40px_1fr_60px_60px_60px_60px_60px_90px] items-center gap-2 md:gap-4'
 
-export function RankRow({ entry, className, onClick, isHeader }: RankRowProps) {
+export function RankRow({ entry, className, onClick, isHeader, hideRank }: RankRowProps) {
   const t = useTranslations('Dashboard.leaderboard')
   const getRankDisplay = (rank: number) => {
     switch (rank) {
@@ -49,7 +50,11 @@ export function RankRow({ entry, className, onClick, isHeader }: RankRowProps) {
           </div>
         )
       default:
-        return <span className="text-sm md:text-base font-black text-white italic">#{rank}</span>
+        return !rank ? (
+          <span className="text-sm md:text-base font-black text-white/40 italic">-</span>
+        ) : (
+          <span className="text-sm md:text-base font-black text-white italic">#{rank}</span>
+        )
     }
   }
 
@@ -83,7 +88,7 @@ export function RankRow({ entry, className, onClick, isHeader }: RankRowProps) {
         <span className="text-[10px] font-black uppercase text-white/30 tracking-widest text-right hidden md:block">
           {t('wrong')}
         </span>
-        <span className="text-[10px] font-black uppercase text-white/30 tracking-widest text-right">
+        <span className="text-[10px] font-black uppercase text-[#eab308] tracking-[0.2em] text-center px-3 bg-white/10 h-full flex items-center justify-center border-l border-white/20 ml-2 md:ml-4">
           {t('points')}
         </span>
       </div>
@@ -105,7 +110,7 @@ export function RankRow({ entry, className, onClick, isHeader }: RankRowProps) {
     >
       {/* Rank */}
       <div className="flex items-center justify-center min-h-[32px] md:min-h-[40px]">
-        {getRankDisplay(entry.rank)}
+        {!hideRank && getRankDisplay(entry.rank)}
       </div>
 
       {/* Name / Avatar */}
@@ -128,18 +133,48 @@ export function RankRow({ entry, className, onClick, isHeader }: RankRowProps) {
           <div className="flex items-center gap-2">
             <span
               className={cn(
-                'font-black uppercase tracking-tight truncate text-[10px] md:text-sm',
+                'font-black uppercase tracking-tight truncate text-[12px] md:text-sm',
                 entry.isCurrentUser ? 'text-[#eab308]' : 'text-white',
               )}
             >
               {entry.name}
             </span>
           </div>
-          <div className="flex items-center gap-1">
-            {TrendIcon}
-            <span className="text-[7px] md:text-[8px] uppercase font-bold text-white/20 tracking-widest">
-              {entry.trend}
-            </span>
+          {entry.trend !== 'same' && (
+            <div className="flex items-center gap-1">
+              {TrendIcon}
+              <span className="text-[7px] md:text-[8px] uppercase font-bold text-white/20 tracking-widest">
+                {entry.trend}
+              </span>
+            </div>
+          )}
+
+          {/* Mobile Only Stats */}
+          <div className="flex md:hidden items-center gap-3 mt-1.5 py-1 px-2 bg-white/5 rounded-sm border border-white/[0.05] w-fit">
+            <div className="flex flex-col items-center leading-none">
+              <span className="text-[6px] font-bold text-white/30 uppercase tracking-tighter mb-0.5">
+                {t('predictions')}
+              </span>
+              <span className="text-[9px] font-black text-white/60">{entry.predictionsCount}</span>
+            </div>
+            <div className="flex flex-col items-center border-l border-white/10 pl-2 leading-none">
+              <span className="text-[6px] font-bold text-white/30 uppercase tracking-tighter mb-0.5">
+                {t('exact')}
+              </span>
+              <span className="text-[9px] font-black text-[#eab308]">{entry.exactScores}</span>
+            </div>
+            <div className="flex flex-col items-center border-l border-white/10 pl-2 leading-none">
+              <span className="text-[6px] font-bold text-white/30 uppercase tracking-tighter mb-0.5">
+                {t('diff')}
+              </span>
+              <span className="text-[9px] font-black text-blue-400/80">{entry.correctDiffs}</span>
+            </div>
+            <div className="flex flex-col items-center border-l border-white/10 pl-2 leading-none">
+              <span className="text-[6px] font-bold text-white/30 uppercase tracking-tighter mb-0.5">
+                {t('winners')}
+              </span>
+              <span className="text-[9px] font-black text-emerald-500/80">{entry.winners}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -162,8 +197,9 @@ export function RankRow({ entry, className, onClick, isHeader }: RankRowProps) {
       </span>
 
       {/* Points */}
-      <div className="text-right">
-        <span className="text-sm md:text-base font-black text-[#eab308] italic tracking-tighter">
+      <div className="h-full flex items-center justify-center px-3 bg-gradient-to-l from-[#eab308]/10 to-transparent border-l border-white/10 relative group/points ml-2 md:ml-4">
+        <div className="absolute inset-0 bg-white/5 opacity-0 md:group-hover:opacity-100 transition-opacity" />
+        <span className="text-base md:text-xl font-black text-[#eab308] italic tracking-tighter drop-shadow-[0_0_15px_rgba(234,179,8,0.4)] transition-transform duration-300 md:group-hover:scale-110">
           {entry.points}
         </span>
       </div>

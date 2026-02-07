@@ -132,7 +132,8 @@
       "evaluated": "Vyhodnoceno",
       "max_points": "Možné body",
       "click_to_go_to_your_position": "Klikni pro přechod na tvou pozici",
-      "name": "Jméno"
+      "name": "Jméno",
+      "last_updated": "Poslední aktualizace {date}"
     }
   },
   "Login": {

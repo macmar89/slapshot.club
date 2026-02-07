@@ -132,7 +132,8 @@
       "evaluated": "Evaluated",
       "max_points": "Possible Points",
       "click_to_go_to_your_position": "Click to jump to your position",
-      "name": "Name"
+      "name": "Name",
+      "last_updated": "Last updated {date}"
     }
   },
   "Login": {
