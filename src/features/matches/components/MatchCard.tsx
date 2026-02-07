@@ -94,6 +94,9 @@ export function MatchCard({
       </div>
       <div className="text-center">
         <div className="text-sm font-bold text-white line-clamp-1 hidden md:block">{team.name}</div>
+        <div className="text-[0.65rem] font-bold text-white line-clamp-1 md:hidden uppercase tracking-wider">
+          {team.shortName}
+        </div>
       </div>
     </div>
   )
@@ -135,7 +138,6 @@ export function MatchCard({
 
       <div className="flex items-center justify-between gap-4 mb-8">
         {renderTeam(homeTeam, 'home')}
-
         <div className="flex flex-col items-center justify-center gap-2 flex-1">
           <div className="flex items-center gap-4 text-3xl md:text-5xl font-black italic tracking-tighter">
             {match.status === 'scheduled' || match.status === 'cancelled' ? (
@@ -158,7 +160,6 @@ export function MatchCard({
             </span>
           )}
         </div>
-
         {renderTeam(awayTeam, 'away')}
       </div>
 

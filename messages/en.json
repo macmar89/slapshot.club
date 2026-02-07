@@ -109,7 +109,12 @@
       "player_tips": "Player Tips",
       "search_by_username": "Search by username...",
       "no_search_results": "No search results found",
-      "no_predictions_yet": "No predictions yet"
+      "no_predictions_yet": "No predictions yet",
+      "daily_summary_title": "Daily Summary",
+      "daily_points": "{count, plural, one {# point} other {# points}}",
+      "status_complete": "Complete",
+      "status_in_progress": "In Progress",
+      "predicted_label": "Predicted"
     },
     "leaderboard": {
       "title": "Leaderboard",

@@ -109,7 +109,12 @@
       "player_tips": "Tipy hráčov",
       "search_by_username": "Hľadať podľa mena...",
       "no_search_results": "Žiadne výsledky vyhľadávania",
-      "no_predictions_yet": "Zatiaľ žiadne tipy"
+      "no_predictions_yet": "Zatiaľ žiadne tipy",
+      "daily_summary_title": "Dnešné zúčtovanie",
+      "daily_points": "{count, plural, one {# bod} few {# body} other {# bodov}}",
+      "status_complete": "Kompletné",
+      "status_in_progress": "V priebehu",
+      "predicted_label": "Natipované"
     },
     "leaderboard": {
       "title": "Rebríček",

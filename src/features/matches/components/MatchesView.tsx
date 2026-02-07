@@ -10,6 +10,7 @@ import { PredictionDialog } from './PredictionDialog'
 import { CalendarDialog } from './CalendarDialog'
 import { cn } from '@/lib/utils'
 import { ChevronLeft, ChevronRight, CalendarDays } from 'lucide-react'
+import { DailySummary } from './DailySummary'
 import { MatchesSkeleton } from './MatchesSkeleton'
 import { useTranslations } from 'next-intl'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
@@ -138,7 +139,12 @@ export function MatchesView({ competition }: MatchesViewProps) {
 
   return (
     <PageLayout>
-      <PageHeader title={competition.name} description={t('description')}>
+      <PageHeader
+        title={competition.name}
+        description={t('description')}
+        hideDescriptionOnMobile
+        className="mb-4 md:mb-6"
+      >
         {/* Premium Day Selector */}
         <div className="flex items-center justify-between md:justify-start w-full md:w-auto gap-4 bg-white/10 border border-white/20 p-1.5 rounded-app backdrop-blur-xl shadow-2xl">
           <Button
@@ -219,6 +225,8 @@ export function MatchesView({ competition }: MatchesViewProps) {
           </Button>
         </div>
       </PageHeader>
+
+      <DailySummary matches={activeMatches} predictions={optimisticPredictions} />
 
       {/* Matches Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-6 -mx-1 md:mx-0 animate-in fade-in slide-in-from-bottom-4 duration-700">

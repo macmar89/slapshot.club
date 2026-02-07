@@ -109,7 +109,12 @@
       "player_tips": "Tipy hráčů",
       "search_by_username": "Hledat podle jména...",
       "no_search_results": "Žádné výsledky vyhledávání",
-      "no_predictions_yet": "Zatím žádné tipy"
+      "no_predictions_yet": "Zatím žádné tipy",
+      "daily_summary_title": "Dnešní zúčtování",
+      "daily_points": "{count, plural, one {# bod} few {# body} other {# bodov}}",
+      "status_complete": "Kompletní",
+      "status_in_progress": "V průběhu",
+      "predicted_label": "Natipováno"
     },
     "leaderboard": {
       "title": "Žebříček",
