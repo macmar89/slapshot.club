@@ -36,6 +36,17 @@ export async function syncMatchesFromHockeyApi(payload: BasePayload) {
     const todayStr = now.toISOString().split('T')[0]
 
     for (const comp of competitions.docs) {
+      // 1.1 Double check dates (even if set to active, only sync during the event)
+      const startDate = new Date(comp.startDate)
+      const endDate = new Date(comp.endDate)
+
+      if (now < startDate || now > endDate) {
+        payload.logger.info(
+          `[HOCKEY SYNC] Skipping ${comp.name} - outside of date range (${comp.startDate} to ${comp.endDate})`,
+        )
+        continue
+      }
+
       payload.logger.info(
         `[HOCKEY SYNC] Processing competition: ${comp.name} (${comp.apiHockeyId})`,
       )
