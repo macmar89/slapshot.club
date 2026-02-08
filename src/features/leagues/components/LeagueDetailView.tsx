@@ -4,10 +4,9 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
-import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
-import { Copy, ArrowLeft, Trash2, Crown, MessageCircle, Info, Users } from 'lucide-react'
-import { BackButton } from '@/components/ui/BackButton'
+import { Crown, MessageCircle, Info, Users } from 'lucide-react'
+import { BackLink } from '@/components/ui/BackLink'
 import type { League, User } from '@/payload-types'
 import { deleteLeague, removeMember, approveMember, rejectMember, transferOwnership } from '@/actions/leagues'
 import type { LeaderboardEntry as PayloadLeaderboardEntry } from '@/payload-types'
@@ -18,9 +17,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogClose,
 } from '@/components/ui/Dialog'
+import { LeagueActionDialog } from './LeagueActionDialog'
 import { Button } from '@/components/ui/Button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs'
 import { REFRESH_INTERVALS } from '@/lib/constants'
@@ -178,11 +177,12 @@ export function LeagueDetailView({
       {/* Header Section */}
       <div className="flex flex-col gap-4 mb-4 shrink-0 px-1">
         <div className="flex justify-between items-center">
-             <BackButton label={t('back_to_list')} />
+             <BackLink href={`/dashboard/${competitionSlug}/leagues`} label={t('back_to_list')} /> 
+             
              
              <Button
                 variant="ghost"
-                onClick={() => router.push('/rules/minileagues')}
+                onClick={() => router.push('/dashboard/tipos-2025-2026/rules?tab=minileagues')}
                 className="text-white hover:text-warning text-xs gap-1 cursor-pointer hover:bg-transparent font-bold tracking-wider"
              >
                 <Info className="w-3 h-3" />
@@ -282,36 +282,13 @@ export function LeagueDetailView({
 
       </Tabs>
 
-          {/* Action Confirmation Dialog */}
-          <Dialog open={!!memberToAction && !!actionType} onOpenChange={(open) => !open && setMemberToAction(null)}>
-            <DialogContent className="bg-black/95 border-white/10 text-white">
-              <DialogHeader>
-                <DialogTitle>
-                    {actionType === 'kick' ? 'Odstrániť hráča?' : 'Odovzdať kapitánsku pásku?'}
-                </DialogTitle>
-                <DialogDescription className="text-white/60">
-                   {actionType === 'kick' 
-                      ? `Naozaj chcete odstrániť hráča ${memberToActionUser?.username || '...'} z ligy?`
-                      : `Týmto krokom prestanete byť vlastníkom ligy a novým kapitánom sa stane ${memberToActionUser?.username || '...'}. Táto akcia je nevratná.`
-                   }
-                </DialogDescription>
-              </DialogHeader>
-              <DialogFooter>
-                <DialogClose asChild>
-                  <Button variant="outline" className="bg-white/5 border-white/10 hover:bg-white/10 cursor-pointer">
-                    Zrušiť
-                  </Button>
-                </DialogClose>
-                <Button 
-                    onClick={actionType === 'kick' ? handleKickMember : handleTransferOwnership} 
-                    color={actionType === 'kick' ? 'destructive' : 'primary'}
-                    className="cursor-pointer"
-                >
-                  {actionType === 'kick' ? 'Vyhodiť' : 'Potvrdiť zmenu'}
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+      <LeagueActionDialog
+        open={!!memberToAction && !!actionType}
+        onOpenChange={(open) => !open && setMemberToAction(null)}
+        type={actionType}
+        memberName={memberToActionUser?.username || '...'}
+        onConfirm={actionType === 'kick' ? handleKickMember : handleTransferOwnership}
+      />
     </div>
   )
 }

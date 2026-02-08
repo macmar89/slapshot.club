@@ -119,7 +119,7 @@ export function LeaderboardList({
       {/* Scrollable List */}
       <div
         ref={containerRef}
-        className="flex-1 overflow-y-auto divide-y divide-white/[0.05] pb-10 md:pb-24 scroll-smooth"
+        className="flex-1 overflow-y-auto divide-y divide-white/[0.05] pb-28 md:pb-24 scroll-smooth"
       >
         {entries.map((entry, index) => {
           const isDuplicateRank = index > 0 && entry.rank === entries[index - 1].rank

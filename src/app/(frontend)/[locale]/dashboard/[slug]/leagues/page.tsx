@@ -69,6 +69,8 @@ export default async function LeaguesPage({
       ownedLeagues={ownedLeagues.docs as unknown as League[]}
       joinedLeagues={joinedLeagues.docs as unknown as League[]}
       competitionId={competitionId}
+      userId={user.id}
+      userPlan={user.subscription.plan}
     />
   )
 }

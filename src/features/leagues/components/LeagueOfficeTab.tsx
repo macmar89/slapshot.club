@@ -76,7 +76,7 @@ export function LeagueOfficeTab({
         <div className="p-4 md:p-6 grid grid-cols-[1fr_auto] md:grid-cols-2 lg:grid-cols-3 gap-4 items-center border-b border-white/10 bg-white/[0.02]">
              {/* Invite Code */}
              <div className="flex flex-col gap-1 md:gap-2">
-                 <span className="text-[10px] md:text-xs text-white/40 font-bold uppercase tracking-wider">Pozývací kód</span>
+                 <span className="text-[10px] md:text-xs text-white/40 font-bold uppercase tracking-wider">{t('invite_code')}</span>
                  <div className="flex items-center gap-2">
                      <span className="text-lg md:text-2xl font-mono text-warning font-bold tracking-wider">{league.code}</span>
                      <Button variant="ghost" size="icon" className="h-6 w-6 md:h-8 md:w-8 text-white/40 hover:text-white cursor-pointer" onClick={() => copyToClipboard(league.code || '')}>
@@ -87,7 +87,7 @@ export function LeagueOfficeTab({
 
              {/* Capacity - Hidden on mobile */}
              <div className="hidden md:flex flex-col gap-2">
-                 <span className="text-xs text-white/40 font-bold uppercase tracking-wider">Kapacita</span>
+                 <span className="text-xs text-white/40 font-bold uppercase tracking-wider">{t('capacity')}</span>
                  <div className="flex items-center gap-2 text-2xl font-bold text-white">
                      <span>{members.length}</span>
                      <span className="text-white/20">/</span>
@@ -105,8 +105,8 @@ export function LeagueOfficeTab({
                     className="bg-destructive/10 hover:bg-destructive/20 text-destructive border-destructive/20 gap-2 shrink-0 cursor-pointer text-xs h-8 px-3"
                   >
                      <Trash2 className="w-3 h-3 md:w-4 md:h-4" />
-                     <span className="hidden sm:inline">{isDeleting ? 'Ruším...' : 'Zrušiť ligu'}</span>
-                     <span className="sm:hidden">Zrušiť</span>
+                     <span className="hidden sm:inline">{isDeleting ? t('deleting_league') : t('delete_league_action')}</span>
+                     <span className="sm:hidden">{t('delete_league_short')}</span>
                   </Button>
              </div>
         </div>
@@ -118,7 +118,7 @@ export function LeagueOfficeTab({
                     <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-4">
                         <Users className="w-5 h-5 text-white/20" />
                     </div>
-                    <p className="text-white/30 text-sm italic">Žiadni členovia</p>
+                    <p className="text-white/30 text-sm italic">{t('no_members')}</p>
                 </div>
             ) : (
                 mergedList.map(({ user, status }) => {
@@ -159,7 +159,7 @@ export function LeagueOfficeTab({
                                     </span>
                                     <div className="flex items-center gap-2">
                                         <span className="text-[10px] text-white/40 uppercase tracking-wider">
-                                            {isPending ? 'Čaká na schválenie' : (role ? (role.label === 'C' ? 'Kapitán' : 'Asistent') : 'Člen')}
+                                            {isPending ? t('pending_status') : (role ? (role.label === 'C' ? t('captain') : t('assistant')) : t('member'))}
                                         </span>
                                         <span className="text-[10px] text-white/20 uppercase tracking-wider border-l border-white/10 pl-2">
                                             {user.subscription?.plan || 'Free'}
@@ -171,10 +171,10 @@ export function LeagueOfficeTab({
                             <div className="flex items-center gap-1">
                                 {isPending ? (
                                     <>
-                                       <Button size="icon" className="h-8 w-8 bg-emerald-500/20 text-emerald-500 hover:bg-emerald-500/40 border border-emerald-500/30 cursor-pointer" onClick={() => onApprove(user.id)} title="Schváliť">
+                                       <Button size="icon" className="h-8 w-8 bg-emerald-500/20 text-emerald-500 hover:bg-emerald-500/40 border border-emerald-500/30 cursor-pointer" onClick={() => onApprove(user.id)} title={t('approve')}>
                                            <Check className="w-4 h-4" />
                                        </Button>
-                                       <Button size="icon" className="h-8 w-8 bg-destructive/20 text-destructive hover:bg-destructive/40 border border-destructive/30 cursor-pointer" onClick={() => onReject(user.id)} title="Zamietnuť">
+                                       <Button size="icon" className="h-8 w-8 bg-destructive/20 text-destructive hover:bg-destructive/40 border border-destructive/30 cursor-pointer" onClick={() => onReject(user.id)} title={t('reject')}>
                                            <X className="w-4 h-4" />
                                        </Button>
                                     </>
@@ -186,7 +186,7 @@ export function LeagueOfficeTab({
                                                 size="icon" 
                                                 onClick={() => onAction(user.id, 'transfer')} 
                                                 className="h-8 w-8 text-white/40 hover:text-warning hover:bg-warning/10 cursor-pointer" 
-                                                title="Zmeniť na kapitána"
+                                                title={t('make_captain_tooltip')}
                                             >
                                                 <Crown className="w-4 h-4" />
                                             </Button>
@@ -195,7 +195,7 @@ export function LeagueOfficeTab({
                                                 size="icon" 
                                                 onClick={() => onAction(user.id, 'kick')} 
                                                 className="h-8 w-8 text-white/40 hover:text-destructive hover:bg-destructive/10 cursor-pointer" 
-                                                title="Vyhodiť z ligy"
+                                                title={t('kick_tooltip')}
                                             >
                                                 <UserX className="w-4 h-4" />
                                             </Button>
@@ -214,19 +214,19 @@ export function LeagueOfficeTab({
     <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
         <DialogContent className="bg-black/95 border-white/10 text-white backdrop-blur-xl">
           <DialogHeader>
-            <DialogTitle>Naozaj chcete zrušiť ligu?</DialogTitle>
+            <DialogTitle>{t('delete_confirm_title')}</DialogTitle>
             <DialogDescription className="text-white/60">
-              Táto akcia je nevratná. Všetci členovia budú odstránení.
+              {t('delete_confirm_desc')}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <DialogClose asChild>
               <Button variant="outline" className="bg-white/5 border-white/10 hover:bg-white/10 cursor-pointer">
-                Zrušiť
+                {t('cancel')}
               </Button>
             </DialogClose>
             <Button onClick={onDeleteLeague} disabled={isDeleting} color="destructive" className="cursor-pointer">
-              {isDeleting ? 'Mažem...' : 'Potvrdiť zmazanie'}
+              {isDeleting ? t('deleting_league') : t('delete_confirm_done')}
             </Button>
           </DialogFooter>
         </DialogContent>

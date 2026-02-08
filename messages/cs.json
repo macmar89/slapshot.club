@@ -310,13 +310,19 @@
   "Leagues": {
     "title": "Mini Ligy",
     "create_button": "Vytvořit Ligu",
+    "detail": "Detail",
     "owned_section": "Moje Ligy",
     "joined_section": "Členství",
     "join_section": "Připojit se do Ligy",
+    "join_title": "Máš pozvánku?",
+    "join_description": "Zadej kód od kámoše a přidej se do party.",
     "join_placeholder": "Zadej pozývací kód (např. PUK-1234)",
     "join_button": "Odeslat žádost",
     "join_request_sent": "Žádost odeslána! Vyčkejte na schválení majitelem.",
     "members_count": "{count} členů",
+    "members_label": "Členové",
+    "waiting_label": "{count} čeká",
+    "no_leagues_joined": "Zatím nejste v žádné lize.",
     "copy_code": "Kopírovat",
     "copied": "Zkopírováno",
     "create_modal": {
@@ -328,7 +334,10 @@
       "public": "Veřejná",
       "cancel": "Zrušit",
       "submit": "Vytvořit",
-      "creating": "Vytvářím..."
+      "creating": "Vytvářím...",
+      "premium_title": "Vytvoření Ligy je Premium",
+      "premium_description": "Vlastní mini-ligy jsou dostupné pro členy s Pro nebo VIP účtem.",
+      "upgrade_button": "Získat Premium"
     },
     "back_to_list": "Zpět na seznam",
     "members_list": "Seznam členů",
@@ -340,6 +349,9 @@
     "kick_confirm_title": "Odebrat člena?",
     "kick_confirm_desc": "Jste si jistý, že chcete odebrat uživatele {name} z ligy?",
     "kick_confirm_action": "Odebrat",
+    "transfer_confirm_title": "Předat kapitánskou pásku?",
+    "transfer_confirm_desc": "Tímto krokem přestanete být vlastníkem ligy a novým kapitánem se stane {name}. Tato akce je nevratná.",
+    "transfer_confirm_action": "Potvrdit změnu",
     "cancel": "Zrušit",
     "league_deleted": "Liga byla vymazána",
     "member_removed": "Člen byl odstraněn",
@@ -377,7 +389,18 @@
       "no_requests": "Žádné čekající žádosti."
     },
     "header_rules": "Pravidla",
-    "header_members": "{count} / {max} Členů"
+    "header_members": "{count} / {max} Členů",
+    "capacity": "Kapacita",
+    "no_members": "Žádní členové",
+    "pending_status": "Čeká na schválení",
+    "approve": "Schválit",
+    "reject": "Zamítnout",
+    "make_captain_tooltip": "Změnit na kapitána",
+    "kick_tooltip": "Vyhodit z ligy",
+    "delete_league_action": "Zrušit ligu",
+    "delete_league_short": "Zrušit",
+    "deleting_league": "Ruším...",
+    "delete_confirm_done": "Potvrdit smazání"
   },
   "NotFound": {
     "title": "Zakázané uvolnění!",

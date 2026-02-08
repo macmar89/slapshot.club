@@ -312,13 +312,19 @@
   "Leagues": {
     "title": "Mini Leagues",
     "create_button": "Create League",
+    "detail": "Detail",
     "owned_section": "My Leagues",
     "joined_section": "Memberships",
     "join_section": "Join League",
+    "join_title": "Have an invite?",
+    "join_description": "Enter the code from your friend to join the group.",
     "join_placeholder": "Enter invite code (e.g. PUK-1234)",
     "join_button": "Send Request",
     "join_request_sent": "Request sent! Waiting for owner's approval.",
     "members_count": "{count} members",
+    "members_label": "Members",
+    "waiting_label": "{count} waiting",
+    "no_leagues_joined": "You are not in any leagues yet.",
     "copy_code": "Copy",
     "copied": "Copied",
     "create_modal": {
@@ -330,7 +336,10 @@
       "public": "Public",
       "cancel": "Cancel",
       "submit": "Create",
-      "creating": "Creating..."
+      "creating": "Creating...",
+      "premium_title": "League Creation is Premium",
+      "premium_description": "Custom mini-leagues are available for members with Pro or VIP accounts.",
+      "upgrade_button": "Get Premium"
     },
     "back_to_list": "Back to list",
     "members_list": "Members List",
@@ -342,6 +351,9 @@
     "kick_confirm_title": "Remove member?",
     "kick_confirm_desc": "Are you sure you want to remove {name} from the league?",
     "kick_confirm_action": "Remove",
+    "transfer_confirm_title": "Transfer Captain's Armband?",
+    "transfer_confirm_desc": "By this step, you will cease to be the owner of the league and {name} will become the new captain. This action is irreversible.",
+    "transfer_confirm_action": "Confirm Change",
     "cancel": "Cancel",
     "league_deleted": "League deleted",
     "member_removed": "Member removed",
@@ -379,7 +391,18 @@
       "no_requests": "No pending requests."
     },
     "header_rules": "Rules",
-    "header_members": "{count} / {max} Members"
+    "header_members": "{count} / {max} Members",
+    "capacity": "Capacity",
+    "no_members": "No members",
+    "pending_status": "Awaiting approval",
+    "approve": "Approve",
+    "reject": "Reject",
+    "make_captain_tooltip": "Make captain",
+    "kick_tooltip": "Kick from league",
+    "delete_league_action": "Delete league",
+    "delete_league_short": "Delete",
+    "deleting_league": "Deleting...",
+    "delete_confirm_done": "Confirm deletion"
   },
   "NotFound": {
     "title": "Icing!",

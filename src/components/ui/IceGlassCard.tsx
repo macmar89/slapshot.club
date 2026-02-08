@@ -58,7 +58,7 @@ export const IceGlassCard = React.forwardRef<HTMLDivElement, IceGlassCardProps>(
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/90 pointer-events-none z-0" />
         )}
         {/* Content Container - ensures text is on top of the gradient */}
-        <div className={cn('relative z-10 text-white h-full', className)}>{children}</div>
+        <div className="relative z-10 text-white h-full">{children}</div>
       </div>
     )
   },

@@ -39,6 +39,8 @@ import { migrations } from './migrations'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+const hockeyApiDisabled = process.env.HOCKEY_API_DISABLE_REFRESH === 'true'
+
 export default buildConfig({
   jobs: {
     tasks: [
@@ -52,34 +54,40 @@ export default buildConfig({
             label: 'Manual Trigger',
           },
         ],
-        schedule: [
-          {
-            cron: '*/5 * * * *',
-            queue: 'default',
-          },
-        ],
+        schedule: hockeyApiDisabled
+          ? []
+          : [
+              {
+                cron: '*/5 * * * *',
+                queue: 'default',
+              },
+            ],
         handler: updateMatchesTask,
       },
       {
         slug: 'update-realtime-ranking',
         label: 'Update Realtime Ranking',
-        schedule: [
-          {
-            cron: '*/10 * * * *',
-            queue: 'default',
-          },
-        ],
+        schedule: hockeyApiDisabled
+          ? []
+          : [
+              {
+                cron: '*/10 * * * *',
+                queue: 'default',
+              },
+            ],
         handler: updateRealtimeRankingTask,
       },
       {
         slug: 'sync-hockey-matches',
         label: 'Sync Hockey API Matches',
-        schedule: [
-          {
-            cron: '*/2 * * * *',
-            queue: 'default',
-          },
-        ],
+        schedule: hockeyApiDisabled
+          ? []
+          : [
+              {
+                cron: '*/2 * * * *',
+                queue: 'default',
+              },
+            ],
         handler: syncHockeyMatchesTask,
       },
       {
@@ -92,12 +100,14 @@ export default buildConfig({
             label: 'Force Update (Ignore hour and match check)',
           },
         ],
-        schedule: [
-          {
-            cron: '0 * * * *', // Every hour
-            queue: 'default',
-          },
-        ],
+        schedule: hockeyApiDisabled
+          ? []
+          : [
+              {
+                cron: '0 * * * *', // Every hour
+                queue: 'default',
+              },
+            ],
         handler: updateLeaderboardsTask,
       },
     ],
@@ -203,6 +213,11 @@ export default buildConfig({
     },
   }),
   onInit: async (payload) => {
+    if (hockeyApiDisabled) {
+      payload.logger.info('Hockey API Refresh is disabled via HOCKEY_API_DISABLE_REFRESH env var.')
+      return
+    }
+
     try {
       payload.logger.info('Triggering initial updates...')
       await runUpdateMatches(payload)
