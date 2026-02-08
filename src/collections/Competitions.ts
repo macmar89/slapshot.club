@@ -127,5 +127,13 @@ export const Competitions: CollectionConfig = {
         description: 'Externé ID súťaže z hokejovej API (ak existuje).',
       },
     },
+    {
+      name: 'apiHockeySeason',
+      type: 'number',
+      admin: {
+        position: 'sidebar',
+        description: 'Sezóna v rámci hokejovej API (napr. 2026).',
+      },
+    },
   ],
 }

@@ -1,0 +1,52 @@
+[
+  {
+    "id": 395366,
+    "date": "2026-02-11T15:40:00+00:00",
+    "time": "15:40",
+    "timestamp": 1770824400,
+    "timezone": "UTC",
+    "week": null,
+    "timer": null,
+    "status": {
+      "long": "Not Started",
+      "short": "NS"
+    },
+    "country": {
+      "id": 34,
+      "name": "World",
+      "code": null,
+      "flag": null
+    },
+    "league": {
+      "id": 131,
+      "name": "Olympic Games",
+      "type": "Cup",
+      "logo": "https://media.api-sports.io/hockey/leagues/131.png",
+      "season": 2026
+    },
+    "teams": {
+      "home": {
+        "id": 1331,
+        "name": "Slovakia",
+        "logo": "https://media.api-sports.io/hockey/teams/1331.png"
+      },
+      "away": {
+        "id": 1324,
+        "name": "Finland",
+        "logo": "https://media.api-sports.io/hockey/teams/1324.png"
+      }
+    },
+    "scores": {
+      "home": null,
+      "away": null
+    },
+    "periods": {
+      "first": null,
+      "second": null,
+      "third": null,
+      "overtime": null,
+      "penalties": null
+    },
+    "events": false
+  }
+]

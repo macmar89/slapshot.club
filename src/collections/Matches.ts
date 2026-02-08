@@ -313,6 +313,14 @@ export const Matches: CollectionConfig = {
         description: 'Externé ID zápasu z hokejovej API (ak existuje).',
       },
     },
+    {
+      name: 'apiHockeyStatus',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
+        description: 'Pôvodný status zápasu z hokejovej API (napr. NS, P1, FT).',
+      },
+    },
   ],
   hooks: {
     afterChange: [

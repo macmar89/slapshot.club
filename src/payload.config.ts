@@ -29,6 +29,7 @@ import { Badges } from './collections/Badges'
 import { BadgeMedia } from './collections/BadgeMedia'
 import { updateMatchesTask, runUpdateMatches } from './payload/tasks/updateMatches'
 import { updateRealtimeRankingTask } from './payload/tasks/updateRealtimeRanking'
+import { syncHockeyMatchesTask } from './payload/tasks/syncHockeyMatches'
 import { updateLeaderboardsTask } from './payload/cron/updateLeaderboards' // Import
 import { migrations } from './migrations'
 
@@ -66,6 +67,17 @@ export default buildConfig({
           },
         ],
         handler: updateRealtimeRankingTask,
+      },
+      {
+        slug: 'sync-hockey-matches',
+        label: 'Sync Hockey API Matches',
+        schedule: [
+          {
+            cron: '*/2 * * * *',
+            queue: 'default',
+          },
+        ],
+        handler: syncHockeyMatchesTask,
       },
       {
         slug: 'update-leaderboards',

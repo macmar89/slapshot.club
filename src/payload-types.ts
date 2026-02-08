@@ -141,6 +141,7 @@ export interface Config {
     tasks: {
       'update-matches': TaskUpdateMatches;
       'update-realtime-ranking': TaskUpdateRealtimeRanking;
+      'sync-hockey-matches': TaskSyncHockeyMatches;
       'update-leaderboards': TaskUpdateLeaderboards;
       inline: {
         input: unknown;
@@ -440,6 +441,10 @@ export interface Competition {
    * Externé ID súťaže z hokejovej API (ak existuje).
    */
   apiHockeyId?: string | null;
+  /**
+   * Sezóna v rámci hokejovej API (napr. 2026).
+   */
+  apiHockeySeason?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -692,6 +697,10 @@ export interface Match {
    * Externé ID zápasu z hokejovej API (ak existuje).
    */
   apiHockeyId?: string | null;
+  /**
+   * Pôvodný status zápasu z hokejovej API (napr. NS, P1, FT).
+   */
+  apiHockeyStatus?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -853,7 +862,12 @@ export interface PayloadJob {
     | {
         executedAt: string;
         completedAt: string;
-        taskSlug: 'inline' | 'update-matches' | 'update-realtime-ranking' | 'update-leaderboards';
+        taskSlug:
+          | 'inline'
+          | 'update-matches'
+          | 'update-realtime-ranking'
+          | 'sync-hockey-matches'
+          | 'update-leaderboards';
         taskID: string;
         input?:
           | {
@@ -886,7 +900,9 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  taskSlug?: ('inline' | 'update-matches' | 'update-realtime-ranking' | 'update-leaderboards') | null;
+  taskSlug?:
+    | ('inline' | 'update-matches' | 'update-realtime-ranking' | 'sync-hockey-matches' | 'update-leaderboards')
+    | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
@@ -1158,6 +1174,7 @@ export interface CompetitionsSelect<T extends boolean = true> {
   totalPossiblePoints?: T;
   recalculationHour?: T;
   apiHockeyId?: T;
+  apiHockeySeason?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1305,6 +1322,7 @@ export interface MatchesSelect<T extends boolean = true> {
       };
   rankedAt?: T;
   apiHockeyId?: T;
+  apiHockeyStatus?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1700,6 +1718,14 @@ export interface TaskUpdateMatches {
  * via the `definition` "TaskUpdate-realtime-ranking".
  */
 export interface TaskUpdateRealtimeRanking {
+  input?: unknown;
+  output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskSync-hockey-matches".
+ */
+export interface TaskSyncHockeyMatches {
   input?: unknown;
   output?: unknown;
 }
