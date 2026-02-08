@@ -82,7 +82,7 @@ export function LeaderboardList({
       className="flex flex-col h-full w-full rounded-none p-0 overflow-hidden"
     >
       {/* Header with Global Stats */}
-      <div className="p-4 border-b border-white/10 bg-white/[0.02] backdrop-blur-xl shrink-0">
+      <div className="hidden sm:block p-4 border-b border-white/10 bg-white/[0.02] backdrop-blur-xl shrink-0">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-[#eab308]/10 flex items-center justify-center border border-[#eab308]/30">
@@ -108,31 +108,6 @@ export function LeaderboardList({
                   </span>
                 )}
               </div>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-0.5 md:gap-4 bg-white/[0.03] p-1.5 md:p-3 border border-white/10 rounded-sm">
-            <div className="flex flex-col items-center px-4 border-r border-white/10">
-              <div className="flex items-center gap-1.5 text-white/40 mb-1">
-                <CheckCircle2 className="w-3 h-3 text-emerald-500/80" />
-                <span className="text-[8px] font-black uppercase tracking-widest">
-                  {t('evaluated')}
-                </span>
-              </div>
-              <span className="text-sm md:text-base font-black text-white italic drop-shadow-[0_0_10px_rgba(255,255,255,0.1)]">
-                {totalPlayedMatches ?? 0}
-              </span>
-            </div>
-            <div className="flex flex-col items-center px-4">
-              <div className="flex items-center gap-1.5 text-white/40 mb-1">
-                <Activity className="w-3 h-3 text-[#eab308]/80" />
-                <span className="text-[8px] font-black uppercase tracking-widest">
-                  {t('max_points')}
-                </span>
-              </div>
-              <span className="text-sm md:text-base font-black text-[#eab308] italic drop-shadow-[0_0_10px_rgba(234,179,8,0.2)]">
-                {totalPossiblePoints ?? 0}
-              </span>
             </div>
           </div>
         </div>

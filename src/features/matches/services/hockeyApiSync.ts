@@ -141,8 +141,12 @@ async function processApiMatch(
         (localMatch.result as any)?.endingType !== updateData.result.endingType))
 
   if (hasChanges) {
+    const scoreInfo = updateData.result
+      ? ` | Score: ${updateData.result.homeScore}:${updateData.result.awayScore}`
+      : ''
+
     payload.logger.info(
-      `[HOCKEY SYNC] Updating match ${localMatch.displayTitle} (API ID: ${apiId}, Status: ${apiStatusShort})`,
+      `[HOCKEY SYNC] Updating match ${localMatch.displayTitle} (API ID: ${apiId}, Status: ${apiStatusShort}${scoreInfo})`,
     )
     await payload.update({
       collection: 'matches',

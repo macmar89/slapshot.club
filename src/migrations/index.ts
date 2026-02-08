@@ -5,6 +5,7 @@ import * as migration_20260206_204321_add_total_matches_to_competitions from './
 import * as migration_20260206_221058_add_competition_stats from './20260206_221058_add_competition_stats';
 import * as migration_20260208_141846_rename_api_ids from './20260208_141846_rename_api_ids';
 import * as migration_20260208_151126_add_sync_fields_and_task from './20260208_151126_add_sync_fields_and_task';
+import * as migration_20260208_155850_add_team_api_id from './20260208_155850_add_team_api_id';
 
 export const migrations = [
   {
@@ -40,6 +41,11 @@ export const migrations = [
   {
     up: migration_20260208_151126_add_sync_fields_and_task.up,
     down: migration_20260208_151126_add_sync_fields_and_task.down,
-    name: '20260208_151126_add_sync_fields_and_task'
+    name: '20260208_151126_add_sync_fields_and_task',
+  },
+  {
+    up: migration_20260208_155850_add_team_api_id.up,
+    down: migration_20260208_155850_add_team_api_id.down,
+    name: '20260208_155850_add_team_api_id'
   },
 ];
