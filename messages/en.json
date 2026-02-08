@@ -404,7 +404,8 @@
     "deleting_league": "Deleting...",
     "delete_confirm_done": "Confirm deletion",
     "join_league_trigger": "or join a league",
-    "rules_label": "Rules"
+    "rules_label": "Rules",
+    "no_leagues_hint": "Create your own or join your friends using a code!"
   },
   "NotFound": {
     "title": "Icing!",

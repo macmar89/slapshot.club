@@ -402,7 +402,8 @@
     "deleting_league": "Ruším...",
     "delete_confirm_done": "Potvrdiť zmazanie",
     "join_league_trigger": "alebo sa pridaj do ligy",
-    "rules_label": "Pravidlá"
+    "rules_label": "Pravidlá",
+    "no_leagues_hint": "Vytvor si vlastnú alebo sa pridaj kamošom pomocou kódu!"
   },
   "NotFound": {
     "title": "Zakázané uvoľnenie!",

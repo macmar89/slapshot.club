@@ -24,10 +24,11 @@ export function MainMobileNav({ user }: { user: any }) {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden">
       <IceGlassCard
-        className="h-20 w-full flex items-center justify-between px-1 rounded-t-app rounded-b-none border-x-0 border-b-0 overflow-visible"
+        className="h-20 w-full rounded-t-app rounded-b-none border-x-0 border-b-0 overflow-visible"
         backdropBlur="lg"
         allowOverflow
       >
+        <div className="flex items-center justify-between h-full px-1">
         {/* Left items */}
         <div className="flex flex-1 justify-around items-center">
           {/* Manažment (Disabled) */}
@@ -150,6 +151,7 @@ export function MainMobileNav({ user }: { user: any }) {
               </div>
             </SheetContent>
           </Sheet>
+        </div>
         </div>
       </IceGlassCard>
     </div>

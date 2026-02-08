@@ -82,14 +82,14 @@ export function LeaguesView({
       <div className="flex flex-col lg:grid lg:grid-cols-4 gap-8">
         {/* Left Side: Leagues List */}
         <div className="lg:col-span-3 order-1">
-          <IceGlassCard className="h-full" backdropBlur="md">
+          <IceGlassCard className="h-full" backdropBlur="lg">
             <div className="p-6 sm:p-8">
               {allLeagues.length === 0 ? (
                 <div className="text-center py-12">
-                  <Trophy className="w-12 h-12 text-white/5 mx-auto mb-4" />
-                  <p className="text-white/40 italic text-sm mb-2">{t('no_leagues_joined')}</p>
-                  <div className="text-white/20 text-xs max-w-xs mx-auto">
-                    Vytvor si vlastnú alebo sa pridaj kamošom pomocou kódu!
+                  <Trophy className="w-12 h-12 text-white/60 mx-auto mb-4" />
+                  <p className="text-white/60 italic text-sm mb-2">{t('no_leagues_joined')}</p>
+                  <div className="text-white/60 text-xs max-w-xs mx-auto">
+                    {t('no_leagues_hint')}
                   </div>
                 </div>
               ) : (

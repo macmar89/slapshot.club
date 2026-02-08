@@ -20,15 +20,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
       {/* Floating Sidebar - Left side, detached from edges */}
       <aside className="fixed left-4 top-20 bottom-4 w-64 z-40 hidden lg:block">
-        <IceGlassCard className="h-full w-full flex flex-col p-4" backdropBlur="md">
-          <DashboardNav />
-          <div className="mt-auto pt-6 border-t border-white/5">
-            <FeedbackModal triggerClassName="w-full">
-              <div className="flex items-center gap-3 px-4 py-3 rounded-app bg-warning/5 border border-warning/10 text-warning/60 hover:text-warning hover:bg-warning/10 hover:border-warning/20 transition-all cursor-pointer group/feedback">
-                <MessageSquarePlus className="w-5 h-5 transition-transform group-hover/feedback:scale-110" />
-                <span className="uppercase tracking-widest font-black text-[10px]">Feedback</span>
-              </div>
-            </FeedbackModal>
+        <IceGlassCard className="h-full w-full" backdropBlur="md">
+          <div className="flex flex-col h-full p-4">
+            <DashboardNav />
+            <div className="mt-auto pt-6 border-t border-white/5">
+              <FeedbackModal triggerClassName="w-full">
+                <div className="flex items-center gap-3 px-4 py-3 rounded-app bg-warning/5 border border-warning/10 text-warning/60 hover:text-warning hover:bg-warning/10 hover:border-warning/20 transition-all cursor-pointer group/feedback">
+                  <MessageSquarePlus className="w-5 h-5 transition-transform group-hover/feedback:scale-110" />
+                  <span className="uppercase tracking-widest font-black text-[10px]">Feedback</span>
+                </div>
+              </FeedbackModal>
+            </div>
           </div>
         </IceGlassCard>
       </aside>
