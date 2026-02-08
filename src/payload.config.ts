@@ -28,9 +28,12 @@ import { Regions } from './collections/Regions'
 import { Badges } from './collections/Badges'
 import { BadgeMedia } from './collections/BadgeMedia'
 import { updateMatchesTask, runUpdateMatches } from './payload/tasks/updateMatches'
-import { updateRealtimeRankingTask } from './payload/tasks/updateRealtimeRanking'
-import { syncHockeyMatchesTask } from './payload/tasks/syncHockeyMatches'
-import { updateLeaderboardsTask } from './payload/cron/updateLeaderboards' // Import
+import {
+  updateRealtimeRankingTask,
+  runUpdateRealtimeRanking,
+} from './payload/tasks/updateRealtimeRanking'
+import { syncHockeyMatchesTask, runSyncHockeyMatches } from './payload/tasks/syncHockeyMatches'
+import { updateLeaderboardsTask, runUpdateLeaderboards } from './payload/cron/updateLeaderboards' // Import
 import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
@@ -108,7 +111,7 @@ export default buildConfig({
       ...defaultJobsCollection,
       admin: {
         ...defaultJobsCollection.admin,
-        group: 'Database',
+        group: 'System',
       },
     }),
   },
@@ -200,12 +203,15 @@ export default buildConfig({
     },
   }),
   onInit: async (payload) => {
-    payload.logger.info('Triggering initial match update...')
     try {
+      payload.logger.info('Triggering initial updates...')
       await runUpdateMatches(payload)
-      payload.logger.info('Initial match update completed successfully.')
+      await runSyncHockeyMatches(payload)
+      await runUpdateRealtimeRanking(payload)
+      await runUpdateLeaderboards(payload, { force: true })
+      payload.logger.info('Initial updates completed successfully.')
     } catch (err) {
-      payload.logger.error({ err }, 'Failed to run initial match update')
+      payload.logger.error({ err }, 'Failed to run initial updates')
     }
   },
   db: postgresAdapter({
