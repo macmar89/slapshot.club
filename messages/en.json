@@ -122,7 +122,24 @@
       "status_complete": "Complete",
       "status_in_progress": "In Progress",
       "predicted_label": "Predicted",
-      "tips_label": "tips"
+      "tips_label": "tips",
+      "api_status": {
+        "NS": "Not Started",
+        "P1": "1st Period",
+        "P2": "2nd Period",
+        "P3": "3rd Period",
+        "OT": "Overtime",
+        "PT": "Shootout",
+        "BT": "Break",
+        "FT": "Finished",
+        "AOT": "Finished (OT)",
+        "AP": "Finished (SO)",
+        "AW": "Awarded",
+        "POST": "Postponed",
+        "CANC": "Cancelled",
+        "INTR": "Interrupted",
+        "ABD": "Abandoned"
+      }
     },
     "leaderboard": {
       "title": "Leaderboard",

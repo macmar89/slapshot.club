@@ -60,7 +60,7 @@ export function MatchCard({
 
   const statusStyles = {
     scheduled: 'text-white/40 border-white/10 bg-white/5',
-    live: 'text-red-500 border-red-500/40 bg-red-500/20',
+    live: 'text-white border-red-500/30 bg-red-600 shadow-[0_0_15px_rgba(220,38,38,0.3)]',
     finished: 'text-white/60 border-white/20 bg-white/10',
     cancelled: 'text-red-400 border-red-400/20 bg-red-400/10',
   }
@@ -118,7 +118,7 @@ export function MatchCard({
           )}
         >
           {match.status === 'live' && (
-            <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+            <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
           )}
           {t(match.status)}
         </div>
@@ -147,13 +147,28 @@ export function MatchCard({
                 <span className={cn(match.status === 'live' ? 'text-warning' : 'text-white')}>
                   {match.result?.homeScore ?? 0}
                 </span>
-                <span className="text-white/40">:</span>
+                <span
+                  className={cn(
+                    'text-white/40',
+                    match.status === 'live' && 'animate-pulse text-warning/60',
+                  )}
+                >
+                  :
+                </span>
                 <span className={cn(match.status === 'live' ? 'text-warning' : 'text-white')}>
                   {match.result?.awayScore ?? 0}
                 </span>
               </>
             )}
           </div>
+          {match.status === 'live' && match.apiHockeyStatus && match.apiHockeyStatus !== 'NS' && (
+            <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-app bg-warning/10 border border-warning/20 shadow-[0_0_10px_rgba(234,179,8,0.1)]">
+              <div className="w-1 h-1 rounded-full bg-warning animate-pulse" />
+              <span className="text-[0.6rem] font-bold uppercase tracking-widest text-warning/90">
+                {t(`api_status.${match.apiHockeyStatus}`)}
+              </span>
+            </div>
+          )}
           {match.status === 'finished' && match.result?.endingType !== 'regular' && (
             <span className="text-[0.6rem] font-bold uppercase tracking-widest text-white/60 bg-white/10 px-2 py-0.5 rounded-app">
               {match.result?.endingType === 'ot' ? t('overtime_short') : t('shootout_short')}

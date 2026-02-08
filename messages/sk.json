@@ -122,7 +122,24 @@
       "status_complete": "Kompletné",
       "status_in_progress": "V priebehu",
       "predicted_label": "Natipované",
-      "tips_label": "tipov"
+      "tips_label": "tipov",
+      "api_status": {
+        "NS": "Nezačalo",
+        "P1": "1. tretina",
+        "P2": "2. tretina",
+        "P3": "3. tretina",
+        "OT": "Predĺženie",
+        "PT": "Nájazdy",
+        "BT": "Prestávka",
+        "FT": "Koniec",
+        "AOT": "Koniec (PP)",
+        "AP": "Koniec (SN)",
+        "AW": "Kontumácia",
+        "POST": "Odložené",
+        "CANC": "Zrušené",
+        "INTR": "Prerušené",
+        "ABD": "Predčasne ukončené"
+      }
     },
     "leaderboard": {
       "title": "Rebríček",

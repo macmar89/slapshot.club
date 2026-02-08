@@ -122,7 +122,24 @@
       "status_complete": "Kompletní",
       "status_in_progress": "V průběhu",
       "predicted_label": "Natipováno",
-      "tips_label": "tipů"
+      "tips_label": "tipů",
+      "api_status": {
+        "NS": "Nezačalo",
+        "P1": "1. třetina",
+        "P2": "2. třetina",
+        "P3": "3. třetina",
+        "OT": "Prodloužení",
+        "PT": "Nájezdy",
+        "BT": "Přestávka",
+        "FT": "Konec",
+        "AOT": "Konec (PP)",
+        "AP": "Konec (SN)",
+        "AW": "Kontumace",
+        "POST": "Odloženo",
+        "CANC": "Zrušeno",
+        "INTR": "Přerušeno",
+        "ABD": "Předčasně ukončeno"
+      }
     },
     "leaderboard": {
       "title": "Žebříček",
