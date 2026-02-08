@@ -119,5 +119,13 @@ export const Competitions: CollectionConfig = {
         description: 'Hodina (0-23), kedy sa má prepočítať rebríček (default: 5:00).',
       },
     },
+    {
+      name: 'apiHockeyId',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
+        description: 'Externé ID súťaže z hokejovej API (ak existuje).',
+      },
+    },
   ],
 }

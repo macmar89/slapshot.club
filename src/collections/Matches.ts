@@ -306,7 +306,7 @@ export const Matches: CollectionConfig = {
       },
     },
     {
-      name: 'apiHockeyGameId',
+      name: 'apiHockeyId',
       type: 'text',
       admin: {
         position: 'sidebar',

@@ -140,6 +140,7 @@ export interface Config {
   jobs: {
     tasks: {
       'update-matches': TaskUpdateMatches;
+      'update-realtime-ranking': TaskUpdateRealtimeRanking;
       'update-leaderboards': TaskUpdateLeaderboards;
       inline: {
         input: unknown;
@@ -435,6 +436,10 @@ export interface Competition {
    * Hodina (0-23), kedy sa má prepočítať rebríček (default: 5:00).
    */
   recalculationHour?: number | null;
+  /**
+   * Externé ID súťaže z hokejovej API (ak existuje).
+   */
+  apiHockeyId?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -601,6 +606,10 @@ export interface Team {
   shortName: string;
   type: 'club' | 'national';
   /**
+   * Externé ID tímu z hokejovej API (ak existuje).
+   */
+  apiHockeyId?: string | null;
+  /**
    * Určuje, odkiaľ tím pochádza (nie kde hrá). Boston Bruins = USA.
    */
   country?: ('SVK' | 'CZE' | 'USA' | 'CAN') | null;
@@ -675,6 +684,14 @@ export interface Match {
     series_game_number?: number | null;
     series_state?: string | null;
   };
+  /**
+   * Dátum a čas, kedy bol k tomuto zápasu prepočítaný rebríček. Ak je null, zápas čaká na spracovanie.
+   */
+  rankedAt?: string | null;
+  /**
+   * Externé ID zápasu z hokejovej API (ak existuje).
+   */
+  apiHockeyId?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -836,7 +853,7 @@ export interface PayloadJob {
     | {
         executedAt: string;
         completedAt: string;
-        taskSlug: 'inline' | 'update-matches' | 'update-leaderboards';
+        taskSlug: 'inline' | 'update-matches' | 'update-realtime-ranking' | 'update-leaderboards';
         taskID: string;
         input?:
           | {
@@ -869,7 +886,7 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  taskSlug?: ('inline' | 'update-matches' | 'update-leaderboards') | null;
+  taskSlug?: ('inline' | 'update-matches' | 'update-realtime-ranking' | 'update-leaderboards') | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
@@ -1140,6 +1157,7 @@ export interface CompetitionsSelect<T extends boolean = true> {
   totalPlayedMatches?: T;
   totalPossiblePoints?: T;
   recalculationHour?: T;
+  apiHockeyId?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1247,6 +1265,7 @@ export interface TeamsSelect<T extends boolean = true> {
   slug?: T;
   shortName?: T;
   type?: T;
+  apiHockeyId?: T;
   country?: T;
   leagueTags?: T;
   logo?: T;
@@ -1284,6 +1303,8 @@ export interface MatchesSelect<T extends boolean = true> {
         series_game_number?: T;
         series_state?: T;
       };
+  rankedAt?: T;
+  apiHockeyId?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1672,6 +1693,14 @@ export interface TaskUpdateMatches {
   input: {
     manual?: boolean | null;
   };
+  output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskUpdate-realtime-ranking".
+ */
+export interface TaskUpdateRealtimeRanking {
+  input?: unknown;
   output?: unknown;
 }
 /**

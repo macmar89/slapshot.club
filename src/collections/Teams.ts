@@ -59,6 +59,14 @@ export const Teams: CollectionConfig = {
       },
     },
     {
+      name: 'apiHockeyId',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
+        description: 'Externé ID tímu z hokejovej API (ak existuje).',
+      },
+    },
+    {
       name: 'country',
       type: 'select',
       required: false,
