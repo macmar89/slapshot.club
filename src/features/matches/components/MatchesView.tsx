@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/Button'
 import { PredictionDialog } from './PredictionDialog'
 import { CalendarDialog } from './CalendarDialog'
 import { cn } from '@/lib/utils'
-import { ChevronLeft, ChevronRight, CalendarDays } from 'lucide-react'
+import { ChevronLeft, ChevronRight, CalendarDays, RefreshCw } from 'lucide-react'
 import { DailySummary } from './DailySummary'
 import { MatchesSkeleton } from './MatchesSkeleton'
 import { useTranslations } from 'next-intl'
@@ -24,6 +24,7 @@ interface MatchesViewProps {
 
 export function MatchesView({ competition }: MatchesViewProps) {
   const t = useTranslations('Dashboard.matches')
+  const commonT = useTranslations('Common')
 
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -33,6 +34,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
   const [matches, setMatches] = useState<Match[]>([])
   const [userPredictions, setUserPredictions] = useState<Prediction[]>([])
   const [stats, setStats] = useState<Record<string, any>>({})
+  const [isRefreshing, setIsRefreshing] = useState(false)
 
   const [optimisticPredictions, setOptimisticPrediction] = useOptimistic(
     userPredictions,
@@ -108,6 +110,7 @@ export function MatchesView({ competition }: MatchesViewProps) {
       console.error('Failed to fetch matches:', error)
     } finally {
       setLoading(false)
+      setIsRefreshing(false)
     }
   }, [competition, leagueId])
 
@@ -176,84 +179,113 @@ export function MatchesView({ competition }: MatchesViewProps) {
         hideDescriptionOnMobile
         className="mb-4 md:mb-6"
       >
-        {/* Premium Day Selector */}
-        <div className="flex items-center justify-between md:justify-start w-full md:w-auto gap-4 bg-white/10 border border-white/20 p-1.5 rounded-app backdrop-blur-xl shadow-2xl">
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => handleDateChange('prev')}
-            disabled={availableDates.indexOf(selectedDate!) === 0}
-            className={cn(
-              'rounded-app border-white/20 bg-white/10 transition-all duration-300 group/btn',
-              availableDates.indexOf(selectedDate!) === 0
-                ? 'opacity-20 cursor-not-allowed'
-                : 'hover:bg-warning hover:text-black hover:border-warning',
-            )}
-          >
-            <ChevronLeft
-              className={cn(
-                'w-6 h-6 transition-colors',
-                availableDates.indexOf(selectedDate!) === 0
-                  ? 'text-white/20'
-                  : 'text-warning group-hover/btn:text-black',
-              )}
-              strokeWidth={availableDates.indexOf(selectedDate!) === 0 ? 2 : 3}
-            />
-          </Button>
-
-          <Button
-            variant="ghost"
-            onClick={() => setIsCalendarOpen(true)}
-            className="flex-1 md:flex-none flex flex-col items-center px-4 md:px-6 min-w-[100px] md:min-w-[140px] hover:bg-white/5 rounded-app h-auto py-1 group/center"
-          >
-            <div className="flex items-center gap-2 mb-0.5">
-              <CalendarDays className="w-3.5 h-3.5 text-warning group-hover/center:scale-110 transition-transform" />
-              <span className="text-[0.6rem] md:text-[0.6rem] font-black uppercase tracking-widest text-warning">
-                {t('selected_day')}
-              </span>
+        <div className="flex items-center gap-2 md:gap-4 w-full md:w-auto">
+          {/* Refresh Button Container */}
+          <div className="order-2 md:order-1">
+            <div className="flex items-center bg-white/10 border border-white/20 p-1 rounded-app backdrop-blur-xl shadow-2xl">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => {
+                  setIsRefreshing(true)
+                  fetchData()
+                }}
+                disabled={isRefreshing}
+                className={cn(
+                  'h-10 w-10 sm:h-11 sm:w-11 rounded-app border-white/10 bg-white/5 transition-all duration-300 group/refresh',
+                  'hover:bg-warning hover:text-black hover:border-warning',
+                )}
+              >
+                <RefreshCw
+                  className={cn(
+                    'w-4 h-4 sm:w-5 sm:h-5 transition-all text-white/80 group-hover/refresh:text-black',
+                    isRefreshing && 'animate-spin',
+                  )}
+                  strokeWidth={3}
+                />
+              </Button>
             </div>
-            <span className="text-sm font-black text-white uppercase tracking-wider hidden md:block">
-              {selectedDate
-                ? new Date(selectedDate).toLocaleDateString('sk-SK', {
-                    day: 'numeric',
-                    month: 'long',
-                  })
-                : '-'}
-            </span>
-            <span className="text-sm font-black text-white uppercase tracking-wider md:hidden">
-              {selectedDate
-                ? new Date(selectedDate).toLocaleDateString('sk-SK', {
-                    day: 'numeric',
-                    month: 'numeric',
-                  })
-                : '-'}
-            </span>
-          </Button>
+          </div>
 
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => handleDateChange('next')}
-            disabled={availableDates.indexOf(selectedDate!) === availableDates.length - 1}
-            className={cn(
-              'rounded-app border-white/20 bg-white/10 transition-all duration-300 group/btn',
-              availableDates.indexOf(selectedDate!) === availableDates.length - 1
-                ? 'opacity-20 cursor-not-allowed'
-                : 'hover:bg-warning hover:text-black hover:border-warning',
-            )}
-          >
-            <ChevronRight
-              className={cn(
-                'w-6 h-6 transition-colors',
-                availableDates.indexOf(selectedDate!) === availableDates.length - 1
-                  ? 'text-white/20'
-                  : 'text-warning group-hover/btn:text-black',
-              )}
-              strokeWidth={
-                availableDates.indexOf(selectedDate!) === availableDates.length - 1 ? 2 : 3
-              }
-            />
-          </Button>
+          {/* Date Switcher Container */}
+          <div className="order-1 md:order-2 flex-1 md:flex-none">
+            <div className="flex items-center gap-1 bg-white/10 border border-white/20 p-1 rounded-app backdrop-blur-xl shadow-2xl">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => handleDateChange('prev')}
+                disabled={availableDates.indexOf(selectedDate!) === 0}
+                className={cn(
+                  'h-10 w-10 sm:h-11 sm:w-11 rounded-app border-white/10 bg-white/5 transition-all duration-300 group/prev',
+                  availableDates.indexOf(selectedDate!) === 0
+                    ? 'opacity-20 cursor-not-allowed'
+                    : 'hover:bg-warning hover:text-black hover:border-warning',
+                )}
+              >
+                <ChevronLeft
+                  className={cn(
+                    'w-5 h-5 sm:w-6 sm:h-6 transition-colors',
+                    availableDates.indexOf(selectedDate!) === 0
+                      ? 'text-white/20'
+                      : 'text-warning group-hover/prev:text-black',
+                  )}
+                  strokeWidth={3}
+                />
+              </Button>
+
+              <Button
+                variant="ghost"
+                onClick={() => setIsCalendarOpen(true)}
+                className="flex-1 md:flex-none flex flex-col items-center px-3 sm:px-6 min-w-[90px] md:min-w-[140px] hover:bg-white/5 rounded-app h-10 sm:h-11 py-1 group/center"
+              >
+                <div className="flex items-center gap-1.5 mb-0.5">
+                  <CalendarDays className="w-3 h-3 text-warning group-hover/center:scale-110 transition-transform" />
+                  <span className="text-[0.55rem] md:text-[0.6rem] font-black uppercase tracking-widest text-warning">
+                    {t('selected_day')}
+                  </span>
+                </div>
+                <span className="text-xs sm:text-sm font-black text-white uppercase tracking-wider hidden md:block">
+                  {selectedDate
+                    ? new Date(selectedDate).toLocaleDateString('sk-SK', {
+                        day: 'numeric',
+                        month: 'long',
+                      })
+                    : '-'}
+                </span>
+                <span className="text-xs sm:text-sm font-black text-white uppercase tracking-wider md:hidden">
+                  {selectedDate
+                    ? new Date(selectedDate).toLocaleDateString('sk-SK', {
+                        day: 'numeric',
+                        month: 'numeric',
+                      })
+                    : '-'}
+                </span>
+              </Button>
+
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => handleDateChange('next')}
+                disabled={availableDates.indexOf(selectedDate!) === availableDates.length - 1}
+                className={cn(
+                  'h-10 w-10 sm:h-11 sm:w-11 rounded-app border-white/10 bg-white/5 transition-all duration-300 group/next',
+                  availableDates.indexOf(selectedDate!) === availableDates.length - 1
+                    ? 'opacity-20 cursor-not-allowed'
+                    : 'hover:bg-warning hover:text-black hover:border-warning',
+                )}
+              >
+                <ChevronRight
+                  className={cn(
+                    'w-5 h-5 sm:w-6 sm:h-6 transition-colors',
+                    availableDates.indexOf(selectedDate!) === availableDates.length - 1
+                      ? 'text-white/20'
+                      : 'text-warning group-hover/next:text-black',
+                  )}
+                  strokeWidth={3}
+                />
+              </Button>
+            </div>
+          </div>
         </div>
       </PageHeader>
 

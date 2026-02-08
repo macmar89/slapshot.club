@@ -164,8 +164,14 @@ export function MatchCard({
           {match.status === 'live' && match.apiHockeyStatus && match.apiHockeyStatus !== 'NS' && (
             <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-app bg-warning/10 border border-warning/20 shadow-[0_0_10px_rgba(234,179,8,0.1)]">
               <div className="w-1 h-1 rounded-full bg-warning animate-pulse" />
-              <span className="text-[0.6rem] font-bold uppercase tracking-widest text-warning/90">
+              <span className="text-[0.6rem] font-bold uppercase tracking-widest text-warning/90 hidden sm:block">
                 {t(`api_status.${match.apiHockeyStatus}`)}
+              </span>
+              <span className="text-[0.6rem] font-bold uppercase tracking-widest text-warning/90 sm:hidden">
+                {/* @ts-ignore */}
+                {t.raw(`api_status_short.${match.apiHockeyStatus}`)
+                  ? t(`api_status_short.${match.apiHockeyStatus}`)
+                  : t(`api_status.${match.apiHockeyStatus}`)}
               </span>
             </div>
           )}

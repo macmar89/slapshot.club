@@ -3,6 +3,7 @@
     "success_title": "Úspech!",
     "error_generic": "Nastala neočakávaná chyba",
     "loading": "Ukladám...",
+    "refresh": "Aktualizovať",
     "new_password": "Nové heslo",
     "confirm_password": "Zopakuj nové heslo"
   },
@@ -139,6 +140,17 @@
         "CANC": "Zrušené",
         "INTR": "Prerušené",
         "ABD": "Predčasne ukončené"
+      },
+      "api_status_short": {
+        "P1": "1. TR",
+        "P2": "2. TR",
+        "P3": "3. TR",
+        "OT": "PP",
+        "PT": "SN",
+        "BT": "PR",
+        "FT": "KON",
+        "AOT": "KON (PP)",
+        "AP": "KON (SN)"
       }
     },
     "leaderboard": {

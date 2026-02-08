@@ -3,6 +3,7 @@
     "success_title": "Success!",
     "error_generic": "An unexpected error occurred",
     "loading": "Saving...",
+    "refresh": "Refresh",
     "new_password": "New Password",
     "confirm_password": "Repeat New Password"
   },
@@ -139,6 +140,17 @@
         "CANC": "Cancelled",
         "INTR": "Interrupted",
         "ABD": "Abandoned"
+      },
+      "api_status_short": {
+        "P1": "1st",
+        "P2": "2nd",
+        "P3": "3rd",
+        "OT": "OT",
+        "PT": "SO",
+        "BT": "INT",
+        "FT": "FT",
+        "AOT": "FT (OT)",
+        "AP": "FT (SO)"
       }
     },
     "leaderboard": {

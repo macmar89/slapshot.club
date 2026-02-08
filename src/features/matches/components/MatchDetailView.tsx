@@ -5,7 +5,10 @@ import type { Match, Prediction, Team } from '@/payload-types'
 import { useTranslations } from 'next-intl'
 import { useParams, useRouter } from 'next/navigation'
 import { BackLink } from '@/components/ui/BackLink'
+import { Button } from '@/components/ui/Button'
+import { RefreshCw } from 'lucide-react'
 import { MatchDetailTabs } from './MatchDetailTabs'
+import { cn } from '@/lib/utils'
 
 interface MatchDetailViewProps {
   match: Match
@@ -26,6 +29,8 @@ export function MatchDetailView({ match, userPrediction, stats }: MatchDetailVie
   const t = useTranslations('Dashboard.matches')
   const { slug } = useParams()
   const router = useRouter()
+  const commonT = useTranslations('Common')
+  const [isRefreshing, setIsRefreshing] = React.useState(false)
 
   // Periodic Refresh every 2 minutes at odd minutes
   useEffect(() => {
@@ -77,7 +82,30 @@ export function MatchDetailView({ match, userPrediction, stats }: MatchDetailVie
 
   return (
     <div className="max-w-[1000px] mx-auto space-y-6 md:space-y-8 sm:px-4 pb-12">
-      <BackLink href={`/dashboard/${slug}/matches` as any} label={t('back_to_matches')} />
+      <div className="flex items-center justify-between">
+        <BackLink href={`/dashboard/${slug}/matches` as any} label={t('back_to_matches')} />
+
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => {
+            setIsRefreshing(true)
+            router.refresh()
+            // Reset spin after a short delay since router.refresh is async-ish
+            setTimeout(() => setIsRefreshing(false), 1000)
+          }}
+          disabled={isRefreshing}
+          className="group/refresh flex items-center justify-center h-10 w-10 sm:h-11 sm:w-11 rounded-app bg-white/5 border border-white/10 hover:bg-warning hover:border-warning transition-all duration-300 shadow-xl backdrop-blur-md"
+        >
+          <RefreshCw
+            className={cn(
+              'w-4 h-4 sm:w-5 sm:h-5 transition-all text-white/80 group-hover/refresh:text-black',
+              isRefreshing && 'animate-spin',
+            )}
+            strokeWidth={3}
+          />
+        </Button>
+      </div>
 
       <MatchDetailTabs
         match={match}
