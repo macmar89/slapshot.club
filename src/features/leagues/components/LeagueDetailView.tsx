@@ -10,15 +10,6 @@ import { BackLink } from '@/components/ui/BackLink'
 import type { League, User } from '@/payload-types'
 import { deleteLeague, removeMember, approveMember, rejectMember, transferOwnership } from '@/actions/leagues'
 import type { LeaderboardEntry as PayloadLeaderboardEntry } from '@/payload-types'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogClose,
-} from '@/components/ui/Dialog'
 import { LeagueActionDialog } from './LeagueActionDialog'
 import { Button } from '@/components/ui/Button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs'
@@ -182,7 +173,7 @@ export function LeagueDetailView({
              
              <Button
                 variant="ghost"
-                onClick={() => router.push('/dashboard/tipos-2025-2026/rules?tab=minileagues')}
+                onClick={() => router.push(`/dashboard/${competitionSlug}/rules?tab=minileagues`)}
                 className="text-white hover:text-warning text-xs gap-1 cursor-pointer hover:bg-transparent font-bold tracking-wider"
              >
                 <Info className="w-3 h-3" />

@@ -29,7 +29,6 @@ export function MatchDetailView({ match, userPrediction, stats }: MatchDetailVie
   const t = useTranslations('Dashboard.matches')
   const { slug } = useParams()
   const router = useRouter()
-  const commonT = useTranslations('Common')
   const [isRefreshing, setIsRefreshing] = React.useState(false)
 
   // Periodic Refresh every 2 minutes at odd minutes

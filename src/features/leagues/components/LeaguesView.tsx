@@ -6,8 +6,9 @@ import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import { CreateLeagueForm } from './CreateLeagueForm'
 import { JoinLeagueForm } from './JoinLeagueForm'
 import { JoinLeagueCard } from './JoinLeagueCard'
+import { JoinLeagueModal } from './JoinLeagueModal'
 import { LeagueCard } from './LeagueCard'
-import { Info, Trophy } from 'lucide-react'
+import { Info, Trophy, Info as InfoIcon } from 'lucide-react'
 import { toast } from 'sonner'
 import type { League } from '@/payload-types'
 import { Link } from '@/i18n/routing'
@@ -49,23 +50,31 @@ export function LeaguesView({
       {/* Header Section */}
       <PageHeader
         title={
-          <div className="flex items-center gap-2">
-            {t('title')}
-            <span className="text-warning text-sm bg-warning/10 px-2 py-0.5 rounded-full border border-warning/20 md:hidden">
-              {allLeaguesCount}
+          <div className="flex items-center justify-between w-full">
+            <span className="flex items-center gap-2">
+              {t('title')}
+              <span className="text-warning text-sm bg-warning/10 px-2 py-0.5 rounded-full border border-warning/20 md:hidden">
+                {allLeaguesCount}
+              </span>
             </span>
+            <Link href={'/rules/minileagues' as any} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all group">
+              <InfoIcon className="w-3.5 h-3.5 text-warning group-hover:scale-110 transition-transform" />
+              <span className="text-[10px] font-black uppercase tracking-[0.15em] text-white/50 group-hover:text-white transition-colors">
+                {t('rules_label')}
+              </span>
+            </Link>
           </div>
         }
         description="Súťaž s kamošmi a vyhraj to!"
         hideDescriptionOnMobile
       >
-        <div className="flex items-center gap-3 w-full md:w-auto">
-          <Link href={'/rules/minileagues' as any} className="block">
-            <Button variant="ghost" className="text-white/40 hover:text-white" size="icon">
-              <Info className="w-4 h-4" />
-            </Button>
-          </Link>
-          <CreateLeagueForm competitionId={competitionId} userPlan={userPlan} />
+        <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
+          <div className="flex items-center gap-4 w-full sm:w-auto">
+            <CreateLeagueForm competitionId={competitionId} userPlan={userPlan} />
+            <div className="md:hidden">
+                <JoinLeagueModal />
+            </div>
+          </div>
         </div>
       </PageHeader>
 
@@ -95,7 +104,7 @@ export function LeaguesView({
         </div>
 
         {/* Right Side: Join Card (Desktop) */}
-        <div className="lg:col-span-1 order-2">
+        <div className="hidden sm:flex lg:col-span-1 order-2">
           <JoinLeagueCard /> 
         </div>
       </div>

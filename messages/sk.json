@@ -400,7 +400,9 @@
     "delete_league_action": "Zrušiť ligu",
     "delete_league_short": "Zrušiť",
     "deleting_league": "Ruším...",
-    "delete_confirm_done": "Potvrdiť zmazanie"
+    "delete_confirm_done": "Potvrdiť zmazanie",
+    "join_league_trigger": "alebo sa pridaj do ligy",
+    "rules_label": "Pravidlá"
   },
   "NotFound": {
     "title": "Zakázané uvoľnenie!",
