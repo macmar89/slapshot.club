@@ -203,6 +203,7 @@ export default buildConfig({
     payload.logger.info('Triggering initial match update...')
     try {
       await runUpdateMatches(payload)
+      payload.logger.info('Initial match update completed successfully.')
     } catch (err) {
       payload.logger.error({ err }, 'Failed to run initial match update')
     }

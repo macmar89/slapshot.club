@@ -4,7 +4,7 @@ import createNextIntlPlugin from 'next-intl/plugin'
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Your Next.js config here
-  output: 'standalone',
+  // output: 'standalone',
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],

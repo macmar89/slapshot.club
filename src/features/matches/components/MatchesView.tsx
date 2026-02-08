@@ -115,6 +115,37 @@ export function MatchesView({ competition }: MatchesViewProps) {
     fetchData()
   }, [fetchData])
 
+  // Periodic Refresh every 2 minutes at odd minutes
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout
+    let intervalId: NodeJS.Timeout
+
+    const setupRefresh = () => {
+      const now = new Date()
+      // Calculate minutes until the next odd minute
+      // If current is even (0, 2, 4), next is +1
+      // If current is odd (1, 3, 5), next is +2
+      const currentMin = now.getMinutes()
+      const nextOddMin = currentMin % 2 === 0 ? currentMin + 1 : currentMin + 2
+
+      const targetDate = new Date(now)
+      targetDate.setMinutes(nextOddMin, 0, 0)
+      const delay = targetDate.getTime() - now.getTime()
+
+      timeoutId = setTimeout(() => {
+        fetchData()
+        intervalId = setInterval(fetchData, 120000) // Every 2 minutes
+      }, delay)
+    }
+
+    setupRefresh()
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId)
+      if (intervalId) clearInterval(intervalId)
+    }
+  }, [fetchData])
+
   // Sync default date back to URL if missing, to ensure refreshes work correctly
   useEffect(() => {
     if (!searchParams.get('date') && selectedDate) {

@@ -1,9 +1,9 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import type { Match, Prediction, Team } from '@/payload-types'
 import { useTranslations } from 'next-intl'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { BackLink } from '@/components/ui/BackLink'
 import { MatchDetailTabs } from './MatchDetailTabs'
 
@@ -25,6 +25,37 @@ interface MatchDetailViewProps {
 export function MatchDetailView({ match, userPrediction, stats }: MatchDetailViewProps) {
   const t = useTranslations('Dashboard.matches')
   const { slug } = useParams()
+  const router = useRouter()
+
+  // Periodic Refresh every 2 minutes at odd minutes
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout
+    let intervalId: NodeJS.Timeout
+
+    const setupRefresh = () => {
+      const now = new Date()
+      const currentMin = now.getMinutes()
+      const nextOddMin = currentMin % 2 === 0 ? currentMin + 1 : currentMin + 2
+
+      const targetDate = new Date(now)
+      targetDate.setMinutes(nextOddMin, 0, 0)
+      const delay = targetDate.getTime() - now.getTime()
+
+      timeoutId = setTimeout(() => {
+        router.refresh()
+        intervalId = setInterval(() => {
+          router.refresh()
+        }, 120000)
+      }, delay)
+    }
+
+    setupRefresh()
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId)
+      if (intervalId) clearInterval(intervalId)
+    }
+  }, [router])
 
   const homeTeam = match.homeTeam as Team
   const awayTeam = match.awayTeam as Team

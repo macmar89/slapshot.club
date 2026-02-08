@@ -16,7 +16,7 @@ export async function runUpdateMatches(payload: BasePayload) {
     payload.logger.info('[CRON] Match update is disabled in GeneralSettings. Skipping.')
     return {
       message: 'Disabled in settings',
-      count: 0
+      count: 0,
     }
   }
 
@@ -31,8 +31,10 @@ export async function runUpdateMatches(payload: BasePayload) {
 }
 
 export const updateMatchesTask: TaskHandler<any> = async ({ req: { payload } }) => {
+  payload.logger.info('[TASK] Executing updateMatchesTask...')
   const result = await runUpdateMatches(payload)
+  payload.logger.info(`[TASK] updateMatchesTask finished: ${JSON.stringify(result)}`)
   return {
-    output: result
+    output: result,
   }
 }
