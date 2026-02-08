@@ -29,6 +29,11 @@ export async function updateScheduledMatches(payload: BasePayload): Promise<Upda
               less_than_equal: now.toISOString(),
             },
           },
+          {
+            date: {
+              greater_than_equal: new Date(new Date().setHours(0, 0, 0, 0)).toISOString(),
+            },
+          },
         ],
       },
       limit: 100,
@@ -46,13 +51,15 @@ export async function updateScheduledMatches(payload: BasePayload): Promise<Upda
         data: {
           status: 'live',
         },
-      })
+      }),
     )
 
     await Promise.all(updatePromises)
 
     const matchTitles = matchesToUpdate.docs.map((m: any) => m.displayTitle || m.id).join(', ')
-    payload.logger.info(`[SERVICE] Updated ${matchesToUpdate.totalDocs} matches to LIVE: ${matchTitles}`)
+    payload.logger.info(
+      `[SERVICE] Updated ${matchesToUpdate.totalDocs} matches to LIVE: ${matchTitles}`,
+    )
 
     return {
       message: 'Matches updated successfully',

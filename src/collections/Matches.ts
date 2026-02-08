@@ -296,6 +296,23 @@ export const Matches: CollectionConfig = {
         },
       },
     },
+    {
+      name: 'rankedAt',
+      type: 'date',
+      admin: {
+        position: 'sidebar',
+        description:
+          'Dátum a čas, kedy bol k tomuto zápasu prepočítaný rebríček. Ak je null, zápas čaká na spracovanie.',
+      },
+    },
+    {
+      name: 'apiHockeyGameId',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
+        description: 'Externé ID zápasu z hokejovej API (ak existuje).',
+      },
+    },
   ],
   hooks: {
     afterChange: [
@@ -305,6 +322,14 @@ export const Matches: CollectionConfig = {
           if (doc.status === 'finished' && previousDoc?.status !== 'finished') {
             req.payload.logger.info(`[HOOK] Status changed to FINISHED for: ${doc.displayTitle}`)
             await evaluateMatch(doc.id, req.payload)
+            // Clear rankedAt so it gets picked up by the 10m cron
+            if (doc.rankedAt) {
+              await req.payload.update({
+                collection: 'matches',
+                id: doc.id,
+                data: { rankedAt: null } as any,
+              })
+            }
             return
           }
 
@@ -314,6 +339,14 @@ export const Matches: CollectionConfig = {
               `[HOOK] Status changed FROM finished to ${doc.status} for: ${doc.displayTitle}`,
             )
             await revertMatchEvaluation(doc.id, req.payload)
+            // Reset rankedAt since evaluation was reverted
+            if (doc.rankedAt) {
+              await req.payload.update({
+                collection: 'matches',
+                id: doc.id,
+                data: { rankedAt: null } as any,
+              })
+            }
             return
           }
 
@@ -331,6 +364,12 @@ export const Matches: CollectionConfig = {
               )
               await revertMatchEvaluation(doc.id, req.payload)
               await evaluateMatch(doc.id, req.payload)
+              // Reset rankedAt to re-trigger ranking update
+              await req.payload.update({
+                collection: 'matches',
+                id: doc.id,
+                data: { rankedAt: null } as any,
+              })
             }
           }
           // 4. DYNAMIC SCHEDULING: Schedule update-matches task when a match is created or date changes

@@ -28,6 +28,7 @@ import { Regions } from './collections/Regions'
 import { Badges } from './collections/Badges'
 import { BadgeMedia } from './collections/BadgeMedia'
 import { updateMatchesTask, runUpdateMatches } from './payload/tasks/updateMatches'
+import { updateRealtimeRankingTask } from './payload/tasks/updateRealtimeRanking'
 import { updateLeaderboardsTask } from './payload/cron/updateLeaderboards' // Import
 import { migrations } from './migrations'
 
@@ -49,11 +50,22 @@ export default buildConfig({
         ],
         schedule: [
           {
-            cron: '0 * * * *',
+            cron: '*/5 * * * *',
             queue: 'default',
           },
         ],
         handler: updateMatchesTask,
+      },
+      {
+        slug: 'update-realtime-ranking',
+        label: 'Update Realtime Ranking',
+        schedule: [
+          {
+            cron: '*/10 * * * *',
+            queue: 'default',
+          },
+        ],
+        handler: updateRealtimeRankingTask,
       },
       {
         slug: 'update-leaderboards',
