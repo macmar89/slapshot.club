@@ -33,6 +33,7 @@ import {
   runUpdateRealtimeRanking,
 } from './payload/tasks/updateRealtimeRanking'
 import { syncHockeyMatchesTask, runSyncHockeyMatches } from './payload/tasks/syncHockeyMatches'
+import { syncFutureMatchesTask, runSyncFutureMatches } from './payload/tasks/syncFutureMatches'
 import { updateLeaderboardsTask, runUpdateLeaderboards } from './payload/cron/updateLeaderboards' // Import
 import { migrations } from './migrations'
 
@@ -89,6 +90,19 @@ export default buildConfig({
               },
             ],
         handler: syncHockeyMatchesTask,
+      },
+      {
+        slug: 'sync-future-matches',
+        label: 'Sync Future Matches (Weekly)',
+        schedule: hockeyApiDisabled
+          ? []
+          : [
+              {
+                cron: '0 3 * * 1', // Every Monday at 3:00 AM
+                queue: 'default',
+              },
+            ],
+        handler: syncFutureMatchesTask,
       },
       {
         slug: 'update-leaderboards',

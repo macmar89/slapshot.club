@@ -142,6 +142,7 @@ export interface Config {
       'update-matches': TaskUpdateMatches;
       'update-realtime-ranking': TaskUpdateRealtimeRanking;
       'sync-hockey-matches': TaskSyncHockeyMatches;
+      'sync-future-matches': TaskSyncFutureMatches;
       'update-leaderboards': TaskUpdateLeaderboards;
       inline: {
         input: unknown;
@@ -867,6 +868,7 @@ export interface PayloadJob {
           | 'update-matches'
           | 'update-realtime-ranking'
           | 'sync-hockey-matches'
+          | 'sync-future-matches'
           | 'update-leaderboards';
         taskID: string;
         input?:
@@ -901,7 +903,14 @@ export interface PayloadJob {
       }[]
     | null;
   taskSlug?:
-    | ('inline' | 'update-matches' | 'update-realtime-ranking' | 'sync-hockey-matches' | 'update-leaderboards')
+    | (
+        | 'inline'
+        | 'update-matches'
+        | 'update-realtime-ranking'
+        | 'sync-hockey-matches'
+        | 'sync-future-matches'
+        | 'update-leaderboards'
+      )
     | null;
   queue?: string | null;
   waitUntil?: string | null;
@@ -1726,6 +1735,14 @@ export interface TaskUpdateRealtimeRanking {
  * via the `definition` "TaskSync-hockey-matches".
  */
 export interface TaskSyncHockeyMatches {
+  input?: unknown;
+  output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskSync-future-matches".
+ */
+export interface TaskSyncFutureMatches {
   input?: unknown;
   output?: unknown;
 }
