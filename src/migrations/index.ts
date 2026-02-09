@@ -7,6 +7,7 @@ import * as migration_20260208_141846_rename_api_ids from './20260208_141846_ren
 import * as migration_20260208_151126_add_sync_fields_and_task from './20260208_151126_add_sync_fields_and_task'
 import * as migration_20260208_155850_add_team_api_id from './20260208_155850_add_team_api_id'
 import * as migration_20260208_174602_sync_tasks from './20260208_174602_sync_tasks'
+import * as migration_20260209_205442_add_khl_sk1_tags from './20260209_205442_add_khl_sk1_tags'
 
 export const migrations = [
   {
@@ -53,5 +54,10 @@ export const migrations = [
     up: migration_20260208_174602_sync_tasks.up,
     down: migration_20260208_174602_sync_tasks.down,
     name: '20260208_174602_sync_tasks',
+  },
+  {
+    up: migration_20260209_205442_add_khl_sk1_tags.up,
+    down: migration_20260209_205442_add_khl_sk1_tags.down,
+    name: '20260209_205442_add_khl_sk1_tags',
   },
 ]
