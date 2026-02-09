@@ -107,7 +107,7 @@ export default buildConfig({
           syncFutureMatchesTask({
             ...args,
             input: {
-              apiHockeyIds: [91], // Slovenská liga
+              apiHockeyIds: [91, 42], // Slovenská liga
             },
           }),
       },
