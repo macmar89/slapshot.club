@@ -177,12 +177,13 @@ function detectEndingType(apiMatch: ApiHockeyMatch): 'regular' | 'ot' | 'so' {
 }
 
 /**
- * Sync future matches (next 14 days) for a specific competition.
- * Creates new matches if they don't exist.
+ * Sync future matches (next 14 days) for competitions.
+ * If competitionId is provided, syncs only that one.
+ * If not, syncs all active competitions with API configuration.
  */
 export async function syncFutureMatches(
   payload: BasePayload,
-  competitionId: string = 'spsevlvb34lj4i4ny3aq4odq', // Default to Slovak League
+  { competitionId, apiHockeyId }: { competitionId?: string; apiHockeyId?: string | number } = {},
 ) {
   const apiKey = process.env.HOCKEY_API_KEY
   if (!apiKey) {
@@ -191,62 +192,102 @@ export async function syncFutureMatches(
   }
 
   try {
-    // 1. Get competition details to know apiHockeyId and season
-    const competition = await payload.findByID({
-      collection: 'competitions',
-      id: competitionId,
-    })
+    let competitionsToSync: any[] = []
 
-    if (!competition || !competition.apiHockeyId || !competition.apiHockeySeason) {
-      payload.logger.error(
-        `[FUTURE SYNC] Competition ${competitionId} not found or missing API info.`,
-      )
+    if (competitionId) {
+      const competition = await payload.findByID({
+        collection: 'competitions',
+        id: competitionId,
+      })
+      if (competition) {
+        competitionsToSync.push(competition)
+      }
+    } else if (apiHockeyId) {
+      const competitionResult = await payload.find({
+        collection: 'competitions',
+        where: {
+          apiHockeyId: { equals: Number(apiHockeyId) },
+        },
+        limit: 1,
+      })
+      if (competitionResult.docs.length > 0) {
+        competitionsToSync.push(competitionResult.docs[0])
+      }
+    } else {
+      const activeCompetitions = await payload.find({
+        collection: 'competitions',
+        where: {
+          and: [
+            { status: { equals: 'active' } },
+            { apiHockeyId: { exists: true } },
+            { apiHockeySeason: { exists: true } },
+          ],
+        },
+        limit: 100,
+      })
+      competitionsToSync = activeCompetitions.docs
+    }
+
+    if (competitionsToSync.length === 0) {
+      payload.logger.info('[FUTURE SYNC] No competitions to sync.')
       return
     }
 
-    const leagueId = competition.apiHockeyId
-    const season = competition.apiHockeySeason
-
-    // 2. Loop through next 14 days (0 to 13)
-    // "Cron by mal zbehnúť vždy v pondelok o 3 ráno a mal by doplniť chýbajúce zápasy na 2 tždne dopredu (do nedele za 13 dní či ako to vychádza)"
-    const today = new Date()
-    const daysToSync = 14
-
-    for (let i = 0; i < daysToSync; i++) {
-      const date = new Date(today)
-      date.setDate(today.getDate() + i)
-      const dateStr = date.toISOString().split('T')[0]
-
-      payload.logger.info(`[FUTURE SYNC] Checking matches for ${dateStr}...`)
-
-      // 3. Fetch from API
-      const url = new URL(`${API_HOCKEY_CONFIG.BASE_URL}${API_HOCKEY_CONFIG.ENDPOINTS.GAMES}`)
-      url.searchParams.append('league', String(leagueId))
-      url.searchParams.append('season', String(season))
-      url.searchParams.append('date', dateStr)
-
-      const response = await fetch(url.toString(), {
-        headers: {
-          'x-apisports-key': apiKey,
-        },
-      })
-
-      if (!response.ok) {
-        payload.logger.error(`[FUTURE SYNC] API error for ${dateStr}: ${response.statusText}`)
+    for (const competition of competitionsToSync) {
+      if (!competition.apiHockeyId || !competition.apiHockeySeason) {
+        payload.logger.error(`[FUTURE SYNC] Competition ${competition.id} missing API info.`)
         continue
       }
 
-      const data: ApiHockeyResponse = await response.json()
-      const matches = data.response
+      const leagueId = competition.apiHockeyId
+      const season = competition.apiHockeySeason
+      const currentCompId = competition.id
 
-      if (!matches || matches.length === 0) {
-        continue
-      }
+      payload.logger.info(`[FUTURE SYNC] Starting sync for ${competition.name}...`)
 
-      // 4. Process matches
-      for (const match of matches) {
-        await createMatchIfNotExists(match, competitionId, payload)
+      // 2. Loop through next 14 days
+      const today = new Date()
+      const daysToSync = 14
+
+      for (let i = 0; i < daysToSync; i++) {
+        const date = new Date(today)
+        date.setDate(today.getDate() + i)
+        const dateStr = date.toISOString().split('T')[0]
+
+        payload.logger.info(`[FUTURE SYNC][${competition.name}] Checking matches for ${dateStr}...`)
+
+        // 3. Fetch from API
+        const url = new URL(`${API_HOCKEY_CONFIG.BASE_URL}${API_HOCKEY_CONFIG.ENDPOINTS.GAMES}`)
+        url.searchParams.append('league', String(leagueId))
+        url.searchParams.append('season', String(season))
+        url.searchParams.append('date', dateStr)
+
+        const response = await fetch(url.toString(), {
+          headers: {
+            'x-apisports-key': apiKey,
+          },
+        })
+
+        if (!response.ok) {
+          payload.logger.error(
+            `[FUTURE SYNC][${competition.name}] API error for ${dateStr}: ${response.statusText}`,
+          )
+          continue
+        }
+
+        const data: ApiHockeyResponse = await response.json()
+        const matches = data.response
+
+        if (!matches || matches.length === 0) {
+          continue
+        }
+
+        // 4. Process matches
+        for (const match of matches) {
+          await createMatchIfNotExists(match, currentCompId as string, payload)
+        }
       }
+      payload.logger.info(`[FUTURE SYNC] Finished sync for ${competition.name}.`)
     }
   } catch (error: any) {
     payload.logger.error(`[FUTURE SYNC ERROR] ${error.message}`)
@@ -319,7 +360,9 @@ async function createMatchIfNotExists(
         },
       },
     })
-    payload.logger.info(`[FUTURE SYNC] Created match: ${newMatch.displayTitle} (${dateStr(apiMatch.date)})`)
+    payload.logger.info(
+      `[FUTURE SYNC] Created match: ${newMatch.displayTitle} (${dateStr(apiMatch.date)})`,
+    )
   } catch (err: any) {
     payload.logger.error(`[FUTURE SYNC] Failed to create match ${apiId}: ${err.message}`)
   }

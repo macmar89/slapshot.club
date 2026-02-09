@@ -102,7 +102,13 @@ export default buildConfig({
                 queue: 'default',
               },
             ],
-        handler: syncFutureMatchesTask,
+        handler: (args) =>
+          syncFutureMatchesTask({
+            ...args,
+            input: {
+              apiHockeyIds: [91], // Slovenská liga
+            },
+          }),
       },
       {
         slug: 'update-leaderboards',
@@ -150,7 +156,16 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     components: {
-      afterNavLinks: ['/payload/components/FeedbackBadge#FeedbackBadge'],
+      afterNavLinks: [
+        '/payload/components/FeedbackBadge#FeedbackBadge',
+        '/payload/components/SyncMatchesLink#SyncMatchesLink',
+      ],
+      views: {
+        SyncMatches: {
+          Component: '/payload/components/SyncMatchesPage#SyncMatchesPage',
+          path: '/sync-matches',
+        },
+      },
     },
   },
   collections: [
@@ -250,6 +265,36 @@ export default buildConfig({
     prodMigrations: migrations,
     push: process.env.PAYLOAD_PUSH === 'true',
   }),
+  endpoints: [
+    {
+      path: '/sync-matches',
+      method: 'get',
+      handler: async (req) => {
+        const { payload, user, searchParams } = req
+
+        if ((user as any)?.role !== 'admin') {
+          return Response.json({ error: 'Unauthorized' }, { status: 401 })
+        }
+
+        const competitionId = searchParams.get('cid') || undefined
+        const apiHockeyId = searchParams.get('ahid') || undefined
+        payload.logger.info(
+          `[API] Manual sync triggered via /api/sync-matches${competitionId ? ` for competition CID ${competitionId}` : ''}${apiHockeyId ? ` for API ID ${apiHockeyId}` : ''}`,
+        )
+
+        runSyncFutureMatches(payload, { competitionId, apiHockeyId })
+        return Response.json(
+          {
+            message:
+              competitionId || apiHockeyId
+                ? `Sync started for ${competitionId || apiHockeyId}`
+                : 'Sync started',
+          },
+          { status: 200 },
+        )
+      },
+    },
+  ],
   sharp,
   plugins: [
     s3Storage({

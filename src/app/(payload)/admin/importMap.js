@@ -24,7 +24,9 @@ import { UploadFeatureClient as UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0
 import { HorizontalRuleFeatureClient as HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { InlineToolbarFeatureClient as InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { FeedbackBadge as FeedbackBadge_76d83ff871d1c29a7b4aaceaf586db79 } from '../../../payload/components/FeedbackBadge'
+import { SyncMatchesLink as SyncMatchesLink_29a17a908edc9832f57fdbd5fc2a825a } from '../../../payload/components/SyncMatchesLink'
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
+import { SyncMatchesPage as SyncMatchesPage_a6fa5932d95d0ea4eae9b2ad7716953b } from '../../../payload/components/SyncMatchesPage'
 import { CollectionCards as CollectionCards_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
 
 export const importMap = {
@@ -54,6 +56,8 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#HorizontalRuleFeatureClient": HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient": InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "/payload/components/FeedbackBadge#FeedbackBadge": FeedbackBadge_76d83ff871d1c29a7b4aaceaf586db79,
+  "/payload/components/SyncMatchesLink#SyncMatchesLink": SyncMatchesLink_29a17a908edc9832f57fdbd5fc2a825a,
   "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
+  "/payload/components/SyncMatchesPage#SyncMatchesPage": SyncMatchesPage_a6fa5932d95d0ea4eae9b2ad7716953b,
   "@payloadcms/ui/rsc#CollectionCards": CollectionCards_ab83ff7e88da8d3530831f296ec4756a
 }
