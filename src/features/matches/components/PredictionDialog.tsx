@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, startTransition, useEffect } from 'react'
+import { toast } from 'sonner'
 import {
   Dialog,
   DialogContent,
@@ -76,15 +77,25 @@ export function PredictionDialog({
     })
 
     try {
-      await savePredictionAction({
+      const result = await savePredictionAction({
         matchId: match.id,
         homeGoals,
         awayGoals,
       })
-      onSuccess()
+
+      if (result?.success) {
+        onSuccess()
+      } else {
+        // Rollback optimistic save if needed (Success handles it via onSuccess -> revalidate)
+        console.error('Failed to save prediction:', result?.error)
+        toast.error(result?.error || 'Chyba pri ukladaní tipu. Skús to znova.')
+
+        // V prípade chyby musíme dialog nechať otvorený alebo ho znova zobraziť
+        // ale pre jednoduchosť teraz aspoň ukážeme toast.
+      }
     } catch (error) {
-      console.error('Failed to save prediction:', error)
-      alert('Chyba pri ukladaní tipu. Skús to znova.')
+      console.error('Failed to save prediction (unexpected):', error)
+      toast.error('Chyba pri komunikácii so serverom. Skúste to prosím neskôr.')
     } finally {
       setIsSubmitting(false)
     }
@@ -171,11 +182,21 @@ export function PredictionDialog({
 
         <div className="flex flex-col gap-8 mb-8">
           <div className="flex items-center gap-4 relative z-10">
-            <ScoreInput value={homeGoals} onChange={setHomeGoals} team={homeTeam} disabled={isLocked} />
+            <ScoreInput
+              value={homeGoals}
+              onChange={setHomeGoals}
+              team={homeTeam}
+              disabled={isLocked}
+            />
 
             <div className="text-white/20 text-4xl font-black italic items-center pt-8">:</div>
 
-            <ScoreInput value={awayGoals} onChange={setAwayGoals} team={awayTeam} disabled={isLocked} />
+            <ScoreInput
+              value={awayGoals}
+              onChange={setAwayGoals}
+              team={awayTeam}
+              disabled={isLocked}
+            />
           </div>
 
           {isDraw && !isLocked && (

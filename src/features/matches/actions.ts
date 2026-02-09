@@ -109,66 +109,83 @@ export const savePredictionAction = async (data: {
   homeGoals: number
   awayGoals: number
 }) => {
-  const payload = await getPayload({ config })
-  const headersList = await headers()
-  const { user } = await payload.auth({ headers: headersList })
+  try {
+    const payload = await getPayload({ config })
+    const headersList = await headers()
+    const { user } = await payload.auth({ headers: headersList })
 
-  if (!user) {
-    throw new Error('Unauthorized')
-  }
+    if (!user) {
+      console.error('[SAVE PREDICTION] Unauthorized access attempt')
+      return { error: 'Unauthorized', code: 'UNAUTHORIZED' }
+    }
 
-  // 0. Validate if it's not a draw
-  if (data.homeGoals === data.awayGoals) {
-    throw new Error('Remíza nie je povolená. Vyberte víťaza.')
-  }
+    // 0. Validate if it's not a draw
+    if (data.homeGoals === data.awayGoals) {
+      return { error: 'Remíza nie je povolená. Vyberte víťaza.', code: 'NO_DRAW' }
+    }
 
-  // 1. Fetch match to validate start time
-  const match = await payload.findByID({
-    collection: 'matches',
-    id: data.matchId,
-  })
-
-  if (!match) {
-    throw new Error('Match not found')
-  }
-
-  // 2. Strict validation: Check if match has already started
-  if (new Date() > new Date(match.date)) {
-    throw new Error('Zápas už začal. Nie je možné pridať alebo upraviť tip.')
-  }
-
-  // Check if prediction already exists
-  const existing = await payload.find({
-    collection: 'predictions',
-    where: {
-      user: { equals: user.id },
-      match: { equals: data.matchId },
-    },
-    limit: 1,
-  })
-
-  if (existing.docs.length > 0) {
-    // Update
-    return await payload.update({
-      collection: 'predictions',
-      id: existing.docs[0].id,
-      data: {
-        homeGoals: data.homeGoals,
-        awayGoals: data.awayGoals,
-      },
+    // 1. Fetch match to validate start time
+    const match = await payload.findByID({
+      collection: 'matches',
+      id: data.matchId,
     })
-  } else {
-    // Create
-    return await payload.create({
+
+    if (!match) {
+      console.error(`[SAVE PREDICTION] Match ${data.matchId} not found`)
+      return { error: 'Zápas sa nenašiel.', code: 'MATCH_NOT_FOUND' }
+    }
+
+    // 2. Strict validation: Check if match has already started
+    const now = new Date()
+    const matchDate = new Date(match.date)
+    if (now > matchDate) {
+      return {
+        error: 'Zápas už začal. Nie je možné pridať alebo upraviť tip.',
+        code: 'MATCH_STARTED',
+      }
+    }
+
+    // Check if prediction already exists
+    const existing = await payload.find({
       collection: 'predictions',
-      data: {
-        user: user.id,
-        match: data.matchId,
-        homeGoals: data.homeGoals,
-        awayGoals: data.awayGoals,
-        status: 'pending',
+      where: {
+        user: { equals: user.id },
+        match: { equals: data.matchId },
       },
+      limit: 1,
     })
+
+    if (existing.docs.length > 0) {
+      // Update
+      const updated = await payload.update({
+        collection: 'predictions',
+        id: existing.docs[0].id,
+        data: {
+          homeGoals: data.homeGoals,
+          awayGoals: data.awayGoals,
+        },
+      })
+      return { success: true, data: JSON.parse(JSON.stringify(updated)) }
+    } else {
+      // Create
+      const created = await payload.create({
+        collection: 'predictions',
+        data: {
+          user: user.id,
+          match: data.matchId,
+          homeGoals: data.homeGoals,
+          awayGoals: data.awayGoals,
+          status: 'pending',
+        },
+      })
+      return { success: true, data: JSON.parse(JSON.stringify(created)) }
+    }
+  } catch (error: any) {
+    console.error('[SAVE PREDICTION ERROR]', error)
+    return {
+      error: error.message || 'Nepodarilo sa uložiť tip. Skúste to prosím neskôr.',
+      code: 'SERVER_ERROR',
+    }
   }
 }
 
@@ -187,36 +204,36 @@ export const getMatchPredictionsAction = async ({
   search?: string
 }) => {
   const payload = await getPayload({ config })
-  
+
   const where: any = {
     match: { equals: matchId },
   }
 
   if (search) {
-     const users = await payload.find({
-       collection: 'users',
-       where: {
-         username: { like: search },
-       },
-       limit: 100,
-     })
-     
-     if (users.docs.length === 0) {
-       return {
-         docs: [],
-         totalDocs: 0,
-         limit,
-         totalPages: 0,
-         page,
-         pagingCounter: 0,
-         hasPrevPage: false,
-         hasNextPage: false,
-         prevPage: null,
-         nextPage: null,
-       }
-     }
-     
-     where.user = { in: users.docs.map(u => u.id) }
+    const users = await payload.find({
+      collection: 'users',
+      where: {
+        username: { like: search },
+      },
+      limit: 100,
+    })
+
+    if (users.docs.length === 0) {
+      return {
+        docs: [],
+        totalDocs: 0,
+        limit,
+        totalPages: 0,
+        page,
+        pagingCounter: 0,
+        hasPrevPage: false,
+        hasNextPage: false,
+        prevPage: null,
+        nextPage: null,
+      }
+    }
+
+    where.user = { in: users.docs.map((u) => u.id) }
   }
 
   const predictions = await payload.find({
@@ -224,8 +241,8 @@ export const getMatchPredictionsAction = async ({
     where,
     limit,
     page,
-    sort: '-points', 
-    depth: 1, 
+    sort: '-points',
+    depth: 1,
   })
 
   return predictions
