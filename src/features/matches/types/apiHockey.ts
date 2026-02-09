@@ -63,6 +63,28 @@ export interface ApiHockeyMatch {
   events: boolean | any
 }
 
+export interface ApiHockeyTeamDetailed {
+  id: number
+  name: string
+  logo: string
+  national: boolean
+  founded: number | null
+  arena: {
+    name: string | null
+    capacity: number | null
+    location: string | null
+  }
+  country: ApiHockeyCountry
+}
+
+export interface ApiHockeyTeamResponse {
+  get: string
+  parameters: Record<string, any>
+  errors: any[]
+  results: number
+  response: ApiHockeyTeamDetailed[]
+}
+
 export interface ApiHockeyResponse {
   get: string
   parameters: Record<string, any>

@@ -4,11 +4,21 @@ import React from 'react'
 import type { Match, Prediction, Team, Media } from '@/payload-types'
 import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import { cn } from '@/lib/utils'
-import { Calendar, Trophy, Target, TrendingUp, BarChart3, AlertCircle, Users } from 'lucide-react'
+import {
+  Calendar,
+  Trophy,
+  Target,
+  TrendingUp,
+  BarChart3,
+  AlertCircle,
+  Users,
+  PencilLine,
+} from 'lucide-react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/Button'
 import { calculatePoints } from '@/features/matches/utils/scoring'
+import { PredictionDialog } from './PredictionDialog'
 
 interface MatchInfoTabProps {
   match: Match
@@ -44,6 +54,20 @@ export function MatchInfoTab({
 }: MatchInfoTabProps) {
   const t = useTranslations('Dashboard.matches')
   const matchDate = new Date(match.date)
+
+  const [isPredictionDialogOpen, setIsPredictionDialogOpen] = React.useState(false)
+  const [optimisticPrediction, setOptimisticPrediction] = React.useState<Prediction | undefined>(
+    userPrediction,
+  )
+
+  const handlePredictClick = () => {
+    setIsPredictionDialogOpen(true)
+  }
+
+  const handlePredictSuccess = () => {
+    setIsPredictionDialogOpen(false)
+    window.location.reload()
+  }
 
   // Determine current evaluation for highlighting
   const currentEval = React.useMemo(() => {
@@ -271,18 +295,31 @@ export function MatchInfoTab({
                 {t('my_prediction')}
               </h3>
               <div className="bg-white/5 border border-white/10 rounded-app p-6 relative overflow-hidden max-w-full lg:max-w-md">
-                {userPrediction ? (
+                {optimisticPrediction ? (
                   <div className="flex items-center justify-between gap-6">
                     <div className="flex flex-col gap-1">
                       <span className="text-[10px] font-black text-warning uppercase tracking-widest">
                         {t('dialog.title' as any)}
                       </span>
-                      <div className="text-4xl font-black text-white italic tracking-tighter">
-                        {userPrediction.homeGoals} : {userPrediction.awayGoals}
+                      <div className="flex items-center gap-4">
+                        <div className="text-4xl font-black text-white italic tracking-tighter">
+                          {optimisticPrediction.homeGoals} : {optimisticPrediction.awayGoals}
+                        </div>
+                        {match.status === 'scheduled' && (
+                          <Button
+                            variant="solid"
+                            color="warning"
+                            size="icon"
+                            onClick={handlePredictClick}
+                            className="p-1.5 h-8 w-8 rounded-lg shadow-[0_4px_15px_rgba(234,179,8,0.2)] hover:scale-110 transition-all"
+                          >
+                            <PencilLine className="w-4 h-4" />
+                          </Button>
+                        )}
                       </div>
                     </div>
-                    {(userPrediction.points !== null ||
-                      (userPrediction as any).potentialPoints !== undefined) && (
+                    {(optimisticPrediction.points !== null ||
+                      (optimisticPrediction as any).potentialPoints !== undefined) && (
                       <div
                         className={cn(
                           'p-3 rounded-xl flex flex-col items-center min-w-[80px]',
@@ -304,9 +341,9 @@ export function MatchInfoTab({
                           )}
                         >
                           +
-                          {userPrediction.points !== null
-                            ? userPrediction.points
-                            : (userPrediction as any).potentialPoints}
+                          {optimisticPrediction.points !== null
+                            ? optimisticPrediction.points
+                            : (optimisticPrediction as any).potentialPoints}
                         </span>
                         <span
                           className={cn(
@@ -326,12 +363,12 @@ export function MatchInfoTab({
                     </p>
                     {match.status === 'scheduled' && (
                       <Button
+                        onClick={handlePredictClick}
                         variant="solid"
-                        color="gold"
-                        size="sm"
-                        className="font-black uppercase tracking-widest text-[10px]"
+                        color="warning"
+                        className="rounded-app px-8 py-3 h-auto text-[10px] font-black uppercase tracking-[0.1em] gap-2 shadow-[0_4px_15px_rgba(234,179,8,0.2)] hover:scale-105 transition-all"
                       >
-                        {t('predict_now')}
+                        {t('predict_button')}
                       </Button>
                     )}
                   </div>
@@ -374,55 +411,63 @@ export function MatchInfoTab({
           </div>
 
           {/* Detailed Stats */}
-          {totalTips > 0 && (
-            <div className="space-y-4">
-              <div className="flex items-center justify-between max-w-xl">
-                <h3 className="text-[10px] font-black uppercase tracking-widest text-white/40">
-                  {t('detailed_stats' as any)}
-                </h3>
-                <div className="flex items-center gap-1.5 bg-white/5 px-2 py-1 rounded-md border border-white/5">
-                  <div className="w-3 h-3 text-white/40">
-                    <Users className="w-full h-full" />
-                  </div>
-                  <span className="text-[10px] font-black text-white">
-                    {t('predictions_count', { count: totalTips })}
-                  </span>
+
+          <div className="space-y-4">
+            <div className="flex items-center justify-between max-w-xl">
+              <h3 className="text-[10px] font-black uppercase tracking-widest text-white/40">
+                {t('detailed_stats' as any)}
+              </h3>
+              <div className="flex items-center gap-1.5 bg-white/5 px-2 py-1 rounded-md border border-white/5">
+                <div className="w-3 h-3 text-white/40">
+                  <Users className="w-full h-full" />
                 </div>
-              </div>
-              <div className="flex flex-col gap-3 max-w-xl">
-                <StatItem
-                  label={t('exact_score' as any)}
-                  count={statsData.exact}
-                  color="bg-green-500"
-                  isUser={!!currentEval?.isExact}
-                  icon={Target}
-                />
-                <StatItem
-                  label={t('correct_diff' as any)}
-                  count={statsData.diff}
-                  color="bg-yellow-500"
-                  isUser={!!currentEval?.isDiff}
-                  icon={TrendingUp}
-                />
-                <StatItem
-                  label={t('winner_only' as any)}
-                  count={statsData.trend}
-                  color="bg-orange-500"
-                  isUser={!!currentEval?.isTrend}
-                  icon={BarChart3}
-                />
-                <StatItem
-                  label={t('wrong_guess' as any)}
-                  count={statsData.wrong}
-                  color="bg-red-500"
-                  isUser={!!currentEval?.isWrong}
-                  icon={AlertCircle}
-                />
+                <span className="text-[10px] font-black text-white">
+                  {t('predictions_count', { count: totalTips })}
+                </span>
               </div>
             </div>
-          )}
+            <div className="flex flex-col gap-3 max-w-xl">
+              <StatItem
+                label={t('exact_score' as any)}
+                count={statsData.exact}
+                color="bg-green-500"
+                isUser={!!currentEval?.isExact}
+                icon={Target}
+              />
+              <StatItem
+                label={t('correct_diff' as any)}
+                count={statsData.diff}
+                color="bg-yellow-500"
+                isUser={!!currentEval?.isDiff}
+                icon={TrendingUp}
+              />
+              <StatItem
+                label={t('winner_only' as any)}
+                count={statsData.trend}
+                color="bg-orange-500"
+                isUser={!!currentEval?.isTrend}
+                icon={BarChart3}
+              />
+              <StatItem
+                label={t('wrong_guess' as any)}
+                count={statsData.wrong}
+                color="bg-red-500"
+                isUser={!!currentEval?.isWrong}
+                icon={AlertCircle}
+              />
+            </div>
+          </div>
         </div>
       </IceGlassCard>
+
+      <PredictionDialog
+        match={match}
+        existingPrediction={userPrediction}
+        isOpen={isPredictionDialogOpen}
+        onClose={() => setIsPredictionDialogOpen(false)}
+        onSuccess={handlePredictSuccess}
+        onOptimisticSave={(p) => setOptimisticPrediction(p)}
+      />
     </div>
   )
 }

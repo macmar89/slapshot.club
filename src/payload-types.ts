@@ -143,6 +143,7 @@ export interface Config {
       'update-realtime-ranking': TaskUpdateRealtimeRanking;
       'sync-hockey-matches': TaskSyncHockeyMatches;
       'sync-future-matches': TaskSyncFutureMatches;
+      'sync-teams': TaskSyncTeams;
       'update-leaderboards': TaskUpdateLeaderboards;
       inline: {
         input: unknown;
@@ -622,7 +623,7 @@ export interface Team {
   /**
    * Pomocné tagy pre ľahšie vyhľadávanie pri vytváraní zápasov.
    */
-  leagueTags?: ('sk' | 'nhl' | 'cz' | 'iihf')[] | null;
+  leagueTags?: ('sk' | 'nhl' | 'cz' | 'khl' | 'sk1' | 'iihf')[] | null;
   logo?: (string | null) | TeamLogo;
   colors: {
     primary: string;
@@ -869,6 +870,7 @@ export interface PayloadJob {
           | 'update-realtime-ranking'
           | 'sync-hockey-matches'
           | 'sync-future-matches'
+          | 'sync-teams'
           | 'update-leaderboards';
         taskID: string;
         input?:
@@ -909,6 +911,7 @@ export interface PayloadJob {
         | 'update-realtime-ranking'
         | 'sync-hockey-matches'
         | 'sync-future-matches'
+        | 'sync-teams'
         | 'update-leaderboards'
       )
     | null;
@@ -1744,6 +1747,18 @@ export interface TaskSyncHockeyMatches {
  */
 export interface TaskSyncFutureMatches {
   input?: unknown;
+  output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskSync-teams".
+ */
+export interface TaskSyncTeams {
+  input: {
+    leagueId: number;
+    season: number;
+    tag: 'khl' | 'nhl' | 'sk' | 'cz' | 'iihf';
+  };
   output?: unknown;
 }
 /**

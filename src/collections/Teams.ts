@@ -88,6 +88,8 @@ export const Teams: CollectionConfig = {
         { label: 'Tipos Extraliga', value: 'sk' },
         { label: 'NHL', value: 'nhl' },
         { label: 'Česká Extraliga', value: 'cz' },
+        { label: 'KHL', value: 'khl' },
+        { label: 'Slovak 1. liga', value: 'sk1' },
         { label: 'Medzinárodné', value: 'iihf' },
       ],
       admin: {

@@ -1,6 +1,12 @@
 import { BasePayload } from 'payload'
 import { API_HOCKEY_CONFIG } from '@/config/api'
-import { ApiHockeyResponse, ApiHockeyMatch } from '../types/apiHockey'
+import {
+  ApiHockeyResponse,
+  ApiHockeyMatch,
+  ApiHockeyTeamResponse,
+  ApiHockeyTeamDetailed,
+} from '../types/apiHockey'
+import { createId } from '@paralleldrive/cuid2'
 
 /**
  * Main function to synchronize matches from Hockey API for all active competitions.
@@ -381,4 +387,151 @@ async function findTeamByApiId(payload: BasePayload, apiId: number) {
 
 function dateStr(iso: string) {
   return iso.split('T')[0]
+}
+
+/**
+ * Sync teams for a specific league and season.
+ */
+export async function syncTeamsForLeague(
+  payload: BasePayload,
+  {
+    leagueId,
+    season,
+    tag,
+  }: {
+    leagueId: number | string
+    season: number | string
+    tag: 'sk' | 'cz' | 'nhl' | 'khl' | 'sk1' | 'iihf'
+  },
+) {
+  const apiKey = process.env.HOCKEY_API_KEY
+  if (!apiKey) {
+    payload.logger.error('[TEAM SYNC] HOCKEY_API_KEY missing.')
+    return
+  }
+
+  try {
+    payload.logger.info(`[TEAM SYNC] Fetching teams for league ${leagueId} (${season})...`)
+
+    const url = new URL(`${API_HOCKEY_CONFIG.BASE_URL}${API_HOCKEY_CONFIG.ENDPOINTS.TEAMS}`)
+    url.searchParams.append('league', String(leagueId))
+    url.searchParams.append('season', String(season))
+
+    const response = await fetch(url.toString(), {
+      headers: {
+        'x-apisports-key': apiKey,
+      },
+    })
+
+    if (!response.ok) {
+      payload.logger.error(`[TEAM SYNC] API error: ${response.statusText}`)
+      return
+    }
+
+    const data: ApiHockeyTeamResponse = await response.json()
+    const apiTeams = data.response
+
+    if (!apiTeams || apiTeams.length === 0) {
+      payload.logger.info(`[TEAM SYNC] No teams found in API for league ${leagueId}.`)
+      return
+    }
+
+    for (const apiTeam of apiTeams) {
+      await processApiTeam(apiTeam, tag, payload)
+    }
+
+    payload.logger.info(`[TEAM SYNC] Finished syncing teams for league ${leagueId}.`)
+  } catch (error: any) {
+    payload.logger.error(`[TEAM SYNC ERROR] ${error.message}`)
+  }
+}
+
+async function processApiTeam(
+  apiTeam: ApiHockeyTeamDetailed,
+  tag: 'sk' | 'cz' | 'nhl' | 'khl' | 'sk1' | 'iihf',
+  payload: BasePayload,
+) {
+  const apiId = String(apiTeam.id)
+
+  // Check if team already exists
+  const existing = await payload.find({
+    collection: 'teams',
+    where: {
+      apiHockeyId: { equals: apiId },
+    },
+    limit: 1,
+  })
+
+  if (existing.totalDocs > 0) {
+    // payload.logger.info(`[TEAM SYNC] Team ${apiTeam.name} already exists. Skipping.`)
+    return
+  }
+
+  payload.logger.info(`[TEAM SYNC] Creating new team: ${apiTeam.name} (${apiId})`)
+
+  let logoId: string | null = null
+
+  // 1. Download and upload logo
+  if (apiTeam.logo) {
+    logoId = await uploadTeamLogo(apiTeam.logo, apiTeam.name, payload)
+  }
+
+  // 2. Generate shortName
+  // We take first 3 chars of name, or if it's multiple words, we take first letters.
+  // Actually, let's keep it simple: first 3 chars uppercase.
+  const shortName = apiTeam.name.substring(0, 3).toUpperCase()
+
+  // 3. Create Team
+  try {
+    const data: any = {
+      name: apiTeam.name,
+      shortName: shortName,
+      apiHockeyId: apiId,
+      type: apiTeam.national ? 'national' : 'club',
+      leagueTags: [tag],
+      logo: logoId || undefined,
+      // Optional: you could map country code here if it matches our select options
+      // country: apiTeam.country.code === 'RU' ? 'RUS' ... (but our Teams.ts has SVK, CZE, USA, CAN)
+    }
+
+    await (payload as any).create({
+      collection: 'teams',
+      data: data,
+      overrideAccess: true,
+    })
+  } catch (err: any) {
+    payload.logger.error(`[TEAM SYNC] Failed to create team ${apiTeam.name}: ${err.message}`)
+  }
+}
+
+async function uploadTeamLogo(
+  url: string,
+  teamName: string,
+  payload: BasePayload,
+): Promise<string | null> {
+  try {
+    const response = await fetch(url)
+    if (!response.ok) throw new Error(`Failed to fetch logo: ${response.statusText}`)
+
+    const buffer = await response.arrayBuffer()
+    const filename = `${createId()}.png`
+
+    const media = await payload.create({
+      collection: 'team-logos',
+      data: {
+        alt: `Logo ${teamName}`,
+      },
+      file: {
+        data: Buffer.from(buffer),
+        mimetype: 'image/png',
+        name: filename,
+        size: buffer.byteLength,
+      },
+    })
+
+    return media.id as string
+  } catch (err: any) {
+    payload.logger.error(`[TEAM SYNC] Logo upload failed for ${teamName}: ${err.message}`)
+    return null
+  }
 }

@@ -34,6 +34,7 @@ import {
 } from './payload/tasks/updateRealtimeRanking'
 import { syncHockeyMatchesTask, runSyncHockeyMatches } from './payload/tasks/syncHockeyMatches'
 import { syncFutureMatchesTask, runSyncFutureMatches } from './payload/tasks/syncFutureMatches'
+import { syncTeamsTask, runSyncTeams } from './payload/tasks/syncTeams'
 import { updateLeaderboardsTask, runUpdateLeaderboards } from './payload/cron/updateLeaderboards' // Import
 import { migrations } from './migrations'
 
@@ -109,6 +110,38 @@ export default buildConfig({
               apiHockeyIds: [91], // Slovenská liga
             },
           }),
+      },
+      {
+        slug: 'sync-teams',
+        label: 'Sync Teams for League',
+        inputSchema: [
+          {
+            name: 'leagueId',
+            type: 'number',
+            label: 'League ID',
+            required: true,
+          },
+          {
+            name: 'season',
+            type: 'number',
+            label: 'Season',
+            required: true,
+          },
+          {
+            name: 'tag',
+            type: 'select',
+            label: 'League Tag',
+            required: true,
+            options: [
+              { label: 'KHL', value: 'khl' },
+              { label: 'NHL', value: 'nhl' },
+              { label: 'SVK', value: 'sk' },
+              { label: 'CZ', value: 'cz' },
+              { label: 'IIHF', value: 'iihf' },
+            ],
+          },
+        ],
+        handler: syncTeamsTask,
       },
       {
         slug: 'update-leaderboards',
