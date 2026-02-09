@@ -39,7 +39,11 @@ export function UserHeroCard({ user, leaderboardEntry }: UserHeroCardProps) {
   )
 
   return (
-    <IceGlassCard className="lg:col-span-4 group overflow-hidden flex flex-col" withGradient>
+    <IceGlassCard
+      className="lg:col-span-4 group overflow-hidden"
+      contentClassName="flex flex-col"
+      withGradient
+    >
       <div className="p-6 relative">
         <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
           <Trophy className="w-24 h-24 rotate-12" />

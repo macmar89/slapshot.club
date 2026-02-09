@@ -6,6 +6,7 @@ interface IceGlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
   backdropBlur?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'
   withGradient?: boolean
   allowOverflow?: boolean
+  contentClassName?: string
 }
 
 const blurMap = {
@@ -28,7 +29,10 @@ const blurMap = {
  * - Subtle inner gradient for volume
  */
 export const IceGlassCard = React.forwardRef<HTMLDivElement, IceGlassCardProps>(
-  ({ className, children, withGradient, backdropBlur, allowOverflow, ...props }, ref) => {
+  (
+    { className, children, withGradient, backdropBlur, allowOverflow, contentClassName, ...props },
+    ref,
+  ) => {
     return (
       <div
         ref={ref}
@@ -58,7 +62,7 @@ export const IceGlassCard = React.forwardRef<HTMLDivElement, IceGlassCardProps>(
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/90 pointer-events-none z-0" />
         )}
         {/* Content Container - ensures text is on top of the gradient */}
-        <div className="relative z-10 text-white h-full">{children}</div>
+        <div className={cn('relative z-10 text-white h-full', contentClassName)}>{children}</div>
       </div>
     )
   },

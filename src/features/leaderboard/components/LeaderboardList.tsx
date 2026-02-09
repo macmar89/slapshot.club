@@ -79,7 +79,8 @@ export function LeaderboardList({
   return (
     <IceGlassCard
       backdropBlur="md"
-      className="flex flex-col h-full w-full rounded-none p-0 overflow-hidden"
+      className="h-full w-full rounded-none p-0 overflow-hidden"
+      contentClassName="flex flex-col"
     >
       {/* Header with Global Stats */}
       <div className="hidden sm:block p-4 border-b border-white/10 bg-white/[0.02] backdrop-blur-xl shrink-0">

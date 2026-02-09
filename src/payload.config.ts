@@ -98,7 +98,7 @@ export default buildConfig({
           ? []
           : [
               {
-                cron: '0 3 * * 1', // Every Monday at 3:00 AM
+                cron: '20 3 * * 1', // Every Monday at 3:20 AM
                 queue: 'default',
               },
             ],
