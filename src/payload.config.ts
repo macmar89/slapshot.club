@@ -35,7 +35,8 @@ import {
 import { syncHockeyMatchesTask, runSyncHockeyMatches } from './payload/tasks/syncHockeyMatches'
 import { syncFutureMatchesTask, runSyncFutureMatches } from './payload/tasks/syncFutureMatches'
 import { syncTeamsTask, runSyncTeams } from './payload/tasks/syncTeams'
-import { updateLeaderboardsTask, runUpdateLeaderboards } from './payload/cron/updateLeaderboards' // Import
+import { updateLeaderboardsTask, runUpdateLeaderboards } from './payload/cron/updateLeaderboards'
+import { evaluateMatchTask } from './payload/tasks/evaluateMatch' // Import
 import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
@@ -162,6 +163,29 @@ export default buildConfig({
               },
             ],
         handler: updateLeaderboardsTask,
+      },
+      {
+        slug: 'evaluate-match',
+        label: 'Evaluate Match (Background)',
+        inputSchema: [
+          {
+            name: 'matchId',
+            type: 'text',
+            label: 'Match ID',
+            required: true,
+          },
+          {
+            name: 'action',
+            type: 'select',
+            label: 'Action',
+            options: [
+              { label: 'Evaluate', value: 'evaluate' },
+              { label: 'Revert', value: 'revert' },
+            ],
+            required: true,
+          },
+        ],
+        handler: evaluateMatchTask,
       },
     ],
     autoRun: [

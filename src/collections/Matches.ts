@@ -60,11 +60,24 @@ export const Matches: CollectionConfig = {
             `🔄 Manual recalculation triggered for match ${id} by ${user.email}`,
           )
           // Revert first to clear old points accurately
-          await revertMatchEvaluation(id as string, req.payload)
+          await req.payload.jobs.queue({
+            task: 'evaluate-match' as any,
+            input: {
+              matchId: id,
+              action: 'revert',
+            },
+          })
+          
           // Then evaluate with current scores
-          await evaluateMatch(id as string, req.payload)
+          await req.payload.jobs.queue({
+            task: 'evaluate-match' as any,
+            input: {
+              matchId: id,
+              action: 'evaluate',
+            },
+          })
 
-          return Response.json({ message: 'Points recalculated successfully' })
+          return Response.json({ message: 'Points recalculation queued' })
         } catch (error: any) {
           req.payload.logger.error(`Manual recalculation failed: ${error.message}`)
           return Response.json({ error: `Recalculation failed: ${error.message}` }, { status: 500 })
@@ -330,7 +343,15 @@ export const Matches: CollectionConfig = {
           // 1. STATUS CHANGE: Scheduled/Live -> Finished
           if (doc.status === 'finished' && previousDoc?.status !== 'finished') {
             req.payload.logger.info(`[HOOK] Status changed to FINISHED for: ${doc.displayTitle}`)
-            await evaluateMatch(doc.id, req.payload)
+            // await evaluateMatch(doc.id, req.payload) // OLD
+            await req.payload.jobs.queue({
+              task: 'evaluate-match' as any,
+              input: {
+                matchId: doc.id,
+                action: 'evaluate',
+              },
+            })
+
             // Clear rankedAt so it gets picked up by the 10m cron
             if (doc.rankedAt) {
               await req.payload.update({
@@ -347,7 +368,15 @@ export const Matches: CollectionConfig = {
             req.payload.logger.info(
               `[HOOK] Status changed FROM finished to ${doc.status} for: ${doc.displayTitle}`,
             )
-            await revertMatchEvaluation(doc.id, req.payload)
+            // await revertMatchEvaluation(doc.id, req.payload) // OLD
+            await req.payload.jobs.queue({
+              task: 'evaluate-match' as any,
+              input: {
+                matchId: doc.id,
+                action: 'revert',
+              },
+            })
+
             // Reset rankedAt since evaluation was reverted
             if (doc.rankedAt) {
               await req.payload.update({
@@ -371,8 +400,26 @@ export const Matches: CollectionConfig = {
               req.payload.logger.info(
                 `[HOOK] Score/Type changed for finished match: ${doc.displayTitle}`,
               )
-              await revertMatchEvaluation(doc.id, req.payload)
-              await evaluateMatch(doc.id, req.payload)
+              // await revertMatchEvaluation(doc.id, req.payload) // OLD
+              // await evaluateMatch(doc.id, req.payload) // OLD
+
+              // Revert logic via job
+              await req.payload.jobs.queue({
+                task: 'evaluate-match' as any,
+                input: {
+                  matchId: doc.id,
+                  action: 'revert',
+                },
+              })
+              // Evaluate logic via job (it will run after revert if queue is FIFO, generally safer to queue both)
+              await req.payload.jobs.queue({
+                task: 'evaluate-match' as any,
+                input: {
+                  matchId: doc.id,
+                  action: 'evaluate',
+                },
+              })
+
               // Reset rankedAt to re-trigger ranking update
               await req.payload.update({
                 collection: 'matches',
