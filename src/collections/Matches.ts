@@ -68,6 +68,7 @@ export const Matches: CollectionConfig = {
             },
           })
           
+
           // Then evaluate with current scores
           await req.payload.jobs.queue({
             task: 'evaluate-match' as any,
@@ -75,6 +76,13 @@ export const Matches: CollectionConfig = {
               matchId: id,
               action: 'evaluate',
             },
+          })
+
+          // Reset rankedAt to trigger ranking update
+          await req.payload.update({
+            collection: 'matches',
+            id: id as string,
+            data: { rankedAt: null } as any,
           })
 
           return Response.json({ message: 'Points recalculation queued' })
