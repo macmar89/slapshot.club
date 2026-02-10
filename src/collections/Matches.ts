@@ -106,6 +106,7 @@ export const Matches: CollectionConfig = {
           name: 'date',
           type: 'date',
           required: true,
+          index: true,
           admin: {
             width: '50%',
             date: {

@@ -57,6 +57,31 @@ export async function syncMatchesFromHockeyApi(payload: BasePayload) {
         `[HOCKEY SYNC] Processing competition: ${comp.name} (${comp.apiHockeyId})`,
       )
 
+      // 1.2 Check if we have ANY matches for this competition today in our DB
+      const startOfDay = new Date(todayStr)
+      startOfDay.setUTCHours(0, 0, 0, 0)
+      const endOfDay = new Date(todayStr)
+      endOfDay.setUTCHours(23, 59, 59, 999)
+
+      const existingMatches = await payload.find({
+        collection: 'matches',
+        where: {
+          and: [
+            { competition: { equals: comp.id } },
+            { date: { greater_than_equal: startOfDay.toISOString() } },
+            { date: { less_than_equal: endOfDay.toISOString() } },
+          ],
+        },
+        limit: 1,
+      })
+
+      if (existingMatches.totalDocs === 0) {
+        payload.logger.info(
+          `[HOCKEY SYNC] Skipping ${comp.name} - no matches scheduled in local DB for ${todayStr}`,
+        )
+        continue
+      }
+
       // 2. Fetch games for today from Hockey API
       const url = new URL(`${API_HOCKEY_CONFIG.BASE_URL}${API_HOCKEY_CONFIG.ENDPOINTS.GAMES}`)
       url.searchParams.append('league', String(comp.apiHockeyId))
