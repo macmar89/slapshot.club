@@ -305,11 +305,25 @@ export default buildConfig({
     }
 
     try {
-      payload.logger.info('Triggering initial updates...')
-      await runUpdateMatches(payload)
-      await runSyncHockeyMatches(payload)
-      await runUpdateRealtimeRanking(payload)
-      await runUpdateLeaderboards(payload, { force: true })
+      payload.logger.info('Triggering initial updates (async via queue)...')
+      
+      // Queue tasks instead of awaiting them synchronously
+      await payload.jobs.queue({
+        task: 'update-matches',
+        input: { manual: false },
+      })
+      await payload.jobs.queue({
+        task: 'sync-hockey-matches',
+        input: {},
+      })
+      await payload.jobs.queue({
+        task: 'update-realtime-ranking',
+        input: {},
+      })
+      await payload.jobs.queue({
+        task: 'update-leaderboards',
+        input: { force: true },
+      })
       payload.logger.info('Initial updates completed successfully.')
     } catch (err) {
       payload.logger.error({ err }, 'Failed to run initial updates')

@@ -145,6 +145,7 @@ export interface Config {
       'sync-future-matches': TaskSyncFutureMatches;
       'sync-teams': TaskSyncTeams;
       'update-leaderboards': TaskUpdateLeaderboards;
+      'evaluate-match': TaskEvaluateMatch;
       inline: {
         input: unknown;
         output: unknown;
@@ -871,7 +872,8 @@ export interface PayloadJob {
           | 'sync-hockey-matches'
           | 'sync-future-matches'
           | 'sync-teams'
-          | 'update-leaderboards';
+          | 'update-leaderboards'
+          | 'evaluate-match';
         taskID: string;
         input?:
           | {
@@ -913,6 +915,7 @@ export interface PayloadJob {
         | 'sync-future-matches'
         | 'sync-teams'
         | 'update-leaderboards'
+        | 'evaluate-match'
       )
     | null;
   queue?: string | null;
@@ -1768,6 +1771,17 @@ export interface TaskSyncTeams {
 export interface TaskUpdateLeaderboards {
   input: {
     force?: boolean | null;
+  };
+  output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskEvaluate-match".
+ */
+export interface TaskEvaluateMatch {
+  input: {
+    matchId: string;
+    action: 'evaluate' | 'revert';
   };
   output?: unknown;
 }
