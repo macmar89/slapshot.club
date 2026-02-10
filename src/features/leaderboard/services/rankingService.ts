@@ -148,8 +148,25 @@ export async function recalculateCompetitionRanks(
     }
   }
 
-  await Promise.all(updates)
+
+  // Batch processing to avoid DB lock/timeout
+  const BATCH_SIZE = 50
+  for (let i = 0; i < updates.length; i += BATCH_SIZE) {
+    const batch = updates.slice(i, i + BATCH_SIZE)
+    await Promise.all(batch)
+    // Small delay to let other processes (like sync) breathe
+    if (i + BATCH_SIZE < updates.length) {
+      await new Promise((resolve) => setTimeout(resolve, 100))
+    }
+  }
+
   if (snapshots.length > 0) {
-    await Promise.all(snapshots)
+    for (let i = 0; i < snapshots.length; i += BATCH_SIZE) {
+      const batch = snapshots.slice(i, i + BATCH_SIZE)
+      await Promise.all(batch)
+      if (i + BATCH_SIZE < snapshots.length) {
+        await new Promise((resolve) => setTimeout(resolve, 100))
+      }
+    }
   }
 }

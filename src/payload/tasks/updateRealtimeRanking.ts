@@ -47,16 +47,23 @@ export const runUpdateRealtimeRanking = async (payload: any) => {
   }
 
   // 4. Mark matches as processed with current timestamp
-  const updatePromises = matches.docs.map((match: any) =>
-    payload.update({
-      collection: 'matches',
-      id: match.id,
-      data: {
-        rankedAt: now.toISOString(),
-      } as any,
-    }),
-  )
-  await Promise.all(updatePromises)
+
+  // 4. Mark matches as processed with current timestamp
+  // Batch updates to matches to prevent locking the table for too long
+  const MATCH_BATCH_SIZE = 10
+  for (let i = 0; i < matches.docs.length; i += MATCH_BATCH_SIZE) {
+    const batch = matches.docs.slice(i, i + MATCH_BATCH_SIZE)
+    const updatePromises = batch.map((match: any) =>
+      payload.update({
+        collection: 'matches',
+        id: match.id,
+        data: {
+          rankedAt: now.toISOString(),
+        } as any,
+      }),
+    )
+    await Promise.all(updatePromises)
+  }
 
   return {
     message: 'Realtime ranking updated',
