@@ -10,6 +10,7 @@ import * as migration_20260208_174602_sync_tasks from './20260208_174602_sync_ta
 import * as migration_20260209_205442_add_khl_sk1_tags from './20260209_205442_add_khl_sk1_tags';
 import * as migration_20260210_071756_add_matches_date_index from './20260210_071756_add_matches_date_index';
 import * as migration_20260210_205220_add_evaluate_match_job from './20260210_205220_add_evaluate_match_job';
+import * as migration_20260210_220000_ensure_all_task_slugs from './20260210_220000_ensure_all_task_slugs';
 
 export const migrations = [
   {
@@ -71,5 +72,10 @@ export const migrations = [
     up: migration_20260210_205220_add_evaluate_match_job.up,
     down: migration_20260210_205220_add_evaluate_match_job.down,
     name: '20260210_205220_add_evaluate_match_job'
+  },
+  {
+    up: migration_20260210_220000_ensure_all_task_slugs.up,
+    down: migration_20260210_220000_ensure_all_task_slugs.down,
+    name: '20260210_220000_ensure_all_task_slugs'
   },
 ];

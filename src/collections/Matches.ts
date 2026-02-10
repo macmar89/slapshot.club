@@ -343,14 +343,19 @@ export const Matches: CollectionConfig = {
           // 1. STATUS CHANGE: Scheduled/Live -> Finished
           if (doc.status === 'finished' && previousDoc?.status !== 'finished') {
             req.payload.logger.info(`[HOOK] Status changed to FINISHED for: ${doc.displayTitle}`)
-            // await evaluateMatch(doc.id, req.payload) // OLD
-            await req.payload.jobs.queue({
-              task: 'evaluate-match' as any,
-              input: {
-                matchId: doc.id,
-                action: 'evaluate',
-              },
-            })
+            try {
+              req.payload.logger.info(`[HOOK] Queueing evaluate-match job for ${doc.id}...`)
+              await req.payload.jobs.queue({
+                task: 'evaluate-match' as any,
+                input: {
+                  matchId: doc.id,
+                  action: 'evaluate',
+                },
+              })
+              req.payload.logger.info(`[HOOK] Job queued successfully for ${doc.id}`)
+            } catch (err: any) {
+              req.payload.logger.error(`[HOOK ERROR] Failed to queue evaluate job: ${err.message}`)
+            }
 
             // Clear rankedAt so it gets picked up by the 10m cron
             if (doc.rankedAt) {
@@ -368,14 +373,19 @@ export const Matches: CollectionConfig = {
             req.payload.logger.info(
               `[HOOK] Status changed FROM finished to ${doc.status} for: ${doc.displayTitle}`,
             )
-            // await revertMatchEvaluation(doc.id, req.payload) // OLD
-            await req.payload.jobs.queue({
-              task: 'evaluate-match' as any,
-              input: {
-                matchId: doc.id,
-                action: 'revert',
-              },
-            })
+            try {
+              req.payload.logger.info(`[HOOK] Queueing revert job for ${doc.id}...`)
+              await req.payload.jobs.queue({
+                task: 'evaluate-match' as any,
+                input: {
+                  matchId: doc.id,
+                  action: 'revert',
+                },
+              })
+              req.payload.logger.info(`[HOOK] Revert job queued successfully for ${doc.id}`)
+            } catch (err: any) {
+              req.payload.logger.error(`[HOOK ERROR] Failed to queue revert job: ${err.message}`)
+            }
 
             // Reset rankedAt since evaluation was reverted
             if (doc.rankedAt) {
@@ -400,25 +410,29 @@ export const Matches: CollectionConfig = {
               req.payload.logger.info(
                 `[HOOK] Score/Type changed for finished match: ${doc.displayTitle}`,
               )
-              // await revertMatchEvaluation(doc.id, req.payload) // OLD
-              // await evaluateMatch(doc.id, req.payload) // OLD
-
-              // Revert logic via job
-              await req.payload.jobs.queue({
-                task: 'evaluate-match' as any,
-                input: {
-                  matchId: doc.id,
-                  action: 'revert',
-                },
-              })
-              // Evaluate logic via job (it will run after revert if queue is FIFO, generally safer to queue both)
-              await req.payload.jobs.queue({
-                task: 'evaluate-match' as any,
-                input: {
-                  matchId: doc.id,
-                  action: 'evaluate',
-                },
-              })
+              
+              try {
+                req.payload.logger.info(`[HOOK] Queueing re-evaluation jobs for ${doc.id}...`)
+                // Revert logic via job
+                await req.payload.jobs.queue({
+                  task: 'evaluate-match' as any,
+                  input: {
+                    matchId: doc.id,
+                    action: 'revert',
+                  },
+                })
+                // Evaluate logic via job
+                await req.payload.jobs.queue({
+                  task: 'evaluate-match' as any,
+                  input: {
+                    matchId: doc.id,
+                    action: 'evaluate',
+                  },
+                })
+                req.payload.logger.info(`[HOOK] Re-evaluation jobs queued successfully for ${doc.id}`)
+              } catch (err: any) {
+                req.payload.logger.error(`[HOOK ERROR] Failed to queue re-evaluation jobs: ${err.message}`)
+              }
 
               // Reset rankedAt to re-trigger ranking update
               await req.payload.update({

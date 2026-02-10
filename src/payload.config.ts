@@ -198,7 +198,8 @@ export default buildConfig({
       ...defaultJobsCollection,
       admin: {
         ...defaultJobsCollection.admin,
-        group: 'System',
+        group: 'Admin',
+        hidden: false,
       },
     }),
   },
