@@ -7,7 +7,7 @@ import { Header } from '@/components/layout/Header'
 import { MobileTabNav } from '@/components/layout/MobileTabNav'
 import { FeedbackModal } from '@/components/feedback/FeedbackModal'
 import { MessageSquarePlus } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
+import { Analytics } from '@/components/layout/Analytics'
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -35,10 +35,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </IceGlassCard>
       </aside>
 
-      {/* Main Content Area */}
       <main className="pt-4 md:pt-20 lg:pl-72 min-h-screen pb-32 md:pb-0">
         <Container className="h-full">{children}</Container>
       </main>
+      <Analytics />
     </div>
   )
 }
