@@ -2,6 +2,7 @@ import '../../../global.css'
 import { Sora, Space_Grotesk } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
+import Script from 'next/script'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { headers } from 'next/headers'
@@ -127,6 +128,14 @@ export default async function RootLayout(props: {
           <main className="relative z-10">{children}</main>
           <AnnouncementManager user={plainUser as any} announcements={activeAnnouncements} />
           <Toaster richColors position="top-center" theme="dark" />
+          {process.env.NODE_ENV === 'production' && (
+            <Script
+              data-goatcounter="https://goat.mkit.sk/count"
+              async
+              src="//goat.mkit.sk/count.js"
+              strategy="afterInteractive"
+            />
+          )}
         </NextIntlClientProvider>
       </body>
     </html>
