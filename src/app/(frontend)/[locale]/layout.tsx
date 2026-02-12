@@ -12,6 +12,7 @@ import bgImage from '@/assets/images/background/ssc_stick.png'
 import { OrientationLock } from '@/components/layout/OrientationLock'
 import { Toaster } from 'sonner'
 import { AnnouncementManager } from '@/features/auth/components/AnnouncementManager'
+import { OneSignalInitializer } from '@/features/notifications/components/OneSignalInitializer'
 import { getPayload } from 'payload'
 import config from '@/payload.config'
 import type { User } from '@/payload-types'
@@ -26,13 +27,17 @@ const spaceGrotesk = Space_Grotesk({
   variable: '--font-space',
 })
 
+export const viewport = {
+  themeColor: '#020617',
+}
+
 export const metadata = {
   description: 'Slapshot Club - Hockey League Manager',
   title: 'Slapshot Club',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'default',
+    statusBarStyle: 'black-translucent',
     title: 'Slapshot Club',
   },
   formatDetection: {
@@ -120,6 +125,7 @@ export default async function RootLayout(props: {
     <html lang={locale} className={cn(sora.variable, spaceGrotesk.variable)}>
       <body className="font-sans antialiased bg-background text-foreground relative min-h-screen">
         <NextIntlClientProvider messages={messages}>
+          <OneSignalInitializer userId={plainUser?.id} />
           {/* Global Background Image */}
           <div className="fixed inset-0 z-0 flex items-center justify-center pointer-events-none">
             <div className="relative h-full w-full">

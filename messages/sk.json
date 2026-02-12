@@ -454,6 +454,20 @@
   "Account": {
     "title": "Môj Účet",
     "subtitle": "Spravuj svoje osobné údaje a zabezpečenie.",
+    "tabs": {
+      "profile": "Profil",
+      "notifications": "Notifikácie"
+    },
+    "notifications": {
+      "title": "Push Notifikácie",
+      "description": "Dostávaj upozornenia o zápasoch, výsledkoch a dôležitých zmenách v lige priamo na tvoje zariadenie.",
+      "status_label": "Stav doručovania",
+      "status_subscribed": "Aktívne",
+      "status_unsubscribed": "Neaktívne",
+      "status_blocked": "Blokované",
+      "enable_button": "Zapnúť notifikácie",
+      "permission_denied_hint": "Notifikácie sú v tvojom prehliadači zablokované. Prosím, povoľ ich v nastaveniach stránky."
+    },
     "username_section": "Meno",
     "username_description": "Zmeň si svoje verejné meno v rebríčkoch.",
     "save_button": "Uložiť zmeny",

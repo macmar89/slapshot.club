@@ -456,6 +456,20 @@
   "Account": {
     "title": "My Account",
     "subtitle": "Manage your personal details and security.",
+    "tabs": {
+      "profile": "Profile",
+      "notifications": "Notifications"
+    },
+    "notifications": {
+      "title": "Push Notifications",
+      "description": "Receive alerts about matches, results, and important league changes directly to your device.",
+      "status_label": "Delivery Status",
+      "status_subscribed": "Active",
+      "status_unsubscribed": "Inactive",
+      "status_blocked": "Blocked",
+      "enable_button": "Enable Notifications",
+      "permission_denied_hint": "Notifications are blocked in your browser. Please allow them in site settings."
+    },
     "username_section": "Name",
     "username_description": "Change your public name in the leaderboards.",
     "save_button": "Save changes",
