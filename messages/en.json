@@ -579,5 +579,11 @@
     "owner_right_management_desc": "Can kick members or delete the league.",
     "owner_right_transfer_title": "Transfer",
     "owner_right_transfer_desc": "Can transfer the \"captain's armband\" to another member."
+  },
+  "PWA": {
+    "orientation_lock": {
+      "title": "Rotate your device",
+      "message": "For the best experience, please use the app in portrait mode."
+    }
   }
 }

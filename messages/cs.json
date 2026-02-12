@@ -577,5 +577,11 @@
     "owner_right_management_desc": "Může vyhodit člena nebo zrušit ligu.",
     "owner_right_transfer_title": "Přesun",
     "owner_right_transfer_desc": "Může předat \"kapitánskou pásku\" jinému."
+  },
+  "PWA": {
+    "orientation_lock": {
+      "title": "Otočte zařízení",
+      "message": "Pro nejlepší zážitek používejte aplikaci v režimu na výšku."
+    }
   }
 }

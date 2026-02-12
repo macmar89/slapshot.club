@@ -9,6 +9,7 @@ import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import bgImage from '@/assets/images/background/ssc_stick.png'
+import { OrientationLock } from '@/components/layout/OrientationLock'
 import { Toaster } from 'sonner'
 import { AnnouncementManager } from '@/features/auth/components/AnnouncementManager'
 import { getPayload } from 'payload'
@@ -26,8 +27,17 @@ const spaceGrotesk = Space_Grotesk({
 })
 
 export const metadata = {
-  description: 'A blank template using Payload in a Next.js app.',
+  description: 'Slapshot Club - Hockey League Manager',
   title: 'Slapshot Club',
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Slapshot Club',
+  },
+  formatDetection: {
+    telephone: false,
+  },
 }
 
 export const dynamic = 'force-dynamic'
@@ -127,6 +137,7 @@ export default async function RootLayout(props: {
 
           <main className="relative z-10">{children}</main>
           <AnnouncementManager user={plainUser as any} announcements={activeAnnouncements} />
+          <OrientationLock />
           <Toaster richColors position="top-center" theme="dark" />
           <Analytics />
         </NextIntlClientProvider>
