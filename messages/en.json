@@ -299,6 +299,8 @@
     "enter_button": "ENTER",
     "view_button": "VIEW RESULT",
     "joined": "Joined",
+    "participants": "{count, plural, one {# participant} other {# participants}}",
+    "your_rank": "Your rank",
     "join_modal": {
       "title": "Join Competition",
       "description": "You are not joined in {competitionName}. Do you want to join?",

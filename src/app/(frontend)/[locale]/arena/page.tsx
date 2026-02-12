@@ -27,8 +27,8 @@ export default async function ArenaPage({ params }: { params: Promise<{ locale: 
     locale: locale as any,
   })
 
-  // Fetch which competitions the user has already joined
-  const joinedEntries = await payload.find({
+  // Fetch which competitions the user has already joined and their rankings
+  const userEntries = await payload.find({
     collection: 'leaderboard-entries',
     where: {
       user: { equals: user.id },
@@ -36,16 +36,44 @@ export default async function ArenaPage({ params }: { params: Promise<{ locale: 
     limit: 100,
   })
 
-  const joinedCompetitionIds = joinedEntries.docs.map((entry) => {
+  const joinedCompetitionIds = userEntries.docs.map((entry) => {
     const comp = entry.competition
     return typeof comp === 'object' ? comp.id : comp
   }) as string[]
+
+  const userRankings: Record<string, number> = {}
+  userEntries.docs.forEach((entry) => {
+    const compId = typeof entry.competition === 'object' ? entry.competition.id : entry.competition
+    if (entry.currentRank) {
+      userRankings[compId] = entry.currentRank
+    }
+  })
+
+  // Fetch participant counts for all relevant competitions
+  const competitionIds = competitions.docs.map((c) => c.id)
+  const participantCounts: Record<string, number> = {}
+
+  // Using Promise.all for better performance
+  await Promise.all(
+    competitionIds.map(async (id) => {
+      const { totalDocs } = await payload.find({
+        collection: 'leaderboard-entries',
+        where: {
+          competition: { equals: id },
+        },
+        limit: 1, // We only need the total count
+      })
+      participantCounts[id] = totalDocs
+    }),
+  )
 
   return (
     <ArenaView
       user={user as unknown as User}
       competitions={competitions.docs}
       joinedCompetitionIds={joinedCompetitionIds}
+      participantCounts={participantCounts}
+      userRankings={userRankings}
     />
   )
 }

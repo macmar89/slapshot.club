@@ -12,9 +12,17 @@ interface ArenaViewProps {
   user: User
   competitions: Competition[]
   joinedCompetitionIds: string[]
+  participantCounts: Record<string, number>
+  userRankings: Record<string, number>
 }
 
-export function ArenaView({ user, competitions, joinedCompetitionIds }: ArenaViewProps) {
+export function ArenaView({
+  user,
+  competitions,
+  joinedCompetitionIds,
+  participantCounts,
+  userRankings,
+}: ArenaViewProps) {
   const t = useTranslations('Arena')
   const [showFinished, setShowFinished] = useState(false)
 
@@ -31,6 +39,8 @@ export function ArenaView({ user, competitions, joinedCompetitionIds }: ArenaVie
           isJoined={joinedCompetitionIds.includes(competition.id)}
           userId={user.id}
           compact={compact}
+          participantCount={participantCounts[competition.id] || 0}
+          userRank={userRankings[competition.id]}
         />
       ))}
     </div>

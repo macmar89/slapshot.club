@@ -297,6 +297,8 @@
     "enter_button": "VSTÚPIŤ",
     "view_button": "ZOBRAZIŤ",
     "joined": "Pridaný",
+    "participants": "{count, plural, one {# prihlásený} few {# prihlásení} other {# prihlásených}}",
+    "your_rank": "Tvoje poradie",
     "join_modal": {
       "title": "Pripojiť sa k súťaži",
       "description": "Nie si prihlásený do súťaže {competitionName}. Chceš sa pripojiť?",

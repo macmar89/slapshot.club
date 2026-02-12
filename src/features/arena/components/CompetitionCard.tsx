@@ -21,6 +21,8 @@ interface CompetitionCardProps {
   isJoined: boolean
   userId: string
   compact?: boolean
+  participantCount: number
+  userRank?: number
 }
 
 export function CompetitionCard({
@@ -28,6 +30,8 @@ export function CompetitionCard({
   isJoined,
   userId,
   compact = false,
+  participantCount,
+  userRank,
 }: CompetitionCardProps) {
   const t = useTranslations('Arena')
   const router = useRouter()
@@ -136,6 +140,26 @@ export function CompetitionCard({
               <p className="text-sm text-white/70 line-clamp-2 leading-relaxed">
                 {competition.description}
               </p>
+
+              <div className="flex items-center justify-between gap-2 mt-4">
+                {isJoined && userRank && (
+                  <div className="flex items-center gap-2 px-2 py-1 rounded-sm bg-[#eab308]/10 border border-[#eab308]/30 shadow-[0_0_15px_rgba(234,179,8,0.1)]">
+                    <span className="text-xs -my-1">
+                      {userRank === 1 ? '🥇' : userRank === 2 ? '🥈' : userRank === 3 ? '🥉' : `#${userRank}`}
+                    </span>
+                    <span className="text-[9px] font-black uppercase tracking-wider text-[#eab308]">
+                      {t('your_rank')}
+                    </span>
+                  </div>
+                )}
+
+                <div className="flex items-center gap-1.5 px-2 py-1 rounded-sm bg-white/5 border border-white/10 ml-auto">
+                  <div className="w-1 h-1 rounded-full bg-white/40" />
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-white/50">
+                    {t('participants', { count: participantCount })}
+                  </span>
+                </div>
+              </div>
             </div>
 
             <div
