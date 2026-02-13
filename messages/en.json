@@ -468,7 +468,14 @@
       "status_unsubscribed": "Inactive",
       "status_blocked": "Blocked",
       "enable_button": "Enable Notifications",
-      "permission_denied_hint": "Notifications are blocked in your browser. Please allow them in site settings."
+      "permission_denied_hint": "Notifications are blocked in your browser. Please allow them in site settings.",
+      "settings_title": "Notification Preferences",
+      "dailySummary": "Daily Summary (10:00)",
+      "matchReminder": "Match Reminder (1h before)",
+      "scoreChange": "Score Change",
+      "matchEnd": "Match End & Evaluation",
+      "leaderboardUpdate": "Leaderboard Update",
+      "status_updated": "Settings updated"
     },
     "username_section": "Name",
     "username_description": "Change your public name in the leaderboards.",

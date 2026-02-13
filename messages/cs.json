@@ -466,7 +466,14 @@
       "status_unsubscribed": "Neaktivní",
       "status_blocked": "Blokováno",
       "enable_button": "Zapnout notifikace",
-      "permission_denied_hint": "Notifikace jsou ve tvém prohlížeči zablokovány. Prosím, povol je v nastavení stránky."
+      "permission_denied_hint": "Notifikace jsou ve tvém prohlížeči zablokovány. Prosím, povol je v nastavení stránky.",
+      "settings_title": "Vlastní nastavení",
+      "dailySummary": "Denní souhrn (10:00)",
+      "matchReminder": "Připomínka zápasu (1h před)",
+      "scoreChange": "Změna skóre",
+      "matchEnd": "Konec zápasu + vyhodnocení",
+      "leaderboardUpdate": "Update žebříčku",
+      "status_updated": "Nastavení byla aktualizována"
     },
     "username_section": "Jméno",
     "username_description": "Změň si své veřejné jméno v žebříčcích.",

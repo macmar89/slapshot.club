@@ -27,6 +27,7 @@ import { Countries } from './collections/Countries'
 import { Regions } from './collections/Regions'
 import { Badges } from './collections/Badges'
 import { BadgeMedia } from './collections/BadgeMedia'
+import { NotificationSettings } from './collections/NotificationSettings'
 import { updateMatchesTask, runUpdateMatches } from './payload/tasks/updateMatches'
 import {
   updateRealtimeRankingTask,
@@ -247,6 +248,7 @@ export default buildConfig({
     Regions,
     Badges,
     BadgeMedia,
+    NotificationSettings,
   ],
   globals: [GeneralSettings],
   editor: lexicalEditor(),

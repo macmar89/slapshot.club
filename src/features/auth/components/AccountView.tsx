@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { UserCog } from 'lucide-react'
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { Container } from '@/components/ui/Container'
 import { ProfileOverview } from './sections/ProfileOverview'
 import { UsernameForm } from './sections/UsernameForm'
@@ -36,13 +37,31 @@ interface AccountViewProps {
         totalPaid?: number
       }
     }
+    notificationSettings?: {
+      dailySummary: boolean
+      matchReminder: boolean
+      scoreChange: boolean
+      matchEnd: boolean
+      leaderboardUpdate: boolean
+    }
   }
   countries: Array<{ id: number; name: string; code: string }>
 }
 
 export function AccountView({ user: initialUser, countries }: AccountViewProps) {
   const t = useTranslations('Account')
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
   const [user, setUser] = useState(initialUser)
+
+  const activeTab = searchParams.get('tab') || 'profile'
+
+  const handleTabChange = (value: string) => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('tab', value)
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+  }
 
   const handleUsernameUpdated = (newUsername: string) => {
     setUser((prev) => ({ ...prev, username: newUsername }))
@@ -52,7 +71,11 @@ export function AccountView({ user: initialUser, countries }: AccountViewProps) 
     <div className="py-8 md:py-24 animate-in fade-in duration-700">
       <Container className="max-w-4xl">
         <div className="flex flex-col gap-6 md:gap-6">
-          <Tabs defaultValue="profile" className="w-full">
+          <Tabs 
+            value={activeTab} 
+            onValueChange={handleTabChange}
+            className="w-full"
+          >
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 md:mb-12">
               <div className="flex flex-col gap-1.5 text-center md:text-left">
                 <h1 className="text-2xl md:text-5xl font-black text-white italic uppercase tracking-tighter flex items-center justify-center md:justify-start gap-3 md:gap-4 leading-none">
@@ -104,7 +127,10 @@ export function AccountView({ user: initialUser, countries }: AccountViewProps) 
 
               <TabsContent value="notifications">
                 <div className="max-w-2xl mx-auto w-full">
-                  <NotificationSection />
+                  <NotificationSection 
+                    userId={user.id}
+                    initialSettings={user.notificationSettings} 
+                  />
                 </div>
               </TabsContent>
             </div>

@@ -30,6 +30,16 @@ export default async function AccountPage({ params }: { params: Promise<{ locale
     locale: (locale === 'cs' ? 'cz' : locale) as any,
   })
 
+  // Fetch notification settings from the separate collection
+  const settingsRes = await payload.find({
+    collection: 'notification-settings',
+    where: {
+      user: { equals: user.id },
+    },
+    limit: 1,
+  })
+  const notificationSettings = settingsRes.docs[0] || null
+
   const plainUser = {
     id: user.id,
     username: (user as any).username,
@@ -37,6 +47,20 @@ export default async function AccountPage({ params }: { params: Promise<{ locale
     location: (user as any).location,
     jersey: (user as any).jersey,
     referralData: (user as any).referralData,
+    notificationSettings: notificationSettings ? {
+      dailySummary: !!notificationSettings.dailySummary,
+      matchReminder: !!notificationSettings.matchReminder,
+      scoreChange: !!notificationSettings.scoreChange,
+      matchEnd: !!notificationSettings.matchEnd,
+      leaderboardUpdate: !!notificationSettings.leaderboardUpdate,
+    } : {
+      // Default fallback values if no record exists yet
+      dailySummary: true,
+      matchReminder: true,
+      scoreChange: true,
+      matchEnd: true,
+      leaderboardUpdate: true,
+    },
   }
 
   return (

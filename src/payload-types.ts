@@ -87,6 +87,7 @@ export interface Config {
     regions: Region;
     badges: Badge;
     'badge-media': BadgeMedia;
+    'notification-settings': NotificationSetting;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -115,6 +116,7 @@ export interface Config {
     regions: RegionsSelect<false> | RegionsSelect<true>;
     badges: BadgesSelect<false> | BadgesSelect<true>;
     'badge-media': BadgeMediaSelect<false> | BadgeMediaSelect<true>;
+    'notification-settings': NotificationSettingsSelect<false> | NotificationSettingsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -798,6 +800,21 @@ export interface Announcement {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "notification-settings".
+ */
+export interface NotificationSetting {
+  id: string;
+  user: string | User;
+  dailySummary?: boolean | null;
+  matchReminder?: boolean | null;
+  scoreChange?: boolean | null;
+  matchEnd?: boolean | null;
+  leaderboardUpdate?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -1019,6 +1036,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'badge-media';
         value: string | BadgeMedia;
+      } | null)
+    | ({
+        relationTo: 'notification-settings';
+        value: string | NotificationSetting;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1548,6 +1569,21 @@ export interface BadgeMediaSelect<T extends boolean = true> {
               filename?: T;
             };
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "notification-settings_select".
+ */
+export interface NotificationSettingsSelect<T extends boolean = true> {
+  id?: T;
+  user?: T;
+  dailySummary?: T;
+  matchReminder?: T;
+  scoreChange?: T;
+  matchEnd?: T;
+  leaderboardUpdate?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -11,6 +11,7 @@ import * as migration_20260209_205442_add_khl_sk1_tags from './20260209_205442_a
 import * as migration_20260210_071756_add_matches_date_index from './20260210_071756_add_matches_date_index';
 import * as migration_20260210_205220_add_evaluate_match_job from './20260210_205220_add_evaluate_match_job';
 import * as migration_20260210_220000_ensure_all_task_slugs from './20260210_220000_ensure_all_task_slugs';
+import * as migration_20260213_093458 from './20260213_093458';
 
 export const migrations = [
   {
@@ -66,16 +67,21 @@ export const migrations = [
   {
     up: migration_20260210_071756_add_matches_date_index.up,
     down: migration_20260210_071756_add_matches_date_index.down,
-    name: '20260210_071756_add_matches_date_index'
+    name: '20260210_071756_add_matches_date_index',
   },
   {
     up: migration_20260210_205220_add_evaluate_match_job.up,
     down: migration_20260210_205220_add_evaluate_match_job.down,
-    name: '20260210_205220_add_evaluate_match_job'
+    name: '20260210_205220_add_evaluate_match_job',
   },
   {
     up: migration_20260210_220000_ensure_all_task_slugs.up,
     down: migration_20260210_220000_ensure_all_task_slugs.down,
-    name: '20260210_220000_ensure_all_task_slugs'
+    name: '20260210_220000_ensure_all_task_slugs',
+  },
+  {
+    up: migration_20260213_093458.up,
+    down: migration_20260213_093458.down,
+    name: '20260213_093458',
   },
 ];

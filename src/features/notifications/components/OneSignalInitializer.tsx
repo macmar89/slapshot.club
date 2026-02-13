@@ -56,10 +56,10 @@ export function OneSignalInitializer({ userId }: OneSignalInitializerProps) {
         }
 
         // Handle login/logout based on userId change
-        if (userId && userId !== currentUserId.current) {
+        if (userId) {
           await OneSignal.login(userId)
           currentUserId.current = userId
-        } else if (!userId && currentUserId.current) {
+        } else if (currentUserId.current) {
           await OneSignal.logout()
           currentUserId.current = null
         }
