@@ -190,11 +190,17 @@ async function processApiMatch(
     payload.logger.info(
       `[HOCKEY SYNC] Updating match ${localMatch.displayTitle} (API ID: ${apiId}, Status: ${apiStatusShort}${scoreInfo})`,
     )
-    await payload.update({
-      collection: 'matches',
-      id: localMatch.id,
-      data: updateData,
-    })
+    try {
+      await payload.update({
+        collection: 'matches',
+        id: localMatch.id,
+        data: updateData,
+      })
+    } catch (err: any) {
+      payload.logger.error(
+        `[HOCKEY SYNC ERROR] Failed to update match ${localMatch.displayTitle} (${apiId}): ${err.message}`,
+      )
+    }
   }
 }
 
