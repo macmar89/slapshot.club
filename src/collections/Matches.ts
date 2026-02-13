@@ -1,6 +1,7 @@
 import { CollectionConfig, FieldHook } from 'payload'
 import { createId } from '@paralleldrive/cuid2'
 import { evaluateMatch, revertMatchEvaluation } from '@/features/matches/utils/evaluation'
+import { NotificationService } from '@/features/notifications/notification-service'
 
 // -------------------------
 // HOOKS LOGIC
@@ -450,7 +451,88 @@ export const Matches: CollectionConfig = {
               })
             }
           }
-          // 4. DYNAMIC SCHEDULING: Schedule update-matches task when a match is created or date changes
+          // 4. NOTIFICATIONS: Match Started
+          if (doc.status === 'live' && previousDoc?.status === 'scheduled') {
+            req.payload.logger.info(`[NOTIFICATION] Match started: ${doc.displayTitle}`)
+            
+            const homeId = typeof doc.homeTeam === 'object' ? (doc.homeTeam as any).id : doc.homeTeam
+            const awayId = typeof doc.awayTeam === 'object' ? (doc.awayTeam as any).id : doc.awayTeam
+
+            // Fetch teams to get full localized names
+            const [home, away] = await Promise.all([
+              req.payload.findByID({ collection: 'teams', id: homeId as string, locale: 'all' }),
+              req.payload.findByID({ collection: 'teams', id: awayId as string, locale: 'all' }),
+            ])
+
+            if (home && away) {
+              const h = home as any
+              const a = away as any
+
+              const getTN = (t: any, loc: string) => t.name?.[loc] || t.name?.['sk'] || t.name?.['en'] || (Object.values(t.name || {})[0] as string) || 'Tím'
+
+              const titles = {
+                sk: '🏒 Zápas sa začal!',
+                cs: '🏒 Zápas byl zahájen!',
+                en: '🏒 Match started!',
+              }
+              const messages = {
+                sk: `${getTN(h, 'sk')} vs ${getTN(a, 'sk')}`,
+                cs: `${getTN(h, 'cs')} vs ${getTN(a, 'cs')}`,
+                en: `${getTN(h, 'en')} vs ${getTN(a, 'en')}`,
+              }
+
+              NotificationService.sendPush({
+                type: 'scoreChange',
+                titles,
+                messages,
+                url: `/matches/${doc.id}`,
+              }).catch(err => req.payload.logger.error(`[NOTIFICATION ERROR] Start: ${err.message}`))
+            }
+          }
+
+          // 5. NOTIFICATIONS: Score Changed
+          if (doc.status === 'live' && previousDoc?.status === 'live') {
+            const scoreChanged =
+              doc.result?.homeScore !== previousDoc.result?.homeScore ||
+              doc.result?.awayScore !== previousDoc.result?.awayScore
+
+            if (scoreChanged) {
+              const homeId = typeof doc.homeTeam === 'object' ? (doc.homeTeam as any).id : doc.homeTeam
+              const awayId = typeof doc.awayTeam === 'object' ? (doc.awayTeam as any).id : doc.awayTeam
+
+              // Fetch teams to get full localized names
+              const [home, away] = await Promise.all([
+                req.payload.findByID({ collection: 'teams', id: homeId as string, locale: 'all' }),
+                req.payload.findByID({ collection: 'teams', id: awayId as string, locale: 'all' }),
+              ])
+
+              if (home && away) {
+                const h = home as any
+                const a = away as any
+                const getTN = (t: any, loc: string) => t.name?.[loc] || t.name?.['sk'] || t.name?.['en'] || (Object.values(t.name || {})[0] as string) || 'Tím'
+
+                const titles = {
+                  sk: 'GÓL! 🚨',
+                  cs: 'GÓL! 🚨',
+                  en: 'GOAL! 🚨',
+                }
+                const messages = {
+                  sk: `${getTN(h, 'sk')} ${doc.result?.homeScore}:${doc.result?.awayScore} ${getTN(a, 'sk')}`,
+                  cs: `${getTN(h, 'cs')} ${doc.result?.homeScore}:${doc.result?.awayScore} ${getTN(a, 'cs')}`,
+                  en: `${getTN(h, 'en')} ${doc.result?.homeScore}:${doc.result?.awayScore} ${getTN(a, 'en')}`,
+                }
+
+                NotificationService.sendPush({
+                  type: 'scoreChange',
+                  titles,
+                  messages,
+                  url: `/matches/${doc.id}`,
+                }).catch(err => req.payload.logger.error(`[NOTIFICATION ERROR] Goal: ${err.message}`))
+              }
+            }
+          }
+
+          // 6. DYNAMIC SCHEDULING: Schedule update-matches task when a match is created or date changes
           const dateChanged = doc.date !== previousDoc?.date
           const isScheduled = doc.status === 'scheduled'
 

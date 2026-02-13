@@ -10,8 +10,8 @@ export type NotificationType =
 
 interface SendNotificationArgs {
   type: NotificationType
-  title: string
-  message: string
+  titles: Record<string, string> // Localized titles: { en: '...', sk: '...' }
+  messages: Record<string, string> // Localized messages
   url?: string
   data?: Record<string, any>
   userIds?: string[] // Optional: Send to specific matching users only
@@ -32,7 +32,7 @@ export class NotificationService {
   /**
    * Sends a push notification to users who have a specific notification type enabled.
    */
-  static async sendPush({ type, title, message, url, data, userIds }: SendNotificationArgs) {
+  static async sendPush({ type, titles, messages, url, data, userIds }: SendNotificationArgs) {
     const { appId, apiKey } = await this.getOneSignalConfig()
 
     if (!appId || !apiKey) {
@@ -78,8 +78,8 @@ export class NotificationService {
         body: JSON.stringify({
           app_id: appId,
           include_external_user_ids: targetUserIds,
-          headings: { en: title, sk: title, cs: title }, // For now using same title for all
-          contents: { en: message, sk: message, cs: message },
+          headings: titles,
+          contents: messages,
           url: url || process.env.NEXT_PUBLIC_SERVER_URL,
           data: data || {}
         })

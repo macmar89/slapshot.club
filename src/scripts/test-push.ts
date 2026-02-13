@@ -14,8 +14,16 @@ async function testNotification() {
   
   const result = await NotificationService.sendPush({
     type: 'dailySummary',
-    title: '🏒 Slapshot Club Test',
-    message: 'Toto je testovacia notifikácia z backendu! Ak ju vidíš, všetko funguje.',
+    titles: {
+      sk: '🏒 Slapshot Club Test',
+      cs: '🏒 Slapshot Club Test',
+      en: '🏒 Slapshot Club Test',
+    },
+    messages: {
+      sk: 'Toto je testovacia notifikácia z backendu! Ak ju vidíš, všetko funguje.',
+      cs: 'Toto je testovací notifikace z backendu! Pokud ji vidíš, vše funguje.',
+      en: 'This is a test notification from the backend! If you see this, everything works.',
+    },
   })
 
   if (result.ok) {
