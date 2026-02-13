@@ -346,6 +346,22 @@ export const Matches: CollectionConfig = {
     },
   ],
   hooks: {
+    beforeChange: [
+      async ({ data, originalDoc }) => {
+        // Clear rankedAt if status or score changes to trigger ranking update
+        // This is better than doing it in afterChange as it avoids a recursive update call
+        const statusChanged = data.status && originalDoc?.status && data.status !== originalDoc.status
+        const scoreChanged = data.result && (
+          data.result.homeScore !== originalDoc?.result?.homeScore ||
+          data.result.awayScore !== originalDoc?.result?.awayScore ||
+          data.result.endingType !== originalDoc?.result?.endingType
+        )
+
+        if (statusChanged || scoreChanged) {
+          data.rankedAt = null
+        }
+      }
+    ],
     afterChange: [
       async ({ doc, previousDoc, req }) => {
         try {
@@ -364,15 +380,6 @@ export const Matches: CollectionConfig = {
               req.payload.logger.info(`[HOOK] Job queued successfully for ${doc.id}`)
             } catch (err: any) {
               req.payload.logger.error(`[HOOK ERROR] Failed to queue evaluate job: ${err.message}`)
-            }
-
-            // Clear rankedAt so it gets picked up by the 10m cron
-            if (doc.rankedAt) {
-              await req.payload.update({
-                collection: 'matches',
-                id: doc.id,
-                data: { rankedAt: null } as any,
-              })
             }
             return
           }
@@ -394,15 +401,6 @@ export const Matches: CollectionConfig = {
               req.payload.logger.info(`[HOOK] Revert job queued successfully for ${doc.id}`)
             } catch (err: any) {
               req.payload.logger.error(`[HOOK ERROR] Failed to queue revert job: ${err.message}`)
-            }
-
-            // Reset rankedAt since evaluation was reverted
-            if (doc.rankedAt) {
-              await req.payload.update({
-                collection: 'matches',
-                id: doc.id,
-                data: { rankedAt: null } as any,
-              })
             }
             return
           }
@@ -442,13 +440,6 @@ export const Matches: CollectionConfig = {
               } catch (err: any) {
                 req.payload.logger.error(`[HOOK ERROR] Failed to queue re-evaluation jobs: ${err.message}`)
               }
-
-              // Reset rankedAt to re-trigger ranking update
-              await req.payload.update({
-                collection: 'matches',
-                id: doc.id,
-                data: { rankedAt: null } as any,
-              })
             }
           }
           // 4. NOTIFICATIONS: Match Started
