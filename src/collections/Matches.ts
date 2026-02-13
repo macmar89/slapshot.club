@@ -448,16 +448,19 @@ export const Matches: CollectionConfig = {
             
             const homeId = typeof doc.homeTeam === 'object' ? (doc.homeTeam as any).id : doc.homeTeam
             const awayId = typeof doc.awayTeam === 'object' ? (doc.awayTeam as any).id : doc.awayTeam
+            const compId = typeof doc.competition === 'object' ? (doc.competition as any).id : doc.competition
 
-            // Fetch teams to get full localized names
-            const [home, away] = await Promise.all([
+            // Fetch teams and competition to get full localized names and slug
+            const [home, away, comp] = await Promise.all([
               req.payload.findByID({ collection: 'teams', id: homeId as string, locale: 'all' }),
               req.payload.findByID({ collection: 'teams', id: awayId as string, locale: 'all' }),
+              req.payload.findByID({ collection: 'competitions', id: compId as string }),
             ])
 
             if (home && away) {
               const h = home as any
               const a = away as any
+              const c = comp as any
 
               const getTN = (t: any, loc: string) => t.name?.[loc] || t.name?.['sk'] || t.name?.['en'] || (Object.values(t.name || {})[0] as string) || 'Tím'
 
@@ -472,12 +475,16 @@ export const Matches: CollectionConfig = {
                 en: `${getTN(h, 'en')} vs ${getTN(a, 'en')}`,
               }
 
-              NotificationService.sendPush({
-                type: 'scoreChange',
-                titles,
-                messages,
-                url: `/matches/${doc.id}`,
-              }).catch(err => req.payload.logger.error(`[NOTIFICATION ERROR] Start: ${err.message}`))
+              await req.payload.jobs.queue({
+                task: 'send-push-notification' as any,
+                input: {
+                  type: 'scoreChange',
+                  titles,
+                  messages,
+                  url: `/matches/${doc.id}`,
+                  competitionId: compId,
+                },
+              })
             }
           }
 
@@ -490,16 +497,19 @@ export const Matches: CollectionConfig = {
             if (scoreChanged) {
               const homeId = typeof doc.homeTeam === 'object' ? (doc.homeTeam as any).id : doc.homeTeam
               const awayId = typeof doc.awayTeam === 'object' ? (doc.awayTeam as any).id : doc.awayTeam
+              const compId = typeof doc.competition === 'object' ? (doc.competition as any).id : doc.competition
 
-              // Fetch teams to get full localized names
-              const [home, away] = await Promise.all([
+              // Fetch teams and competition
+              const [home, away, comp] = await Promise.all([
                 req.payload.findByID({ collection: 'teams', id: homeId as string, locale: 'all' }),
                 req.payload.findByID({ collection: 'teams', id: awayId as string, locale: 'all' }),
+                req.payload.findByID({ collection: 'competitions', id: compId as string }),
               ])
 
               if (home && away) {
                 const h = home as any
                 const a = away as any
+                const c = comp as any
                 const getTN = (t: any, loc: string) => t.name?.[loc] || t.name?.['sk'] || t.name?.['en'] || (Object.values(t.name || {})[0] as string) || 'Tím'
 
                 const titles = {
@@ -513,13 +523,62 @@ export const Matches: CollectionConfig = {
                   en: `${getTN(h, 'en')} ${doc.result?.homeScore}:${doc.result?.awayScore} ${getTN(a, 'en')}`,
                 }
 
-                NotificationService.sendPush({
-                  type: 'scoreChange',
+                await req.payload.jobs.queue({
+                  task: 'send-push-notification' as any,
+                  input: {
+                    type: 'scoreChange',
+                    titles,
+                    messages,
+                    url: `/matches/${doc.id}`,
+                    competitionId: compId,
+                  },
+                })
+              }
+            }
+          }
+
+          // 6. NOTIFICATIONS: Match Ended
+          if (doc.status === 'finished' && previousDoc?.status === 'live') {
+            req.payload.logger.info(`[NOTIFICATION] Match ended: ${doc.displayTitle}`)
+            
+            const homeId = typeof doc.homeTeam === 'object' ? (doc.homeTeam as any).id : doc.homeTeam
+            const awayId = typeof doc.awayTeam === 'object' ? (doc.awayTeam as any).id : doc.awayTeam
+            const compId = typeof doc.competition === 'object' ? (doc.competition as any).id : doc.competition
+
+            // Fetch teams and competition
+            const [home, away, comp] = await Promise.all([
+              req.payload.findByID({ collection: 'teams', id: homeId as string, locale: 'all' }),
+              req.payload.findByID({ collection: 'teams', id: awayId as string, locale: 'all' }),
+              req.payload.findByID({ collection: 'competitions', id: compId as string }),
+            ])
+
+            if (home && away) {
+              const h = home as any
+              const a = away as any
+              const c = comp as any
+              const getTN = (t: any, loc: string) => t.name?.[loc] || t.name?.['sk'] || t.name?.['en'] || (Object.values(t.name || {})[0] as string) || 'Tím'
+
+              const titles = {
+                sk: '🏁 Koniec zápasu',
+                cs: '🏁 Konec zápasu',
+                en: '🏁 Match ended',
+              }
+              const messages = {
+                sk: `Zápas skončil. Konečné skóre: ${getTN(h, 'sk')} ${doc.result?.homeScore}:${doc.result?.awayScore} ${getTN(a, 'sk')}`,
+                cs: `Zápas skončil. Konečné skóre: ${getTN(h, 'cs')} ${doc.result?.homeScore}:${doc.result?.awayScore} ${getTN(a, 'cs')}`,
+                en: `Match ended. Final score: ${getTN(h, 'en')} ${doc.result?.homeScore}:${doc.result?.awayScore} ${getTN(a, 'en')}`,
+              }
+
+              await req.payload.jobs.queue({
+                task: 'send-push-notification' as any,
+                input: {
+                  type: 'matchEnd',
                   titles,
                   messages,
                   url: `/matches/${doc.id}`,
-                }).catch(err => req.payload.logger.error(`[NOTIFICATION ERROR] Goal: ${err.message}`))
-              }
+                  competitionId: compId,
+                },
+              })
             }
           }
 

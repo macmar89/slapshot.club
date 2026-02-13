@@ -38,6 +38,7 @@ import { syncFutureMatchesTask, runSyncFutureMatches } from './payload/tasks/syn
 import { syncTeamsTask, runSyncTeams } from './payload/tasks/syncTeams'
 import { updateLeaderboardsTask, runUpdateLeaderboards } from './payload/cron/updateLeaderboards'
 import { evaluateMatchTask } from './payload/tasks/evaluateMatch' // Import
+import { sendPushTask } from './payload/tasks/sendPush'
 import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
@@ -187,6 +188,19 @@ export default buildConfig({
           },
         ],
         handler: evaluateMatchTask,
+      },
+      {
+        slug: 'send-push-notification' as any,
+        label: 'Send Push Notification',
+        inputSchema: [
+          { name: 'type', type: 'text', required: true },
+          { name: 'titles', type: 'json', required: true },
+          { name: 'messages', type: 'json', required: true },
+          { name: 'url', type: 'text' },
+          { name: 'data', type: 'json' },
+          { name: 'competitionId', type: 'text' },
+        ],
+        handler: sendPushTask as any,
       },
     ],
     autoRun: [

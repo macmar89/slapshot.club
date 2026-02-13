@@ -44,6 +44,7 @@ interface AccountViewProps {
       matchEnd: boolean
       leaderboardUpdate: boolean
     }
+    role?: string
   }
   countries: Array<{ id: number; name: string; code: string }>
 }
@@ -56,6 +57,7 @@ export function AccountView({ user: initialUser, countries }: AccountViewProps) 
   const [user, setUser] = useState(initialUser)
 
   const activeTab = searchParams.get('tab') || 'profile'
+  const isAdmin = user.role === 'admin'
 
   const handleTabChange = (value: string) => {
     const params = new URLSearchParams(searchParams.toString())
@@ -85,22 +87,24 @@ export function AccountView({ user: initialUser, countries }: AccountViewProps) 
               </div>
             </div>
 
-            <div className="px-1 mb-8">
-              <TabsList className="bg-white/5 border border-white/10 p-1 backdrop-blur-md w-full grid grid-cols-2 h-auto">
-                <TabsTrigger
-                  value="profile"
-                  className="data-[state=active]:bg-warning data-[state=active]:text-black text-white/50 text-[10px] sm:text-xs md:text-base px-1 sm:px-4 py-3 sm:py-2.5 uppercase font-black tracking-wider sm:tracking-widest cursor-pointer transition-all hover:text-white truncate"
-                >
-                  {t('tabs.profile')}
-                </TabsTrigger>
-                <TabsTrigger
-                  value="notifications"
-                  className="data-[state=active]:bg-warning data-[state=active]:text-black text-white/50 text-[10px] sm:text-xs md:text-base px-1 sm:px-4 py-3 sm:py-2.5 uppercase font-black tracking-wider sm:tracking-widest cursor-pointer transition-all hover:text-white truncate"
-                >
-                  {t('tabs.notifications')}
-                </TabsTrigger>
-              </TabsList>
-            </div>
+            {isAdmin && (
+              <div className="px-1 mb-8">
+                <TabsList className="bg-white/5 border border-white/10 p-1 backdrop-blur-md w-full grid grid-cols-2 h-auto">
+                  <TabsTrigger
+                    value="profile"
+                    className="data-[state=active]:bg-warning data-[state=active]:text-black text-white/50 text-[10px] sm:text-xs md:text-base px-1 sm:px-4 py-3 sm:py-2.5 uppercase font-black tracking-wider sm:tracking-widest cursor-pointer transition-all hover:text-white truncate"
+                  >
+                    {t('tabs.profile')}
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="notifications"
+                    className="data-[state=active]:bg-warning data-[state=active]:text-black text-white/50 text-[10px] sm:text-xs md:text-base px-1 sm:px-4 py-3 sm:py-2.5 uppercase font-black tracking-wider sm:tracking-widest cursor-pointer transition-all hover:text-white truncate"
+                  >
+                    {t('tabs.notifications')}
+                  </TabsTrigger>
+                </TabsList>
+              </div>
+            )}
 
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
               <TabsContent value="profile">
@@ -125,14 +129,16 @@ export function AccountView({ user: initialUser, countries }: AccountViewProps) 
                 </div>
               </TabsContent>
 
-              <TabsContent value="notifications">
-                <div className="max-w-2xl mx-auto w-full">
-                  <NotificationSection 
-                    userId={user.id}
-                    initialSettings={user.notificationSettings} 
-                  />
-                </div>
-              </TabsContent>
+              {isAdmin && (
+                <TabsContent value="notifications">
+                  <div className="max-w-2xl mx-auto w-full">
+                    <NotificationSection 
+                      userId={user.id}
+                      initialSettings={user.notificationSettings} 
+                    />
+                  </div>
+                </TabsContent>
+              )}
             </div>
           </Tabs>
         </div>

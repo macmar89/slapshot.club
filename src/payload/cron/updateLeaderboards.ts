@@ -77,6 +77,32 @@ export const runUpdateLeaderboards = async (
       }
 
       await recalculateCompetitionRanks(payload, comp.id, { createSnapshot: true })
+      
+      // Send Push Notification for Leaderboard Update
+      try {
+        payload.logger.info(`[CRON] Queueing leaderboard update notification for ${comp.name}`)
+        await payload.jobs.queue({
+          task: 'send-push-notification' as any,
+          input: {
+            type: 'leaderboardUpdate',
+            titles: {
+              sk: '📊 Rebríček bol aktualizovaný',
+              en: '📊 Leaderboard updated',
+              cs: '📊 Žebříček byl aktualizován',
+            },
+            messages: {
+              sk: `Denný rebríček v súťaži ${comp.name} bol aktualizovaný. Pozri sa na aktuálne poradie!`,
+              en: `Daily rankings for ${comp.name} have been updated. Check current standings!`,
+              cs: `Denní žebříček v soutěži ${comp.name} byl aktualizován. Podívej se na aktuální pořadí!`,
+            },
+            url: `${process.env.NEXT_PUBLIC_SERVER_URL}/dashboard/${comp.slug}/leaderboard`,
+            competitionId: comp.id,
+          },
+        })
+      } catch (err: any) {
+        payload.logger.error(`[CRON ERROR] Failed to send leaderboard notification for ${comp.name}: ${err.message}`)
+      }
+
       payload.logger.info(`[CRON] Updated entries for ${comp.name}`)
     }
   } catch (error: any) {

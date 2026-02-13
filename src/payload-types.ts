@@ -148,6 +148,7 @@ export interface Config {
       'sync-teams': TaskSyncTeams;
       'update-leaderboards': TaskUpdateLeaderboards;
       'evaluate-match': TaskEvaluateMatch;
+      'send-push-notification': TaskSendPushNotification;
       inline: {
         input: unknown;
         output: unknown;
@@ -890,7 +891,8 @@ export interface PayloadJob {
           | 'sync-future-matches'
           | 'sync-teams'
           | 'update-leaderboards'
-          | 'evaluate-match';
+          | 'evaluate-match'
+          | 'send-push-notification';
         taskID: string;
         input?:
           | {
@@ -933,6 +935,7 @@ export interface PayloadJob {
         | 'sync-teams'
         | 'update-leaderboards'
         | 'evaluate-match'
+        | 'send-push-notification'
       )
     | null;
   queue?: string | null;
@@ -1818,6 +1821,45 @@ export interface TaskEvaluateMatch {
   input: {
     matchId: string;
     action: 'evaluate' | 'revert';
+  };
+  output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskSend-push-notification".
+ */
+export interface TaskSendPushNotification {
+  input: {
+    type: string;
+    titles:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+    messages:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+    url?: string | null;
+    data?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+    competitionId?: string | null;
   };
   output?: unknown;
 }

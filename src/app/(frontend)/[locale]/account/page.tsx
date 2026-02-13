@@ -61,6 +61,7 @@ export default async function AccountPage({ params }: { params: Promise<{ locale
       matchEnd: true,
       leaderboardUpdate: true,
     },
+    role: (user as any).role || 'user',
   }
 
   return (

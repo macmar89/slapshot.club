@@ -30,9 +30,26 @@ export class NotificationService {
   }
 
   /**
-   * Sends a push notification to users who have a specific notification type enabled.
+   * @deprecated Zero-Tag Strategy: We no longer sync tags to avoid OneSignal limits.
    */
-  static async sendPush({ type, titles, messages, url, data, userIds }: SendNotificationArgs) {
+  static async syncTags(userId: string, tags: Record<string, boolean | string>) {
+    console.log(`[NotificationService] Skipping tag sync for ${userId} (Zero-Tag Strategy enabled)`)
+    return { ok: true }
+  }
+
+  /**
+   * @deprecated Use sendPushToUsers for targeted notifications.
+   */
+  static async sendPushByTag({ type, titles, messages, url, data }: Omit<SendNotificationArgs, 'userIds'>) {
+    console.error('[NotificationService] sendPushByTag is deprecated. Use sendPushToUsers.')
+    return { ok: false, error: 'Method deprecated' }
+  }
+
+  /**
+   * Sends a push notification to specific user IDs.
+   * Useful for targeted alerts that ignoring general settings.
+   */
+  static async sendPushToUsers({ titles, messages, url, data, userIds }: Required<Pick<SendNotificationArgs, 'titles' | 'messages' | 'userIds'>> & Partial<SendNotificationArgs>) {
     const { appId, apiKey } = await this.getOneSignalConfig()
 
     if (!appId || !apiKey) {
@@ -40,44 +57,20 @@ export class NotificationService {
       return { ok: false, error: 'OneSignal not configured on backend' }
     }
 
-    const payload = await getPayload({ config })
+    if (!userIds || userIds.length === 0) {
+      return { ok: true, sent: 0 }
+    }
 
     try {
-      // 1. Find all users who have this notification type enabled
-      const query: any = {
-        [type]: { equals: true }
-      }
-
-      if (userIds && userIds.length > 0) {
-        query.user = { in: userIds }
-      }
-
-      const settings = await payload.find({
-        collection: 'notification-settings',
-        where: query,
-        limit: 1000, // Reasonable limit for now, adjust as needed or use pagination
-        select: {
-          user: true
-        }
-      })
-
-      const targetUserIds = settings.docs.map(s => typeof s.user === 'object' ? s.user.id : s.user)
-
-      if (targetUserIds.length === 0) {
-        console.log(`[NotificationService] No users found with ${type} enabled.`)
-        return { ok: true, sent: 0 }
-      }
-
-      // 2. Send request to OneSignal
       const response = await fetch('https://onesignal.com/api/v1/notifications', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Basic ${apiKey}`
+          'Authorization': `Key ${apiKey}`
         },
         body: JSON.stringify({
           app_id: appId,
-          include_external_user_ids: targetUserIds,
+          include_external_user_ids: userIds,
           headings: titles,
           contents: messages,
           url: url || process.env.NEXT_PUBLIC_SERVER_URL,
@@ -88,15 +81,25 @@ export class NotificationService {
       const result = await response.json()
 
       if (!response.ok) {
-        throw new Error(result.errors?.[0] || 'Failed to send OneSignal notification')
+        throw new Error(result.errors?.[0] || 'Failed to send OneSignal notification to users')
       }
 
-      console.log(`[NotificationService] Sent ${type} notification to ${targetUserIds.length} users.`)
-      return { ok: true, sent: targetUserIds.length, result }
+      console.log(`[NotificationService] Sent notification to ${userIds.length} users.`)
+      return { ok: true, sent: userIds.length, result }
 
     } catch (error: any) {
-      console.error('[NotificationService] Error sending notification:', error)
+      console.error('[NotificationService] Error sending notification to users:', error)
       return { ok: false, error: error.message }
     }
+  }
+
+  /**
+   * @deprecated Use sendPushByTag for broadcast or sendPushToUsers for direct targeting.
+   */
+  static async sendPush(args: SendNotificationArgs) {
+    if (args.userIds && args.userIds.length > 0) {
+      return this.sendPushToUsers(args as any)
+    }
+    return this.sendPushByTag(args)
   }
 }

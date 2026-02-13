@@ -44,6 +44,34 @@ export const runUpdateRealtimeRanking = async (payload: any) => {
   // 3. Recalculate rankings for each competition (without creating snapshots)
   for (const compId of competitionIds) {
     await recalculateCompetitionRanks(payload, compId as string, { createSnapshot: false })
+    
+    // 3.1 Send Push Notification for Leaderboard Update
+    try {
+      const comp = await payload.findByID({ collection: 'competitions', id: compId as string })
+      if (comp) {
+        payload.logger.info(`[TASK] Queueing leaderboard update notification for ${comp.name}`)
+        await payload.jobs.queue({
+          task: 'send-push-notification' as any,
+          input: {
+            type: 'leaderboardUpdate',
+            titles: {
+              sk: '📊 Rebríček bol aktualizovaný',
+              en: '📊 Leaderboard updated',
+              cs: '📊 Žebříček byl aktualizován',
+            },
+            messages: {
+              sk: `Poradie v súťaži ${comp.name} bolo prepočítané. Pozri sa, ako si dopadol!`,
+              en: `Rankings for ${comp.name} have been updated. Check your position!`,
+              cs: `Pořadí v soutěži ${comp.name} bylo přepočítáno. Podívej se, jak jsi dopadl!`,
+            },
+            url: `${process.env.NEXT_PUBLIC_SERVER_URL}/dashboard/${comp.slug}/leaderboard`,
+            competitionId: comp.id,
+          },
+        })
+      }
+    } catch (err: any) {
+      payload.logger.error(`[TASK ERROR] Failed to send leaderboard notification: ${err.message}`)
+    }
   }
 
   // 4. Mark matches as processed with current timestamp
