@@ -2,19 +2,33 @@ import { TaskHandler } from 'payload'
 import { NotificationService, NotificationType } from '../../features/notifications/notification-service'
 
 export const sendPushTask: TaskHandler<'send-push-notification'> = async ({ input, req: { payload } }) => {
-  const { type, titles, messages, url, data, competitionId } = input as any
+  const { type, titles, messages, url, data, competitionId, competitionSlug } = input as any
 
-  payload.logger.info(`[JOB] Sending targeted push: ${type}${competitionId ? ` for competition: ${competitionId}` : ''}`)
+  payload.logger.info(`[JOB] Sending targeted push: ${type}${competitionId || competitionSlug ? ` for competition: ${competitionId || competitionSlug}` : ''}`)
 
   try {
+    let finalCompetitionId = competitionId
+
+    // Backward compatibility for old jobs in the queue
+    if (!finalCompetitionId && competitionSlug) {
+      const comp = await payload.find({
+        collection: 'competitions',
+        where: { slug: { equals: competitionSlug } },
+        limit: 1,
+      })
+      if (comp.docs.length > 0) {
+        finalCompetitionId = comp.docs[0].id
+      }
+    }
+
     let targetUserIds: string[] = []
 
-    if (competitionId) {
+    if (finalCompetitionId) {
       // 1. Find users in this competition
       const leaderboardEntries = await payload.find({
         collection: 'leaderboard-entries',
         where: {
-          competition: { equals: competitionId },
+          competition: { equals: finalCompetitionId },
         },
         limit: 5000, // Reasonable limit for participants
         select: {
