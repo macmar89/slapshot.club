@@ -78,7 +78,7 @@ export default async function PlayerPage(props: {
   const isLocked = !isMe && !isPro
 
   const searchParamsValue = await props.searchParams
-  const tab = (searchParamsValue.tab as string) || 'overview'
+  const tab = (searchParamsValue.tab as string) || 'current_season'
   const page = Number(searchParamsValue.page) || 1
   const search = searchParamsValue.q as string | undefined
 
@@ -91,13 +91,7 @@ export default async function PlayerPage(props: {
   }
 
   if (tab === 'predictions' && !isLocked) {
-    predictionsResult = await getPlayerPredictions(
-      targetPlayer.id,
-      page,
-      10,
-      search,
-      competition.id,
-    )
+    predictionsResult = await getPlayerPredictions(targetPlayer.id, page, 6, search, competition.id)
   }
 
   return (

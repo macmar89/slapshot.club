@@ -1,6 +1,10 @@
+'use server'
+
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import type { User, LeaderboardEntry, Prediction, Match, Team, Competition } from '@/payload-types'
+
+const safeDiv = (num: number, den: number) => (den > 0 ? num / den : 0)
 
 export type PlayerStats = {
   totalPoints: number
@@ -19,6 +23,13 @@ export type PlayerActiveLeague = {
   rank: number
   points: number
   previousRank?: number | null
+  totalMatches: number
+  exactGuesses: number
+  correctTrends: number
+  correctDiffs: number
+  averagePoints: number
+  successRate: number
+  lastPredictions: Prediction[]
 }
 
 export const getPlayerByUsername = async (username: string): Promise<User | null> => {
@@ -59,12 +70,47 @@ export const getPlayerStats = async (
     limit: 100,
   })
 
-  const leagues: PlayerActiveLeague[] = entries.docs.map((entry) => ({
-    competition: entry.competition as Competition,
-    rank: entry.currentRank || 0,
-    points: entry.totalPoints || 0,
-    previousRank: entry.previousRank,
-  }))
+  const leagues: PlayerActiveLeague[] = entries.docs.map((entry) => {
+    const totalMatches = entry.totalMatches || 0
+    const exactGuesses = entry.exactGuesses || 0
+    const correctTrends = entry.correctTrends || 0
+    const correctDiffs = entry.correctDiffs || 0
+    const totalPoints = entry.totalPoints || 0
+
+    return {
+      competition: entry.competition as Competition,
+      rank: entry.currentRank || 0,
+      points: totalPoints,
+      previousRank: entry.previousRank,
+      totalMatches,
+      exactGuesses,
+      correctTrends,
+      correctDiffs,
+      averagePoints: safeDiv(totalPoints, totalMatches),
+      successRate: safeDiv(exactGuesses + correctTrends + correctDiffs, totalMatches) * 100,
+      lastPredictions: [],
+    }
+  })
+
+  // Fetch last 5 evaluated predictions for each competition
+  await Promise.all(
+    leagues.map(async (league) => {
+      const predictions = await payload.find({
+        collection: 'predictions',
+        where: {
+          and: [
+            { user: { equals: userId } },
+            { 'match.competition': { equals: league.competition.id } },
+            { status: { equals: 'evaluated' } },
+          ],
+        },
+        sort: '-createdAt',
+        limit: 5,
+        depth: 0,
+      })
+      league.lastPredictions = predictions.docs as any
+    }),
+  )
 
   // Calculate aggregated stats from leaderboard entries
   // Note: LeaderboardEntries are per competition. To get a "global" view,
@@ -88,9 +134,6 @@ export const getPlayerStats = async (
     correctDiffs += entry.correctDiffs || 0
   })
 
-  // Avoid division by zero
-  const safeDiv = (num: number, den: number) => (den > 0 ? num / den : 0)
-
   const globalStats: PlayerStats = {
     totalPoints,
     totalMatches,
@@ -98,7 +141,7 @@ export const getPlayerStats = async (
     correctTrends,
     correctDiffs,
     averagePoints: safeDiv(totalPoints, totalMatches),
-    successRate: safeDiv(exactGuesses + correctTrends, totalMatches) * 100, // Assuming "success" is at least correct trend
+    successRate: safeDiv(exactGuesses + correctTrends + correctDiffs, totalMatches) * 100,
     sniperRate: safeDiv(exactGuesses, totalMatches) * 100,
     trendRate: safeDiv(correctTrends, totalMatches) * 100,
   }
@@ -121,6 +164,7 @@ export const getPlayerPredictions = async (
   limit: number = 10,
   search?: string,
   competitionId?: string,
+  teamId?: string,
 ): Promise<PredictionsResult> => {
   const payload = await getPayload({ config })
 
@@ -128,22 +172,76 @@ export const getPlayerPredictions = async (
     user: {
       equals: userId,
     },
+    points: {
+      not_equals: null,
+    },
   }
 
-  // Filter by search (Team name)
-  if (search) {
-    // ... (same search logic or comment) ...
-  }
+  // Filter by search or explicit teamId
+  if (teamId || search) {
+    let matchIds: string[] = []
 
-  if (competitionId) {
-    // Filter predictions by matches in this competition
+    if (teamId) {
+      const searchMatches = await payload.find({
+        collection: 'matches',
+        where: {
+          and: [
+            ...(competitionId ? [{ competition: { equals: competitionId } }] : []),
+            { status: { equals: 'finished' } },
+            {
+              or: [{ homeTeam: { equals: teamId } }, { awayTeam: { equals: teamId } }],
+            },
+          ],
+        },
+        limit: 1000,
+        pagination: false,
+        sort: '-date',
+        select: { id: true },
+      })
+      matchIds = searchMatches.docs.map((m) => m.id)
+    } else if (search) {
+      const teams = await payload.find({
+        collection: 'teams',
+        where: {
+          or: [{ name: { contains: search } }, { shortName: { contains: search } }],
+        },
+        limit: 100,
+        pagination: false,
+        select: { id: true },
+      })
+
+      const teamIds = teams.docs.map((t) => t.id)
+
+      const searchMatches = await payload.find({
+        collection: 'matches',
+        where: {
+          and: [
+            ...(competitionId ? [{ competition: { equals: competitionId } }] : []),
+            { status: { equals: 'finished' } },
+            {
+              or: [{ homeTeam: { in: teamIds } }, { awayTeam: { in: teamIds } }],
+            },
+          ],
+        },
+        limit: 1000,
+        pagination: false,
+        sort: '-date',
+        select: { id: true },
+      })
+      matchIds = searchMatches.docs.map((m) => m.id)
+    }
+
+    where.match = { in: matchIds }
+  } else if (competitionId) {
+    // Filter predictions by finished matches in this competition
     const matchesInCompetition = await payload.find({
       collection: 'matches',
       where: {
-        competition: { equals: competitionId },
+        and: [{ competition: { equals: competitionId } }, { status: { equals: 'finished' } }],
       },
       limit: 1000,
       pagination: false,
+      sort: '-date',
       select: { id: true },
     })
     const matchIds = matchesInCompetition.docs.map((m) => m.id)
@@ -174,7 +272,7 @@ export const getPlayerPredictions = async (
     // Let's try '-createdAt' for MVP to ensure stability.
     limit,
     page,
-    depth: 2, // Need match and teams
+    depth: 3, // Need match, teams, and logos
   })
 
   // Manual sort/filter if needed could go here
@@ -187,4 +285,49 @@ export const getPlayerPredictions = async (
     nextPage: predictions.nextPage || null,
     prevPage: predictions.prevPage || null,
   }
+}
+
+export const getCompetitionTeams = async (competitionId: string): Promise<Team[]> => {
+  const payload = await getPayload({ config })
+
+  // Find all matches in the competition to get the team IDs
+  const matches = await payload.find({
+    collection: 'matches',
+    where: {
+      competition: {
+        equals: competitionId,
+      },
+    },
+    limit: 1000,
+    pagination: false,
+    select: {
+      homeTeam: true,
+      awayTeam: true,
+    },
+  })
+
+  const teamIds = new Set<string>()
+  matches.docs.forEach((m) => {
+    if (typeof m.homeTeam === 'string') teamIds.add(m.homeTeam)
+    else if (m.homeTeam?.id) teamIds.add(m.homeTeam.id)
+
+    if (typeof m.awayTeam === 'string') teamIds.add(m.awayTeam)
+    else if (m.awayTeam?.id) teamIds.add(m.awayTeam.id)
+  })
+
+  if (teamIds.size === 0) return []
+
+  const teams = await payload.find({
+    collection: 'teams',
+    where: {
+      id: {
+        in: Array.from(teamIds),
+      },
+    },
+    limit: 1000,
+    pagination: false,
+    depth: 1, // Get logo
+  })
+
+  return teams.docs as Team[]
 }
