@@ -27,7 +27,7 @@ import { FeedbackBadge as FeedbackBadge_76d83ff871d1c29a7b4aaceaf586db79 } from 
 import { SyncMatchesLink as SyncMatchesLink_29a17a908edc9832f57fdbd5fc2a825a } from '../../../payload/components/SyncMatchesLink'
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 import { SyncMatchesPage as SyncMatchesPage_a6fa5932d95d0ea4eae9b2ad7716953b } from '../../../payload/components/SyncMatchesPage'
-import { CollectionCards as CollectionCards_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
+import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 export const importMap = {
   "@/features/matches/components/RecalculateButton#default": default_494fa708d5ceb2986eb3df29f09fc89f,
@@ -59,5 +59,5 @@ export const importMap = {
   "/payload/components/SyncMatchesLink#SyncMatchesLink": SyncMatchesLink_29a17a908edc9832f57fdbd5fc2a825a,
   "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
   "/payload/components/SyncMatchesPage#SyncMatchesPage": SyncMatchesPage_a6fa5932d95d0ea4eae9b2ad7716953b,
-  "@payloadcms/ui/rsc#CollectionCards": CollectionCards_ab83ff7e88da8d3530831f296ec4756a
+  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

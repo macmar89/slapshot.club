@@ -606,5 +606,34 @@
       "title": "Rotate your device",
       "message": "For the best experience, please use the app in portrait mode."
     }
+  },
+  "PlayerDetail": {
+    "overview": "Overview",
+    "predictions": "Prediction History",
+    "badges": "Badges",
+    "badgesSoon": "Badges (Coming Soon)",
+    "seasonStats": "Season Statistics",
+    "activeCompetitions": "Active Competitions",
+    "historyLocked": "History Locked",
+    "historyLockedDesc": "Detailed prediction history of other players is visible only to Slapshot Club members.",
+    "becomeMember": "Become a Member",
+    "searchTeam": "Search team...",
+    "searchButton": "Search",
+    "noPredictions": "No predictions found.",
+    "pending": "Pending",
+    "noMoreData": "No more data (Work in Progress)",
+    "jersey": "Jersey",
+    "rank": "Rank",
+    "points": "Points",
+    "avgPoints": "Average",
+    "successRate": "Success Rate",
+    "sniperRate": "Sniper Rate",
+    "trendRate": "Trend Master",
+    "descPoints": "Points per match",
+    "descSniper": "Exact scores",
+    "descTrend": "Correct outcomes",
+    "descSuccess": "Any points gained",
+    "memberSince": "Member since {year}",
+    "back_to_leaderboard": "Back to leaderboard"
   }
 }

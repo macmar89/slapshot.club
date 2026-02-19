@@ -604,5 +604,34 @@
       "title": "Otočte zařízení",
       "message": "Pro nejlepší zážitek používejte aplikaci v režimu na výšku."
     }
+  },
+  "PlayerDetail": {
+    "overview": "Přehled",
+    "predictions": "Historie tipů",
+    "badges": "Odznaky",
+    "badgesSoon": "Odznaky (Brzy)",
+    "seasonStats": "Sezónní statistiky",
+    "activeCompetitions": "Aktivní soutěže",
+    "historyLocked": "Historie uzamčena",
+    "historyLockedDesc": "Detailní historii tipů jiných hráčů mohou vidět pouze členové Slapshot Clubu.",
+    "becomeMember": "Stát se členem",
+    "searchTeam": "Hledat tým...",
+    "searchButton": "Hledat",
+    "noPredictions": "Žádné tipy se nenašly.",
+    "pending": "Čeká na vyhodnocení",
+    "noMoreData": "Žádná další data (Work in Progress)",
+    "jersey": "Dres",
+    "rank": "Pořadí",
+    "points": "Body",
+    "avgPoints": "Průměr",
+    "successRate": "Úspěšnost",
+    "sniperRate": "Sniper",
+    "trendRate": "Trend Master",
+    "descPoints": "Body na zápas",
+    "descSniper": "Přesné výsledky",
+    "descTrend": "Správné tipy",
+    "descSuccess": "Jakékoliv body",
+    "memberSince": "Členem od {year}",
+    "back_to_leaderboard": "Zpět na žebříček"
   }
 }

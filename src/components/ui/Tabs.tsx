@@ -39,7 +39,7 @@ const TabsList = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
     <div
       ref={ref}
       className={cn(
-        'flex h-11 items-center justify-start rounded-app bg-white/5 border border-white/10 p-1 text-white/40 w-full sm:w-auto sm:inline-flex',
+        'flex h-auto items-center justify-start rounded-app bg-white/5 border border-white/10 p-1 backdrop-blur-lg text-white/40 w-full sm:w-auto sm:inline-flex',
         className,
       )}
       {...props}
@@ -61,10 +61,10 @@ const TabsTrigger = React.forwardRef<
     <button
       ref={ref}
       className={cn(
-        'inline-flex items-center justify-center whitespace-nowrap rounded-app px-6 py-2 text-[10px] font-black uppercase tracking-widest transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 flex-1 sm:flex-initial',
+        'inline-flex items-center justify-center whitespace-nowrap px-1 sm:px-4 py-2 sm:py-2.5 text-[10px] sm:text-xs md:text-xs font-black uppercase tracking-wider sm:tracking-widest transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 cursor-pointer hover:text-white truncate',
         isActive
-          ? 'bg-warning text-black shadow-lg'
-          : 'text-white/40 hover:text-white hover:bg-white/5',
+          ? 'bg-warning text-black shadow-lg shadow-warning/20'
+          : 'text-white/50 hover:bg-white/5',
         className,
       )}
       onClick={(e) => {

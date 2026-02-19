@@ -7,6 +7,7 @@ import { LeaderboardEntry as UILeaderboardEntry } from '../types'
 import { IceGlassCard } from '@/components/ui/IceGlassCard'
 import type { LeaderboardEntry, User } from '@/payload-types'
 import { useTranslations, useLocale } from 'next-intl'
+import { useRouter } from 'next/navigation'
 
 interface LeaderboardListProps {
   tab: string
@@ -14,6 +15,7 @@ interface LeaderboardListProps {
   initialEntries: LeaderboardEntry[]
   currentUser: User
   competitionId: string
+  competitionSlug: string
   totalPlayedMatches?: number | null
   totalPossiblePoints?: number | null
 }
@@ -26,11 +28,13 @@ export function LeaderboardList({
   initialEntries,
   currentUser,
   competitionId,
+  competitionSlug,
   totalPlayedMatches,
   totalPossiblePoints,
 }: LeaderboardListProps) {
   const t = useTranslations('Dashboard.leaderboard')
   const locale = useLocale()
+  const router = useRouter()
   const containerRef = useRef<HTMLDivElement>(null)
   const userRowRef = useRef<HTMLDivElement>(null)
 
@@ -50,6 +54,7 @@ export function LeaderboardList({
       correctDiffs: entry.correctDiffs || 0,
       winners: entry.correctTrends || 0,
       wrongGuesses: entry.wrongGuesses || 0,
+      username: user.username,
     }
   })
 
@@ -126,7 +131,15 @@ export function LeaderboardList({
           const isDuplicateRank = index > 0 && entry.rank === entries[index - 1].rank
           return (
             <div key={entry.id} ref={entry.isCurrentUser ? userRowRef : null}>
-              <RankRow entry={entry} hideRank={isDuplicateRank} />
+              <RankRow
+                entry={entry}
+                hideRank={isDuplicateRank}
+                onClick={() => {
+                  if (entry.username) {
+                    router.push(`/dashboard/${competitionSlug}/player/${entry.username}`)
+                  }
+                }}
+              />
             </div>
           )
         })}

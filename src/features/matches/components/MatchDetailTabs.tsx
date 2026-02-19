@@ -67,19 +67,9 @@ export function MatchDetailTabs({
   return (
     <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
       <div className="sm:py-2 pb-2">
-        <TabsList className="bg-white/5 border border-white/10 p-1 backdrop-blur-md w-full grid grid-cols-2 h-auto">
-          <TabsTrigger
-            value="info"
-            className="data-[state=active]:bg-warning data-[state=active]:text-black text-white/50 text-[10px] sm:text-xs px-1 sm:px-4 py-2 sm:py-2.5 uppercase font-black tracking-widest cursor-pointer transition-all hover:text-white"
-          >
-            {t('info_tab')}
-          </TabsTrigger>
-          <TabsTrigger
-            value="tips"
-            className="data-[state=active]:bg-warning data-[state=active]:text-black text-white/50 text-[10px] sm:text-xs px-1 sm:px-4 py-2 sm:py-2.5 uppercase font-black tracking-widest cursor-pointer transition-all hover:text-white"
-          >
-            {t('tips_tab')}
-          </TabsTrigger>
+        <TabsList className="w-full grid grid-cols-2">
+          <TabsTrigger value="info">{t('info_tab')}</TabsTrigger>
+          <TabsTrigger value="tips">{t('tips_tab')}</TabsTrigger>
         </TabsList>
       </div>
 

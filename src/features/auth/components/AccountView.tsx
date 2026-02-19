@@ -73,11 +73,7 @@ export function AccountView({ user: initialUser, countries }: AccountViewProps) 
     <div className="py-8 md:py-24 animate-in fade-in duration-700">
       <Container className="max-w-4xl">
         <div className="flex flex-col gap-6 md:gap-6">
-          <Tabs 
-            value={activeTab} 
-            onValueChange={handleTabChange}
-            className="w-full"
-          >
+          <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 md:mb-12">
               <div className="flex flex-col gap-1.5 text-center md:text-left">
                 <h1 className="text-2xl md:text-5xl font-black text-white italic uppercase tracking-tighter flex items-center justify-center md:justify-start gap-3 md:gap-4 leading-none">
@@ -89,19 +85,9 @@ export function AccountView({ user: initialUser, countries }: AccountViewProps) 
 
             {isAdmin && (
               <div className="px-1 mb-8">
-                <TabsList className="bg-white/5 border border-white/10 p-1 backdrop-blur-md w-full grid grid-cols-2 h-auto">
-                  <TabsTrigger
-                    value="profile"
-                    className="data-[state=active]:bg-warning data-[state=active]:text-black text-white/50 text-[10px] sm:text-xs md:text-base px-1 sm:px-4 py-3 sm:py-2.5 uppercase font-black tracking-wider sm:tracking-widest cursor-pointer transition-all hover:text-white truncate"
-                  >
-                    {t('tabs.profile')}
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="notifications"
-                    className="data-[state=active]:bg-warning data-[state=active]:text-black text-white/50 text-[10px] sm:text-xs md:text-base px-1 sm:px-4 py-3 sm:py-2.5 uppercase font-black tracking-wider sm:tracking-widest cursor-pointer transition-all hover:text-white truncate"
-                  >
-                    {t('tabs.notifications')}
-                  </TabsTrigger>
+                <TabsList className="w-full grid grid-cols-2">
+                  <TabsTrigger value="profile">{t('tabs.profile')}</TabsTrigger>
+                  <TabsTrigger value="notifications">{t('tabs.notifications')}</TabsTrigger>
                 </TabsList>
               </div>
             )}
@@ -132,9 +118,9 @@ export function AccountView({ user: initialUser, countries }: AccountViewProps) 
               {isAdmin && (
                 <TabsContent value="notifications">
                   <div className="max-w-2xl mx-auto w-full">
-                    <NotificationSection 
+                    <NotificationSection
                       userId={user.id}
-                      initialSettings={user.notificationSettings} 
+                      initialSettings={user.notificationSettings}
                     />
                   </div>
                 </TabsContent>

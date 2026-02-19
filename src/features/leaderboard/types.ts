@@ -15,4 +15,5 @@ export interface LeaderboardEntry {
   winners: number
   wrongGuesses: number
   highlightedPoints?: number // Optional highlighted points
+  username?: string | null
 }
