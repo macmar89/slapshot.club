@@ -145,7 +145,13 @@ export function CompetitionCard({
                 {isJoined && userRank && (
                   <div className="flex items-center gap-2 px-2 py-1 rounded-sm bg-[#eab308]/10 border border-[#eab308]/30 shadow-[0_0_15px_rgba(234,179,8,0.1)]">
                     <span className="text-xs -my-1">
-                      {userRank === 1 ? '🥇' : userRank === 2 ? '🥈' : userRank === 3 ? '🥉' : `#${userRank}`}
+                      {userRank === 1
+                        ? '🥇'
+                        : userRank === 2
+                          ? '🥈'
+                          : userRank === 3
+                            ? '🥉'
+                            : `#${userRank}`}
                     </span>
                     <span className="text-[9px] font-black uppercase tracking-wider text-[#eab308]">
                       {t('your_rank')}
@@ -187,9 +193,19 @@ export function CompetitionCard({
                   isRegistrationDisabled && 'opacity-50 grayscale cursor-not-allowed',
                 )}
               >
-                {isFinished ? t('view_button') : t('enter_button')}
+                {isFinished
+                  ? t('view_button')
+                  : !isJoined
+                    ? t('enter_button_guest')
+                    : t('enter_button')}
               </Button>
             </div>
+
+            {!isFinished && (
+              <p className="mt-4 text-[10px] text-center text-white/30 font-medium italic leading-relaxed">
+                {t('assurance')}
+              </p>
+            )}
           </div>
         </IceGlassCard>
       </div>

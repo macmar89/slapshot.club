@@ -30,6 +30,8 @@ export function ArenaView({
   const upcomingCompetitions = competitions.filter((c) => c.status === 'upcoming')
   const finishedCompetitions = competitions.filter((c) => c.status === 'finished')
 
+  console.log(competitions)
+
   const renderCompetitionGrid = (comps: Competition[], compact: boolean = false) => (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both">
       {comps.map((competition) => (
@@ -67,7 +69,7 @@ export function ArenaView({
             <div className="flex items-center gap-6 mb-12">
               <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#eab308]/50 to-transparent shadow-[0_0_10px_rgba(234,179,8,0.3)]" />
               <h2 className="text-2xl font-black uppercase tracking-[0.2em] text-[#eab308] drop-shadow-[0_0_25px_rgba(234,179,8,0.8)] px-4">
-                {t('status.active')} 
+                {t('status.active')}
               </h2>
               <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#eab308]/50 to-transparent shadow-[0_0_10px_rgba(234,179,8,0.3)]" />
             </div>
