@@ -7,7 +7,7 @@ import {
   ClipboardCheck,
   Zap,
 } from 'lucide-react'
-import { IceGlassCard } from '@/components/ui/IceGlassCard'
+import { IceGlassCard, PlanBadge } from '@/components/ui'
 import { cn } from '@/lib/utils'
 import { useTranslations, useLocale } from 'next-intl'
 import type { PlayerActiveLeague } from '@/lib/api/player'
@@ -16,10 +16,11 @@ import type { User } from '@/payload-types'
 interface PlayerStatsGridProps {
   stats: PlayerActiveLeague | null
   user: User
+  isLocked?: boolean
   className?: string
 }
 
-export function PlayerStatsGrid({ stats, user, className }: PlayerStatsGridProps) {
+export function PlayerStatsGrid({ stats, user, isLocked, className }: PlayerStatsGridProps) {
   const t = useTranslations('PlayerDetail')
   const locale = useLocale()
 
@@ -79,52 +80,47 @@ export function PlayerStatsGrid({ stats, user, className }: PlayerStatsGridProps
                 <h3 className="text-2xl font-black text-white italic uppercase tracking-tight leading-none">
                   {user.username}
                 </h3>
-                <span
-                  className={cn(
-                    'px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider leading-none',
-                    plan === 'pro' || plan === 'vip'
-                      ? 'bg-warning/20 text-warning border border-warning/30'
-                      : 'bg-white/10 text-white/40 border border-white/10',
-                  )}
-                >
-                  {plan}
-                </span>
+                <PlanBadge plan={plan as any} />
               </div>
               <p className="text-[10px] text-white/40 uppercase tracking-widest font-black italic">
                 {t('member_since')}: <span className="text-white/70">{memberSinceDate}</span>
               </p>
 
               {/* Form Dots */}
-              {stats?.lastPredictions && stats.lastPredictions.length > 0 && (
-                <div className="flex items-center gap-2 mt-3">
-                  <span className="text-[10px] uppercase font-black italic text-white/40 tracking-wider">
-                    {t('form')}:
-                  </span>
-                  <div className="flex items-center gap-1.5">
-                    {stats.lastPredictions.map((p, i) => {
-                      const points = p.points ?? 0
-                      let color = 'bg-white/10'
-                      if (points === 5)
-                        color =
-                          'bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.5)] border border-emerald-300/30'
-                      if (points === 3) color = 'bg-blue-400'
-                      if (points === 2) color = 'bg-orange-400'
-                      if (points === 0) color = 'bg-red-500/50'
+              <div className="relative">
+                <div className={cn(isLocked && 'blur-sm grayscale opacity-40 select-none')}>
+                  {stats?.lastPredictions && stats.lastPredictions.length > 0 && (
+                    <div className="flex items-center gap-2 mt-3">
+                      <span className="text-[10px] uppercase font-black italic text-white/40 tracking-wider">
+                        {t('form')}:
+                      </span>
+                      <div className="flex items-center gap-1.5">
+                        {stats.lastPredictions.map((p, i) => {
+                          const points = p.points ?? 0
+                          let color = 'bg-white/10'
+                          if (points === 5)
+                            color =
+                              'bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.5)] border border-emerald-300/30'
+                          if (points === 3) color = 'bg-blue-400'
+                          if (points === 2) color = 'bg-orange-400'
+                          if (points === 0) color = 'bg-red-500/50'
 
-                      return (
-                        <div
-                          key={i}
-                          className={cn(
-                            'w-2.5 h-2.5 rounded-full transition-all hover:scale-125',
-                            color,
-                          )}
-                          title={`${points} pts`}
-                        />
-                      )
-                    })}
-                  </div>
+                          return (
+                            <div
+                              key={i}
+                              className={cn(
+                                'w-2.5 h-2.5 rounded-full transition-all hover:scale-125',
+                                color,
+                              )}
+                              title={`${points} pts`}
+                            />
+                          )
+                        })}
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
           </div>
 
@@ -144,72 +140,105 @@ export function PlayerStatsGrid({ stats, user, className }: PlayerStatsGridProps
 
             <div className="w-px h-10 bg-white/10 hidden md:block" />
 
-            <div className="flex flex-col items-center md:items-end">
-              <span className="text-[10px] uppercase tracking-widest text-white/40 mb-1 font-bold">
-                {t('points_count')}
-              </span>
-              <div className="flex items-center gap-2">
-                <Zap size={18} className="text-yellow-400" />
-                <span className="text-3xl font-black text-white italic tracking-tighter leading-none">
-                  {stats?.points.toString() || '0'}
+            <div className="flex flex-col items-center md:items-end relative">
+              <div className={cn(isLocked && 'blur-sm grayscale opacity-40 select-none')}>
+                <span className="text-[10px] uppercase tracking-widest text-white/40 mb-1 font-bold">
+                  {t('points_count')}
                 </span>
+                <div className="flex items-center gap-2">
+                  <Zap size={18} className="text-yellow-400" />
+                  <span className="text-3xl font-black text-white italic tracking-tighter leading-none">
+                    {stats?.points.toString() || '0'}
+                  </span>
+                </div>
               </div>
+              {isLocked && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Zap size={14} className="text-warning/40" />
+                </div>
+              )}
             </div>
           </div>
         </div>
 
         {/* Legend for Form */}
-        {stats?.lastPredictions && stats.lastPredictions.length > 0 && (
-          <div className="mt-4 pt-4 border-t border-white/5 flex flex-wrap items-center gap-x-6 gap-y-2">
-            <div className="flex items-center gap-2 text-[9px] uppercase font-black italic text-white/40 tracking-tight">
-              <div className="w-2 h-2 rounded-full bg-emerald-400" />
-              {t('exact_tip')}
-            </div>
-            <div className="flex items-center gap-2 text-[9px] uppercase font-black italic text-white/40 tracking-tight">
-              <div className="w-2 h-2 rounded-full bg-blue-400" />
-              {t('winner_diff')}
-            </div>
-            <div className="flex items-center gap-2 text-[9px] uppercase font-black italic text-white/40 tracking-tight">
-              <div className="w-2 h-2 rounded-full bg-orange-400" />
-              {t('winner')}
-            </div>
-            <div className="flex items-center gap-2 text-[9px] uppercase font-black italic text-white/40 tracking-tight">
-              <div className="w-2 h-2 rounded-full bg-red-500/50" />
-              {t('miss')}
-            </div>
+        <div className="relative">
+          <div className={cn(isLocked && 'blur-sm grayscale opacity-40 select-none')}>
+            {stats?.lastPredictions && stats.lastPredictions.length > 0 && (
+              <div className="mt-4 pt-4 border-t border-white/5 flex flex-wrap items-center gap-x-6 gap-y-2">
+                <div className="flex items-center gap-2 text-[9px] uppercase font-black italic text-white/40 tracking-tight">
+                  <div className="w-2 h-2 rounded-full bg-emerald-400" />
+                  {t('exact_tip')}
+                </div>
+                <div className="flex items-center gap-2 text-[9px] uppercase font-black italic text-white/40 tracking-tight">
+                  <div className="w-2 h-2 rounded-full bg-blue-400" />
+                  {t('winner_diff')}
+                </div>
+                <div className="flex items-center gap-2 text-[9px] uppercase font-black italic text-white/40 tracking-tight">
+                  <div className="w-2 h-2 rounded-full bg-orange-400" />
+                  {t('winner')}
+                </div>
+                <div className="flex items-center gap-2 text-[9px] uppercase font-black italic text-white/40 tracking-tight">
+                  <div className="w-2 h-2 rounded-full bg-red-500/50" />
+                  {t('miss')}
+                </div>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </IceGlassCard>
 
       {/* Remaining Stats Grid */}
-      <div className={cn('grid grid-cols-2 lg:grid-cols-4 gap-4', className)}>
-        {remainingItems.map((item, i) => (
-          <IceGlassCard
-            key={i}
-            className="p-4 group transition-all hover:bg-white/5"
-            contentClassName="flex flex-col items-center justify-center text-center"
-          >
-            <div
-              className={cn(
-                'w-10 h-10 flex items-center justify-center rounded-full bg-white/5 mb-3 group-hover:scale-110 transition-transform',
-                item.color,
-              )}
+      <div className="relative">
+        <div
+          className={cn(
+            'grid grid-cols-2 lg:grid-cols-4 gap-4 transition-all duration-500',
+            isLocked && 'blur-md grayscale opacity-40 select-none',
+            className,
+          )}
+        >
+          {remainingItems.map((item, i) => (
+            <IceGlassCard
+              key={i}
+              className="p-4 group transition-all hover:bg-white/5"
+              contentClassName="flex flex-col items-center justify-center text-center"
             >
-              <item.icon size={20} />
-            </div>
-            <span className="text-[10px] uppercase tracking-widest text-white/40 mb-1 font-bold">
-              {item.label}
-            </span>
-            <span className="text-xl font-black text-white/80 italic tracking-tighter leading-none">
-              {item.value}
-            </span>
-            {item.desc && (
-              <span className="text-[9px] text-white/30 font-medium mt-1 uppercase">
-                {item.desc}
+              <div
+                className={cn(
+                  'w-10 h-10 flex items-center justify-center rounded-full bg-white/5 mb-3 group-hover:scale-110 transition-transform',
+                  item.color,
+                )}
+              >
+                <item.icon size={20} />
+              </div>
+              <span className="text-[10px] uppercase tracking-widest text-white/40 mb-1 font-bold">
+                {item.label}
               </span>
-            )}
-          </IceGlassCard>
-        ))}
+              <span className="text-xl font-black text-white/80 italic tracking-tighter leading-none">
+                {item.value}
+              </span>
+              {item.desc && (
+                <span className="text-[9px] text-white/30 font-medium mt-1 uppercase">
+                  {item.desc}
+                </span>
+              )}
+            </IceGlassCard>
+          ))}
+        </div>
+
+        {isLocked && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-10">
+            <div className="w-12 h-12 rounded-full bg-warning/20 flex items-center justify-center mb-3 border border-warning/30 shadow-[0_0_20px_rgba(255,191,0,0.2)]">
+              <Zap size={20} className="text-warning animate-pulse" />
+            </div>
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-warning italic leading-tight">
+              PRO feature
+            </p>
+            <p className="text-[10px] text-white/40 mt-1 uppercase font-bold tracking-widest">
+              {t('upgrade_to_see_stats')}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   )

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Search, Lock, Eye, Trophy, X } from 'lucide-react'
-import { IceGlassCard } from '@/components/ui/IceGlassCard'
+import { IceGlassCard, PlanBadge } from '@/components/ui'
 import { cn } from '@/lib/utils'
 import { useTranslations } from 'next-intl'
 import { getPlayerPredictions, getCompetitionTeams } from '@/lib/api/player'
@@ -21,6 +21,9 @@ interface PlayerPredictionHistoryProps {
   competitionId: string
   initialData?: Prediction[]
   initialSearch?: string
+  initialHasMore?: boolean
+  initialTotalCount?: number
+  initialTotalLeagueCount?: number
   pageSize?: number
   className?: string
 }
@@ -33,6 +36,9 @@ export function PlayerPredictionHistory({
   competitionId,
   initialData = [],
   initialSearch = '',
+  initialHasMore = false,
+  initialTotalCount,
+  initialTotalLeagueCount,
   pageSize = 6,
   className,
 }: PlayerPredictionHistoryProps) {
@@ -43,7 +49,11 @@ export function PlayerPredictionHistory({
   const [predictions, setPredictions] = useState<Prediction[]>(initialData)
   const [loading, setLoading] = useState(initialData.length === 0)
   const [page, setPage] = useState(1)
-  const [hasMore, setHasMore] = useState(false)
+  const [hasMore, setHasMore] = useState(initialHasMore)
+  const [totalCount, setTotalCount] = useState<number | null>(initialTotalCount ?? null)
+  const [totalLeagueCount, setTotalLeagueCount] = useState<number | null>(
+    initialTotalLeagueCount ?? null,
+  )
 
   // Autocomplete State
   const [allTeams, setAllTeams] = useState<Team[]>([])
@@ -76,6 +86,10 @@ export function PlayerPredictionHistory({
       const newDocs = result.docs
       setPredictions((prev) => (reset ? newDocs : [...prev, ...newDocs]))
       setHasMore(result.hasNextPage)
+      setTotalCount(result.totalDocs)
+      if (result.totalLeaguePredictions !== undefined) {
+        setTotalLeagueCount(result.totalLeaguePredictions)
+      }
       setPage(targetPage)
     } catch (error) {
       console.error('Failed to fetch predictions', error)
@@ -109,6 +123,8 @@ export function PlayerPredictionHistory({
   }, [])
 
   useEffect(() => {
+    // If server sent initialData, we only skip re-fetch if the count matches our current pageSize
+    // and we don't have any active filters.
     if (initialData.length > 0 && !debouncedSearch && !selectedTeam && page === 1) {
       setLoading(false)
       return
@@ -149,7 +165,7 @@ export function PlayerPredictionHistory({
   if (isVipOwner) {
     return (
       <IceGlassCard className="p-8 flex flex-col items-center justify-center text-center">
-        <div className="w-16 h-16 rounded-full bg-warning/10 flex items-center justify-center mb-4 border border-warning/20">
+        <div className="w-16 h-16 rounded-full bg-warning/10 flex items-center justify-center mb-4 border border-warning/20 mx-auto">
           <Lock className="text-warning" size={32} />
         </div>
         <h4 className="text-xl font-black text-white italic uppercase mb-2">
@@ -165,7 +181,7 @@ export function PlayerPredictionHistory({
   return (
     <div className={cn('space-y-6', className)}>
       {/* Search Bar & Autocomplete */}
-      <div className="relative" ref={dropdownRef}>
+      <div className="relative lg:w-1/3" ref={dropdownRef}>
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" size={16} />
           <input
@@ -177,7 +193,7 @@ export function PlayerPredictionHistory({
             }
             className={cn(
               'w-full bg-white/10 border border-white/10 rounded-lg py-2.5 pl-10 pr-12 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/20 transition-all backdrop-blur-xl',
-              isFreeViewer && 'opacity-50 cursor-not-allowed',
+              isFreeViewer && 'cursor-not-allowed',
               selectedTeam && 'border-warning/30 bg-warning/5 ring-1 ring-warning/20',
             )}
             value={search}
@@ -193,7 +209,7 @@ export function PlayerPredictionHistory({
             <button
               onClick={handleClear}
               className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 border border-white/10 text-white/40 hover:text-white hover:bg-white/20 transition-all group cursor-pointer"
-              title="Zrušiť filter"
+              title={t('clear_filter', { fallback: 'Zrušiť filter' })}
             >
               <X size={14} className="group-hover:scale-110 transition-transform" />
             </button>
@@ -201,9 +217,7 @@ export function PlayerPredictionHistory({
 
           {isFreeViewer && (
             <div className="absolute right-3 top-1/2 -translate-y-1/2">
-              <span className="text-[10px] font-black uppercase italic text-warning bg-warning/10 px-2 py-0.5 rounded border border-warning/20">
-                PRO
-              </span>
+              <PlanBadge plan="pro" />
             </div>
           )}
         </div>
@@ -241,6 +255,30 @@ export function PlayerPredictionHistory({
           </div>
         )}
       </div>
+
+      {isFreeViewer && (
+        <IceGlassCard className="p-10 flex flex-col items-center justify-center text-center overflow-hidden relative mb-6">
+          <div className="relative z-10">
+            <div className="w-16 h-16 rounded-full bg-warning/10 flex items-center justify-center mb-5 border border-warning/20 mx-auto">
+              <Lock className="text-warning" size={32} />
+            </div>
+            <h4 className="text-2xl font-black text-white italic uppercase mb-3 tracking-tight">
+              {t('history_locked_title', { fallback: 'História je prémiová funkcia' })}
+            </h4>
+            <p className="text-sm text-white/60 uppercase font-black italic mb-2 tracking-tight">
+              {t('history_locked_desc', {
+                fallback: 'Pre prístup k celej histórii tipov si aktivuj',
+              })}{' '}
+              <span className="text-warning">PRO</span>.
+            </p>
+            {/* 
+            <button className="mt-6 px-8 py-3 bg-warning text-black font-black uppercase italic text-sm rounded-lg hover:bg-warning/90 transition-all shadow-[0_0_20px_rgba(251,191,36,0.3)]">
+              {t('get_pro_now', { fallback: 'Aktivovať PRO' })}
+            </button>
+            */}
+          </div>
+        </IceGlassCard>
+      )}
 
       {/* Prediction Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -326,7 +364,7 @@ export function PlayerPredictionHistory({
                       <div className="bg-white/10 rounded-xl p-2.5 flex items-center justify-between border border-white/5">
                         <div className="flex flex-col">
                           <span className="text-[8px] font-black uppercase tracking-widest text-white/40 leading-none mb-1">
-                            Môj Tip
+                            {t('my_tip', { fallback: 'Môj Tip' })}
                           </span>
                           <span className="text-sm font-black text-white italic">
                             {p.homeGoals} : {p.awayGoals}
@@ -346,7 +384,7 @@ export function PlayerPredictionHistory({
                       <Link href={`/dashboard/${slug}/matches/${match.id}`}>
                         <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[9px] font-black uppercase italic tracking-wider text-white/60 transition-all hover:text-white">
                           <Eye size={12} />
-                          Detail Zápasu
+                          {t('match_detail', { fallback: 'Detail Zápasu' })}
                         </button>
                       </Link>
                     </div>
@@ -356,10 +394,10 @@ export function PlayerPredictionHistory({
             )}
 
             {hasMore && (
-              <div className="col-span-full pt-4">
+              <div className="col-span-full pt-8 flex flex-col items-center gap-4">
                 <button
                   onClick={() => fetchPredictions(page + 1)}
-                  className="w-full py-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white/60 font-black italic uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2 group"
+                  className="w-full max-w-sm py-4 rounded-xl border border-white/20 bg-white/10 hover:bg-white/20 hover:border-white/40 text-white/80 font-black italic uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2 group cursor-pointer backdrop-blur-md shadow-xl"
                   disabled={loading}
                 >
                   {loading ? (
@@ -367,6 +405,11 @@ export function PlayerPredictionHistory({
                   ) : (
                     <>
                       <span>{t('load_more', { fallback: 'Načítať viac' })}</span>
+                      {totalCount !== null && (
+                        <span className="text-[10px] opacity-60 font-medium">
+                          ({predictions.length} / {totalCount})
+                        </span>
+                      )}
                     </>
                   )}
                 </button>
@@ -375,29 +418,6 @@ export function PlayerPredictionHistory({
           </>
         )}
       </div>
-
-      {isFreeViewer && (
-        <div className="p-8 flex flex-col items-center justify-center text-center bg-white/5 rounded-2xl border border-white/10 overflow-hidden relative">
-          <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-80" />
-          <div className="relative z-10">
-            <div className="w-12 h-12 rounded-full bg-warning/10 flex items-center justify-center mb-4 border border-warning/20 mx-auto">
-              <Lock className="text-warning" size={24} />
-            </div>
-            <h4 className="text-lg font-black text-white italic uppercase mb-2">
-              {t('history_locked_title', { fallback: 'História je prémiová funkcia' })}
-            </h4>
-            <p className="text-xs text-white/50 uppercase font-bold italic mb-6">
-              {t('history_locked_desc', {
-                fallback: 'Pre prístup k celej histórii tipov si aktivuj',
-              })}{' '}
-              <span className="text-warning">PRO</span>.
-            </p>
-            <button className="px-6 py-2 bg-warning text-black font-black uppercase italic text-sm rounded-lg hover:bg-warning/90 transition-all">
-              {t('get_pro_now', { fallback: 'Aktivovať PRO' })}
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

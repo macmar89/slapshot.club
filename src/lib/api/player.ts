@@ -55,6 +55,7 @@ export const getPlayerByUsername = async (username: string): Promise<User | null
 
 export const getPlayerStats = async (
   userId: string,
+  isLocked: boolean = false,
 ): Promise<{ globalStats: PlayerStats | null; leagues: PlayerActiveLeague[] }> => {
   const payload = await getPayload({ config })
 
@@ -69,6 +70,25 @@ export const getPlayerStats = async (
     depth: 1, // To get competition details
     limit: 100,
   })
+
+  if (isLocked) {
+    const leagues: PlayerActiveLeague[] = entries.docs.map((entry) => {
+      return {
+        competition: entry.competition as Competition,
+        rank: entry.currentRank || 0,
+        points: 0,
+        totalMatches: 0,
+        exactGuesses: 0,
+        correctTrends: 0,
+        correctDiffs: 0,
+        averagePoints: 0,
+        successRate: 0,
+        lastPredictions: [],
+      }
+    })
+
+    return { globalStats: null, leagues }
+  }
 
   const leagues: PlayerActiveLeague[] = entries.docs.map((entry) => {
     const totalMatches = entry.totalMatches || 0
@@ -151,11 +171,13 @@ export const getPlayerStats = async (
 
 export type PredictionsResult = {
   docs: Prediction[]
+  totalDocs: number
   totalPages: number
   hasNextPage: boolean
   hasPrevPage: boolean
   nextPage?: number | null
   prevPage?: number | null
+  totalLeaguePredictions?: number
 }
 
 export const getPlayerPredictions = async (
@@ -277,13 +299,29 @@ export const getPlayerPredictions = async (
 
   // Manual sort/filter if needed could go here
 
+  // Get total count of ALL predictions in this competition for the user (including non-evaluated)
+  let totalLeaguePredictions = 0
+  if (competitionId) {
+    const allUserPredictionsInLeague = await payload.find({
+      collection: 'predictions',
+      where: {
+        and: [{ user: { equals: userId } }, { 'match.competition': { equals: competitionId } }],
+      },
+      limit: 0,
+      pagination: true,
+    })
+    totalLeaguePredictions = allUserPredictionsInLeague.totalDocs
+  }
+
   return {
     docs: predictions.docs as any,
+    totalDocs: predictions.totalDocs,
     totalPages: predictions.totalPages,
     hasNextPage: predictions.hasNextPage,
     hasPrevPage: predictions.hasPrevPage,
     nextPage: predictions.nextPage || null,
     prevPage: predictions.prevPage || null,
+    totalLeaguePredictions,
   }
 }
 

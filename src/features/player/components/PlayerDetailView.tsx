@@ -7,7 +7,7 @@ import { PlayerStatsGrid } from './PlayerStatsGrid'
 import { PlayerPredictionHistory } from './PlayerPredictionHistory'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { IceGlassCard } from '@/components/ui/IceGlassCard'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useTransition } from 'react'
 import { useTranslations } from 'next-intl'
 import { BackLink } from '@/components/ui/BackLink'
 import { LeagueStatsCard } from './LeagueStatsCard'
@@ -35,33 +35,24 @@ export function PlayerDetailView({
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const [isPending, startTransition] = useTransition()
 
-  // Initialize tab state from URL or default
-  const defaultTab = searchParams.get('tab') || 'current_season'
-  const [activeTab, setActiveTab] = useState(defaultTab)
-
-  // Sync state when URL changes
-  useEffect(() => {
-    const tab = searchParams.get('tab')
-    if (tab && tab !== activeTab) {
-      setActiveTab(tab)
-    }
-  }, [searchParams, activeTab])
+  const activeTab = searchParams.get('tab') || 'current_season'
 
   const handleTabChange = (value: string) => {
-    setActiveTab(value)
+    startTransition(() => {
+      // Update URL
+      const params = new URLSearchParams(searchParams)
+      params.set('tab', value)
 
-    // Update URL
-    const params = new URLSearchParams(searchParams)
-    params.set('tab', value)
+      // Reset page parameters when switching away from predictions
+      if (value !== 'predictions') {
+        params.delete('page')
+        params.delete('q')
+      }
 
-    // Reset page parameters when switching away from predictions
-    if (value !== 'predictions') {
-      params.delete('page')
-      params.delete('q')
-    }
-
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+    })
   }
 
   // Find stats for the current league
@@ -91,17 +82,11 @@ export function PlayerDetailView({
           </TabsList>
         </div>
 
-        <TabsContent
-          value="current_season"
-          className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500"
-        >
-          <PlayerStatsGrid stats={currentLeagueStats} user={user} />
+        <TabsContent value="current_season" className="space-y-6">
+          <PlayerStatsGrid stats={currentLeagueStats} user={user} isLocked={isLocked} />
         </TabsContent>
 
-        <TabsContent
-          value="predictions"
-          className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500"
-        >
+        <TabsContent value="predictions" className="space-y-6">
           {competitionId && (
             <PlayerPredictionHistory
               userId={user.id}
@@ -111,27 +96,29 @@ export function PlayerDetailView({
               competitionId={competitionId}
               initialData={predictions}
               initialSearch={searchParams.get('q') || ''}
+              initialHasMore={predictionsPagination?.hasNextPage}
+              initialTotalCount={predictionsPagination?.totalDocs}
+              initialTotalLeagueCount={predictionsPagination?.totalLeaguePredictions}
               pageSize={6}
             />
           )}
         </TabsContent>
 
-        <TabsContent
-          value="other_leagues"
-          className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500"
-        >
+        <TabsContent value="other_leagues" className="space-y-6">
           <div className="space-y-4">
-            <h2 className="text-xl font-black text-white uppercase italic tracking-tighter px-1">
-              {t('other_leagues')}
-            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {otherLeagues.length > 0 ? (
                 otherLeagues.map((league: any) => (
-                  <LeagueStatsCard key={league.competition.id} league={league} />
+                  <LeagueStatsCard
+                    key={league.competition.id}
+                    league={league}
+                    isLocked={isLocked}
+                    currentUserPlan={currentUser?.subscription?.plan || 'free'}
+                  />
                 ))
               ) : (
                 <IceGlassCard className="p-8 text-center text-white/40 italic">
-                  {t('noMoreData')}
+                  {t('notSignedToOtherCompetitions')}
                 </IceGlassCard>
               )}
             </div>

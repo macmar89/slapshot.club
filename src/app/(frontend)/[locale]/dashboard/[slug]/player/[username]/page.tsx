@@ -66,16 +66,14 @@ export default async function PlayerPage(props: {
     notFound() // Or maybe a friendly "Player not in this competition" page
   }
 
-  // Fetch Stats (Global for now, or should we filter by competition?)
-  // For MVP let's keep Global Stats but maybe we can emphasize the competition entry stats.
-  // 4. Fetch Stats
-  const playerStats = await getPlayerStats(targetPlayer.id)
-
   // 5. Sub Check & Predictions logic
   const isMe = currentUser?.id === targetPlayer.id
   const userPlan = currentUser?.subscription?.plan
   const isPro = userPlan === 'pro' || userPlan === 'vip' || currentUser?.role === 'admin'
   const isLocked = !isMe && !isPro
+
+  // 4. Fetch Stats
+  const playerStats = await getPlayerStats(targetPlayer.id, isLocked)
 
   const searchParamsValue = await props.searchParams
   const tab = (searchParamsValue.tab as string) || 'current_season'
@@ -105,6 +103,8 @@ export default async function PlayerPage(props: {
         hasNextPage: predictionsResult.hasNextPage,
         hasPrevPage: predictionsResult.hasPrevPage,
         page: predictionsResult.page || page,
+        totalDocs: predictionsResult.totalDocs,
+        totalLeaguePredictions: predictionsResult.totalLeaguePredictions,
       }}
       isLocked={isLocked}
       competitionSlug={slug}
